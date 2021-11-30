@@ -5,12 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
-using PH;
 
 
 namespace PH.Player
 {
-    public class LoginManager : MonoBehaviour
+    public class LoginSystem : MonoBehaviour
     {
 
         [SerializeField] GameObject newPlayer_popUp;
