@@ -9,7 +9,8 @@ namespace PH
         Login,
         MainMenu,
         Collection,
-        PVE
+        PVE,
+        Battle
     }
 }
 
