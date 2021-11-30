@@ -8,7 +8,8 @@ namespace PH
     {
         Login,
         MainMenu,
-        Collection
+        Collection,
+        PVE
     }
 }
 

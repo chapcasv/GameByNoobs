@@ -15,7 +15,7 @@ namespace PH
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
         [SerializeField] TextMeshProUGUI playerName;
-
+        [SerializeField] GameObject selectPlayMode;
 
         void Start()
         {
@@ -26,6 +26,21 @@ namespace PH
         {
             coin.text = player.Coin.ToString();
             playerName.text = player.PlayerName;
+        }
+
+        public void ShowPlayMode()
+        {
+            selectPlayMode.SetActive(true);
+        }
+
+        public void HidenPlayMode()
+        {
+            selectPlayMode.SetActive(false);
+        }
+
+        public void GotoPVE()
+        {
+            SceneManager.LoadScene(SceneSelect.PVE.ToString());
         }
 
         public void GoToCollection()
