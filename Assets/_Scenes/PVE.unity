@@ -374,6 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420680183}
+  - component: {fileID: 420680184}
   m_Layer: 0
   m_Name: =============UI===============
   m_TagString: Untagged
@@ -396,6 +397,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &420680184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420680182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4506b5fd4ae2fe14a9bdd37d46e9f7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  B_raidContent: {fileID: 0}
+  raid15Wave: []
+  content_15Wave: {fileID: 0}
+  raidStory: []
+  content_raidStory: {fileID: 0}
+  raidTutorial: []
+  content_Tutorial: {fileID: 0}
+  raidDiscription: {fileID: 440861738}
+  raidName: {fileID: 1417203069}
+  raidAvatar: {fileID: 477977392}
 --- !u!1 &440861736
 GameObject:
   m_ObjectHideFlags: 0
