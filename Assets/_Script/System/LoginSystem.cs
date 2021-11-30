@@ -16,20 +16,18 @@ namespace PH.Player
         [SerializeField] TextMeshProUGUI input_PlayerName;
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
         [SerializeField] PlayerSO player;
-        [SerializeField] PlayerSO defaultPlayer;
+        [SerializeField] PlayerDefaultData defaultPlayer;
 
-        private bool newPlayer_popUp_IsActive = false;
 
         public void StarGame()
         {
             if (player.IsHaveData) GoTo_mainMenu();
-            else active_newPlayerPopUp(); ;
+            else active_newPlayerPopUp();       
         }
 
         private void active_newPlayerPopUp()
         {
-            newPlayer_popUp_IsActive = !newPlayer_popUp_IsActive;
-            newPlayer_popUp.SetActive(newPlayer_popUp_IsActive);
+            newPlayer_popUp.SetActive(true);
         }
 
         public void ResetPlayer()
@@ -51,20 +49,19 @@ namespace PH.Player
 
         private void NotifyCantUsePlayerName()
         {
-            //ruler_PlayerName.GetComponent<TextMeshProUGUI>().text = SystemString.rulePlayerName_Error;
+            ruler_PlayerName.text = "Tên nhân vật không được có kí tự đặc biệt";
         }
 
         
 
         public void unActive_newPlayerName_popUp()
         {
-            newPlayer_popUp_IsActive = false;
-            newPlayer_popUp.SetActive(newPlayer_popUp_IsActive);
+            newPlayer_popUp.SetActive(false);
         }
 
         public void GoTo_mainMenu()
         {
-            //SceneManager.LoadScene(SelectScene.MainMenu.ToString());
+            SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
 
         public void Quit_game()

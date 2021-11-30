@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdd9290abed0ebf42babecc180cf70ba, type: 3}
-  m_Name: P_Name
+  m_Script: {fileID: 11500000, guid: 3669a5120bba4b04fae3c5ddf07e135e, type: 3}
+  m_Name: Player Default Data
   m_EditorClassIdentifier: 
+  Coin: 1000
+  Decks:
+  - {fileID: 11400000, guid: 71e1c13c3607f1741b38444f56c84b06, type: 2}
+  Cards: []

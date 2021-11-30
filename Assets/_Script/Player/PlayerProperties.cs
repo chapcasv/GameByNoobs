@@ -7,9 +7,10 @@ namespace PH
     [System.Serializable]
     public class PlayerProperties 
     {
-        public string stringValue;
-        public int intValue;
         public Element element;
+        public int intValue;
+        public string stringValue;
+        public Sprite sprite;
     }
 }
 
