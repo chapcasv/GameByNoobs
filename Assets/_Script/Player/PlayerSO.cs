@@ -7,7 +7,7 @@ namespace PH
     [CreateAssetMenu(menuName ="Data/Player")]
     public class PlayerSO : ScriptableObject
     {
-        private bool isHaveData = false;
+        [SerializeField] bool isHaveData = false;
         private string playerName;
         private int coin;
         [SerializeField] Deck currentDeck;

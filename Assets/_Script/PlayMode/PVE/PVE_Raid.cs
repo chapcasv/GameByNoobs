@@ -18,16 +18,13 @@ namespace PH
         public string RaidDescription;
         public Sprite RaidAvatar;
         public PVE_Mode RaidMode;
-        public PVE_RaidID ID;
         public List<Wave> ListWave;
         public int RewardsMoney;
+
+        public GameObject boardPrefab;
+
+
     }
 
-    public enum PVE_RaidID
-    {
-        Lava,
-        Beach,
-        Japan
-    }
 }
 

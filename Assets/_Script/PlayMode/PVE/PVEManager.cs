@@ -10,7 +10,7 @@ namespace PH
     public class PVEManager : MonoBehaviour
     {
 
-        public static PVE_Raid currentRaid;
+        [SerializeField] PVE_Raid currentRaid;
         public static PVE_Mode pveMode;
         //private SoundManager sound;
         //private Player_Database player_data;
@@ -74,7 +74,7 @@ namespace PH
 
         public void Selected_raidStory()
         {
-            pveMode = PVE_Mode.M50Wave;
+            pveMode = PVE_Mode.Story;
             if (raidStory_Created)
             {
                 Show_List_raidStory();
@@ -92,6 +92,9 @@ namespace PH
         private void Create_List_R15Wave()
         {
             GameObject temp;
+
+            if (raid15Wave.Count == 0) return;
+
             foreach (PVE_Raid raid in raid15Wave)
             {
                 temp = Instantiate(B_raidContent, content_15Wave);
@@ -108,7 +111,7 @@ namespace PH
 
         private void Show_List_R15Wave()
         {
-            content_15Wave.gameObject.SetActive(true);
+            //content_15Wave.gameObject.SetActive(true);
             //content_50Wave.gameObject.SetActive(false);
             //content_Tutorial.gameObject.SetActive(false);
         }
@@ -150,11 +153,15 @@ namespace PH
 
         public void Show_InfoStage(PVE_Raid raid)
         {
-            raidDiscription.text = raid.RaidDescription;
-            raidAvatar.sprite = raid.RaidAvatar;
             currentRaid = raid;
+            RaidInfomation(currentRaid);
         }
 
+        private void RaidInfomation(PVE_Raid currentRaid)
+        {
+            raidDiscription.text = currentRaid.RaidDescription;
+            raidAvatar.sprite = currentRaid.RaidAvatar;
+        }
 
         //Need fix magic text
         public void Go_to_Battle()
@@ -174,7 +181,7 @@ namespace PH
     {
         Tutorial,
         M15Wave,
-        M50Wave
+        Story
     }
 
 }
