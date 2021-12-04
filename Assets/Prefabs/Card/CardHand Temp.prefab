@@ -85,6 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4115026046395573049}
   - component: {fileID: 4115026046395573048}
+  - component: {fileID: 258565492656391940}
+  - component: {fileID: 654536448}
   m_Layer: 5
   m_Name: CardHand Temp
   m_TagString: Untagged
@@ -144,6 +146,39 @@ MonoBehaviour:
   - {fileID: 6710111893094965881}
   - {fileID: 8062075667665534644}
   - {fileID: 9183645788634887085}
+--- !u!114 &258565492656391940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115026046395573046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc4b1b363076264b8cab1c01aa87984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentLogic: {fileID: 11400000, guid: cf850015c0c9d9a4580aadcab7501266, type: 2}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  canvas: {fileID: 0}
+  radar: {fileID: 0}
+  card: {fileID: 0}
+  rect: {fileID: 0}
+  canvasGr: {fileID: 0}
+--- !u!225 &654536448
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115026046395573046}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4115026046428861338
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,11 @@ namespace PH.Graph
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] GameObject tilePrefab;
+        [SerializeField] Transform tilesHolder;
         public Graph graph;
         public List<Node> nodeTeam1;
+        public static GridManager instance;
 
-
-        private TileMap tilemap;
         private float horizontal_edge = 6f;
         private float diagonal_edge = 8.5f;
         private Dictionary<Team, int> startPositionPerTeam;
@@ -22,12 +21,13 @@ namespace PH.Graph
 
         protected void Awake()
         {
+
+            instance = this;
             InitializeGraph();
             startPositionPerTeam = new Dictionary<Team, int>();
             startPositionPerTeam.Add(Team.Team1, 31);
             startPositionPerTeam.Add(Team.Team2, graph.nodes.Count - 1);
             SetNodeTeam1();
-
         }
 
 
@@ -94,13 +94,10 @@ namespace PH.Graph
         private void InitializeGraph()
         {
             graph = new Graph();
-            tilemap = gameObject.AddComponent<TileMap>();
 
-            tilemap.Create_TileMap(tilePrefab, transform);
-
-            foreach (Transform grid in transform)
+            foreach (Transform tile in tilesHolder)
             {
-                graph.AddNode(grid.position);
+                graph.AddNode(tile.position);
             }
 
             var allNodes = graph.nodes;
@@ -133,52 +130,52 @@ namespace PH.Graph
             }
         }
 
-        //public int fromIndex = 0;
-        //public int toIndex = 0;
+        public int fromIndex = 0;
+        public int toIndex = 0;
 
 
-        //private void //OnDrawGizmos()
-        //{
+        private void OnDrawGizmos()
+        {
 
-        //    if (graph == null)
-        //        return;
+            if (graph == null)
+                return;
 
-        //    var allEdges = graph.edges;
+            var allEdges = graph.edges;
 
-        //    if (allEdges == null)
-        //        return;
-        //    foreach (Edge e in allEdges)
-        //    {
-        //        if (e.GetWeight() <= horizontal_edge)
-        //        {
-        //            Debug.DrawLine(e.from.worldPosition, e.to.worldPosition, Color.black, 100f);
-        //        }
-        //        else if (horizontal_edge < e.GetWeight() && e.GetWeight() <= diagonal_edge)
-        //        {
-        //            Debug.DrawLine(e.from.worldPosition, e.to.worldPosition, Color.cyan, 100f);
-        //        }
+            if (allEdges == null)
+                return;
+            foreach (Edge e in allEdges)
+            {
+                if (e.GetWeight() <= horizontal_edge)
+                {
+                    Debug.DrawLine(e.from.WorldPosition, e.to.WorldPosition, Color.black, 100f);
+                }
+                else if (horizontal_edge < e.GetWeight() && e.GetWeight() <= diagonal_edge)
+                {
+                    Debug.DrawLine(e.from.WorldPosition, e.to.WorldPosition, Color.cyan, 100f);
+                }
 
-        //    }
+            }
 
-        //    var allNodes = graph.nodes;
-        //    foreach (Node n in allNodes)
-        //    {
-        //        Gizmos.color = n.IsOccupided ? Color.red : Color.green;
-        //        Gizmos.DrawSphere(n.worldPosition, 0.1f);
-        //    }
+            var allNodes = graph.nodes;
+            foreach (Node n in allNodes)
+            {
+                Gizmos.color = n.IsOccupided ? Color.red : Color.green;
+                Gizmos.DrawSphere(n.WorldPosition, 0.1f);
+            }
 
-        //    if (fromIndex < allNodes.Count && toIndex < allNodes.Count)
-        //    {
-        //        List<Node> path = graph.GetShortestPath(allNodes[fromIndex], allNodes[toIndex]);
-        //        if (path.Count > 1)
-        //        {
-        //            for (int i = 1; i < path.Count; i++)
-        //            {
-        //                Debug.DrawLine(path[i - 1].worldPosition, path[i].worldPosition, Color.red, 1f);
-        //            }
-        //        }
-        //    }
-        //}
+            if (fromIndex < allNodes.Count && toIndex < allNodes.Count)
+            {
+                List<Node> path = graph.GetShortestPath(allNodes[fromIndex], allNodes[toIndex]);
+                if (path.Count > 1)
+                {
+                    for (int i = 1; i < path.Count; i++)
+                    {
+                        Debug.DrawLine(path[i - 1].WorldPosition, path[i].WorldPosition, Color.red, 1f);
+                    }
+                }
+            }
+        }
     }
 }
 

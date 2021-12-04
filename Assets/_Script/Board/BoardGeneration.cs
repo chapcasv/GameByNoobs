@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace PH.Board
+namespace PH
 {
     public class BoardGeneration : MonoBehaviour
     {

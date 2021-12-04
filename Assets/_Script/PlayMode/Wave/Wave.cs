@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "new Wave", menuName = "Raid/Wave")]
+    [CreateAssetMenu(fileName = "new Wave", menuName = "ScriptableObject/Raid/Wave")]
     public class Wave : ScriptableObject
     {
         public List<Enemy> enemys;

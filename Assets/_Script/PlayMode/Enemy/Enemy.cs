@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "New Enemy", menuName = "Raid/Enemy")]
+    [CreateAssetMenu(fileName = "New Enemy", menuName = "ScriptableObject/Raid/Enemy")]
     public class Enemy : ScriptableObject
     {
         public Card enemy;

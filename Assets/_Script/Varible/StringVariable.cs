@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName ="Variable/String")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Variable/String")]
     public class StringVariable : ScriptableObject
     {   
         [TextArea]

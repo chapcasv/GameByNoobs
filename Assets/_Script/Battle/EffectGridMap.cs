@@ -13,11 +13,9 @@ namespace PH
         private List<ParticleSystem> highLightMap;
         private ParticleSystem prefeb_highLight_TileUnder;
 
-        public static EffectGridMap instance;
-
         private void Awake()
         {
-            instance = this;
+            Setting.effectGridMap = this;
             highLightMap = new List<ParticleSystem>();
             prefeb_highLight_TileUnder = Instantiate(highLight_TileUnder, transform);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "New PVE Raid", menuName = "Raid/PVE Raid")]
+    [CreateAssetMenu(fileName = "New PVE Raid", menuName = "ScriptableObject/Raid/PVE Raid")]
     public class PVE_Raid : ScriptableObject
     {
         public string RaidName;
