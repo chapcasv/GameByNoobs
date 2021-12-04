@@ -7,7 +7,7 @@ namespace PH
     [CreateAssetMenu(menuName ="Card/ALLCard")]
     public class ALLCard : ScriptableObject
     {
-        public List<Card> allCard;
+        public List<Card> allCards;
     }
 }
 

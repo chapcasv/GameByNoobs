@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54433846, g: 0.93861055, b: 1.2903842, a: 1}
+  m_IndirectSpecularColor: {r: 0.5438496, g: 0.93798256, b: 1.2904044, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -426,10 +426,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1970593464}
     m_Modifications:
+    - target: {fileID: 4115026046255405477, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1079
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115026046255405477, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1131
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115026046255405477, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115026046255405477, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573046, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_Name
       value: Card UI Temp
       objectReference: {fileID: 0}
+    - target: {fileID: 4115026046395573048, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
+      propertyPath: card
+      value: 
+      objectReference: {fileID: 11400000, guid: fd2166871fc4e0e4398ed58fc5ac309f, type: 2}
     - target: {fileID: 4115026046395573048, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: synergySlotViz.Array.size
       value: 3
@@ -492,11 +512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 600
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -528,11 +548,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -618
+      value: -639
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573049, guid: af0fc5f560ed167468d0a9d9f4d1f68a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
