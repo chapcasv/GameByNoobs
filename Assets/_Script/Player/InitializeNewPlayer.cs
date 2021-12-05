@@ -25,12 +25,12 @@ namespace PH.Player {
         private static void Initialize(string playerName, PlayerSO player, PlayerDefaultData defaultPlayer)
         {
             player.PlayerName = playerName;
-            player.Coin = defaultPlayer.Coin;
+            player.Coin = defaultPlayer.Coin.value;
             player.Cards = AddCards(defaultPlayer);
             player.Decks = AddDecks(defaultPlayer);
             player.CurrentDeck = player.Decks[0];
 
-            player.IsHaveData = true;
+            player.IsHaveData = defaultPlayer.IsHaveData;
         }
 
         private static List<Deck> AddDecks(PlayerDefaultData playerDefault)

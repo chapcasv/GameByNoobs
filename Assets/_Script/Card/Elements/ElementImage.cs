@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(fileName ="new EImage",menuName ="Element/Image")]
+    [CreateAssetMenu(fileName ="new EImage",menuName = "ScriptableObject/Card/Element/Image")]
     public class ElementImage : Element
     {
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(fileName ="new Deck",menuName ="Deck")]
+    [CreateAssetMenu(fileName ="new Deck",menuName = "ScriptableObject/Deck")]
     public class Deck :ScriptableObject
     {
         public string deckName;

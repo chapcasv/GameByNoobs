@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName = "Card/Faction/RockMountain")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Card/Faction/RockMountain")]
     public class FRockMountain : UnitFaction
     {
         

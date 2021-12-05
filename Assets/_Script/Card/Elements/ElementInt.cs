@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(fileName ="new EInt",menuName ="Element/Int")]
+    [CreateAssetMenu(fileName ="new EInt",menuName = "ScriptableObject/Card/Element/Int")]
     public class ElementInt : Element
     {
        

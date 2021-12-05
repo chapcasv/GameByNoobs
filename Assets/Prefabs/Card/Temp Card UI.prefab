@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 4115026046395573049}
   - component: {fileID: 4115026046395573048}
   m_Layer: 5
-  m_Name: Card UI Temp
+  m_Name: Temp Card UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,7 +279,10 @@ MonoBehaviour:
   - element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
     img: {fileID: 0}
     text: {fileID: 4909996995941688379}
-  synergySlotViz: []
+  synergySlotViz:
+  - {fileID: 6710111893094965881}
+  - {fileID: 8062075667665534644}
+  - {fileID: 9183645788634887085}
 --- !u!1 &4115026046428861338
 GameObject:
   m_ObjectHideFlags: 0

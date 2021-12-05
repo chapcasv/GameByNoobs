@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName ="Card/ALLCard")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Card/ALLCard")]
     public class ALLCard : ScriptableObject
     {
         public List<Card> allCard;

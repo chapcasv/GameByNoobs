@@ -22,10 +22,10 @@ namespace PH.Player
         public void StarGame()
         {
             if (player.IsHaveData) GoTo_mainMenu();
-            else active_newPlayerPopUp();       
+            else Active_newPlayerPopUp();       
         }
 
-        private void active_newPlayerPopUp()
+        private void Active_newPlayerPopUp()
         {
             newPlayer_popUp.SetActive(true);
         }

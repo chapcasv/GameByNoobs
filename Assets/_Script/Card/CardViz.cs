@@ -21,7 +21,7 @@ namespace PH
             
         }
 
-        private void LoadCard(Card c)
+        public void LoadCard(Card c)
         {
             if (card == null) return;
             card = c;

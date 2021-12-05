@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "new Card", menuName = "Card/Unit")]
+    [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Unit")]
     public class CardUnit : Card
     {
        

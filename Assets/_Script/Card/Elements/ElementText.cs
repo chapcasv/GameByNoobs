@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "new EText", menuName = "Element/Text")]
+    [CreateAssetMenu(fileName = "new EText", menuName = "ScriptableObject/Card/Element/Text")]
     public class ElementText : Element
     {
        
