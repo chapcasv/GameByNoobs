@@ -15,7 +15,7 @@ namespace PH.Graph
 
         private float horizontal_edge = 6f;
         private float diagonal_edge = 8.5f;
-        private Dictionary<Team, int> startPositionPerTeam;
+        //private Dictionary<Team, int> startPositionPerTeam;
         public float GetDiagonalEdge { get => diagonal_edge; }
         public float GetHorizontalEdge { get => horizontal_edge; }
 
@@ -24,9 +24,9 @@ namespace PH.Graph
 
             instance = this;
             InitializeGraph();
-            startPositionPerTeam = new Dictionary<Team, int>();
-            startPositionPerTeam.Add(Team.Team1, 31);
-            startPositionPerTeam.Add(Team.Team2, graph.nodes.Count - 1);
+            //startPositionPerTeam = new Dictionary<Team, int>();
+            //startPositionPerTeam.Add(Team.Team1, 31);
+            //startPositionPerTeam.Add(Team.Team2, graph.nodes.Count - 1);
             SetNodeTeam1();
         }
 
@@ -42,28 +42,28 @@ namespace PH.Graph
         }
 
 
-        public Node GetFreeNode(Team forteam)
-        {
-            int startIndex = startPositionPerTeam[forteam];
-            int currentIndex = startIndex;
+        //public Node GetFreeNode(Team forteam)
+        //{
+        //    int startIndex = startPositionPerTeam[forteam];
+        //    int currentIndex = startIndex;
 
-            while (graph.nodes[currentIndex].IsOccupided)
-            {
-                if (startIndex == 0)
-                {
-                    currentIndex++;
-                    if (currentIndex == graph.nodes.Count)
-                        return null;
-                }
-                else
-                {
-                    currentIndex--;
-                    if (currentIndex == -1)
-                        return null;
-                }
-            }
-            return graph.nodes[currentIndex];
-        }
+        //    while (graph.nodes[currentIndex].IsOccupided)
+        //    {
+        //        if (startIndex == 0)
+        //        {
+        //            currentIndex++;
+        //            if (currentIndex == graph.nodes.Count)
+        //                return null;
+        //        }
+        //        else
+        //        {
+        //            currentIndex--;
+        //            if (currentIndex == -1)
+        //                return null;
+        //        }
+        //    }
+        //    return graph.nodes[currentIndex];
+        //}
 
         public Node GetNodeForTile(Tile t)
         {

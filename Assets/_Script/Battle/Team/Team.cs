@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace PH
 {
-    public enum Team
+    public abstract class Team : ScriptableObject
     {
-        Team1,
-        Team2
+        
     }
 }
 

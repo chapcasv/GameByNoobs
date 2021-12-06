@@ -25,7 +25,7 @@ namespace PH
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (unit.UnitTeam == Team.Team2) return;
+            //if (unit.UnitTeam == Team.Team2) return;
 
             Setting.effectGridMap.HighLighMap();
 

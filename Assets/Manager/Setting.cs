@@ -8,7 +8,7 @@ namespace PH
     {
         private static ResourcesManager _resourcesManager;
 
-        public static BattleManager battleManager;
+        public static BattlePVEManager battlePVEManager;
         public static EffectGridMap effectGridMap;
 
         public static ResourcesManager GetResourcesManager()

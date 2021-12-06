@@ -8,7 +8,38 @@ namespace PH
     public class Deck :ScriptableObject
     {
         public string deckName;
-        public List<Card> cardsInDeck;
+        [SerializeField] private List<Card> cardsInDeck;
+
+        public List<Card> CardsInDeck { get => cardsInDeck; }
+
+        public void Clear()
+        {
+            CardsInDeck.Clear();
+        }
+
+        public int AmountCard()
+        {
+            return CardsInDeck.Count;
+        }
+
+        public void Add(Card card)
+        {
+            CardsInDeck.Add(card);
+        }
+        public void Remove(Card card)
+        {
+            CardsInDeck.Remove(card);
+        }
+        
+        public void RemoveAt(int index)
+        {
+            CardsInDeck.RemoveAt(index);
+        }
+
+        public Card GetCard(int index)
+        {
+            return CardsInDeck[index];
+        }
     }
 }
 

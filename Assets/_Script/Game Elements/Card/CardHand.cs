@@ -12,7 +12,7 @@ namespace PH.GameElements
         private Vector3 oldScale;
         public override void OnClick(CardInstance card)
         {
-            Debug.Log("display card");
+
         }
 
         public override void OnBeginDrag(CardInstance card, PointerEventData eventData)
@@ -22,13 +22,13 @@ namespace PH.GameElements
             oldScale = card.rect.localScale;
             card.rect.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             card.rect.anchoredPosition += eventData.delta / card.canvas.scaleFactor;
-            Setting.effectGridMap.HighLighMap();
+            //Setting.effectGridMap.HighLighMap();
         }
 
 
         public override void OnDrag(CardInstance card, PointerEventData eventData)
         {
-            MoveRadar(card);
+            //MoveRadar(card);
             card.rect.anchoredPosition += eventData.delta / card.canvas.scaleFactor;
         }
 
