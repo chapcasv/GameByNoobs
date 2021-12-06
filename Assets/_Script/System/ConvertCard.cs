@@ -14,7 +14,7 @@ namespace PH
             return cardData;
         }
 
-        public static Card PlayerCardToCard(PlayerCard cardData, AllCard allCards)
+        public static Card PlayerCardToCard(PlayerCard cardData, ALLCard allCards)
         {
             foreach (Card c in allCards.allCard)
             {

@@ -70,7 +70,7 @@ namespace PH.Save
         }
 
         //ONLY call when you want to load ALL player data
-        public static void LoadPlayer(PlayerSO playerSO, AllCard allCards)
+        public static void LoadPlayer(PlayerSO playerSO, ALLCard allCards)
         {
             PlayerData playerData = new PlayerData();
             if (File.Exists(playerDataPath))
@@ -81,14 +81,14 @@ namespace PH.Save
             else throw new System.Exception("Data Path dont Exists");
         }
 
-        private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerSO playerSO, AllCard allCards)
+        private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerSO playerSO, ALLCard allCards)
         {
             playerSO.PlayerName = playerData.PlayerName;
             playerSO.Coin = playerData.Coin;
             playerSO.Cards = ConverPlayerCardsToCards(playerData.Cards, allCards);
         }
 
-        private static List<Card> ConverPlayerCardsToCards(List<PlayerCard> playerCards, AllCard allCards)
+        private static List<Card> ConverPlayerCardsToCards(List<PlayerCard> playerCards, ALLCard allCards)
         {
             List<Card> cards = new List<Card>();
 

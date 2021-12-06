@@ -17,7 +17,7 @@ namespace PH
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
         [SerializeField] PlayerSO playerSO;
         [SerializeField] PlayerDefaultData defaultPlayer;
-        [SerializeField] AllCard allCards;
+        [SerializeField] ALLCard allCards;
 
 
         public void StarGame()
