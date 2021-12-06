@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace PH
 {
-    public class ShowUI : MonoBehaviour
+    public class CollectionUI : MonoBehaviour
     {
         public RectTransform parent;
-        public RectTransform cardPrefabs;
+        public GameObject cardPrefabs;
         public ALLCard allcards;
 
         private void Start()
@@ -16,18 +16,15 @@ namespace PH
             ShowCard(cardPrefabs, parent);
         }
 
-        private void ShowCard(RectTransform card, RectTransform parent)
+        private void ShowCard(GameObject card, RectTransform parent)
         {
             for (int i = 0; i < allcards.allCard.Count; i++)
             {
-                var cardUI = Instantiate(card).GetComponent<CardViz>();
-                
-                cardUI.SelectCard(allcards.allCard[i]);
-                cardUI.transform.parent = parent;
-              
-
+                var cardUI = Instantiate(card,parent);
+                var cardViz = cardUI.GetComponent<CardViz>();
+                cardViz.SetCard(allcards.allCard[i]);
             }
-            Debug.Log("a");
+
         }
     }
 }

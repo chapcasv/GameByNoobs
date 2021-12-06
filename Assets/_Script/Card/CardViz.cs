@@ -15,24 +15,15 @@ namespace PH
         [SerializeField] PropertiesUI[] basePropertiesViz;
         [SerializeField] GameObject[] synergySlotViz;
 
-        private void Awake()
-        {
-            StartCoroutine(WaitToload());
-            
-        }
-        IEnumerator WaitToload()
-        {
-            yield return new WaitForSeconds(.001f);
-            LoadCard(card);
-        }
-        public void SelectCard(Card card)
+        public void SetCard(Card card)
         {
             this.card = card;
+            LoadCard(this.card);
         }
-        public void LoadCard(Card c)
+
+        private void LoadCard(Card c)
         {
             if (card == null) return;
-            card = c;
 
             c.OnSetSynergyViz(this);
 
