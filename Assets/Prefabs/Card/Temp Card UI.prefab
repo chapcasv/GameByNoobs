@@ -235,7 +235,7 @@ RectTransform:
   m_GameObject: {fileID: 4115026046395573046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 7647592943817803445}
   - {fileID: 4115026046428861341}
@@ -265,7 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   synergyHolder: {fileID: 8622063344837173845}
-  card: {fileID: 11400000, guid: 8d815c07ffe94f64e80df48d3b1f508a, type: 2}
   basePropertiesViz:
   - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
     img: {fileID: 4115026046428861340}
@@ -278,6 +277,9 @@ MonoBehaviour:
     text: {fileID: 4115026047396034994}
   - element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
     img: {fileID: 0}
+    text: {fileID: 4909996995941688379}
+  - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+    img: {fileID: 8251357207625821090}
     text: {fileID: 4909996995941688379}
   synergySlotViz:
   - {fileID: 6710111893094965881}
