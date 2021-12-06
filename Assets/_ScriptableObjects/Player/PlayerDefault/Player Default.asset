@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3669a5120bba4b04fae3c5ddf07e135e, type: 3}
   m_Name: Player Default
   m_EditorClassIdentifier: 
-  IsHaveData: {fileID: 11400000, guid: e1f9f61a04f881f428f84745e5e00699, type: 2}
-  Coin: {fileID: 11400000, guid: e34edad6714de944fad3c15798c63b61, type: 2}
+  Coin: 3000
   Decks:
   - {fileID: 11400000, guid: 71e1c13c3607f1741b38444f56c84b06, type: 2}
-  Cards: []
+  Cards:
+  - {fileID: 11400000, guid: 8d815c07ffe94f64e80df48d3b1f508a, type: 2}
+  - {fileID: 11400000, guid: 63bf2960410b59c4da66c539306455db, type: 2}

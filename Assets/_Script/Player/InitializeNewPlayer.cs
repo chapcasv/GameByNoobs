@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using PH.Save;
 
-
-namespace PH.Player {
+namespace PH {
 
     /// <summary>
     /// Initialize player data with default collection & default properties
@@ -12,25 +12,24 @@ namespace PH.Player {
 
     public static class InitializeNewPlayer
     {
-        public static bool CanInitialize(string playerName, PlayerSO player, PlayerDefaultData defaultPlayer)
+        public static bool CanInitialize(string playerName, PlayerSO player, PlayerDefaultData defaultPlayer, AllCard allCards)
         {
             if (CanUse(playerName))
             {
-                Initialize(playerName, player, defaultPlayer);
+                Initialize(playerName, player, defaultPlayer, allCards);
                 return true;
             }
             else return false;
         }
 
-        private static void Initialize(string playerName, PlayerSO player, PlayerDefaultData defaultPlayer)
+        private static void Initialize(string playerName, PlayerSO playerSO, PlayerDefaultData defaultPlayer, AllCard allCards)
         {
-            player.PlayerName = playerName;
-            player.Coin = defaultPlayer.Coin.value;
-            player.Cards = AddCards(defaultPlayer);
-            player.Decks = AddDecks(defaultPlayer);
-            player.CurrentDeck = player.Decks[0];
-
-            player.IsHaveData = defaultPlayer.IsHaveData;
+            playerSO.PlayerName = playerName;
+            playerSO.Coin = defaultPlayer.Coin;
+            playerSO.Cards = AddCards(defaultPlayer);
+            playerSO.Decks = AddDecks(defaultPlayer);
+            playerSO.CurrentDeck = playerSO.Decks[0];
+            SaveSystem.SavePlayer(playerSO);
         }
 
         private static List<Deck> AddDecks(PlayerDefaultData playerDefault)
@@ -57,7 +56,7 @@ namespace PH.Player {
         private static bool CanUse(string player_name)
         {
             if (player_name != null)
-            {
+            {   
                 if (player_name.Length <= 12 && player_name.Length >= 4
                     && !HaveSpace(player_name)
                     && !HaveSpecialCharacter(player_name))

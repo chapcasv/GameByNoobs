@@ -8,17 +8,15 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/PlayerSO")]
     public class PlayerSO : ScriptableObject
     {
-        [SerializeField] BoolVariable isHaveData;
         [SerializeField] string playerName;
-        [SerializeField] IntVariable coin;
+        [SerializeField] int coin;
         [SerializeField] Deck currentDeck;
         [SerializeField] List<Deck> decks;
         [SerializeField] List<Card> cards;
 
-        public bool IsHaveData { get => isHaveData.value; set => isHaveData.value = value; }
-        public Deck CurrentDeck { get => currentDeck; set => currentDeck = value; }
         public string PlayerName { get => playerName; set => playerName = value; }
-        public int Coin { get => coin.value; set => coin.value = value; }
+        public int Coin { get => coin; set => coin = value; }
+        public Deck CurrentDeck { get => currentDeck; set => currentDeck = value; }
         public List<Deck> Decks { get => decks; set => decks = value; }
         public List<Card> Cards { get => cards; set => cards = value; }
     }

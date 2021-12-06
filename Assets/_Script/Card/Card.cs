@@ -6,6 +6,9 @@ namespace PH
 {   
     public abstract class Card : ScriptableObject
     {   
+        [Range(0,9999)]
+        public int ID;
+        public bool Unlocked;
         public BaseProperties[] baseProperties;
         public Synergy[] synergies;
         public virtual void OnSetSynergyViz(CardViz cardViz) {
@@ -15,6 +18,11 @@ namespace PH
                 cardViz.HidenSynergyHolder();
             }
             else { cardViz.LoadSynergy(synergies); } 
+
+        }
+
+        public void OnSetUnlocked(CardViz cardViz)
+        {
 
         }
     }

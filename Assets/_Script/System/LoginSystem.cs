@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
+using PH.Save;
 
-
-namespace PH.Player
+namespace PH
 {
     public class LoginSystem : MonoBehaviour
     {
@@ -15,14 +15,19 @@ namespace PH.Player
         [SerializeField] GameObject newPlayer_popUp;
         [SerializeField] TextMeshProUGUI input_PlayerName;
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
-        [SerializeField] PlayerSO player;
+        [SerializeField] PlayerSO playerSO;
         [SerializeField] PlayerDefaultData defaultPlayer;
+        [SerializeField] AllCard allCards;
 
 
         public void StarGame()
         {
-            if (player.IsHaveData) GoTo_mainMenu();
-            else Active_newPlayerPopUp();       
+            if (SaveSystem.IsHavePlayerData())
+            {
+                SaveSystem.LoadPlayer(playerSO,allCards);
+                GoTo_mainMenu();
+            }
+            else Active_newPlayerPopUp();
         }
 
         private void Active_newPlayerPopUp()
@@ -32,27 +37,25 @@ namespace PH.Player
 
         public void ResetPlayer()
         {
-            player.IsHaveData = false;
+            SaveSystem.RemovePlayerData();
         }
 
         public void Create_newPlayer()
         {
             string playerName = input_PlayerName.GetComponent<TextMeshProUGUI>().text; ;
 
-            if (InitializeNewPlayer.CanInitialize(playerName, player, defaultPlayer))
+            if (InitializeNewPlayer.CanInitialize(playerName, playerSO, defaultPlayer,allCards))
             {
                 GoTo_mainMenu();
             }
             else NotifyCantUsePlayerName();
         }
 
-
         private void NotifyCantUsePlayerName()
         {
             ruler_PlayerName.text = "Tên nhân vật không được có kí tự đặc biệt";
         }
 
-        
 
         public void unActive_newPlayerName_popUp()
         {

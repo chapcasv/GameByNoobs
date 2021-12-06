@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeefccb4ed86ba84b994bc3ee779ba26, type: 3}
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
-  isHaveData: {fileID: 11400000, guid: 0abe05429869873489af62591e103e3b, type: 2}
-  playerName: "aaaaa\u200B"
-  coin: {fileID: 11400000, guid: f5003d93527ffec479d18a3bc84f9bd7, type: 2}
+  playerName: "aaaa12\u200B"
+  coin: 3000
   currentDeck: {fileID: 11400000, guid: 71e1c13c3607f1741b38444f56c84b06, type: 2}
   decks:
-  - {fileID: 11400000, guid: 71e1c13c3607f1741b38444f56c84b06, type: 2}
-  cards: []
+  - {fileID: 0}
+  cards:
+  - {fileID: 11400000, guid: 8d815c07ffe94f64e80df48d3b1f508a, type: 2}
+  - {fileID: 11400000, guid: 63bf2960410b59c4da66c539306455db, type: 2}

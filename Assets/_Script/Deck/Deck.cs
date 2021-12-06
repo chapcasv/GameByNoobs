@@ -8,7 +8,7 @@ namespace PH
     public class Deck :ScriptableObject
     {
         public string deckName;
-        public List<Card> deck;
+        public List<Card> cardsInDeck;
     }
 }
 
