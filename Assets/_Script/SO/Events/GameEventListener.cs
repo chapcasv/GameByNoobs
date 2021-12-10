@@ -8,7 +8,9 @@ namespace SO
     public class GameEventListener : MonoBehaviour
     {
         public GameEvent gameEvent;
-        public UnityEvent response;
+        public UnityEvent unityEvent;
+
+        void OnEnable() => OnEnableLogic();
 
         /// <summary>
         /// Override this to override the OnEnableLogic()
@@ -19,10 +21,7 @@ namespace SO
                 gameEvent.Register(this);
         }
 
-        void OnEnable()
-        {
-            OnEnableLogic();
-        }
+        void OnDisable() => OnDisableLogic();
 
         /// <summary>
         /// Override this to override the OnDisableLogic()
@@ -33,14 +32,8 @@ namespace SO
                 gameEvent.UnRegister(this);
         }
 
-        void OnDisable()
-        {
-            OnDisableLogic();
-        }
 
-        public virtual void Response()
-        {
-            response.Invoke();
-        }
+        public virtual void RaiseEvent() =>  unityEvent.Invoke();
+
     }
 }

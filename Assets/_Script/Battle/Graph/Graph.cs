@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace PH.Graph
+namespace PH.GraphSystem
 {
     public class Graph
     {

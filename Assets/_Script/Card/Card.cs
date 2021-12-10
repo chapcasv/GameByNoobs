@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PH.GraphSystem;
 
 namespace PH
 {   
@@ -25,6 +26,10 @@ namespace PH
         {
 
         }
+
+        public abstract bool CanDropBoard(Node node);
+
+        public abstract void DropBoard(Node node, BoardSystem boardSystem);
     }
 }
 

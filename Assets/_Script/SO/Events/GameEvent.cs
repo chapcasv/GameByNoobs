@@ -7,23 +7,17 @@ namespace SO
     [CreateAssetMenu(menuName = "ScriptableObject/Game Event")]
     public class GameEvent : ScriptableObject
     {
-        List<GameEventListener> listeners = new List<GameEventListener>();
+        private HashSet<GameEventListener> _listeners = new HashSet<GameEventListener>();
 
-        public void Register(GameEventListener l)
-        {
-            listeners.Add(l);
-        }
+        public void Register(GameEventListener l) => _listeners.Add(l);
 
-        public void UnRegister(GameEventListener l)
-        {
-            listeners.Remove(l);
-        }
+        public void UnRegister(GameEventListener l) => _listeners.Remove(l);
 
-        public void Raise()
+        public void Invoke()
         {
-            for (int i = 0; i < listeners.Count; i++)
+            foreach (var l in _listeners)
             {
-                listeners[i].Response();
+                l.RaiseEvent();
             }
         }
     }

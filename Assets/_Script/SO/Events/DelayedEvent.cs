@@ -19,7 +19,7 @@ namespace SO
         IEnumerator DelayedRaise(float t)
         {
             yield return new WaitForSeconds(t);
-            targetEvent.Raise();
+            targetEvent.Invoke();
         }
       
     }

@@ -8,22 +8,26 @@ namespace PH
 {
     public class CardViz : MonoBehaviour
     {
-        [SerializeField] GameObject synergyHolder;
+        [SerializeField] GameObject _synergyHolder;
+        private Card _card;
+        [SerializeField] PropertiesUI[] _basePropertiesViz;
+        [SerializeField] GameObject[] _synergySlotViz;
 
-        [SerializeField] Card card;
-
-        [SerializeField] PropertiesUI[] basePropertiesViz;
-        [SerializeField] GameObject[] synergySlotViz;
+        public bool IsHaveCard()
+        {
+            if (_card == null) return false;
+            else return true;
+        }
 
         public void SetCard(Card card)
         {
-            this.card = card;
-            LoadCard(this.card);
+            this._card = card;
+            LoadCard(this._card);
         }
 
         private void LoadCard(Card c)
         {
-            if (card == null) return;
+            if (_card == null) return;
 
             c.OnSetSynergyViz(this);
 
@@ -52,25 +56,25 @@ namespace PH
 
         public void LoadSynergy(Synergy[] synergies)
         {
-            synergyHolder.SetActive(true);
+            _synergyHolder.SetActive(true);
 
-            if (synergies.Length <= synergySlotViz.Length)
+            if (synergies.Length <= _synergySlotViz.Length)
             {
                 HidenSynergiesSlot(); //Reload
                 for (int i = 0; i < synergies.Length; i++)
                 {
                     if (synergies[i].icon == null) continue;
-                    synergySlotViz[i].GetComponent<Image>().sprite = synergies[i].icon;
-                    synergySlotViz[i].SetActive(true);
+                    _synergySlotViz[i].GetComponent<Image>().sprite = synergies[i].icon;
+                    _synergySlotViz[i].SetActive(true);
                 }
             } 
         }
 
         private void HidenSynergiesSlot()
         {
-            for (int i = 0; i < synergySlotViz.Length; i++)
+            for (int i = 0; i < _synergySlotViz.Length; i++)
             {
-                synergySlotViz[i].SetActive(false);
+                _synergySlotViz[i].SetActive(false);
             }
         }
 
@@ -78,18 +82,18 @@ namespace PH
         {
             PropertiesUI result = null;
 
-            for (int i = 0; i < basePropertiesViz.Length; i++)
+            for (int i = 0; i < _basePropertiesViz.Length; i++)
             {
-                if(basePropertiesViz[i].element == e)
+                if(_basePropertiesViz[i].element == e)
                 {
-                    result = basePropertiesViz[i];
+                    result = _basePropertiesViz[i];
                     break;
                 }
             }
             return result;
         }
 
-        public void HidenSynergyHolder() => synergyHolder.gameObject.SetActive(false);
+        public void HidenSynergyHolder() => _synergyHolder.gameObject.SetActive(false);
 
     }
 }

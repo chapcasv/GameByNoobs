@@ -264,8 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff91812d0b328ea449100a33dd629f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  synergyHolder: {fileID: 8622063344837173845}
-  basePropertiesViz:
+  _synergyHolder: {fileID: 8622063344837173845}
+  _card: {fileID: 0}
+  _basePropertiesViz:
   - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
     img: {fileID: 4115026046428861340}
     text: {fileID: 0}
@@ -281,7 +282,7 @@ MonoBehaviour:
   - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
     img: {fileID: 8251357207625821090}
     text: {fileID: 4909996995941688379}
-  synergySlotViz:
+  _synergySlotViz:
   - {fileID: 6710111893094965881}
   - {fileID: 8062075667665534644}
   - {fileID: 9183645788634887085}

@@ -24,7 +24,6 @@ namespace PH
                 var cardViz = cardUI.GetComponent<CardViz>();
                 cardViz.SetCard(allcards.allCard[i]);
             }
-
         }
     }
 }

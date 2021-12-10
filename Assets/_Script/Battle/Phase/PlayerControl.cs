@@ -5,23 +5,30 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Phase/PlayerControl ")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Phase/PlayerControl")]
     public class PlayerControl : Phase
     {
         public override bool IsComplete()
         {
+            if (forceExit)
+            {
+                forceExit = false;
+                return true;
+            }
             return false;
-        }
-
-        public override void OnEndPhase()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void OnStartPhase()
         {
-            throw new System.NotImplementedException();
+
         }
+
+        public override void OnEndPhase()
+        {
+            
+        }
+
+        
     }
 }
 

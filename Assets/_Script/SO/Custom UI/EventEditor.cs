@@ -13,7 +13,7 @@ namespace SO
             GameEvent e = target as GameEvent;
             if (GUILayout.Button("Raise"))
             {
-                e.Raise();
+                e.Invoke();
             }
         }
     }

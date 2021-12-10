@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace PH
-{   
-    [CreateAssetMenu(fileName ="new Deck",menuName = "ScriptableObject/Deck")]
-    public class Deck :ScriptableObject
+{
+    [CreateAssetMenu(fileName = "new Deck", menuName = "ScriptableObject/Deck")]
+    public class Deck : ScriptableObject
     {
         public string deckName;
         [SerializeField] private List<Card> cardsInDeck;
@@ -30,7 +30,7 @@ namespace PH
         {
             CardsInDeck.Remove(card);
         }
-        
+
         public void RemoveAt(int index)
         {
             CardsInDeck.RemoveAt(index);

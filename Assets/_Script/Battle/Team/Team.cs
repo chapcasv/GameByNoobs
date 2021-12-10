@@ -7,7 +7,7 @@ namespace PH
 {
     public abstract class Team : ScriptableObject
     {
-        
+        public abstract void Init();
     }
 }
 

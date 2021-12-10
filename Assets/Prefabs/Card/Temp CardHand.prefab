@@ -85,15 +85,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4115026046395573049}
   - component: {fileID: 4115026046395573048}
-  - component: {fileID: 258565492656391940}
-  - component: {fileID: 654536448}
+  - component: {fileID: 9130774354666671277}
   m_Layer: 5
   m_Name: Temp CardHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4115026046395573049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -130,23 +129,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff91812d0b328ea449100a33dd629f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  synergyHolder: {fileID: 8622063344837173845}
-  card: {fileID: 11400000, guid: 8d815c07ffe94f64e80df48d3b1f508a, type: 2}
-  basePropertiesViz:
+  _synergyHolder: {fileID: 8622063344837173845}
+  _basePropertiesViz:
   - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
     img: {fileID: 4115026046428861340}
     text: {fileID: 0}
   - element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
     img: {fileID: 0}
     text: {fileID: 4115026048392922316}
+  - element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
+    img: {fileID: 0}
+    text: {fileID: 4115026048392922316}
   - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
     img: {fileID: 8251357207625821090}
     text: {fileID: 0}
-  synergySlotViz:
+  _synergySlotViz:
   - {fileID: 6710111893094965881}
   - {fileID: 8062075667665534644}
   - {fileID: 9183645788634887085}
---- !u!114 &258565492656391940
+--- !u!114 &9130774354666671277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,27 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc4b1b363076264b8cab1c01aa87984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLogic: {fileID: 11400000, guid: cf850015c0c9d9a4580aadcab7501266, type: 2}
-  mask:
-    serializedVersion: 2
-    m_Bits: 2048
-  canvas: {fileID: 0}
-  radar: {fileID: 0}
-  card: {fileID: 0}
-  rect: {fileID: 0}
-  canvasGr: {fileID: 0}
---- !u!225 &654536448
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4115026046395573046}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  cardSeleted: {fileID: 0}
 --- !u!1 &4115026046428861338
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.74509805}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

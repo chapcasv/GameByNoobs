@@ -7,7 +7,10 @@ namespace PH
 {
     public class AITeam : Team
     {
-        
+        public override void Init()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

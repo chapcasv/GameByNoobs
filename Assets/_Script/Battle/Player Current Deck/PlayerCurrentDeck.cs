@@ -5,14 +5,12 @@ using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName = "ScriptableObject/BattleSystem/PlayerCurrentDeck")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle System/PlayerCurrentDeck")]
     public class PlayerCurrentDeck : ScriptableObject
-    {   
-        public Deck _currentDeck;
+    {
+        private Deck _currentDeck;
         [SerializeField] Deck deckBeforeShuffle;
         [SerializeField] Deck deckAfterShuffle;
-
-        private const int startCardHandAmount = 4;
 
         public Card DrawCard()
         {

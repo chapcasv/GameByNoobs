@@ -21,7 +21,7 @@ namespace SO
         public bool keepOnlyOneInstance;
         GameObject previousInstance;
 
-        public override void Response()
+        public override void RaiseEvent()
         {
             if (keepOnlyOneInstance)
             {
@@ -33,7 +33,7 @@ namespace SO
 
             previousInstance = Instantiate(targetGameObject.value, targetSpawn.position, targetSpawn.rotation) as GameObject;
 
-            response.Invoke();
+            unityEvent.Invoke();
         }
     }
 }

@@ -4,34 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace PH.Graph
+namespace PH.GraphSystem
 {
-    public class GridManager : MonoBehaviour
+    public static class GridManager 
     {
-        [SerializeField] Transform tilesHolder;
-        public Graph graph;
-        public List<Node> nodeTeam1;
-        public static GridManager instance;
+        private static Graph graph = new Graph();
+        public static List<Node> NodePlayerTeam { get; private set; }
+ 
+        private static readonly float _horizontalEdge = 6f;
+        private static readonly float _diagonalEdge = 9f;
+        private static Dictionary<Team, int> _startPositionPerTeam;
 
-        private float horizontal_edge = 6f;
-        private float diagonal_edge = 8.5f;
-        //private Dictionary<Team, int> startPositionPerTeam;
-        public float GetDiagonalEdge { get => diagonal_edge; }
-        public float GetHorizontalEdge { get => horizontal_edge; }
-
-        protected void Awake()
-        {
-
-            instance = this;
-            InitializeGraph();
-            //startPositionPerTeam = new Dictionary<Team, int>();
-            //startPositionPerTeam.Add(Team.Team1, 31);
-            //startPositionPerTeam.Add(Team.Team2, graph.nodes.Count - 1);
-            SetNodeTeam1();
-        }
-
-
-        public Node Convert_Position_toNode(int Position_in_Data)
+        public static Node ConvertPositiontoNode(int Position_in_Data)
         {
             foreach (Node node in graph.nodes)
             {
@@ -42,30 +26,30 @@ namespace PH.Graph
         }
 
 
-        //public Node GetFreeNode(Team forteam)
-        //{
-        //    int startIndex = startPositionPerTeam[forteam];
-        //    int currentIndex = startIndex;
+        public static Node GetFreeNode(Team forteam)
+        {
+            int startIndex = _startPositionPerTeam[forteam];
+            int currentIndex = startIndex;
 
-        //    while (graph.nodes[currentIndex].IsOccupided)
-        //    {
-        //        if (startIndex == 0)
-        //        {
-        //            currentIndex++;
-        //            if (currentIndex == graph.nodes.Count)
-        //                return null;
-        //        }
-        //        else
-        //        {
-        //            currentIndex--;
-        //            if (currentIndex == -1)
-        //                return null;
-        //        }
-        //    }
-        //    return graph.nodes[currentIndex];
-        //}
+            while (graph.nodes[currentIndex].IsOccupided)
+            {
+                if (startIndex == 0)
+                {
+                    currentIndex++;
+                    if (currentIndex == graph.nodes.Count)
+                        return null;
+                }
+                else
+                {
+                    currentIndex--;
+                    if (currentIndex == -1)
+                        return null;
+                }
+            }
+            return graph.nodes[currentIndex];
+        }
 
-        public Node GetNodeForTile(Tile t)
+        public static Node GetNodeForTile(Tile t)
         {
             var allNodes = graph.nodes;
 
@@ -80,20 +64,20 @@ namespace PH.Graph
             return null;
         }
 
-        public List<Node> GetNodesCloseTo(Node to)
+        public static List<Node> GetNodesCloseTo(Node to)
         {
             return graph.Neighbors(to);
         }
 
-        public List<Node> GetPath(Node from, Node to)
+        public static List<Node> GetPath(Node from, Node to)
         {
             return graph.GetShortestPath(from, to);
         }
 
 
-        private void InitializeGraph()
+        public static void InitializeGraph(Transform tilesHolder )
         {
-            graph = new Graph();
+            if (graph.nodes.Count > 0) return;
 
             foreach (Transform tile in tilesHolder)
             {
@@ -105,57 +89,41 @@ namespace PH.Graph
             {
                 foreach (Node to in allNodes)
                 {
-                    if (Vector3.Distance(from.WorldPosition, to.WorldPosition) <= GetHorizontalEdge && from != to)
+                    float distance = Vector3.Distance(from.WorldPosition, to.WorldPosition);
+                    if (distance == _horizontalEdge && from != to)
                     {
-                        graph.AddEdge(from, to, GetHorizontalEdge);
+                        graph.AddEdge(from, to, _horizontalEdge);
                     }
-                    else if (GetHorizontalEdge < Vector3.Distance(from.WorldPosition, to.WorldPosition) &&
-                                Vector3.Distance(from.WorldPosition, to.WorldPosition) <= GetDiagonalEdge && from != to)
+                    else if (_horizontalEdge < distance && distance <= _diagonalEdge && from != to)
                     {
-                        graph.AddEdge(from, to, GetDiagonalEdge);
+                        graph.AddEdge(from, to, _diagonalEdge);
                     }
                 }
             }
+            SetNodePlayerTeam();
+
         }
 
-        private void SetNodeTeam1()
+        private static void SetNodePlayerTeam()
         {
-            nodeTeam1 = new List<Node>();
+            NodePlayerTeam = new List<Node>();
             foreach (Node node in graph.nodes)
-            {
-                if (nodeTeam1.Count < 32)
+            {   
+                //Team PlayerLocal will start from botleft
+                if (NodePlayerTeam.Count < 32)
                 {
-                    nodeTeam1.Add(node);
+                    NodePlayerTeam.Add(node);
                 }
             }
         }
 
-        public int fromIndex = 0;
-        public int toIndex = 0;
+        public static int fromIndex = 0;
+        public static int toIndex = 0;
 
 
-        private void OnDrawGizmos()
+        private static void OnDrawGizmos()
         {
 
-            if (graph == null)
-                return;
-
-            var allEdges = graph.edges;
-
-            if (allEdges == null)
-                return;
-            foreach (Edge e in allEdges)
-            {
-                if (e.GetWeight() <= horizontal_edge)
-                {
-                    Debug.DrawLine(e.from.WorldPosition, e.to.WorldPosition, Color.black, 100f);
-                }
-                else if (horizontal_edge < e.GetWeight() && e.GetWeight() <= diagonal_edge)
-                {
-                    Debug.DrawLine(e.from.WorldPosition, e.to.WorldPosition, Color.cyan, 100f);
-                }
-
-            }
 
             var allNodes = graph.nodes;
             foreach (Node n in allNodes)
