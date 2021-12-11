@@ -9,22 +9,14 @@ namespace PH
     {
         public override bool IsComplete()
         {
-            if (forceExit)
-            {
-                forceExit = false;
-                return true;
-            }
+            
             return false;
         }
 
-        public override void OnEndPhase()
+        protected override void OnStartPhase()
         {
 
-        }
-
-        public override void OnStartPhase()
-        {
-           
+            Debug.Log(PhaseSystem.CurrentPhase);
         }
     }
 }

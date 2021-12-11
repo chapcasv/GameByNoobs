@@ -10,7 +10,7 @@ namespace PH
         public static PlayerCard CardToPlayerCard(Card card)
         {
             PlayerCard cardData = new PlayerCard();
-            cardData.ID = card.ID;
+            cardData.ID = card.CardID;
             return cardData;
         }
 
@@ -18,7 +18,7 @@ namespace PH
         {
             foreach (Card c in allCards.allCard)
             {
-                if (c.ID == cardData.ID) return c;
+                if (c.CardID == cardData.ID) return c;
             }
             return null;
         }

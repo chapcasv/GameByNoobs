@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
+using SO;
 
 
 namespace PH
@@ -9,7 +10,13 @@ namespace PH
     [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Unit")]
     public class CardUnit : Card
     {
-        public BaseUnit prefab;
+        [SerializeField] int str;
+        [SerializeField] FloatVariable moveSpeed;
+        [SerializeField] BaseUnitID unitID;
+
+        public int Str { get => str;}
+        public FloatVariable MoveSpeed { get => moveSpeed;}
+        public BaseUnitID UnitID { get => unitID;}
 
         public override bool CanDropBoard(Node dropNode)
         {   

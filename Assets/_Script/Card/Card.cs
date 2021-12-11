@@ -6,12 +6,15 @@ using PH.GraphSystem;
 namespace PH
 {   
     public abstract class Card : ScriptableObject
-    {   
-        [Range(0,9999)]
-        public int ID;
+    {
+        [Range(0, 9999)]
+        private int cardID;
         public bool Unlocked;
         public BaseProperties[] baseProperties;
         public Synergy[] synergies;
+        
+        //Use for ConvertCard
+        public int CardID { get => cardID;}
 
         public virtual void OnSetSynergyViz(CardVisual cardViz) {
 
@@ -20,11 +23,6 @@ namespace PH
                 cardViz.HidenSynergyHolder();
             }
             else { cardViz.LoadSynergy(synergies); } 
-        }
-
-        public virtual void OnDrag(CardVisual cardViz)
-        {
-
         }
 
         public void OnSetUnlocked(CardVisual cardViz)

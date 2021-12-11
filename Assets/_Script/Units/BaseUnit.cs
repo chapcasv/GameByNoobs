@@ -3,33 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
 using System.Linq;
+using SO;
 
 namespace PH
 {
     public class BaseUnit : MonoBehaviour
     {
         private float attackSpeed = 1f; //Attacks per second
-        private float moveSpeed = 1f; //Attacks per second
+        private int range;
         private bool canAttack;
+        private FloatVariable _moveSpeed;
         private Node currentNode;
-        protected BaseUnit currentTarget;
+
+        private UnitTeam team;
+
         protected bool moving;
-        protected Node destination;
         protected float waitBetweenAttack;
+        protected BaseUnit currentTarget;
+        protected Node destination;
+
+        protected bool HasEnemy => currentTarget != null;
+        protected bool IsInRange => currentTarget != null && Vector3.Distance(this.transform.position, currentTarget.transform.position) <= range;
+        public bool CanAttack { get => canAttack; set => canAttack = value; }
 
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
-        public bool CanAttack { get => canAttack; set => canAttack = value; }
 
         private void OnEnable()
         {
             Debug.Log("Enable");
         }
 
-        public void Setup(Node spawnNode)
+        public void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
         {
+            this.team = team;
             CurrentNode = spawnNode;
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
+
+            _moveSpeed = unit.MoveSpeed;
         }
 
         protected void FindTarget()
@@ -61,7 +72,7 @@ namespace PH
                 return true;
             }
 
-            this.transform.position += direction.normalized * moveSpeed * Time.deltaTime;
+            this.transform.position += direction.normalized * _moveSpeed.value * Time.deltaTime;
             return false;
         }
 
@@ -108,7 +119,7 @@ namespace PH
 
         public void TakeDamage(int amount)
         {
-           
+
         }
 
         protected virtual void Attack()

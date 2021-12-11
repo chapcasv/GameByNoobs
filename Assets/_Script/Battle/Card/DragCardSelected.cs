@@ -40,7 +40,6 @@ namespace PH
         public void LoadCard()
         {
             Setting.effectGridMap.HighLighMap();
-
             _transform.position = Input.mousePosition;
             _cardViz.SetCard(currentCard);
             gameObject.SetActive(true);

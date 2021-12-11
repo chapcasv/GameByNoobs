@@ -7,10 +7,13 @@ namespace PH
     [CreateAssetMenu(fileName = "New Enemy", menuName = "ScriptableObject/Raid/Enemy")]
     public class Enemy : ScriptableObject
     {
-        public Card enemy;
+        [SerializeField] CardUnit enemy;
+
         [Range(32, 64)]
         [Tooltip("Position enemy spawn in board")]
-        public int Pos = 32;
+        [SerializeField] int pos = 32;
 
+        public int Pos { get => pos;}
+        public CardUnit GetEnemy { get => enemy;}
     }
 }

@@ -9,28 +9,25 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/Draw Card")]
     public class DrawCard : Phase
     {
-
-        [SerializeField] LocalPlayer _player;
-
-        private bool _complete = false;
-
-        public override bool IsComplete() => _complete;
-        
-
-        public override void OnStartPhase()
+        public override bool IsComplete()
         {
-            _player.DrawCard();
+            if (forceExit)
+            {
+                forceExit = false;
+                return true;
+            }
+            return false;
+        }
+        
+        protected override void OnStartPhase()
+        {
+            PhaseSystem.LocalPlayer.DrawCard();
+
 
             //Wait for animation draw Card
-            _complete = true;
+            forceExit = true;
         }
-
-        public override void OnEndPhase()
-        {
-
-        }
-
-        
+  
     }
 }
 

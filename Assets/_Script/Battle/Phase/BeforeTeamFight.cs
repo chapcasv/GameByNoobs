@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace PH
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Phase/PlayerControl")]
-    public class PlayerControl : Phase
+    [CreateAssetMenu(menuName = "ScriptableObject/Phase/Before Team Fight")]
+    public class BeforeTeamFight : Phase
     {
-
         public override bool IsComplete()
         {
             if (forceExit)
             {
                 forceExit = false;
-  
                 return true;
             }
             return false;
@@ -22,7 +19,10 @@ namespace PH
 
         protected override void OnStartPhase()
         {
+            PhaseSystem.BoardSystem.SpawnEnemy();
             Debug.Log(PhaseSystem.CurrentPhase);
+
+            forceExit = true;
         }
 
         
