@@ -13,14 +13,13 @@ namespace PH
 
         private void Awake()
         {
-            GridManager.InitializeGraph(tilesHolder);
+            GridBoard.InitializeGraph(tilesHolder);
         }
 
         public void SpawnUnit(CardUnit unit, Node spawnNode)
         {
             BaseUnit baseUnit = Instantiate(unit.prefab, playerZone);
             baseUnit.Setup(spawnNode);
-
         }
     }
 }

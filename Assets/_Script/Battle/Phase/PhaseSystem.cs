@@ -7,12 +7,10 @@ using PH.GraphSystem;
 namespace PH
 {
     public class PhaseSystem : MonoBehaviour
-    {
+    {   
 
         [SerializeField] Phase[] phases;
-
         private int _phaseIndex;
-
         public static Phase CurrentPhase { get; private set; }
 
         private void Awake()
@@ -20,11 +18,8 @@ namespace PH
             StartCardSystem.OnComplete += CompleteStartCard;
         }
 
-
-
         private void Update()
         {
-
             if (CurrentPhase == null) return; ///OnStartCard
 
             bool phaseIsComplete = CurrentPhase.IsComplete();
@@ -35,7 +30,6 @@ namespace PH
                 SetPhase(phases[_phaseIndex]);
             }
         }
-
 
         private void SetPhase(Phase phase)
         {
@@ -58,7 +52,6 @@ namespace PH
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
         }
-
     }
 }
 

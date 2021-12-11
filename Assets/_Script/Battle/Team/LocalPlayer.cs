@@ -13,6 +13,7 @@ namespace PH
         [SerializeField] PlayerCurrentDeck currentDeck;
 
         public event Action OnDrawCard;
+        public event Action OnDropCard;
 
         public List<Card> CardsInHand { get ; private set; }
 
@@ -28,10 +29,13 @@ namespace PH
             OnDrawCard?.Invoke();
         }
 
-        public void DrawStartCard()
+        public void DropCard(Card card)
         {
-            CardsInHand.Add(currentDeck.DrawCard());
+            CardsInHand.Remove(card);
+            OnDropCard?.Invoke();
         }
+
+        public void DrawStartCard() => CardsInHand.Add(currentDeck.DrawCard());
 
         public void ReplaceCardHand(int index)
         {

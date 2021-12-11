@@ -14,7 +14,7 @@ namespace PH
         public override bool CanDropBoard(Node dropNode)
         {   
 
-            if (!dropNode.IsOccupided && GridManager.NodePlayerTeam.Contains(dropNode))
+            if (!dropNode.IsOccupied && GridBoard.NodePlayerTeam.Contains(dropNode))
             {
                 return true;
             }

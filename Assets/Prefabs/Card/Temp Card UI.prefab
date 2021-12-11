@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4115026046395573049}
-  - component: {fileID: 4115026046395573048}
+  - component: {fileID: 9042456879354604101}
   m_Layer: 5
   m_Name: Temp Card UI
   m_TagString: Untagged
@@ -252,7 +252,7 @@ RectTransform:
   m_AnchoredPosition: {x: -618, y: 0}
   m_SizeDelta: {x: 500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4115026046395573048
+--- !u!114 &9042456879354604101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,11 +261,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4115026046395573046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff91812d0b328ea449100a33dd629f80, type: 3}
+  m_Script: {fileID: 11500000, guid: aa1a91a1ea6eb3e4aaa73a37c7c1ffc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _synergyHolder: {fileID: 8622063344837173845}
-  _card: {fileID: 0}
   _basePropertiesViz:
   - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
     img: {fileID: 4115026046428861340}
@@ -281,7 +280,7 @@ MonoBehaviour:
     text: {fileID: 4909996995941688379}
   - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
     img: {fileID: 8251357207625821090}
-    text: {fileID: 4909996995941688379}
+    text: {fileID: 0}
   _synergySlotViz:
   - {fileID: 6710111893094965881}
   - {fileID: 8062075667665534644}

@@ -10,7 +10,7 @@ namespace PH
     {
         [SerializeField] GameObject[] cardHand;
         [SerializeField] LocalPlayer localPlayer;
-        private CardViz[] _cardVizs;
+        private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
 
         private void Awake()
@@ -23,16 +23,17 @@ namespace PH
         {
             StartCardSystem.OnComplete += LoadHandZone;
             localPlayer.OnDrawCard += LoadHandZone;
+            localPlayer.OnDropCard += LoadHandZone;
         }
 
         private void Init()
         {
-            _cardVizs = new CardViz[cardHand.Length];
+            _cardVizs = new CardVisual[cardHand.Length];
             _cardInstance = new CardInstance[cardHand.Length];
 
             for (int i = 0; i < _cardVizs.Length; i++)
             {
-                _cardVizs[i] = cardHand[i].GetComponent<CardViz>();
+                _cardVizs[i] = cardHand[i].GetComponent<CardVisual>();
                 _cardInstance[i] = cardHand[i].GetComponent<CardInstance>();
             }
         }
@@ -49,7 +50,7 @@ namespace PH
 
             for (int i = 0; i < _cardVizs.Length; i++)
             {
-                if (_cardVizs[i].IsHaveCard())
+                if (_cardInstance[i].Card != null)
                 {
                     cardHand[i].SetActive(true);
                 }
@@ -65,6 +66,11 @@ namespace PH
             for (int i = 0; i < cardsInHand.Count; i++)
             {
                 _cardInstance[i].Card = cardsInHand[i];
+            }
+
+            for (int i = cardsInHand.Count; i < cardHand.Length; i++)
+            {
+                _cardInstance[i].Card = null;
             }
         }
 

@@ -12,17 +12,22 @@ namespace PH
         public bool Unlocked;
         public BaseProperties[] baseProperties;
         public Synergy[] synergies;
-        public virtual void OnSetSynergyViz(CardViz cardViz) {
+
+        public virtual void OnSetSynergyViz(CardVisual cardViz) {
 
             if (synergies.Length == 0)
             {
                 cardViz.HidenSynergyHolder();
             }
             else { cardViz.LoadSynergy(synergies); } 
+        }
+
+        public virtual void OnDrag(CardVisual cardViz)
+        {
 
         }
 
-        public void OnSetUnlocked(CardViz cardViz)
+        public void OnSetUnlocked(CardVisual cardViz)
         {
 
         }

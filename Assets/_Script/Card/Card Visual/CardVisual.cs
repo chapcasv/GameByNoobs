@@ -6,18 +6,13 @@ using TMPro;
 
 namespace PH
 {
-    public class CardViz : MonoBehaviour
+    public class CardVisual : MonoBehaviour
     {
         [SerializeField] GameObject _synergyHolder;
-        private Card _card;
         [SerializeField] PropertiesUI[] _basePropertiesViz;
         [SerializeField] GameObject[] _synergySlotViz;
 
-        public bool IsHaveCard()
-        {
-            if (_card == null) return false;
-            else return true;
-        }
+        protected Card _card;
 
         public void SetCard(Card card)
         {
@@ -25,7 +20,7 @@ namespace PH
             LoadCard(this._card);
         }
 
-        private void LoadCard(Card c)
+        protected virtual void LoadCard(Card c)
         {
             if (_card == null) return;
 
@@ -78,7 +73,7 @@ namespace PH
             }
         }
 
-        public PropertiesUI GetBaseProperty(Element e)
+        protected PropertiesUI GetBaseProperty(Element e)
         {
             PropertiesUI result = null;
 

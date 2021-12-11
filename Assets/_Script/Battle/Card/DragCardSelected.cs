@@ -4,25 +4,25 @@ using SO;
 
 namespace PH 
 {   
-    [RequireComponent(typeof(DropCardSeleted))]
-    public class DragCardSeleted : MonoBehaviour
+    [RequireComponent(typeof(DropCardSelected))]
+    public class DragCardSelected : MonoBehaviour
     {
+        [SerializeField] LocalPlayer localPlayer;
 
-        private DropCardSeleted _drop;
+        private DropCardSelected _drop;
         private Transform _transform;
-        private CardViz _cardViz;
+        private CardSelectedVisual _cardViz;
         private Card currentCard;
         private CardInstance cache;
 
-
         public Card CurrentCard { set => currentCard = value; }
-        public CardInstance Cache {set => cache = value; }
+        public CardInstance CardInstanceCache {set => cache = value; }
 
         void Start()
         {
-            _drop = GetComponent<DropCardSeleted>();
+            _drop = GetComponent<DropCardSelected>();
             _transform = GetComponent<Transform>();
-            _cardViz = GetComponent<CardViz>();
+            _cardViz = GetComponent<CardSelectedVisual>();
             gameObject.SetActive(false);
         }
 
@@ -33,12 +33,14 @@ namespace PH
                 _transform.position = Input.mousePosition;
                 _drop.MoveRadar();
                 if (Input.GetMouseButtonUp(0)) OnEndDrag();
-            }  
+            }
+            else BackToHand();
         }
 
         public void LoadCard()
         {
             Setting.effectGridMap.HighLighMap();
+
             _transform.position = Input.mousePosition;
             _cardViz.SetCard(currentCard);
             gameObject.SetActive(true);
@@ -47,18 +49,24 @@ namespace PH
         private void OnEndDrag()
         {
             Setting.effectGridMap.StopHighLighMap();
+
             if (_drop.CanDrop())
             {          
                 if (_drop.TryDropCard(currentCard))
                 {
-                    BackToHand();
+                    ReLoadHandZone();
                 }
                 else BackToHand();
             }
             else BackToHand();
         }
 
-
+        private void ReLoadHandZone()
+        {
+            cache.Card = currentCard;
+            cache.OnDrop(localPlayer);
+            gameObject.SetActive(false);
+        }
 
         private void BackToHand()
         {

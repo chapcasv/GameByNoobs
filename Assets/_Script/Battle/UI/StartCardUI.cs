@@ -31,7 +31,7 @@ namespace PH
                 for (int i = 0; i < startCard.Count; i++)
                 {
                     //Child(0) is Start Card Temp
-                    CardViz cardViz = startCardSlot[i].GetChild(0).GetComponent<CardViz>();
+                    CardVisual cardViz = startCardSlot[i].GetChild(0).GetComponent<CardVisual>();
                     cardViz.SetCard(startCard[i]);
                 }
             }

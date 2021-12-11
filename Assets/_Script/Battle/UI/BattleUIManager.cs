@@ -21,8 +21,6 @@ namespace PH
         private void Awake()
         {
             StartCardSystem.OnComplete += MoveBattleInfo;
-     
-       
         }
 
         void Start()

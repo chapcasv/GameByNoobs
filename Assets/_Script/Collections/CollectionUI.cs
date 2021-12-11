@@ -21,7 +21,7 @@ namespace PH
             for (int i = 0; i < allcards.allCard.Count; i++)
             {
                 var cardUI = Instantiate(card,parent);
-                var cardViz = cardUI.GetComponent<CardViz>();
+                var cardViz = cardUI.GetComponent<CardVisual>();
                 cardViz.SetCard(allcards.allCard[i]);
             }
         }

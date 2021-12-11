@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace PH.GraphSystem
 {
-    public static class GridManager 
-    {
+    public static class GridBoard 
+    {   
+        
         private static Graph graph = new Graph();
         public static List<Node> NodePlayerTeam { get; private set; }
  
         private static readonly float _horizontalEdge = 6f;
         private static readonly float _diagonalEdge = 9f;
+        private static bool isInit = false;
         private static Dictionary<Team, int> _startPositionPerTeam;
 
         public static Node ConvertPositiontoNode(int Position_in_Data)
@@ -31,7 +33,7 @@ namespace PH.GraphSystem
             int startIndex = _startPositionPerTeam[forteam];
             int currentIndex = startIndex;
 
-            while (graph.nodes[currentIndex].IsOccupided)
+            while (graph.nodes[currentIndex].IsOccupied)
             {
                 if (startIndex == 0)
                 {
@@ -60,31 +62,29 @@ namespace PH.GraphSystem
                     return allNodes[i];
                 }
             }
-
             return null;
         }
 
-        public static List<Node> GetNodesCloseTo(Node to)
-        {
-            return graph.Neighbors(to);
-        }
-
-        public static List<Node> GetPath(Node from, Node to)
-        {
-            return graph.GetShortestPath(from, to);
-        }
+        public static List<Node> GetNodesCloseTo(Node to) => graph.Neighbors(to);
+ 
+        public static List<Node> GetPath(Node from, Node to) => graph.GetShortestPath(from,to);
 
 
         public static void InitializeGraph(Transform tilesHolder )
         {
-            if (graph.nodes.Count > 0) return;
+            if (isInit) return;
 
-            foreach (Transform tile in tilesHolder)
-            {
-                graph.AddNode(tile.position);
-            }
+            AddNode(tilesHolder);     
+            AddEdge();          
+            SetNodePlayerTeam();
 
+            isInit = true;
+        }
+
+        private static void AddEdge()
+        {
             var allNodes = graph.nodes;
+
             foreach (Node from in allNodes)
             {
                 foreach (Node to in allNodes)
@@ -100,8 +100,14 @@ namespace PH.GraphSystem
                     }
                 }
             }
-            SetNodePlayerTeam();
+        }
 
+        private static void AddNode(Transform tilesHolder)
+        {
+            foreach (Transform tile in tilesHolder)
+            {
+                graph.AddNode(tile.position);
+            }
         }
 
         private static void SetNodePlayerTeam()
@@ -109,38 +115,10 @@ namespace PH.GraphSystem
             NodePlayerTeam = new List<Node>();
             foreach (Node node in graph.nodes)
             {   
-                //Team PlayerLocal will start from botleft
+                //PlayerZone will start from botleft
                 if (NodePlayerTeam.Count < 32)
                 {
                     NodePlayerTeam.Add(node);
-                }
-            }
-        }
-
-        public static int fromIndex = 0;
-        public static int toIndex = 0;
-
-
-        private static void OnDrawGizmos()
-        {
-
-
-            var allNodes = graph.nodes;
-            foreach (Node n in allNodes)
-            {
-                Gizmos.color = n.IsOccupided ? Color.red : Color.green;
-                Gizmos.DrawSphere(n.WorldPosition, 0.1f);
-            }
-
-            if (fromIndex < allNodes.Count && toIndex < allNodes.Count)
-            {
-                List<Node> path = graph.GetShortestPath(allNodes[fromIndex], allNodes[toIndex]);
-                if (path.Count > 1)
-                {
-                    for (int i = 1; i < path.Count; i++)
-                    {
-                        Debug.DrawLine(path[i - 1].WorldPosition, path[i].WorldPosition, Color.red, 1f);
-                    }
                 }
             }
         }

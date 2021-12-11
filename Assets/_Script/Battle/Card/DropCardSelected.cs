@@ -3,7 +3,7 @@ using PH.GraphSystem;
 
 namespace PH
 {
-    public class DropCardSeleted : MonoBehaviour
+    public class DropCardSelected : MonoBehaviour
     {
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask mask;
@@ -17,7 +17,7 @@ namespace PH
         public bool TryDropCard(Card currentCard )
         {
             Tile t = GetTileUnder();
-            Node node = GridManager.GetNodeForTile(t);
+            Node node = GridBoard.GetNodeForTile(t);
 
             if (currentCard.CanDropBoard(node))
             {

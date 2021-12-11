@@ -18,7 +18,7 @@ namespace PH.GraphSystem
 
         public float GetWeight()
         {
-            if (to.IsOccupided)
+            if (to.IsOccupied)
             {
                 return Mathf.Infinity;
             }

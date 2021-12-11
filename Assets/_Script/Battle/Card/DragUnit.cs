@@ -71,10 +71,10 @@ namespace PH
             if (t != null)
             {
                 BaseUnit thisEntity = GetComponent<BaseUnit>();
-                Node candidateNode = GridManager.GetNodeForTile(t);
+                Node candidateNode = GridBoard.GetNodeForTile(t);
                 if (candidateNode != null && thisEntity != null)
                 {
-                    if (!candidateNode.IsOccupided && candidateNode.Index < 32)
+                    if (!candidateNode.IsOccupied && candidateNode.Index < 32)
                     {
                         var currentNode = thisEntity.CurrentNode;
                         currentNode.SetOccupied(false);
@@ -94,7 +94,7 @@ namespace PH
             Tile t = GetTileUnder();
             if (t != null)
             {
-                Node candidateNode = GridManager.GetNodeForTile(t);
+                Node candidateNode = GridBoard.GetNodeForTile(t);
                 if (candidateNode != null)
                 {
                     Setting.effectGridMap.HighLight_TileUnder(candidateNode.WorldPosition);

@@ -84,8 +84,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4115026046395573049}
-  - component: {fileID: 4115026046395573048}
   - component: {fileID: 9130774354666671277}
+  - component: {fileID: 2589624678039042990}
   m_Layer: 5
   m_Name: Temp CardHand
   m_TagString: Untagged
@@ -117,36 +117,6 @@ RectTransform:
   m_AnchoredPosition: {x: -618, y: 0}
   m_SizeDelta: {x: 500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4115026046395573048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4115026046395573046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff91812d0b328ea449100a33dd629f80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _synergyHolder: {fileID: 8622063344837173845}
-  _basePropertiesViz:
-  - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-    img: {fileID: 4115026046428861340}
-    text: {fileID: 0}
-  - element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
-    img: {fileID: 0}
-    text: {fileID: 4115026048392922316}
-  - element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
-    img: {fileID: 0}
-    text: {fileID: 4115026048392922316}
-  - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-    img: {fileID: 8251357207625821090}
-    text: {fileID: 0}
-  _synergySlotViz:
-  - {fileID: 6710111893094965881}
-  - {fileID: 8062075667665534644}
-  - {fileID: 9183645788634887085}
 --- !u!114 &9130774354666671277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +130,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSeleted: {fileID: 0}
+--- !u!114 &2589624678039042990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115026046395573046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1a91a1ea6eb3e4aaa73a37c7c1ffc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _synergyHolder: {fileID: 8622063344837173845}
+  _basePropertiesViz:
+  - element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
+    img: {fileID: 4115026046428861340}
+    text: {fileID: 0}
+  - element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+    img: {fileID: 0}
+    text: {fileID: 4115026048392922316}
+  - element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+    img: {fileID: 8251357207625821090}
+    text: {fileID: 0}
+  _synergySlotViz:
+  - {fileID: 6710111893094965881}
+  - {fileID: 8062075667665534644}
+  - {fileID: 9183645788634887085}
 --- !u!1 &4115026046428861338
 GameObject:
   m_ObjectHideFlags: 0
