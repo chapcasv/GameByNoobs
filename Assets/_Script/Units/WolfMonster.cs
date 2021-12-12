@@ -9,6 +9,8 @@ namespace PH
         
         void Update()
         {
+            if (!InTeamFight) return;
+
             if (!HasEnemy)
             {
                 FindTarget();
@@ -16,8 +18,10 @@ namespace PH
 
             if (IsInRange && !moving)
             {
+                Debug.Log("Atk");
+                return;
                 //In range for attack!
-                if (CanAttack)
+                if(CanAttack)
                 {
                     Attack();
                     currentTarget.TakeDamage(10);

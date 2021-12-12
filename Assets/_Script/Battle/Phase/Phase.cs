@@ -8,6 +8,7 @@ namespace PH
     public abstract class Phase : ScriptableObject
     {   
         [NonSerialized] protected bool isInit = false;
+
         protected PhaseSystem PhaseSystem;
 
         public bool forceExit = false;

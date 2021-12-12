@@ -15,8 +15,18 @@ namespace PH
 
         protected override void OnStartPhase()
         {
+            var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+            foreach (var unit in allUnitPlayer)
+            {
+                unit.InTeamFight = true;
+            }
 
-            Debug.Log(PhaseSystem.CurrentPhase);
+            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
+            foreach (var enemy in allEnemies)
+            {
+                enemy.InTeamFight = true;
+            }
+            
         }
     }
 }

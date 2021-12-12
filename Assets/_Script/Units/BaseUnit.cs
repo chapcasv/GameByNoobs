@@ -12,10 +12,10 @@ namespace PH
         private float attackSpeed = 1f; //Attacks per second
         private int range;
         private bool canAttack;
-        private FloatVariable _moveSpeed;
+        private float _moveSpeed;
         private Node currentNode;
 
-        private UnitTeam team;
+        private UnitTeam myTeam;
 
         protected bool moving;
         protected float waitBetweenAttack;
@@ -26,27 +26,24 @@ namespace PH
         protected bool IsInRange => currentTarget != null && Vector3.Distance(this.transform.position, currentTarget.transform.position) <= range;
         public bool CanAttack { get => canAttack; set => canAttack = value; }
 
+        public bool InTeamFight = false;
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
-
-        private void OnEnable()
-        {
-            Debug.Log("Enable");
-        }
 
         public void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
         {
-            this.team = team;
+            this.myTeam = team;
             CurrentNode = spawnNode;
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
 
+            range = GetRange(unit.Range);
             _moveSpeed = unit.MoveSpeed;
         }
 
         protected void FindTarget()
         {
-            //var allEnemies = GameManager.Instance.GetEntitiesAgainst(myTeam);
-            List<BaseUnit> allEnemies = new List<BaseUnit>();
+           
+            List<BaseUnit> allEnemies = DictionaryTeamBattle.GetUnitsAgainst(myTeam);
 
             float minDistance = Mathf.Infinity;
             BaseUnit entity = null;
@@ -72,7 +69,7 @@ namespace PH
                 return true;
             }
 
-            this.transform.position += direction.normalized * _moveSpeed.value * Time.deltaTime;
+            this.transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
             return false;
         }
 
@@ -139,6 +136,11 @@ namespace PH
 
             yield return new WaitForSeconds(waitBetweenAttack);
             CanAttack = true;
+        }
+
+        private int GetRange(int range)
+        {
+            return range * 6; //CellSize
         }
     }
 }

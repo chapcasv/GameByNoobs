@@ -11,12 +11,17 @@ namespace PH
     public class CardUnit : Card
     {
         [SerializeField] int str;
-        [SerializeField] FloatVariable moveSpeed;
+        [Range(1,4)]
+        [SerializeField] int range;
+        [SerializeField] float moveSpeed;
         [SerializeField] BaseUnitID unitID;
 
+
+        public int Range { get => range; }
         public int Str { get => str;}
-        public FloatVariable MoveSpeed { get => moveSpeed;}
+        public float MoveSpeed { get => moveSpeed;}
         public BaseUnitID UnitID { get => unitID;}
+
 
         public override bool CanDropBoard(Node dropNode)
         {   

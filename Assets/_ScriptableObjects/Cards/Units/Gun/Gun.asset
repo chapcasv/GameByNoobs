@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
-  m_Name: Alpha
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  ID: 1
   Unlocked: 0
   baseProperties:
   - stringValue: 
@@ -37,4 +36,7 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
   synergies:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
-  prefab: {fileID: 1415215405707466462, guid: f7718430e3d005a468ca323178e9687f, type: 3}
+  str: 0
+  range: 1
+  moveSpeed: 4
+  unitID: {fileID: 11400000, guid: 3ce719249a97caf4e902f7cc9d6e0bb3, type: 2}

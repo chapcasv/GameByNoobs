@@ -18,8 +18,10 @@ namespace PH
         [SerializeField] RectTransform battleInfo;
         [SerializeField] TextMeshProUGUI waveCount;
 
+    
         private void Awake()
         {
+
             StartCardSystem.OnComplete += MoveBattleInfo;
         }
 

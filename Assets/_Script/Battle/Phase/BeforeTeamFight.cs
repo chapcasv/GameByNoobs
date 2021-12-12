@@ -20,7 +20,6 @@ namespace PH
         protected override void OnStartPhase()
         {
             PhaseSystem.BoardSystem.SpawnEnemy();
-            Debug.Log(PhaseSystem.CurrentPhase);
 
             forceExit = true;
         }

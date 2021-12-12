@@ -12,11 +12,13 @@ namespace PH
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 
+
         private void Awake()
         {
             _boardSystem = GetComponent<BoardSystem>();
             _phaseSystem = GetComponent<PhaseSystem>();
             localPlayer.Init();
+            DictionaryTeamBattle.Init();
         }
 
         private void Start()
