@@ -12,19 +12,33 @@ namespace PH
         protected UnitFinding Find;
         protected UnitMove Move;
         protected UnitAttack Atk;
-        
-        protected IUnitHealth Health;
-        protected IUnitSkillPoint SkillPoint;
-        
+
+        protected IHealth Health;
+        protected IMana Mana;
+
         protected Node currentNode;
         protected UnitTeam _myTeam;
         protected bool inTeamFight = false;
         protected BaseUnit currentTarget;
         protected Node destination;
-        protected bool HasEnemy => currentTarget != null;      
+
+        protected bool HasEnemy => currentTarget != null;
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
-        public bool IsLive { get => Health.IsLive;}
-        public bool InTeamFight {set => inTeamFight = value; }
+        public bool IsLive { get => Health.IsLive; }
+        public bool InTeamFight { set => inTeamFight = value; }
+
+        protected virtual void Update()
+        {
+            if (!inTeamFight) return;
+
+            if (!HasEnemy) currentTarget = Find.CurrentTarget();
+
+            if (!Mana.IsFullMana())
+            {
+                AttackInRange();
+            }
+            else CastSkillInRange();
+        }
 
         public virtual void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
         {
@@ -33,34 +47,34 @@ namespace PH
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
 
-            SetUpHealth(unit.Hp, team);
-            SetUpSkillPoint(unit.SpMax, unit.SpStart, unit.SpRegen);
+            SetUpHealthSystem(unit, team);
+            SetUpManaSystem(unit);
             SetUpAttack(unit);
             SetUpMove(unit);
-            SetUpFindTarget(team);
+            SetUpFinding(team);
         }
 
-        private void SetUpFindTarget(UnitTeam team) => Find = new NormalFinding(team, transform);
+        protected virtual void SetUpFinding(UnitTeam team) => Find = new NormalFinding(team, transform);
 
-        private void SetUpMove(CardUnit unit) => Move = new NormalUnitMove(unit.MoveSpeed, transform);
+        protected virtual void SetUpMove(CardUnit unit) => Move = new NormalUnitMove(unit.MoveSpeed, transform);
 
-        private void SetUpAttack(CardUnit unit)
+        protected virtual void SetUpAttack(CardUnit unit)
         {
             Atk = gameObject.AddComponent(typeof(NormalUnitAtk)) as NormalUnitAtk;
-            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Str);
+            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.CritRate);
         }
 
-        protected virtual void SetUpHealth(int maxHP,UnitTeam myTeam) 
+        protected virtual void SetUpHealthSystem(CardUnit unit, UnitTeam myTeam)
         {
-            Health = GetComponent<IUnitHealth>();
-            Health.SetHP(maxHP, myTeam);
+            Health = GetComponent<IHealth>();
+            Health.SetUp(unit.Hp, unit.Armor, unit.MagicResist, myTeam);
             Health.OnDie += Die;
         }
 
-        protected virtual void SetUpSkillPoint(int maxSP, int startSP, int spRegen)
+        protected virtual void SetUpManaSystem(CardUnit unit)
         {
-            SkillPoint = GetComponent<IUnitSkillPoint>();
-            SkillPoint.SetSP(maxSP, startSP, spRegen);
+            Mana = GetComponent<IMana>();
+            Mana.SetMana(unit.ManaMax, unit.ManaStart, unit.ManaRegen);
         }
 
         protected void GetInRange()
@@ -69,7 +83,7 @@ namespace PH
                 return;
 
             if (!Move.IsMoving)
-            {    
+            {
                 destination = Find.Destination(currentNode);
             }
 
@@ -83,16 +97,30 @@ namespace PH
             }
         }
 
-        public virtual void Attack()
+
+        protected virtual void AttackInRange()
         {
-            Atk.Attack(currentTarget);
-            SkillPoint.IncreaseSP();
+            if (Atk.IsInRange(currentTarget) && Move.IsMoving)
+            {
+                if (Atk.CanAtk)
+                {
+                    Atk.Attack(currentTarget);
+                    Mana.IncreaseMana();
+                }
+                
+            }
+            else GetInRange();
+        }
+
+        protected virtual void CastSkillInRange()
+        {
+
         }
 
         public virtual void TakeDamage(int amount)
         {
             Health.TakeDamage(amount);
-            SkillPoint.IncreaseSP();
+            Mana.IncreaseMana();
         }
 
         protected virtual void Die()
@@ -101,7 +129,8 @@ namespace PH
             currentNode.SetOccupied(false);
             Destroy(gameObject);
         }
- 
+
+
     }
 }
 

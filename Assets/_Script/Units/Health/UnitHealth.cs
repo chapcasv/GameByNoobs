@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace PH
 {
-    public class UnitHealth : MonoBehaviour, IUnitHealth
+    public class UnitHealth : MonoBehaviour, IHealth
     {
         [SerializeField] Image HpBar;
 
@@ -20,6 +20,8 @@ namespace PH
 
         private int maxHP;
         private int currentHP;
+        private int magicResist;
+        private int armor;
 
         public bool IsLive { get; set; }
 
@@ -30,10 +32,12 @@ namespace PH
             OnHealthUp?.Invoke(currentHPPct);
         }
 
-        public void SetHP(int value, UnitTeam team)
+        public void SetUp(int maxHP, int armor, int mr, UnitTeam team)
         {
-            maxHP = value;
-            currentHP = maxHP;
+            this.maxHP = maxHP;
+            currentHP = this.maxHP;
+            this.armor = armor;
+            this.magicResist = mr;
             IsLive = true;
 
             if (team == UnitTeam.Enemy) HpBar.color = COLOR_ENEMY;

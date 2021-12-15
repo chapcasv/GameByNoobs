@@ -13,7 +13,7 @@ namespace PH
 
             //Number atk in one second
             waitBetweenAttack = 1 / attackSpeed;
-            currentTarget.TakeDamage(str);
+            currentTarget.TakeDamage(damage);
             StartCoroutine(WaitCoroutine());
 
         }

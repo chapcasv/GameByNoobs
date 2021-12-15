@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9619dd03352f5fd46a363374cc8e40cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InTeamFight: 0
 --- !u!114 &578556355032408347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c11a88ceedd6034b86460ad9c61e384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpBar: {fileID: 4161511289392421915}
 --- !u!1001 &4938943672691412443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,6 +163,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4854018013685115840, guid: 199995e4c6a1dbc45b91a89650325150, type: 3}
+      propertyPath: manaBar
+      value: 
+      objectReference: {fileID: 4161511289392421915}
     - target: {fileID: 6725962000407842082, guid: 199995e4c6a1dbc45b91a89650325150, type: 3}
       propertyPath: m_Name
       value: Canvas Bar

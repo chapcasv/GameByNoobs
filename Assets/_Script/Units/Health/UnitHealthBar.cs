@@ -13,8 +13,8 @@ namespace PH
 
         private void Awake()
         {
-            GetComponentInParent<IUnitHealth>().OnTakeDamage += ChangeOnTakeDamage;
-            GetComponentInParent<IUnitHealth>().OnHealthUp += ChangeOnHealthUp;
+            GetComponentInParent<IHealth>().OnTakeDamage += ChangeOnTakeDamage;
+            GetComponentInParent<IHealth>().OnHealthUp += ChangeOnHealthUp;
         }
 
         private void ChangeOnTakeDamage(float pct)

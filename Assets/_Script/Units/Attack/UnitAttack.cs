@@ -8,16 +8,18 @@ namespace PH
     {
         protected float attackSpeed;
         protected float range;
-        protected int str;
+        protected int damage;
         protected bool canAttack;
         protected float waitBetweenAttack;
+        protected int critRate;
         public bool CanAtk => canAttack;
         
-        public void Constructor(float ats, float range, int str)
+        public void Constructor(float ats, float range, int dmg, int critRate)
         {
             attackSpeed = ats;
             this.range = CaculatorRangeAtk(range);
-            this.str = str;
+            this.damage = dmg;
+            this.critRate = critRate;
             canAttack = true;
         }
 

@@ -7,27 +7,6 @@ namespace PH
     public class WolfMonster : BaseUnit
     {
         
-        void Update()
-        {
-            if (!inTeamFight) return;
-
-            if (!HasEnemy)
-            {
-                currentTarget = Find.CurrentTarget();
-            }
-
-            if (Atk.IsInRange(currentTarget) && Move.IsMoving)
-            {
-                if(Atk.CanAtk)
-                {
-                    Attack();
-                }
-            }
-            else
-            {
-                GetInRange();
-            }
-        }
     }
 }
 

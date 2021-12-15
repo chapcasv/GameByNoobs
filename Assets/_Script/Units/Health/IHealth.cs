@@ -2,7 +2,7 @@
 
 namespace PH
 {
-    public interface IUnitHealth
+    public interface IHealth
     {
         event Action OnDie;
         event Action<float> OnTakeDamage;
@@ -11,7 +11,7 @@ namespace PH
         bool IsLive { get; set; }
 
         void HealthUp(int amount);
-        void SetHP(int value, UnitTeam team);
+        void SetUp(int maxHP, int armor, int mr, UnitTeam team);
         void TakeDamage(int amount);
         void Die();
     }
