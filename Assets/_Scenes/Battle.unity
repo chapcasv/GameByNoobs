@@ -273,7 +273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 39500437}
   - component: {fileID: 39500439}
-  - component: {fileID: 39500438}
   m_Layer: 0
   m_Name: ==========UI=============
   m_TagString: Untagged
@@ -296,28 +295,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &39500438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39500436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef986c5d15e272458d7315152bed6d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardHand:
-  - {fileID: 1111426482}
-  - {fileID: 1567846449}
-  - {fileID: 490558548}
-  - {fileID: 1266471601}
-  - {fileID: 1746221788}
-  - {fileID: 1749068545}
-  - {fileID: 1785494976}
-  - {fileID: 1725796976}
-  localPlayer: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
 --- !u!114 &39500439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +310,10 @@ MonoBehaviour:
   currentRaid: {fileID: 11400000, guid: 6ca79e97dfff26a40953d30ee1fbe4a4, type: 2}
   player: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
   battleInfo: {fileID: 209047267}
-  waveCount: {fileID: 0}
+  memberAmountText: {fileID: 1910830631}
+  coinText: {fileID: 601868402}
+  playerLifeText: {fileID: 1052088497}
+  waveText: {fileID: 135255207}
 --- !u!1001 &69450513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1496,6 +1476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 188022659}
   - component: {fileID: 188022660}
+  - component: {fileID: 188022661}
   m_Layer: 0
   m_Name: ====HandZone====
   m_TagString: Untagged
@@ -1554,6 +1535,28 @@ MonoBehaviour:
   m_Spacing: {x: 100, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
+--- !u!114 &188022661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188022658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef986c5d15e272458d7315152bed6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardHand:
+  - {fileID: 1111426482}
+  - {fileID: 1567846449}
+  - {fileID: 490558548}
+  - {fileID: 1266471601}
+  - {fileID: 1746221788}
+  - {fileID: 1749068545}
+  - {fileID: 1785494976}
+  - {fileID: 1725796976}
+  localPlayer: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
 --- !u!1001 &194742924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4257,6 +4260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da5509bac646b543a68f7c922220ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBar: {fileID: 1421215896}
   startCardSlot:
   - {fileID: 831994504}
   - {fileID: 1855982195}
@@ -4274,8 +4278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f5499369ad7d44da1b4d539148aff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
   btnComplete: {fileID: 1025877639}
-  playerTeam: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
 --- !u!1001 &803404166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6449,6 +6453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1421215894}
   - component: {fileID: 1421215895}
+  - component: {fileID: 1421215896}
   m_Layer: 0
   m_Name: Time
   m_TagString: Untagged
@@ -6528,6 +6533,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1421215896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421215893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c31f47de5ddf14582f6bb81919285a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderTime: {fileID: 1421215895}
 --- !u!1001 &1440374368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8608,6 +8626,14 @@ PrefabInstance:
       propertyPath: mask.m_Bits
       value: 2048
       objectReference: {fileID: 0}
+    - target: {fileID: 2149256262872122156, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: coin.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 1418f440743ec904a9cf60cc6f0ec6ad, type: 2}
+    - target: {fileID: 2149256262872122156, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: coin.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4115026046395573046, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
       propertyPath: m_Name
       value: Card Seleted
@@ -8700,6 +8726,10 @@ PrefabInstance:
       propertyPath: radar
       value: 
       objectReference: {fileID: 909614885}
+    - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: cardCost
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
     - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
       propertyPath: localPlayer
       value: 

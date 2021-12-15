@@ -10,25 +10,30 @@ namespace PH
     [RequireComponent(typeof(StartCardSystem))]
     public class StartCardUI : MonoBehaviour
     {
+        [SerializeField] TimeBar timeBar;
         [SerializeField] List<Transform> startCardSlot;
-        private LocalPlayer _playerTeam;
+        private float _time;
+        private StartCardSystem _startCardSystem;
 
         private void Awake()
         {
-            var StartCardSystem = GetComponent<StartCardSystem>();
-            _playerTeam = StartCardSystem.playerTeam;
-            StartCardSystem.OnStartCard += LoadStartCard;
-            StartCardSystem.OnReplace += LoadStartCard;
+            _startCardSystem = GetComponent<StartCardSystem>();
+            _time = _startCardSystem.Time;
+            _startCardSystem.OnStartCard += LoadStartCard;
+            _startCardSystem.OnStartCard += RunTimeBar;
+            _startCardSystem.OnReplace += LoadStartCard;
         }
 
 
+        private void RunTimeBar() => StartCoroutine(timeBar.RunTimeBarStartCard(_time));
+
         private void LoadStartCard()
         {
-            List<Card> startCard = GetStartCard();
+            Card[] startCard = GetStartCard();
 
-            if (startCard.Count == startCardSlot.Count)
+            if (startCard.Length == startCardSlot.Count)
             {
-                for (int i = 0; i < startCard.Count; i++)
+                for (int i = 0; i < startCard.Length; i++)
                 {
                     //Child(0) is Start Card Temp
                     CardVisual cardViz = startCardSlot[i].GetChild(0).GetComponent<CardVisual>();
@@ -37,9 +42,9 @@ namespace PH
             }
         }
 
-        private List<Card> GetStartCard()
+        private Card[] GetStartCard()
         {
-            List<Card> startCard = _playerTeam.CardsInHand;
+            Card[] startCard = _startCardSystem.GetStartCard();
             return startCard;
         }
   

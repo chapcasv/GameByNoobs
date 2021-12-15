@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace PH
 {
- 
     public class HandZoneUI : MonoBehaviour
     {
         [SerializeField] GameObject[] cardHand;
         [SerializeField] LocalPlayer localPlayer;
+
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
 
@@ -53,11 +52,9 @@ namespace PH
                 if (_cardInstance[i].Card != null)
                 {
                     cardHand[i].SetActive(true);
+
                 }
-                else
-                {
-                    cardHand[i].SetActive(false);
-                }
+                else  cardHand[i].SetActive(false);
             }
         }
 

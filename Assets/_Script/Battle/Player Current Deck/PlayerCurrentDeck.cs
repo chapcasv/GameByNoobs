@@ -8,10 +8,13 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/PlayerCurrentDeck")]
     public class PlayerCurrentDeck : ScriptableObject
     {
-        private Deck _currentDeck;
         [SerializeField] Deck deckBeforeShuffle;
         [SerializeField] Deck deckAfterShuffle;
 
+        private Deck _currentDeck;
+
+        [System.NonSerialized]
+        private bool _isInit = false;
         public Card DrawCard()
         {
             Card card = _currentDeck.GetCard(0);
@@ -29,10 +32,14 @@ namespace PH
         }
 
         public void InitializePlayerDeck(Deck currentDeck)
-        {   
+        {
+            if (_isInit) return;
+
             CoplyPlayerCurrentDeck(currentDeck);
             Shuffle();
             _currentDeck = deckAfterShuffle;
+
+            _isInit = true;
         }
 
         private void CoplyPlayerCurrentDeck( Deck currentDeck)

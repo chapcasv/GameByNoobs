@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace PH
 {
@@ -22,10 +22,10 @@ namespace PH
 
         protected override void OnStartPhase()
         {
+          
             Debug.Log(PhaseSystem.CurrentPhase);
         }
-
-        
+ 
     }
 }
 

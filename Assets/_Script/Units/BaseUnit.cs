@@ -9,68 +9,57 @@ namespace PH
 {
     public class BaseUnit : MonoBehaviour
     {
-        private float attackSpeed = 1f; //Attacks per second
-        private int range;
-        private bool canAttack;
-        private float _moveSpeed;
-        private Node currentNode;
-
-        private UnitTeam myTeam;
-
-        protected bool moving;
-        protected float waitBetweenAttack;
+        protected UnitFindTarget FindTarget;
+        protected UnitMove Move;
+        protected UnitAttack Attack;
+        
+        protected IUnitHealth Health;
+        protected IUnitSkillPoint SkillPoint;
+        
+        protected Node currentNode;
+        protected UnitTeam _myTeam;
+        protected bool inTeamFight = false;
         protected BaseUnit currentTarget;
         protected Node destination;
-
-        protected bool HasEnemy => currentTarget != null;
-        protected bool IsInRange => currentTarget != null && Vector3.Distance(this.transform.position, currentTarget.transform.position) <= range;
-        public bool CanAttack { get => canAttack; set => canAttack = value; }
-
-        public bool InTeamFight = false;
+        protected bool HasEnemy => currentTarget != null;      
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
+        public bool Dead { get; set ;}
+        public bool InTeamFight {set => inTeamFight = value; }
 
-        public void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
+        public virtual void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
         {
-            this.myTeam = team;
+            _myTeam = team;
             CurrentNode = spawnNode;
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
 
-            range = GetRange(unit.Range);
-            _moveSpeed = unit.MoveSpeed;
+            SetUpHealth(unit.Hp, team);
+            SetUpSkillPoint(unit.SpMax, unit.SpStart, unit.SpRegen);
+            SetUpAttack(unit);
+            SetUpMove(unit);
+            SetUpFindTarget(team);
         }
 
-        protected void FindTarget()
+        private void SetUpFindTarget(UnitTeam team) => FindTarget = new NormalFindTarget(team, transform);
+
+        private void SetUpMove(CardUnit unit) => Move = new NormalUnitMove(unit.MoveSpeed, transform);
+
+        private void SetUpAttack(CardUnit unit)
         {
-           
-            List<BaseUnit> allEnemies = DictionaryTeamBattle.GetUnitsAgainst(myTeam);
-
-            float minDistance = Mathf.Infinity;
-            BaseUnit entity = null;
-            foreach (BaseUnit e in allEnemies)
-            {
-                if (Vector3.Distance(e.transform.position, this.transform.position) <= minDistance)
-                {
-                    minDistance = Vector3.Distance(e.transform.position, this.transform.position);
-                    entity = e;
-                }
-            }
-
-            currentTarget = entity;
+            Attack = gameObject.AddComponent(typeof(NormalUnitAtk)) as NormalUnitAtk;
+            Attack.Constructor(unit.AtkSpeed, unit.Range, unit.Str);
         }
 
-        protected bool MoveTowards(Node nextNode)
+        protected virtual void SetUpHealth(int maxHP,UnitTeam myTeam) 
         {
-            Vector3 direction = (nextNode.WorldPosition - this.transform.position);
-            if (direction.sqrMagnitude <= 0.005f)
-            {
-                transform.position = nextNode.WorldPosition;
+            Health = GetComponent<IUnitHealth>();
+            Health.SetHP(maxHP, myTeam);
+        }
 
-                return true;
-            }
-
-            this.transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
-            return false;
+        protected virtual void SetUpSkillPoint(int maxSP, int startSP, int spRegen)
+        {
+            SkillPoint = GetComponent<IUnitSkillPoint>();
+            SkillPoint.SetSP(maxSP, startSP, spRegen);
         }
 
         protected void GetInRange()
@@ -78,7 +67,7 @@ namespace PH
             if (currentTarget == null)
                 return;
 
-            if (!moving)
+            if (!Move.IsMoving)
             {
                 destination = null;
                 List<Node> candidates = GridBoard.GetNodesCloseTo(currentTarget.CurrentNode);
@@ -105,43 +94,29 @@ namespace PH
                 destination = path[1];
             }
 
-            moving = !MoveTowards(destination);
-            if (!moving)
+            Move.IsMoving = !Move.MoveTowards(destination);
+            if (!Move.IsMoving)
             {
                 //Free previous node
                 CurrentNode.SetOccupied(false);
                 CurrentNode = destination;
             }
+
+            //FindTarget.GetInRange(currentTarget, currentNode, moveSpeed,ref moving);
         }
 
-        public void TakeDamage(int amount)
+        public virtual void AttackTarget()
         {
-
+            Attack.Atk(currentTarget);
+            SkillPoint.IncreaseSP();
         }
 
-        protected virtual void Attack()
+        public virtual void TakeDamage(int amount)
         {
-            if (!CanAttack)
-                return;
-
-
-            waitBetweenAttack = 1 / attackSpeed;
-            StartCoroutine(WaitCoroutine());
+            Health.TakeDamage(amount, this);
+            SkillPoint.IncreaseSP();
         }
-
-        IEnumerator WaitCoroutine()
-        {
-            CanAttack = false;
-            yield return null;
-
-            yield return new WaitForSeconds(waitBetweenAttack);
-            CanAttack = true;
-        }
-
-        private int GetRange(int range)
-        {
-            return range * 6; //CellSize
-        }
+ 
     }
 }
 

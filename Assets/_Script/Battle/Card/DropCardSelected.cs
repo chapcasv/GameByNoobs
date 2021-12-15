@@ -1,5 +1,6 @@
 using UnityEngine;
 using PH.GraphSystem;
+using SO;
 
 namespace PH
 {
@@ -8,6 +9,9 @@ namespace PH
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask mask;
         private Camera _cam;
+        private LocalPlayer _player;
+
+        public LocalPlayer Player {set => _player = value; }
 
         private void Start()
         {
@@ -29,19 +33,24 @@ namespace PH
   
         }
 
-        public bool CanDrop()
+        public bool CanDrop(int cardCost)
         {
-            if (HaveTile() && HaveCost() && PhaseSystem.CurrentPhase as PlayerControl)
+            if (HaveTile() && EnoughCoin(cardCost) && PhaseSystem.CurrentPhase as PlayerControl)
             {
                 return true;
             }
             else return false;
         }
 
-        //Check player cost
-        private bool HaveCost()
+        private bool EnoughCoin(int cardCost)
         {
-            return true;
+            int coinAfterSub = _player.GetCoin - cardCost;
+            if (coinAfterSub >= 0)
+            {
+                _player.SetCoin(coinAfterSub);
+                return true;
+            }
+            else return false;
         }
 
         private bool HaveTile()

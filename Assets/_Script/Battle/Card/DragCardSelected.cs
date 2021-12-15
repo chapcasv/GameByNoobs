@@ -8,6 +8,7 @@ namespace PH
     public class DragCardSelected : MonoBehaviour
     {
         [SerializeField] LocalPlayer localPlayer;
+        [SerializeField] ElementInt cardCost;
 
         private DropCardSelected _drop;
         private Transform _transform;
@@ -23,6 +24,7 @@ namespace PH
             _drop = GetComponent<DropCardSelected>();
             _transform = GetComponent<Transform>();
             _cardViz = GetComponent<CardSelectedVisual>();
+            _drop.Player = localPlayer;
             gameObject.SetActive(false);
         }
 
@@ -49,7 +51,7 @@ namespace PH
         {
             Setting.effectGridMap.StopHighLighMap();
 
-            if (_drop.CanDrop())
+            if (_drop.CanDrop(GetCostCurrentCard()))
             {          
                 if (_drop.TryDropCard(currentCard))
                 {
@@ -72,6 +74,19 @@ namespace PH
             cache.Card = currentCard;
             cache.gameObject.SetActive(true);
             gameObject.SetActive(false);
+        }
+
+        private int GetCostCurrentCard()
+        {
+            var BaseProperties = currentCard.baseProperties;
+            for (int i = 0; i < BaseProperties.Length; i++)
+            {
+                if(BaseProperties[i].element == cardCost)
+                {
+                    return BaseProperties[i].intValue;
+                }
+            }
+            return 9999; //Cant find card cost
         }
     }
 }

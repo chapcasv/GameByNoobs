@@ -13,12 +13,13 @@ namespace PH
         [Range(50, 100)]
         public int EnemyLife = 50;
         [Range(10, 20)]
-        public int Coin = 10;
+        [Tooltip("Number coin player have when raid start")]
+        public int PlayerStartCoin = 10;
         [TextArea]
         public string RaidDescription;
         public Sprite RaidAvatar;
         public PVE_Mode RaidMode;
-        public List<Wave> ListWave;
+        public Wave[] Waves;
         public int RewardsMoney;
 
         public GameObject boardPrefab;

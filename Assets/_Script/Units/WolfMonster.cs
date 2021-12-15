@@ -9,22 +9,18 @@ namespace PH
         
         void Update()
         {
-            if (!InTeamFight) return;
+            if (!inTeamFight) return;
 
             if (!HasEnemy)
             {
-                FindTarget();
+                currentTarget = FindTarget.GetCurrentTarget();
             }
 
-            if (IsInRange && !moving)
+            if (Attack.IsInRange(currentTarget) && Move.IsMoving)
             {
-                Debug.Log("Atk");
-                return;
-                //In range for attack!
-                if(CanAttack)
+                if(Attack.CanAtk)
                 {
-                    Attack();
-                    currentTarget.TakeDamage(10);
+                    AttackTarget();
                 }
             }
             else

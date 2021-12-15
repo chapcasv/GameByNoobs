@@ -17,7 +17,7 @@ namespace PH
         {
             _boardSystem = GetComponent<BoardSystem>();
             _phaseSystem = GetComponent<PhaseSystem>();
-            localPlayer.Init();
+            localPlayer.Init(currentRaid.PlayerStartCoin,currentRaid.PlayerLife);
             DictionaryTeamBattle.Init();
         }
 
@@ -28,12 +28,21 @@ namespace PH
 
         private void Setter()
         {
-            _phaseSystem.LocalPlayer = localPlayer;
-            _phaseSystem.BoardSystem = _boardSystem;
-            _boardSystem.CurrentRaid = currentRaid;
+            SetPhaseSystem();
+            SetBoardSystem();
         }
 
+        private void SetBoardSystem()
+        {
+            _boardSystem.Player = localPlayer;
+        }
 
+        private void SetPhaseSystem()
+        {
+            _phaseSystem.Player = localPlayer;
+            _phaseSystem.BoardSystem = _boardSystem;
+            _phaseSystem.CopyWave(currentRaid.Waves);
+        }
     }
 }
 

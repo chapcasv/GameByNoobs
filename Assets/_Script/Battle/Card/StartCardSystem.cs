@@ -10,39 +10,55 @@ namespace PH
     
     public class StartCardSystem : MonoBehaviour
     {
-
-        [SerializeField] Button btnComplete;
-
+        public static bool IsStartCardPhase;
+        public static event Action OnComplete;
         public event Action OnStartCard;
         public event Action OnReplace;
-        public static event Action OnComplete;
-        public LocalPlayer playerTeam;
+        [SerializeField] LocalPlayer player;
+        [SerializeField] Button btnComplete;
+
+        private const float time = 20f;
+
+        public float Time { get => time;}
 
         private void Awake()
         {
+            IsStartCardPhase = true;
             btnComplete.onClick.AddListener(Complete);
         }
 
         private void Start()
         {
-            GetStartCard();
+            DrawStartCard();
             OnStartCard?.Invoke();
         }
 
-        private void GetStartCard()
+
+        private void DrawStartCard()
         {
             //Player start with 4 card
             for (int i = 0; i < 4; i++)
             {
-                playerTeam.DrawStartCard();
+                player.DrawStartCard();
             }
+        }
+        
+        public Card[] GetStartCard()
+        {
+            Card[] startCards = new Card[4];
+
+            for (int i = 0; i < player.CardsInHand.Count; i++)
+            {
+                startCards[i] = player.CardsInHand[i];
+            }
+            return startCards;
         }
 
         //Tracking ===Start Card ===
         public void Replace(Transform slot)
         {
             int startCardIndex = GetSlotIndex(slot);
-            playerTeam.ReplaceCardHand(startCardIndex);
+            player.ReplaceCardHand(startCardIndex);
             OnReplace?.Invoke();
         }
 
@@ -50,6 +66,7 @@ namespace PH
 
         private void Complete()
         {
+            IsStartCardPhase = false;
             OnComplete?.Invoke();
             Hiden();
         }

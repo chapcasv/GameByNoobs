@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
 using System;
+using SO;
 
 namespace PH
-{   
+{
     public enum UnitTeam
     {
         Player,
@@ -15,32 +16,28 @@ namespace PH
     public class BoardSystem : MonoBehaviour
     {
         [SerializeField] UnitsDatabaseSO unitsDatabase;
-
         [Header("GridBoard")]
         [SerializeField] Transform tilesHolder;
-
         [Header("Parent")]
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
-        private PVE_Raid _currentRaid;
-
-        public PVE_Raid CurrentRaid {set => _currentRaid = value; }
+        private LocalPlayer _player;
+        public LocalPlayer Player { set => _player = value; }
 
         private void Awake()
         {
             GridBoard.InitializeGraph(tilesHolder);
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(Wave wave)
         {
-            var enemies = _currentRaid.ListWave[0].enemies;
+            var enemies = wave.enemies;
 
             for (int i = 0; i < enemies.Length; i++)
             {
                 Node node = GridBoard.ConvertPositiontoNode(enemies[i].Pos);
                 SpawnUnit(enemies[i].GetEnemy, node, UnitTeam.Enemy);
-                
             }
         }
 
@@ -48,23 +45,31 @@ namespace PH
         {
             BaseUnit prefab = GetUnit(unit.UnitID);
 
-            if (prefab != null)
+            if (prefab == null) throw new Exception("Cant find prefab");
+
+            if (team == UnitTeam.Player)
             {
-                if (team == UnitTeam.Player)
-                {
-                    BaseUnit newUnit = Instantiate(prefab, playerZone);
-                    newUnit.Setup(spawnNode, unit, team);
-                    DictionaryTeamBattle.AddUnit(team, newUnit);
-                }
-                else if (team == UnitTeam.Enemy)
-                {
-                    BaseUnit unitEnemy = Instantiate(prefab, enemyZone);
-                    unitEnemy.Setup(spawnNode, unit, team);
-                    DictionaryTeamBattle.AddUnit(team, unitEnemy);
-                }
-                else throw new Exception("Card Unit dont have Team");
+                InstantiatePlayerUnit(unit, spawnNode, team, prefab);
             }
-            else throw new Exception("Card Unit dont have Unit prefab");
+            else if (team == UnitTeam.Enemy)
+            {
+                InstantiateEnemy(unit, spawnNode, team, prefab);
+            }
+        }
+
+        private void InstantiateEnemy(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab)
+        {
+            BaseUnit unitEnemy = Instantiate(prefab, enemyZone);
+            unitEnemy.Setup(spawnNode, unit, team);
+            DictionaryTeamBattle.AddUnit(team, unitEnemy);
+        }
+
+        private void InstantiatePlayerUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab)
+        {
+            BaseUnit newUnit = Instantiate(prefab, playerZone);
+            newUnit.Setup(spawnNode, unit, team);
+            DictionaryTeamBattle.AddUnit(team, newUnit);
+            _player.IncreaseMember();
         }
 
         private BaseUnit GetUnit(BaseUnitID ID)

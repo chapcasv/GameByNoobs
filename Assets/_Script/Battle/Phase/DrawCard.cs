@@ -21,8 +21,7 @@ namespace PH
         
         protected override void OnStartPhase()
         {
-            PhaseSystem.LocalPlayer.DrawCard();
-
+            PhaseSystem.PlayerDrawCard();
 
             //Wait for animation draw Card
             forceExit = true;
