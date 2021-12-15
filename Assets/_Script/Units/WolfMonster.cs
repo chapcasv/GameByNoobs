@@ -13,14 +13,14 @@ namespace PH
 
             if (!HasEnemy)
             {
-                currentTarget = FindTarget.GetCurrentTarget();
+                currentTarget = Find.CurrentTarget();
             }
 
-            if (Attack.IsInRange(currentTarget) && Move.IsMoving)
+            if (Atk.IsInRange(currentTarget) && Move.IsMoving)
             {
-                if(Attack.CanAtk)
+                if(Atk.CanAtk)
                 {
-                    AttackTarget();
+                    Attack();
                 }
             }
             else

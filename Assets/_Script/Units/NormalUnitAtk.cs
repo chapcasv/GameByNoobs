@@ -6,7 +6,7 @@ namespace PH
 {
     public class NormalUnitAtk : UnitAttack
     {
-        public override void Atk(BaseUnit currentTarget)
+        public override void Attack(BaseUnit currentTarget)
         {
             if (!canAttack)
                 return;
@@ -16,6 +16,19 @@ namespace PH
             currentTarget.TakeDamage(str);
             StartCoroutine(WaitCoroutine());
 
+        }
+
+        public override bool IsInRange(BaseUnit currentTarget)
+        {
+            if (currentTarget == null) return false; //Target Dead
+
+            float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
+
+            if (distance <= range)
+            {
+                return true;
+            }
+            else return false;
         }
 
         IEnumerator WaitCoroutine()

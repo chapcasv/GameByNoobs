@@ -9,9 +9,9 @@ namespace PH
 {
     public class BaseUnit : MonoBehaviour
     {
-        protected UnitFindTarget FindTarget;
+        protected UnitFinding Find;
         protected UnitMove Move;
-        protected UnitAttack Attack;
+        protected UnitAttack Atk;
         
         protected IUnitHealth Health;
         protected IUnitSkillPoint SkillPoint;
@@ -23,7 +23,7 @@ namespace PH
         protected Node destination;
         protected bool HasEnemy => currentTarget != null;      
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
-        public bool Dead { get; set ;}
+        public bool IsLive { get => Health.IsLive;}
         public bool InTeamFight {set => inTeamFight = value; }
 
         public virtual void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
@@ -40,20 +40,21 @@ namespace PH
             SetUpFindTarget(team);
         }
 
-        private void SetUpFindTarget(UnitTeam team) => FindTarget = new NormalFindTarget(team, transform);
+        private void SetUpFindTarget(UnitTeam team) => Find = new NormalFinding(team, transform);
 
         private void SetUpMove(CardUnit unit) => Move = new NormalUnitMove(unit.MoveSpeed, transform);
 
         private void SetUpAttack(CardUnit unit)
         {
-            Attack = gameObject.AddComponent(typeof(NormalUnitAtk)) as NormalUnitAtk;
-            Attack.Constructor(unit.AtkSpeed, unit.Range, unit.Str);
+            Atk = gameObject.AddComponent(typeof(NormalUnitAtk)) as NormalUnitAtk;
+            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Str);
         }
 
         protected virtual void SetUpHealth(int maxHP,UnitTeam myTeam) 
         {
             Health = GetComponent<IUnitHealth>();
             Health.SetHP(maxHP, myTeam);
+            Health.OnDie += Die;
         }
 
         protected virtual void SetUpSkillPoint(int maxSP, int startSP, int spRegen)
@@ -68,53 +69,37 @@ namespace PH
                 return;
 
             if (!Move.IsMoving)
-            {
-                destination = null;
-                List<Node> candidates = GridBoard.GetNodesCloseTo(currentTarget.CurrentNode);
-                candidates = candidates.OrderBy(x => Vector3.Distance(x.WorldPosition, this.transform.position)).ToList();
-                for (int i = 0; i < candidates.Count; i++)
-                {
-                    if (!candidates[i].IsOccupied)
-                    {
-                        destination = candidates[i];
-                        break;
-                    }
-                }
-                if (destination == null)
-                    return;
-
-                var path = GridBoard.GetPath(CurrentNode, destination);
-                if (path == null && path.Count >= 1)
-                    return;
-
-                if (path[1].IsOccupied)
-                    return;
-
-                path[1].SetOccupied(true);
-                destination = path[1];
+            {    
+                destination = Find.Destination(currentNode);
             }
 
             Move.IsMoving = !Move.MoveTowards(destination);
+
             if (!Move.IsMoving)
             {
                 //Free previous node
                 CurrentNode.SetOccupied(false);
                 CurrentNode = destination;
             }
-
-            //FindTarget.GetInRange(currentTarget, currentNode, moveSpeed,ref moving);
         }
 
-        public virtual void AttackTarget()
+        public virtual void Attack()
         {
-            Attack.Atk(currentTarget);
+            Atk.Attack(currentTarget);
             SkillPoint.IncreaseSP();
         }
 
         public virtual void TakeDamage(int amount)
         {
-            Health.TakeDamage(amount, this);
+            Health.TakeDamage(amount);
             SkillPoint.IncreaseSP();
+        }
+
+        protected virtual void Die()
+        {
+            DictionaryTeamBattle.RemoveUnit(_myTeam, this);
+            currentNode.SetOccupied(false);
+            Destroy(gameObject);
         }
  
     }

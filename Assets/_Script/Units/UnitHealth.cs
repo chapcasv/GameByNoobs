@@ -12,7 +12,7 @@ namespace PH
         [SerializeField] Image HpBar;
 
         public event Action<float> OnTakeDamage;
-        public event Action<BaseUnit> OnDie;
+        public event Action OnDie;
         public event Action<float> OnHealthUp;
 
         private readonly Color32 COLOR_PLAYER_TEAM = new Color32(74, 243, 101, 255); //Green
@@ -20,6 +20,8 @@ namespace PH
 
         private int maxHP;
         private int currentHP;
+
+        public bool IsLive { get; set; }
 
         public void HealthUp(int amount)
         {
@@ -32,29 +34,30 @@ namespace PH
         {
             maxHP = value;
             currentHP = maxHP;
+            IsLive = true;
 
             if (team == UnitTeam.Enemy) HpBar.color = COLOR_ENEMY;
             else HpBar.color = COLOR_PLAYER_TEAM;
         }
 
-        public void TakeDamage(int amount, BaseUnit unit)
+        public void TakeDamage(int amount)
         {
+            if (!IsLive) return;
+
             currentHP -= amount;
 
             float currentHPPct = (float)currentHP / maxHP;
             OnTakeDamage?.Invoke(currentHPPct);
 
-            if (currentHP <= 0 && !unit.Dead)
+            if (currentHP <= 0 && IsLive)
             {
-                unit.Dead = true;
-                unit.CurrentNode.SetOccupied(false);
-                Die(unit);
+                Die();
             }
         }
 
-        public void Die(BaseUnit unit)
-        {
-            OnDie?.Invoke(unit);
+        public void Die()
+        {   
+            OnDie?.Invoke();
         }
     }
 }

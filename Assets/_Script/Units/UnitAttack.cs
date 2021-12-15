@@ -6,7 +6,7 @@ namespace PH
 {
     public abstract class UnitAttack : MonoBehaviour
     {
-        protected float attackSpeed; //Attacks per second
+        protected float attackSpeed;
         protected float range;
         protected int str;
         protected bool canAttack;
@@ -21,22 +21,11 @@ namespace PH
             canAttack = true;
         }
 
-        public bool IsInRange(BaseUnit currentTarget) 
-        {
-            float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
-            if (currentTarget != null && distance <= range)
-            {
-                return true;
-            }
-            else return false;
-        }
+        public abstract bool IsInRange(BaseUnit currentTarget);
 
-        public abstract void Atk(BaseUnit currentTarget);
+        public abstract void Attack(BaseUnit currentTarget);
 
-        private float CaculatorRangeAtk(float range)
-        {
-            return range * 6 + 2.5f; //CellSize
-        }
+        private float CaculatorRangeAtk(float range) => range * 6 + 2.5f; //CellSize
     }
 }
 
