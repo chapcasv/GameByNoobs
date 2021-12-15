@@ -4,8 +4,7 @@ namespace PH
 {
     public interface IMana
     {
-        event Action<float> OnManaIncrease;
-        event Action OnCastSkill;
+        event Action<float> OnManaValueChange;
         bool IsFullMana();
 
         void CastSkill();

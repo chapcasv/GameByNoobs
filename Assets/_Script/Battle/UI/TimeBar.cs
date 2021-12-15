@@ -39,13 +39,13 @@ namespace PH
             sliderTime.value = sliderTime.maxValue;
             float smooth = sliderTime.maxValue / smoothOffset;
 
-            while (sliderTime.value > sliderTime.minValue && StartCardSystem.IsStartCardPhase)
+            while (sliderTime.value > sliderTime.minValue && StartCardPhase.IsStartCardPhase)
             {
                 sliderTime.value -= smooth;
 
                 yield return new WaitForSeconds(smooth);
             }
-            StartCardSystem.IsStartCardPhase = false;
+            StartCardPhase.IsStartCardPhase = false;
         }
 
         public IEnumerator TimeBattlePhase(float maxTime)

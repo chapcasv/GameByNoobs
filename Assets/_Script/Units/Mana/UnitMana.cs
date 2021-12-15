@@ -8,8 +8,7 @@ namespace PH
 {
     public class UnitMana : MonoBehaviour, IMana
     {
-        public event Action<float> OnManaIncrease;
-        public event Action OnCastSkill;
+        public event Action<float> OnManaValueChange;
 
         private int maxMana;
         private int manaCurrent;
@@ -24,19 +23,21 @@ namespace PH
             isFullMana = false;
 
             float currentManaPct = (float)manaCurrent / this.maxMana;
-            OnManaIncrease?.Invoke(currentManaPct);
+            OnManaValueChange?.Invoke(currentManaPct);
         }
 
         public void CastSkill()
         {
             manaCurrent = 0;
+            isFullMana = false;
+            OnManaValueChange?.Invoke(0);
         }
 
         public void IncreaseMana()
         {
             manaCurrent += manaRegen;
             float currentManaPct = (float)manaCurrent / maxMana;
-            OnManaIncrease?.Invoke(currentManaPct);
+            OnManaValueChange?.Invoke(currentManaPct);
 
             if(manaCurrent == maxMana) isFullMana = true;
 

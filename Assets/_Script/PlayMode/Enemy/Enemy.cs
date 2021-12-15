@@ -9,7 +9,7 @@ namespace PH
     {
         [SerializeField] CardUnit enemy;
 
-        [Range(32, 64)]
+        [Range(32, 63)]
         [Tooltip("Position enemy spawn in board")]
         [SerializeField] int pos = 32;
 

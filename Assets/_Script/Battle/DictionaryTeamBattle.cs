@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,9 @@ namespace PH
     {
         private static bool isInit = false;
         private static Dictionary<UnitTeam, List<BaseUnit>> unitOfTeam = new Dictionary<UnitTeam, List<BaseUnit>>();
-        
+
+        public static event Action<UnitTeam> OnTeamDefeat;
+
         public static void Init()
         {
             if (isInit) return;
@@ -22,7 +25,16 @@ namespace PH
 
         public static void AddUnit(UnitTeam team, BaseUnit unit) => unitOfTeam[team].Add(unit);
 
-        public static void RemoveUnit(UnitTeam team, BaseUnit unit) => unitOfTeam[team].Remove(unit);
+        public static void RemoveUnit(UnitTeam team, BaseUnit unit)
+        {
+            unitOfTeam[team].Remove(unit);
+
+            if(unitOfTeam[team].Count == 0)
+            {   
+                //Change phase
+                OnTeamDefeat?.Invoke(team);
+            }
+        }
 
         public static List<BaseUnit> GetUnitsAgainst(UnitTeam unitTeam) 
         { 

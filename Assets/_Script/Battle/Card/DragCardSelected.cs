@@ -7,7 +7,8 @@ namespace PH
     [RequireComponent(typeof(DropCardSelected))]
     public class DragCardSelected : MonoBehaviour
     {
-        [SerializeField] LocalPlayer localPlayer;
+        [SerializeField] CoinSystem coinSystem;
+        [SerializeField] DeckSystem deckSystem;
         [SerializeField] ElementInt cardCost;
 
         private DropCardSelected _drop;
@@ -24,7 +25,7 @@ namespace PH
             _drop = GetComponent<DropCardSelected>();
             _transform = GetComponent<Transform>();
             _cardViz = GetComponent<CardSelectedVisual>();
-            _drop.Player = localPlayer;
+            _drop.CoinSystem = coinSystem;
             gameObject.SetActive(false);
         }
 
@@ -65,7 +66,7 @@ namespace PH
         private void ReLoadHandZone()
         {
             cache.Card = currentCard;
-            cache.OnDrop(localPlayer);
+            cache.OnDrop(deckSystem);
             gameObject.SetActive(false);
         }
 

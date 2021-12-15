@@ -12,7 +12,7 @@ namespace PH
         private void Awake()
         {
             var IMana = GetComponentInParent<IMana>();
-            IMana.OnManaIncrease += OnManaChange;
+            IMana.OnManaValueChange += OnManaChange;
         }
 
         private void OnManaChange(float pct)

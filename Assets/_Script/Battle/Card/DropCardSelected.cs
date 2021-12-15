@@ -9,9 +9,9 @@ namespace PH
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask mask;
         private Camera _cam;
-        private LocalPlayer _player;
+        private CoinSystem _coinSystem;
 
-        public LocalPlayer Player {set => _player = value; }
+        public CoinSystem CoinSystem {set => _coinSystem = value; }
 
         private void Start()
         {
@@ -44,10 +44,11 @@ namespace PH
 
         private bool EnoughCoin(int cardCost)
         {
-            int coinAfterSub = _player.GetCoin - cardCost;
+            int coinAfterSub = _coinSystem.GetCoin() - cardCost;
+
             if (coinAfterSub >= 0)
             {
-                _player.SetCoin(coinAfterSub);
+                _coinSystem.Sub(cardCost);
                 return true;
             }
             else return false;

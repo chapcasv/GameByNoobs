@@ -22,8 +22,8 @@ namespace PH
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
-        private LocalPlayer _player;
-        public LocalPlayer Player { set => _player = value; }
+        private MemberSystem _player;
+        public MemberSystem Player { set => _player = value; }
 
         private void Awake()
         {

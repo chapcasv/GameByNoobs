@@ -12,14 +12,20 @@ namespace PH
     public class BattleUIManager : MonoBehaviour
     {
         [SerializeField] PVE_Raid currentRaid;
-        [SerializeField] LocalPlayer player;
+        [SerializeField] LifeSystem lifeSystem;
+        [SerializeField] WaveSystem wavesSystem;
+        [SerializeField] CoinSystem coinSystem;
+        [SerializeField] MemberSystem player;
 
-        [Header("BattleInfo")]
+        [Header("Player Info")]
         [SerializeField] RectTransform battleInfo;
         [SerializeField] TextMeshProUGUI memberAmountText;
         [SerializeField] TextMeshProUGUI coinText;
         [SerializeField] TextMeshProUGUI playerLifeText;
+
+        [Header("Enemy Info")]
         [SerializeField] TextMeshProUGUI waveText;
+        [SerializeField] TextMeshProUGUI enemyLifeText;
 
         private const int maxMemberAmount = 9;
         private int _maxWave;
@@ -28,6 +34,7 @@ namespace PH
         {
             AddListener();
             _maxWave = currentRaid.Waves.Length;
+
         }
 
         void Start()
@@ -48,12 +55,19 @@ namespace PH
             DisplayMemberAmount();
             DisplayerCoin();
             DisplayPlayerLife();
+            DisplayEnemyLife();
         }
         private void DisplayWaves()
-        {   
+        {
             ///Index start is 0
-            int currentWave = PhaseSystem.WaveIndex;
-            waveText.text = $"{currentWave + 1} / {_maxWave}";
+            int currentWaveIndex = wavesSystem.GetCurrentIndex();
+            waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
+        }
+
+        private void DisplayEnemyLife()
+        {   
+            int life = lifeSystem.GetEnemyLife();
+            enemyLifeText.text = life.ToString();
         }
 
         private void DisplayMemberAmount()
@@ -62,16 +76,23 @@ namespace PH
             memberAmountText.text = amount.ToString() + $"/{maxMemberAmount}";
         }
 
-        private void DisplayPlayerLife() => playerLifeText.text = player.GetLife.ToString();
+        private void DisplayPlayerLife() 
+        {
+            int life = lifeSystem.GetPlayerLife();
+            playerLifeText.text = life.ToString();
+        } 
 
-        private void DisplayerCoin() => coinText.text = player.GetCoin.ToString();
+        private void DisplayerCoin() => coinText.text = coinSystem.GetCoin().ToString();
 
         private void AddListener()
         {
-            StartCardSystem.OnComplete += MoveBattleInfo;
+            StartCardPhase.OnComplete += MoveBattleInfo;
             player.OnMemberAmountChange += DisplayMemberAmount;
-            player.OnCoinNumberChange += DisplayerCoin;
-            player.OnLifeValueChange += DisplayPlayerLife;
+
+            lifeSystem.OnEnemyLifeChange += DisplayEnemyLife;
+            lifeSystem.OnPlayerLifeChange += DisplayPlayerLife;
+            wavesSystem.OnWaveIndexChange += DisplayWaves;
+            coinSystem.OnCoinValueChange += DisplayerCoin;
         }
     }
 }

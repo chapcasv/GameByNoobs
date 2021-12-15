@@ -19,7 +19,7 @@ namespace PH
             gameObject.SetActive(false);
         }
 
-        public void OnDrop(LocalPlayer localPlayer) => localPlayer.DropCard(Card);   
+        public void OnDrop(DeckSystem deckSystem) => deckSystem.DropCard(Card);   
 
         public void OnPointerDown(PointerEventData eventData)
         {

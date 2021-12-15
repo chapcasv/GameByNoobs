@@ -9,9 +9,11 @@ namespace PH
 {
     public class BaseUnit : MonoBehaviour
     {
+        [SerializeField] protected UnitSkill Skill;
         protected UnitFinding Find;
         protected UnitMove Move;
         protected UnitAttack Atk;
+        protected UnitAtkLife Life;
 
         protected IHealth Health;
         protected IMana Mana;
@@ -24,7 +26,7 @@ namespace PH
 
         protected bool HasEnemy => currentTarget != null;
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
-        public bool IsLive { get => Health.IsLive; }
+        //public bool IsLive { get => Health.IsLive; }
         public bool InTeamFight { set => inTeamFight = value; }
 
         protected virtual void Update()
@@ -47,13 +49,21 @@ namespace PH
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
 
+            SetUpFinding(team);
+            SetUpAtkLife(unit, team);
             SetUpHealthSystem(unit, team);
             SetUpManaSystem(unit);
             SetUpAttack(unit);
+            SetUpSkill(unit);
             SetUpMove(unit);
-            SetUpFinding(team);
         }
 
+        protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife, team);
+
+        protected virtual void SetUpSkill(CardUnit unit)
+        {
+            Skill.SetUp(unit.Damage);
+        }
         protected virtual void SetUpFinding(UnitTeam team) => Find = new NormalFinding(team, transform);
 
         protected virtual void SetUpMove(CardUnit unit) => Move = new NormalUnitMove(unit.MoveSpeed, transform);
@@ -98,23 +108,28 @@ namespace PH
         }
 
 
+        public void AtkLifeTarget(LifeSystem targetLife)
+        {
+            Life.AttackLife(targetLife);
+        }
+
         protected virtual void AttackInRange()
         {
-            if (Atk.IsInRange(currentTarget) && Move.IsMoving)
+            if (Atk.IsInRange(currentTarget) && Move.IsMoving)//Need check
             {
                 if (Atk.CanAtk)
                 {
                     Atk.Attack(currentTarget);
                     Mana.IncreaseMana();
                 }
-                
             }
             else GetInRange();
         }
 
         protected virtual void CastSkillInRange()
         {
-
+            Skill.CastSkill(currentTarget);
+            Mana.CastSkill();
         }
 
         public virtual void TakeDamage(int amount)

@@ -12,18 +12,24 @@ namespace PH
         [SerializeField] int hp;
         [SerializeField] int manaMax;
         [SerializeField] int manaStart;
+
         [Range(0, 10)]
         [SerializeField] int manaRegen = 5;
+
         [SerializeField] int magicResist;
         [SerializeField] int damage;
         [SerializeField] int armor;
         [Range(0.50f,1f)]
         [SerializeField] float atkSpeed;
+
         [Range(4, 8)]
         [SerializeField] float moveSpeed = 4;
+
         [Range(1, 4)]
         [SerializeField] int range;
         private int critRate = 25;
+        [Range(1, 5)]
+        [SerializeField] int dmgLife = 1;
         [SerializeField] BaseUnitID unitID;
         #region Properties
         public int Range { get => range; }
@@ -38,6 +44,7 @@ namespace PH
         public int Armor { get => armor;}
         public int MagicResist { get => magicResist;}
         public int CritRate { get => critRate;}
+        public int DmgLife { get => dmgLife;}
         #endregion
 
         public override bool CanDropBoard(Node dropNode)

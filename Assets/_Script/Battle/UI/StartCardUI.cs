@@ -7,17 +7,17 @@ using System;
 
 namespace PH
 {
-    [RequireComponent(typeof(StartCardSystem))]
+    [RequireComponent(typeof(StartCardPhase))]
     public class StartCardUI : MonoBehaviour
     {
         [SerializeField] TimeBar timeBar;
         [SerializeField] List<Transform> startCardSlot;
         private float _time;
-        private StartCardSystem _startCardSystem;
+        private StartCardPhase _startCardSystem;
 
         private void Awake()
         {
-            _startCardSystem = GetComponent<StartCardSystem>();
+            _startCardSystem = GetComponent<StartCardPhase>();
             _time = _startCardSystem.Time;
             _startCardSystem.OnStartCard += LoadStartCard;
             _startCardSystem.OnStartCard += RunTimeBar;

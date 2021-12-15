@@ -9,12 +9,19 @@ namespace PH
     {
         public override bool IsComplete()
         {
-            
+            if (forceExit)
+            {
+                DictionaryTeamBattle.OnTeamDefeat -= ChangePhase;
+                forceExit = false;
+                return true;
+            }
             return false;
         }
 
         protected override void OnStartPhase()
         {
+            DictionaryTeamBattle.OnTeamDefeat += ChangePhase;
+
             var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
             foreach (var unit in allUnitPlayer)
             {
@@ -26,8 +33,9 @@ namespace PH
             {
                 enemy.InTeamFight = true;
             }
-            
         }
+
+        private void ChangePhase(UnitTeam team) => forceExit = true;
     }
 }
 

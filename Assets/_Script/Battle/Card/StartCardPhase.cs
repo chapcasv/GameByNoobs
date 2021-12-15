@@ -8,13 +8,13 @@ using UnityEngine.UI;
 namespace PH
 {
     
-    public class StartCardSystem : MonoBehaviour
+    public class StartCardPhase : MonoBehaviour
     {
         public static bool IsStartCardPhase;
         public static event Action OnComplete;
         public event Action OnStartCard;
         public event Action OnReplace;
-        [SerializeField] LocalPlayer player;
+        [SerializeField] DeckSystem deckSystem;
         [SerializeField] Button btnComplete;
 
         private const float time = 20f;
@@ -23,6 +23,7 @@ namespace PH
 
         private void Awake()
         {
+            deckSystem.InitializePlayerDeck();
             IsStartCardPhase = true;
             btnComplete.onClick.AddListener(Complete);
         }
@@ -39,7 +40,7 @@ namespace PH
             //Player start with 4 card
             for (int i = 0; i < 4; i++)
             {
-                player.DrawStartCard();
+                deckSystem.DrawStartCard();
             }
         }
         
@@ -47,9 +48,9 @@ namespace PH
         {
             Card[] startCards = new Card[4];
 
-            for (int i = 0; i < player.CardsInHand.Count; i++)
+            for (int i = 0; i < deckSystem.CardsInHand.Count; i++)
             {
-                startCards[i] = player.CardsInHand[i];
+                startCards[i] = deckSystem.CardsInHand[i];
             }
             return startCards;
         }
@@ -58,7 +59,7 @@ namespace PH
         public void Replace(Transform slot)
         {
             int startCardIndex = GetSlotIndex(slot);
-            player.ReplaceCardHand(startCardIndex);
+            deckSystem.ReplaceCardHand(startCardIndex);
             OnReplace?.Invoke();
         }
 

@@ -7,7 +7,7 @@ namespace PH
     public class HandZoneUI : MonoBehaviour
     {
         [SerializeField] GameObject[] cardHand;
-        [SerializeField] LocalPlayer localPlayer;
+        [SerializeField] DeckSystem deckSystem;
 
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
@@ -20,9 +20,9 @@ namespace PH
 
         private void AddListerner()
         {
-            StartCardSystem.OnComplete += LoadHandZone;
-            localPlayer.OnDrawCard += LoadHandZone;
-            localPlayer.OnDropCard += LoadHandZone;
+            StartCardPhase.OnComplete += LoadHandZone;
+            deckSystem.OnDrawCard += LoadHandZone;
+            deckSystem.OnDropCard += LoadHandZone;
         }
 
         private void Init()
@@ -39,8 +39,8 @@ namespace PH
 
         private void LoadHandZone()
         {   
-            SetViz(localPlayer.CardsInHand);
-            SetCardsInstance(localPlayer.CardsInHand);
+            SetViz(deckSystem.CardsInHand);
+            SetCardsInstance(deckSystem.CardsInHand);
             SetActive();
         }
 

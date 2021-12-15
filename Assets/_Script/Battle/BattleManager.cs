@@ -7,19 +7,29 @@ namespace PH
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] LocalPlayer localPlayer;
+        [SerializeField] MemberSystem memberSystem;
         [SerializeField] PVE_Raid currentRaid;
+        [SerializeField] LifeSystem lifeSystem;
+        [SerializeField] WaveSystem wavesSystem;
+        [SerializeField] CoinSystem coinSystem;
+        [SerializeField] DeckSystem deckSystem;
+
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 
 
         private void Awake()
         {
+            lifeSystem.SetData(currentRaid);
+            wavesSystem.SetData(currentRaid);
+            coinSystem.SetData(currentRaid);
+
             _boardSystem = GetComponent<BoardSystem>();
             _phaseSystem = GetComponent<PhaseSystem>();
-            localPlayer.Init(currentRaid.PlayerStartCoin,currentRaid.PlayerLife);
+            memberSystem.Init();
             DictionaryTeamBattle.Init();
         }
+
 
         private void Start()
         {
@@ -27,21 +37,23 @@ namespace PH
         }
 
         private void Setter()
-        {
+        {   
             SetPhaseSystem();
             SetBoardSystem();
         }
 
         private void SetBoardSystem()
         {
-            _boardSystem.Player = localPlayer;
+            _boardSystem.Player = memberSystem;
         }
 
         private void SetPhaseSystem()
         {
-            _phaseSystem.Player = localPlayer;
+            _phaseSystem.Player = memberSystem;
+            _phaseSystem.LifeSystem = lifeSystem;
+            _phaseSystem.WaveSystem = wavesSystem;
             _phaseSystem.BoardSystem = _boardSystem;
-            _phaseSystem.CopyWave(currentRaid.Waves);
+            _phaseSystem.DeckSystem = deckSystem;
         }
     }
 }
