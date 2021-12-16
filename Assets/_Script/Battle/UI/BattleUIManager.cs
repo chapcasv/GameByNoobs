@@ -1,22 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SO;
-using System;
-using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace PH
 {
-
     public class BattleUIManager : MonoBehaviour
     {
-        [SerializeField] PVE_Raid currentRaid;
-        [SerializeField] LifeSystem lifeSystem;
-        [SerializeField] WaveSystem wavesSystem;
-        [SerializeField] CoinSystem coinSystem;
-        [SerializeField] MemberSystem player;
-
         [Header("Player Info")]
         [SerializeField] RectTransform battleInfo;
         [SerializeField] TextMeshProUGUI memberAmountText;
@@ -27,21 +16,37 @@ namespace PH
         [SerializeField] TextMeshProUGUI waveText;
         [SerializeField] TextMeshProUGUI enemyLifeText;
 
+        [Header("Result UI")]
+        [SerializeField] ResultBattleUI resultBattleUI;
+
+        private LifeSystem _lifeSystem;
+        private WaveSystem _wavesSystem;
+        private CoinSystem _coinSystem;
+        private MemberSystem _memberSystem;
+        private ResultSystem _resultBattle;
+
         private const int maxMemberAmount = 9;
         private int _maxWave;
 
         private void Awake()
         {
             AddListener();
-            _maxWave = currentRaid.Waves.Length;
-
         }
 
         void Start()
         {
+            resultBattleUI.Constructor(_resultBattle);
             SetUpBattleInfomation();
         }
 
+        public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS)
+        {
+            _lifeSystem = LS;
+            _wavesSystem = WS;
+            _coinSystem = CS;
+            _memberSystem = MS;
+            _resultBattle = RS;
+        }
 
         private void MoveBattleInfo()
         {
@@ -51,6 +56,7 @@ namespace PH
 
         private void SetUpBattleInfomation()
         {
+            _maxWave = _wavesSystem.GetWavesLength();
             DisplayWaves();
             DisplayMemberAmount();
             DisplayerCoin();
@@ -60,40 +66,45 @@ namespace PH
         private void DisplayWaves()
         {
             ///Index start is 0
-            int currentWaveIndex = wavesSystem.GetCurrentIndex();
+            int currentWaveIndex = _wavesSystem.GetCurrentIndex();
             waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
         }
 
         private void DisplayEnemyLife()
         {   
-            int life = lifeSystem.GetEnemyLife();
+            int life = _lifeSystem.GetEnemyLife();
             enemyLifeText.text = life.ToString();
         }
 
         private void DisplayMemberAmount()
         {
-            int amount = player.GetMemberAmount;
+            int amount = _memberSystem.GetMemberAmount;
             memberAmountText.text = amount.ToString() + $"/{maxMemberAmount}";
         }
 
         private void DisplayPlayerLife() 
         {
-            int life = lifeSystem.GetPlayerLife();
+            int life = _lifeSystem.GetPlayerLife();
             playerLifeText.text = life.ToString();
         } 
 
-        private void DisplayerCoin() => coinText.text = coinSystem.GetCoin().ToString();
+        private void DisplayerCoin() => coinText.text = _coinSystem.GetCoin().ToString();
 
         private void AddListener()
         {
             StartCardPhase.OnComplete += MoveBattleInfo;
-            player.OnMemberAmountChange += DisplayMemberAmount;
+            _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
 
-            lifeSystem.OnEnemyLifeChange += DisplayEnemyLife;
-            lifeSystem.OnPlayerLifeChange += DisplayPlayerLife;
-            wavesSystem.OnWaveIndexChange += DisplayWaves;
-            coinSystem.OnCoinValueChange += DisplayerCoin;
+            _lifeSystem.OnEnemyLifeChange += DisplayEnemyLife;
+            _lifeSystem.OnPlayerLifeChange += DisplayPlayerLife;
+
+            _wavesSystem.OnWaveIndexChange += DisplayWaves;
+
+            _coinSystem.OnCoinValueChange += DisplayerCoin;
+
         }
+
+       
     }
 }
 

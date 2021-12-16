@@ -15,9 +15,8 @@ namespace PH.GraphSystem
         private static readonly float _horizontalEdge = 6f;
         private static readonly float _diagonalEdge = 9f;
         private static bool isInit = false;
-        private static Dictionary<Team, int> _startPositionPerTeam;
 
-        public static Node ConvertPositiontoNode(int Position_in_Data)
+        public static Node IntPositiontoNode(int Position_in_Data)
         {
             foreach (Node node in graph.nodes)
             {
@@ -25,30 +24,6 @@ namespace PH.GraphSystem
                     return node;
             }
             return null;
-        }
-
-
-        public static Node GetFreeNode(Team forteam)
-        {
-            int startIndex = _startPositionPerTeam[forteam];
-            int currentIndex = startIndex;
-
-            while (graph.nodes[currentIndex].IsOccupied)
-            {
-                if (startIndex == 0)
-                {
-                    currentIndex++;
-                    if (currentIndex == graph.nodes.Count)
-                        return null;
-                }
-                else
-                {
-                    currentIndex--;
-                    if (currentIndex == -1)
-                        return null;
-                }
-            }
-            return graph.nodes[currentIndex];
         }
 
         public static Node GetNodeForTile(Tile t)

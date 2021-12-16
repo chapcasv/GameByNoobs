@@ -8,82 +8,48 @@ namespace PH
     public class TimeBar : MonoBehaviour
     {
         [SerializeField] Slider sliderTime;
-
-        private const float transitionOutBattleMode = 2f;
+        [SerializeField] float smooth;
         private const float smoothOffset = 200;
 
-        public void RunTimeBar(float maxTime)
+
+        public IEnumerator TimeBarPhaseLoop(float maxTime)
         {
-            StartCoroutine(TimeBarCoroutine(maxTime));
+            sliderTime.maxValue = maxTime;
+            sliderTime.value = sliderTime.maxValue;
+            smooth = sliderTime.maxValue / smoothOffset;
+            
+            while (sliderTime.value > sliderTime.minValue && PhaseSystem.UseTimeBar && !PhaseSystem.BattleIsEnd)
+            {
+                sliderTime.value -= smooth;
+
+                yield return new WaitForSeconds(smooth);
+            }
+
+            //When Battle End currentPhase is null
+            if(PhaseSystem.CurrentPhase != null)
+            {
+                PhaseSystem.CurrentPhase.forceExit = true;
+            }
+            
         }
 
-        private IEnumerator TimeBarCoroutine(float maxTime)
+
+        public IEnumerator TimeBarStartCard(float maxTime, StartCardUI startCardUI)
         {
             sliderTime.maxValue = maxTime;
             sliderTime.value = sliderTime.maxValue;
             float smooth = sliderTime.maxValue / smoothOffset;
 
-            while (sliderTime.value > sliderTime.minValue)
+            while (sliderTime.value > sliderTime.minValue && StartCardPhase.RunTimeBar)
             {
                 sliderTime.value -= smooth;
 
                 yield return new WaitForSeconds(smooth);
             }
-
+            StartCardPhase.RunTimeBar = false;
+            startCardUI.Complete();
         }
 
-
-        public IEnumerator RunTimeBarStartCard(float maxTime)
-        {
-            sliderTime.maxValue = maxTime;
-            sliderTime.value = sliderTime.maxValue;
-            float smooth = sliderTime.maxValue / smoothOffset;
-
-            while (sliderTime.value > sliderTime.minValue && StartCardPhase.IsStartCardPhase)
-            {
-                sliderTime.value -= smooth;
-
-                yield return new WaitForSeconds(smooth);
-            }
-            StartCardPhase.IsStartCardPhase = false;
-        }
-
-        public IEnumerator TimeBattlePhase(float maxTime)
-        {
-
-            sliderTime.maxValue = maxTime;
-            sliderTime.value = sliderTime.maxValue;
-
-            float smooth = sliderTime.maxValue / 200;
-
-            while (sliderTime.value > sliderTime.minValue)
-            {
-                sliderTime.value -= smooth;
-
-                yield return new WaitForSeconds(smooth);
-            }
-            StartCoroutine(TransitionToOutBattleMode());
-        }
-
-        private IEnumerator TransitionToOutBattleMode()
-        {
-            sliderTime.maxValue = transitionOutBattleMode;
-            sliderTime.value = sliderTime.maxValue;
-
-            float smooth = sliderTime.maxValue / 100;
-
-            while (sliderTime.value > sliderTime.minValue)
-            {
-                sliderTime.value -= smooth;
-                yield return new WaitForSeconds(smooth);
-            }
-            ResetSliderTime();
-        }
-
-        private void ResetSliderTime()
-        {
-            sliderTime.value = sliderTime.maxValue;
-        }
     }
 }
 

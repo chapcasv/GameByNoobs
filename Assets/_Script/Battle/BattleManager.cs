@@ -7,40 +7,51 @@ namespace PH
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] MemberSystem memberSystem;
         [SerializeField] PVE_Raid currentRaid;
+        [SerializeField] BattleUIManager battleUIManager;
+
+        [Header("Battle Systems")]
+        [SerializeField] MemberSystem memberSystem;
         [SerializeField] LifeSystem lifeSystem;
         [SerializeField] WaveSystem wavesSystem;
         [SerializeField] CoinSystem coinSystem;
         [SerializeField] DeckSystem deckSystem;
+        [SerializeField] ResultSystem resultSystem;
 
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 
 
+        /// Constructor Injection
+
         private void Awake()
+        {
+            SetBattleUIManager();
+
+            SetSystemByCurrentRaid();
+
+            _boardSystem = GetComponent<BoardSystem>();
+            SetBoardSystem();
+
+            _phaseSystem = GetComponent<PhaseSystem>();
+            SetPhaseSystem();
+
+            DictionaryTeamBattle.Init();
+        }
+
+        private void SetSystemByCurrentRaid()
         {
             lifeSystem.SetData(currentRaid);
             wavesSystem.SetData(currentRaid);
             coinSystem.SetData(currentRaid);
-
-            _boardSystem = GetComponent<BoardSystem>();
-            _phaseSystem = GetComponent<PhaseSystem>();
-            memberSystem.Init();
-            DictionaryTeamBattle.Init();
+            memberSystem.SetData();
         }
 
-
-        private void Start()
+        private void SetBattleUIManager()
         {
-            Setter();
+            battleUIManager.Constructor(lifeSystem, wavesSystem, coinSystem, memberSystem, resultSystem);
         }
 
-        private void Setter()
-        {   
-            SetPhaseSystem();
-            SetBoardSystem();
-        }
 
         private void SetBoardSystem()
         {
@@ -49,11 +60,7 @@ namespace PH
 
         private void SetPhaseSystem()
         {
-            _phaseSystem.Player = memberSystem;
-            _phaseSystem.LifeSystem = lifeSystem;
-            _phaseSystem.WaveSystem = wavesSystem;
-            _phaseSystem.BoardSystem = _boardSystem;
-            _phaseSystem.DeckSystem = deckSystem;
+            _phaseSystem.Constructor(_boardSystem, lifeSystem, wavesSystem, deckSystem, coinSystem, resultSystem);
         }
     }
 }

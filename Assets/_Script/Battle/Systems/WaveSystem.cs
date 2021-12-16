@@ -13,11 +13,17 @@ namespace PH
 
         public event Action OnWaveIndexChange;
 
+
+        public bool IsLastWave() => _index == (_waves.Length - 1);
         public void IncreaseIndex()
         {
             _index++;
             OnWaveIndexChange?.Invoke();
         }
+
+        public int GetRewardClearWave() => _waves[_index].GoldBonus;
+
+        public int GetWavesLength() => _waves.Length;
 
         public int GetCurrentIndex() => _index;
 

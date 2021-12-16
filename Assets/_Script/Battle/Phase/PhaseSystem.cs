@@ -12,21 +12,32 @@ namespace PH
     {
         public static Phase CurrentPhase { get; private set; }
 
+        public static bool UseTimeBar { get; private set; } = true;
+
+        public static bool BattleIsEnd { get; private set; } = false;
+
         [SerializeField] Phase[] phases;
         [SerializeField] Button btnSkipControlPhase;
+        [SerializeField] TimeBar timeBar;
 
         private int _phaseIndex;
         private WaveSystem _waveSystem;
         private BoardSystem _boardSystem;
-        private MemberSystem _memberSystem;
+        private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
         private LifeSystem _lifeSystem;
+        private ResultSystem _resultSystem;
 
-        public MemberSystem Player { set => _memberSystem = value; }
-        public BoardSystem BoardSystem { set => _boardSystem = value; }
-        public LifeSystem LifeSystem {set => _lifeSystem = value; }
-        public WaveSystem WaveSystem {set => _waveSystem = value; }
-        public DeckSystem DeckSystem {set => _deckSystem = value; }
+        public void Constructor(BoardSystem BS, LifeSystem LS, WaveSystem WS, DeckSystem DS, CoinSystem CS, ResultSystem RS)
+        {
+            _boardSystem = BS;
+            _lifeSystem = LS;
+            _waveSystem = WS;
+            _deckSystem = DS;
+            _coinSystem = CS;
+            _resultSystem = RS;
+        }
+
 
         private void Awake()
         {
@@ -69,7 +80,8 @@ namespace PH
         {
             if (CurrentPhase as PlayerControl)
             {
-                CurrentPhase.forceExit = true;
+                timeBar.StopAllCoroutines();
+                UseTimeBar = false;
             }
         }
 
@@ -80,7 +92,8 @@ namespace PH
                 var allUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
                 foreach (BaseUnit unit in allUnit)
                 {
-                    unit.AtkLifeTarget(_lifeSystem);
+                    int dmg =  unit.GetDamageLife();
+                    _lifeSystem.DescreasePlayerLife(dmg);
                 }
             }
             else
@@ -88,7 +101,8 @@ namespace PH
                 var allUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
                 foreach (BaseUnit unit in allUnit)
                 {
-                    unit.AtkLifeTarget(_lifeSystem);
+                    int dmg = unit.GetDamageLife();
+                    _lifeSystem.DecreaseEnemyLife(dmg);
                 }
             }
         }
@@ -100,25 +114,45 @@ namespace PH
             SetPhase(phases[_phaseIndex]);
         }
 
-        public bool IsEndBattle()
-        {
-            if (_lifeSystem.PlayerLifeIsZero())
-            {
-                return true;
-            }
-            if (_lifeSystem.EnemyLifeIsZero())
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void IncreaseCurrentWaveIndex() => _waveSystem.IncreaseIndex();
+        public void PlayerDrawCard() => _deckSystem.DrawCard();
 
         public void SpawnEnemy() => _boardSystem.SpawnEnemy(_waveSystem.GetCurrentWave());
 
-        public void PlayerDrawCard() => _deckSystem.DrawCard();
+        public bool PlayerLifeIsZero() => _lifeSystem.PlayerLifeIsZero();
 
+        public bool EnemyLifeIsZero() => _lifeSystem.EnemyLifeIsZero();
+
+        public void RewardClearWave()
+        {
+            int coin = _waveSystem.GetRewardClearWave();
+            _coinSystem.Add(coin);
+        }
+        public void IncreaseWaveIndex() => _waveSystem.IncreaseIndex();
+
+        public bool IsLastWave() => _waveSystem.IsLastWave();
+
+        public void PlayerVictory()
+        {
+            BattleIsEnd = true;
+            CurrentPhase = null;
+            _resultSystem.PlayerVictory();
+        }
+
+        public void PlayerDefeated()
+        {
+            BattleIsEnd = true;
+            CurrentPhase = null;
+            _resultSystem.PlayerDefeated();
+        }
+
+        public void StopTimeBar() => UseTimeBar = false;
+
+        public void RunTimeBar(float maxTime)
+        {
+            UseTimeBar = true;
+            timeBar.StopAllCoroutines();
+            StartCoroutine(timeBar.TimeBarPhaseLoop(maxTime));
+        }
        
     }
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4692b9af83940f1489aa0312a09b944d, type: 3}
   m_Name: Wave2_Gun
   m_EditorClassIdentifier: 
-  enemies: []
-  GoldBonus: 0
+  enemies:
+  - {fileID: 11400000, guid: c7a359f5e567d964bb37a3b856ec061d, type: 2}
+  GoldBonus: 17

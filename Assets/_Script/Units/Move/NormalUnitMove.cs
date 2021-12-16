@@ -13,6 +13,8 @@ namespace PH
 
         public override bool MoveTowards(Node nextNode)
         {
+            if (nextNode == null) return false;
+
             Vector3 direction = (nextNode.WorldPosition - myTransform.position);
             if (direction.sqrMagnitude <= 0.005f)
             {

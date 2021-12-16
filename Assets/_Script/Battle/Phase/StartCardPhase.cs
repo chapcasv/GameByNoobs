@@ -10,7 +10,7 @@ namespace PH
     
     public class StartCardPhase : MonoBehaviour
     {
-        public static bool IsStartCardPhase;
+        public static bool RunTimeBar;
         public static event Action OnComplete;
         public event Action OnStartCard;
         public event Action OnReplace;
@@ -24,12 +24,12 @@ namespace PH
         private void Awake()
         {
             deckSystem.InitializePlayerDeck();
-            IsStartCardPhase = true;
-            btnComplete.onClick.AddListener(Complete);
+            btnComplete.onClick.AddListener(StopTimeBar);
         }
 
         private void Start()
         {
+            RunTimeBar = true;
             DrawStartCard();
             OnStartCard?.Invoke();
         }
@@ -65,9 +65,10 @@ namespace PH
 
         private int GetSlotIndex(Transform slot) => slot.GetSiblingIndex();
 
-        private void Complete()
+        private void StopTimeBar() => RunTimeBar = false;
+
+        public void Complete()
         {
-            IsStartCardPhase = false;
             OnComplete?.Invoke();
             Hiden();
         }

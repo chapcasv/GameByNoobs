@@ -20,10 +20,29 @@ namespace PH
         protected override void OnStartPhase()
         {
             PhaseSystem.SpawnEnemy();
-            forceExit = true;
+            PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
+
+            EnemyCacheNode();
+            PlayerUnitCacheNode();
         }
 
-        
+        private void EnemyCacheNode()
+        {
+            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
+            foreach (var e in allEnemies)
+            {
+                DictionaryTeamBattle.CacheNode(e);
+            }
+        }
+
+        private void PlayerUnitCacheNode()
+        {
+            var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+            foreach (var e in allUnits)
+            {
+                DictionaryTeamBattle.CacheNode(e);
+            }
+        }
     }
 }
 

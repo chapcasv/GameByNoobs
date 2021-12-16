@@ -12,6 +12,9 @@ namespace PH
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!(PhaseSystem.CurrentPhase as PlayerControl)) 
+                return;
+
             cardSeleted.CurrentCard = Card;
             this.Card = null;
             cardSeleted.CardInstanceCache = this;

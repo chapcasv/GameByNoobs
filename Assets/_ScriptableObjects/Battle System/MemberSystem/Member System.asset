@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2efb8d3279c5b4785559d703c2e15d, type: 3}
-  m_Name: Before Team Fight
+  m_Script: {fileID: 11500000, guid: c21757f9c8824844abdb9e56a446a7d8, type: 3}
+  m_Name: Member System
   m_EditorClassIdentifier: 
-  maxTime: 2
-  forceExit: 0
+  memberAmount:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 77c8c06f2cad92044acd7d2a26726853, type: 2}

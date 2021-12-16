@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PH.GraphSystem;
 
 
 namespace PH
@@ -10,6 +11,7 @@ namespace PH
     {
         private static bool isInit = false;
         private static Dictionary<UnitTeam, List<BaseUnit>> unitOfTeam = new Dictionary<UnitTeam, List<BaseUnit>>();
+        private static Dictionary<BaseUnit, int> dictionaryNodeCache = new Dictionary<BaseUnit, int>();
 
         public static event Action<UnitTeam> OnTeamDefeat;
 
@@ -20,6 +22,40 @@ namespace PH
             unitOfTeam.Add(UnitTeam.Player, new List<BaseUnit>());
             unitOfTeam.Add(UnitTeam.Enemy, new List<BaseUnit>());
         }
+
+        public static void CacheNode(BaseUnit unit)
+        {
+            if (dictionaryNodeCache.ContainsKey(unit))
+            {   
+                //update Pos
+                dictionaryNodeCache[unit] = unit.CurrentNode.Index;
+            }
+            else
+            {   
+                dictionaryNodeCache.Add(unit, unit.CurrentNode.Index);
+            }
+ 
+        }
+
+        public static void RemoveCacheNode(BaseUnit unit)
+        {
+            if (dictionaryNodeCache.ContainsKey(unit))
+            {
+                dictionaryNodeCache.Remove(unit);
+            }
+        }
+
+        public static int GetCachePos(BaseUnit unit)
+        {
+            if (dictionaryNodeCache.ContainsKey(unit))
+            {
+                return dictionaryNodeCache[unit];
+            }
+            throw new Exception("Dont have key: unit in dictionary");
+        }
+
+
+
 
         public static List<BaseUnit> GetAllUnits(UnitTeam team) => unitOfTeam[team];
 

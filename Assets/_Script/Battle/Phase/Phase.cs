@@ -8,6 +8,7 @@ namespace PH
     public abstract class Phase : ScriptableObject
     {   
         [NonSerialized] protected bool isInit = false;
+        [SerializeField] protected float maxTime;
 
         protected PhaseSystem PhaseSystem;
 

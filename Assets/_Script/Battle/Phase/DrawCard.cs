@@ -22,9 +22,7 @@ namespace PH
         protected override void OnStartPhase()
         {
             PhaseSystem.PlayerDrawCard();
-
-            //Wait for animation draw Card
-            forceExit = true;
+            PhaseSystem.RunTimeBar(maxTime); //Anim draw Card
         }
   
     }

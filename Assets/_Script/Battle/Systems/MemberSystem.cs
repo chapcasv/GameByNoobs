@@ -15,7 +15,7 @@ namespace PH
         [NonSerialized] bool _isInit = false;
         public int GetMemberAmount => memberAmount.Value;
 
-        public void Init()
+        public void SetData()
         {
             if (_isInit) return;
 

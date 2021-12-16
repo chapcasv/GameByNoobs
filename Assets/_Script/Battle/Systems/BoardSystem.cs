@@ -36,7 +36,7 @@ namespace PH
 
             for (int i = 0; i < enemies.Length; i++)
             {
-                Node node = GridBoard.ConvertPositiontoNode(enemies[i].Pos);
+                Node node = GridBoard.IntPositiontoNode(enemies[i].Pos);
                 SpawnUnit(enemies[i].GetEnemy, node, UnitTeam.Enemy);
             }
         }

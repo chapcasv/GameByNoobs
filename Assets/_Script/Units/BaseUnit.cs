@@ -28,6 +28,7 @@ namespace PH
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
         //public bool IsLive { get => Health.IsLive; }
         public bool InTeamFight { set => inTeamFight = value; }
+        public UnitTeam GetTeam() => _myTeam;
 
         protected virtual void Update()
         {
@@ -58,7 +59,7 @@ namespace PH
             SetUpMove(unit);
         }
 
-        protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife, team);
+        protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife);
 
         protected virtual void SetUpSkill(CardUnit unit)
         {
@@ -108,14 +109,14 @@ namespace PH
         }
 
 
-        public void AtkLifeTarget(LifeSystem targetLife)
+        public int GetDamageLife()
         {
-            Life.AttackLife(targetLife);
+            return Life.GetDamageLife();
         }
 
         protected virtual void AttackInRange()
         {
-            if (Atk.IsInRange(currentTarget) && Move.IsMoving)//Need check
+            if (Atk.IsInRange(currentTarget) && !Move.IsMoving)
             {
                 if (Atk.CanAtk)
                 {
@@ -141,6 +142,7 @@ namespace PH
         protected virtual void Die()
         {
             DictionaryTeamBattle.RemoveUnit(_myTeam, this);
+            DictionaryTeamBattle.RemoveCacheNode(this);
             currentNode.SetOccupied(false);
             Destroy(gameObject);
         }

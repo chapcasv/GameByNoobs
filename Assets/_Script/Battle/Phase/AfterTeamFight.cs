@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PH.GraphSystem;
 
 namespace PH
 {
@@ -19,18 +20,64 @@ namespace PH
 
         protected override void OnStartPhase()
         {
-            Debug.Log("After Team Fight");
-            if (PhaseSystem.IsEndBattle())
-            {
+            PhaseSystem.RunTimeBar(maxTime);
 
-            }
-            else 
+            if (PhaseSystem.PlayerLifeIsZero())
             {
-                PhaseSystem.IncreaseCurrentWaveIndex();
-                forceExit = true;
+                PhaseSystem.PlayerDefeated();
             }
-            
+            else if (PhaseSystem.EnemyLifeIsZero())
+            {
+                PhaseSystem.PlayerVictory();
+            }
+            else if (PhaseSystem.IsLastWave())
+            {
+                PhaseSystem.PlayerDefeated();
+            }
+            else
+            {   
+                //Continue phase
+                ReLoadPlayerUnit();
+                ReLoadEnemy();
+                PhaseSystem.RewardClearWave();
+                PhaseSystem.IncreaseWaveIndex();
+            }
+
         }
+
+        private void ReLoadEnemy()
+        {
+            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
+
+            foreach (var enemy in allEnemies)
+            {
+                SetInTeamFight(enemy);
+                ReLoadPosition(enemy);
+            }
+        }
+
+        private  void ReLoadPlayerUnit()
+        {
+            var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+
+            foreach (var unit in allUnitPlayer)
+            {
+                SetInTeamFight(unit);
+                ReLoadPosition(unit);
+            }
+        }
+
+        private void ReLoadPosition(BaseUnit unit)
+        {
+            int cachePos = DictionaryTeamBattle.GetCachePos(unit);
+            Node cacheNode = GridBoard.IntPositiontoNode(cachePos);
+            unit.CurrentNode.SetOccupied(false);
+            unit.CurrentNode = cacheNode;
+            unit.transform.position = unit.CurrentNode.WorldPosition;
+            unit.CurrentNode.SetOccupied(true);
+        }
+
+        private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }
 

@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &12321233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -307,13 +307,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c02884c982432d4a93ff418b2c347af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRaid: {fileID: 11400000, guid: 6ca79e97dfff26a40953d30ee1fbe4a4, type: 2}
-  player: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
+  lifeSystem: {fileID: 11400000, guid: 0d8526fd274bbf74ea75ebbcab902a29, type: 2}
+  wavesSystem: {fileID: 11400000, guid: abced31fb3556b644b7ea3191d35579e, type: 2}
+  coinSystem: {fileID: 11400000, guid: 09b39ffa66cf56d458b0f525f76193d2, type: 2}
+  memberSystem: {fileID: 11400000, guid: 75f3d3d235697e542b975fb56e11baed, type: 2}
   battleInfo: {fileID: 209047267}
   memberAmountText: {fileID: 1910830631}
   coinText: {fileID: 601868402}
   playerLifeText: {fileID: 1052088497}
   waveText: {fileID: 135255207}
+  enemyLifeText: {fileID: 1362742517}
 --- !u!1001 &69450513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,7 +719,7 @@ RectTransform:
   - {fileID: 182629563}
   - {fileID: 135255206}
   m_Father: {fileID: 248852402}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1267,10 +1270,10 @@ RectTransform:
   m_Father: {fileID: 1421215894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5.9428, y: 0}
+  m_SizeDelta: {x: 857.8857, y: 68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &179304885
 MonoBehaviour:
@@ -1441,7 +1444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.34117648, g: 0.3254902, b: 0.3254902, a: 1}
+  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.42745098}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1556,7 +1559,7 @@ MonoBehaviour:
   - {fileID: 1749068545}
   - {fileID: 1785494976}
   - {fileID: 1725796976}
-  localPlayer: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
+  deckSystem: {fileID: 11400000, guid: be21402767b376e4c99daba4df38335d, type: 2}
 --- !u!1001 &194742924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1575,7 +1578,7 @@ PrefabInstance:
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 702597382}
+      objectReference: {fileID: 702597379}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1586,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PH.StartCardSystem, Assembly-CSharp
+      value: PH.StartCardPhase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -1780,6 +1783,7 @@ GameObject:
   - component: {fileID: 226663241}
   - component: {fileID: 226663240}
   - component: {fileID: 226663243}
+  - component: {fileID: 226663244}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1884,6 +1888,22 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &226663244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226663239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &248852401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,7 +1931,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1421215894}
   - {fileID: 114821040}
   m_Father: {fileID: 1365886684}
   m_RootOrder: 6
@@ -2054,7 +2073,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55efc303a31419c40a899774c8b4049b, type: 2}
   - {fileID: 11400000, guid: a9ff57c69ead9b240af203d4918b25bd, type: 2}
   - {fileID: 11400000, guid: 3a650407bc695784fb851cddde24190b, type: 2}
+  - {fileID: 11400000, guid: 8d1d56cd3498bc147875d4deeadafb7b, type: 2}
   btnSkipControlPhase: {fileID: 1084458617}
+  timeBar: {fileID: 1421215896}
 --- !u!114 &329566524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2067,8 +2088,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf93a1985f9d7f4f9a19c6d22d3b2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localPlayer: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
+  memberSystem: {fileID: 11400000, guid: 75f3d3d235697e542b975fb56e11baed, type: 2}
   currentRaid: {fileID: 11400000, guid: 6ca79e97dfff26a40953d30ee1fbe4a4, type: 2}
+  lifeSystem: {fileID: 11400000, guid: 0d8526fd274bbf74ea75ebbcab902a29, type: 2}
+  wavesSystem: {fileID: 11400000, guid: abced31fb3556b644b7ea3191d35579e, type: 2}
+  coinSystem: {fileID: 11400000, guid: 09b39ffa66cf56d458b0f525f76193d2, type: 2}
+  deckSystem: {fileID: 11400000, guid: be21402767b376e4c99daba4df38335d, type: 2}
 --- !u!1001 &340656461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2812,7 +2837,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &469073764
 RectTransform:
@@ -2915,8 +2940,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.090026855, y: 1.5052986}
-  m_SizeDelta: {x: -41.999023, y: -21.7629}
+  m_AnchoredPosition: {x: 4.0954895, y: 1.7551003}
+  m_SizeDelta: {x: -31.5938, y: -19.8924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514194881
 MonoBehaviour:
@@ -3647,7 +3672,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &618692770
 RectTransform:
@@ -4178,7 +4203,7 @@ GameObject:
   - component: {fileID: 702597378}
   - component: {fileID: 702597377}
   - component: {fileID: 702597381}
-  - component: {fileID: 702597382}
+  - component: {fileID: 702597379}
   m_Layer: 0
   m_Name: ====Start Card====
   m_TagString: Untagged
@@ -4248,6 +4273,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702597375}
   m_CullTransparentMesh: 1
+--- !u!114 &702597379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702597375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b1d4fa9a919554ea4ac130cd39a55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckSystem: {fileID: 11400000, guid: be21402767b376e4c99daba4df38335d, type: 2}
+  btnComplete: {fileID: 1025877639}
 --- !u!114 &702597381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4266,20 +4305,6 @@ MonoBehaviour:
   - {fileID: 1855982195}
   - {fileID: 945858473}
   - {fileID: 1977582729}
---- !u!114 &702597382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702597375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f5499369ad7d44da1b4d539148aff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
-  btnComplete: {fileID: 1025877639}
 --- !u!1001 &803404166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4298,7 +4323,7 @@ PrefabInstance:
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 702597382}
+      objectReference: {fileID: 702597379}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4309,7 +4334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PH.StartCardSystem, Assembly-CSharp
+      value: PH.StartCardPhase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -6237,6 +6262,7 @@ RectTransform:
   - {fileID: 702597376}
   - {fileID: 248852402}
   - {fileID: 1949502720}
+  - {fileID: 1909965611}
   m_Father: {fileID: 39500437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6474,7 +6500,7 @@ RectTransform:
   m_Children:
   - {fileID: 179304884}
   - {fileID: 514194880}
-  m_Father: {fileID: 248852402}
+  m_Father: {fileID: 1909965611}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -6546,6 +6572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliderTime: {fileID: 1421215895}
+  smooth: 0
 --- !u!1001 &1440374368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7342,7 +7369,7 @@ PrefabInstance:
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 702597382}
+      objectReference: {fileID: 702597379}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -7353,7 +7380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PH.StartCardSystem, Assembly-CSharp
+      value: PH.StartCardPhase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -8407,6 +8434,106 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 366105789093453153, guid: 659354cfab04935439649bcf0dd6ee33, type: 3}
   m_PrefabInstance: {fileID: 1896424929}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1909965610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909965611}
+  - component: {fileID: 1909965614}
+  - component: {fileID: 1909965613}
+  - component: {fileID: 1909965612}
+  m_Layer: 0
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1909965611
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909965610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1421215894}
+  m_Father: {fileID: 1365886684}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1909965612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909965610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1909965613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909965610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1909965614
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909965610}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1910830629
 GameObject:
   m_ObjectHideFlags: 0
@@ -8727,9 +8854,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 909614885}
     - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 98f0e8244a7804f4bb245045ab683472, type: 2}
+    - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
       propertyPath: cardCost
       value: 
       objectReference: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+    - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: coinSystem
+      value: 
+      objectReference: {fileID: 11400000, guid: 09b39ffa66cf56d458b0f525f76193d2, type: 2}
+    - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: deckSystem
+      value: 
+      objectReference: {fileID: 11400000, guid: be21402767b376e4c99daba4df38335d, type: 2}
     - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
       propertyPath: localPlayer
       value: 
@@ -9049,7 +9188,7 @@ PrefabInstance:
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 702597382}
+      objectReference: {fileID: 702597379}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -9060,7 +9199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PH.StartCardSystem, Assembly-CSharp
+      value: PH.StartCardPhase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 726633049914674651, guid: cc93b38e8730ec44b83af4b4d9672aca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument

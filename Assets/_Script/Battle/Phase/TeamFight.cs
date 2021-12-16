@@ -19,7 +19,9 @@ namespace PH
         }
 
         protected override void OnStartPhase()
-        {
+        {   
+            PhaseSystem.RunTimeBar(maxTime);
+
             DictionaryTeamBattle.OnTeamDefeat += ChangePhase;
 
             var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
@@ -35,7 +37,10 @@ namespace PH
             }
         }
 
-        private void ChangePhase(UnitTeam team) => forceExit = true;
+        private void ChangePhase(UnitTeam team)
+        {   
+            PhaseSystem.StopTimeBar();
+        }
     }
 }
 

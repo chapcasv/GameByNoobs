@@ -24,8 +24,15 @@ namespace PH
             _startCardSystem.OnReplace += LoadStartCard;
         }
 
+        private void RunTimeBar()
+        {
+            StartCoroutine(timeBar.TimeBarStartCard(_time,this));
+        }
 
-        private void RunTimeBar() => StartCoroutine(timeBar.RunTimeBarStartCard(_time));
+        public void Complete()
+        {
+            _startCardSystem.Complete();
+        }
 
         private void LoadStartCard()
         {

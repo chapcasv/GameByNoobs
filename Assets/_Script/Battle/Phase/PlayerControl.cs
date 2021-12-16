@@ -8,7 +8,6 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/PlayerControl")]
     public class PlayerControl : Phase
     {
-
         public override bool IsComplete()
         {
             if (forceExit)
@@ -22,8 +21,7 @@ namespace PH
 
         protected override void OnStartPhase()
         {
-          
-            Debug.Log(PhaseSystem.CurrentPhase);
+            PhaseSystem.RunTimeBar(maxTime);
         }
  
     }
