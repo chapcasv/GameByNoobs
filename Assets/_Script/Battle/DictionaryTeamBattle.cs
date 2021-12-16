@@ -10,17 +10,23 @@ namespace PH
     public static class DictionaryTeamBattle 
     {
         private static bool isInit = false;
-        private static Dictionary<UnitTeam, List<BaseUnit>> unitOfTeam = new Dictionary<UnitTeam, List<BaseUnit>>();
-        private static Dictionary<BaseUnit, int> dictionaryNodeCache = new Dictionary<BaseUnit, int>();
+        private static Dictionary<UnitTeam, List<BaseUnit>> unitOfTeam;
+        private static Dictionary<BaseUnit, int> dictionaryNodeCache;
 
         public static event Action<UnitTeam> OnTeamDefeat;
+
+        public static void Reset() => isInit = false;
 
         public static void Init()
         {
             if (isInit) return;
 
+            unitOfTeam = new Dictionary<UnitTeam, List<BaseUnit>>();
+            dictionaryNodeCache = new Dictionary<BaseUnit, int>();
             unitOfTeam.Add(UnitTeam.Player, new List<BaseUnit>());
             unitOfTeam.Add(UnitTeam.Enemy, new List<BaseUnit>());
+
+            isInit = true;
         }
 
         public static void CacheNode(BaseUnit unit)

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
-using System.Linq;
-using SO;
+
 
 namespace PH
 {
     public class BaseUnit : MonoBehaviour
     {
         [SerializeField] protected UnitSkill Skill;
+
         protected UnitFinding Find;
         protected UnitMove Move;
         protected UnitAttack Atk;
@@ -147,7 +147,10 @@ namespace PH
             Destroy(gameObject);
         }
 
-
+        protected virtual void OnDisable()
+        {
+            Health.OnDie -= Die;
+        }
     }
 }
 

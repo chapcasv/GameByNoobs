@@ -25,18 +25,22 @@ namespace PH
         private MemberSystem _memberSystem;
         private ResultSystem _resultBattle;
 
-        private const int maxMemberAmount = 9;
+        private int _maxMemberAmount = 9;
         private int _maxWave;
 
         private void Awake()
         {
-            AddListener();
+            StartCardPhase.OnComplete += MoveBattleInfo;
         }
 
         void Start()
         {
             resultBattleUI.Constructor(_resultBattle);
-            SetUpBattleInfomation();
+        }
+
+        private void OnDisable()
+        {   
+            RemoveListerner();
         }
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS)
@@ -46,6 +50,9 @@ namespace PH
             _coinSystem = CS;
             _memberSystem = MS;
             _resultBattle = RS;
+
+            AddListener();
+            SetUpBattleInfomation();
         }
 
         private void MoveBattleInfo()
@@ -71,7 +78,7 @@ namespace PH
         }
 
         private void DisplayEnemyLife()
-        {   
+        {
             int life = _lifeSystem.GetEnemyLife();
             enemyLifeText.text = life.ToString();
         }
@@ -79,7 +86,7 @@ namespace PH
         private void DisplayMemberAmount()
         {
             int amount = _memberSystem.GetMemberAmount;
-            memberAmountText.text = amount.ToString() + $"/{maxMemberAmount}";
+            memberAmountText.text = amount.ToString() + $"/{_maxMemberAmount}";
         }
 
         private void DisplayPlayerLife() 
@@ -92,7 +99,7 @@ namespace PH
 
         private void AddListener()
         {
-            StartCardPhase.OnComplete += MoveBattleInfo;
+
             _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
 
             _lifeSystem.OnEnemyLifeChange += DisplayEnemyLife;
@@ -101,9 +108,20 @@ namespace PH
             _wavesSystem.OnWaveIndexChange += DisplayWaves;
 
             _coinSystem.OnCoinValueChange += DisplayerCoin;
-
         }
 
+        private void RemoveListerner()
+        {
+            StartCardPhase.OnComplete -= MoveBattleInfo;
+            _memberSystem.OnMemberAmountChange -= DisplayMemberAmount;
+
+            _lifeSystem.OnEnemyLifeChange -= DisplayEnemyLife;
+            _lifeSystem.OnPlayerLifeChange -= DisplayPlayerLife;
+
+            _wavesSystem.OnWaveIndexChange -= DisplayWaves;
+
+            _coinSystem.OnCoinValueChange -= DisplayerCoin;
+        }
        
     }
 }

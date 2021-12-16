@@ -14,10 +14,9 @@ namespace PH
         [SerializeField] PlayerSO data;
         [SerializeField] Deck deckBeforeShuffle;
         [SerializeField] Deck deckAfterShuffle;
-        private Deck _currentDeck;
+        [NonSerialized] private Deck _currentDeck;
         public List<Card> CardsInHand { get; private set; }
 
-        [NonSerialized] bool _isInit = false;
 
         public void DrawStartCard() 
         {
@@ -61,14 +60,11 @@ namespace PH
 
         public void InitializePlayerDeck()
         {
-            if (_isInit) return;
 
             CoplyPlayerCurrentDeck();
             Shuffle();
             _currentDeck = deckAfterShuffle;
             CardsInHand = new List<Card>();
-
-            _isInit = true;
         }
 
         private void CoplyPlayerCurrentDeck()

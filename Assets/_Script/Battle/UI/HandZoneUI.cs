@@ -38,7 +38,7 @@ namespace PH
         }
 
         private void LoadHandZone()
-        {   
+        {
             SetViz(deckSystem.CardsInHand);
             SetCardsInstance(deckSystem.CardsInHand);
             SetActive();
@@ -78,6 +78,19 @@ namespace PH
                 _cardVizs[i].SetCard(cardsInHand[i]);
             }
         }
+
+        private void OnDisable()
+        {
+            RemoveListerner();
+        }
+        private void RemoveListerner()
+        {
+            StartCardPhase.OnComplete -= LoadHandZone;
+            deckSystem.OnDrawCard -= LoadHandZone;
+            deckSystem.OnDropCard -= LoadHandZone;
+        }
+
+      
     }
 }
 

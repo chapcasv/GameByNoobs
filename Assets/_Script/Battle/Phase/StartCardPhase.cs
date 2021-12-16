@@ -27,6 +27,11 @@ namespace PH
             btnComplete.onClick.AddListener(StopTimeBar);
         }
 
+        private void OnDisable()
+        {
+            btnComplete.onClick.RemoveAllListeners();
+        }
+
         private void Start()
         {
             RunTimeBar = true;

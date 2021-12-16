@@ -10,13 +10,8 @@ namespace PH
         [SerializeField] PVE_Raid currentRaid;
         [SerializeField] BattleUIManager battleUIManager;
 
-        [Header("Battle Systems")]
-        [SerializeField] MemberSystem memberSystem;
-        [SerializeField] LifeSystem lifeSystem;
-        [SerializeField] WaveSystem wavesSystem;
-        [SerializeField] CoinSystem coinSystem;
-        [SerializeField] DeckSystem deckSystem;
-        [SerializeField] ResultSystem resultSystem;
+        [Header("Container")]
+        [SerializeField] SystemContainer container;
 
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
@@ -26,41 +21,33 @@ namespace PH
 
         private void Awake()
         {
-            SetBattleUIManager();
+            var LS = container.GetLifeSystem();
+            var WS = container.GetWaveSystem();
+            var CS = container.GetCoinSystem();
+            var RS = container.GetResultSystem();
+            var MS = container.GetMemberSystem();
+            var ES = container.GetEquipmentSystem();
+            var DS = container.GetDeckSystem();
 
-            SetSystemByCurrentRaid();
+            SetSystemByCurrentRaid(LS, WS, CS, MS);
+
+            battleUIManager.Constructor(LS, WS, CS, MS, RS);
 
             _boardSystem = GetComponent<BoardSystem>();
-            SetBoardSystem();
+            _boardSystem.Constructor(MS, ES);
 
             _phaseSystem = GetComponent<PhaseSystem>();
-            SetPhaseSystem();
+            _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
 
             DictionaryTeamBattle.Init();
         }
 
-        private void SetSystemByCurrentRaid()
+        private void SetSystemByCurrentRaid(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS)
         {
-            lifeSystem.SetData(currentRaid);
-            wavesSystem.SetData(currentRaid);
-            coinSystem.SetData(currentRaid);
-            memberSystem.SetData();
-        }
-
-        private void SetBattleUIManager()
-        {
-            battleUIManager.Constructor(lifeSystem, wavesSystem, coinSystem, memberSystem, resultSystem);
-        }
-
-
-        private void SetBoardSystem()
-        {
-            _boardSystem.Player = memberSystem;
-        }
-
-        private void SetPhaseSystem()
-        {
-            _phaseSystem.Constructor(_boardSystem, lifeSystem, wavesSystem, deckSystem, coinSystem, resultSystem);
+            LS.SetData(currentRaid);
+            WS.SetData(currentRaid);
+            CS.SetData(currentRaid);
+            MS.SetData();
         }
     }
 }

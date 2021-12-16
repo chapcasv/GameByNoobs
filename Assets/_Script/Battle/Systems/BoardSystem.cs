@@ -22,15 +22,21 @@ namespace PH
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
-        private MemberSystem _player;
-        public MemberSystem Player { set => _player = value; }
+        private MemberSystem _memberSystem;
+        private EquipmentSystem _equipmentSystem;
+
+        public void Constructor(MemberSystem MB, EquipmentSystem ES)
+        {
+            _memberSystem = MB;
+            _equipmentSystem = ES;
+        }
 
         private void Awake()
         {
             GridBoard.InitializeGraph(tilesHolder);
         }
 
-        public void SpawnEnemy(Wave wave)
+        public void SpawnEnemyInWave(Wave wave)
         {
             var enemies = wave.enemies;
 
@@ -49,27 +55,20 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                InstantiatePlayerUnit(unit, spawnNode, team, prefab);
+                InstantiateUnit(unit, spawnNode, team, prefab,playerZone);
+                _memberSystem.IncreaseMember();
             }
             else if (team == UnitTeam.Enemy)
             {
-                InstantiateEnemy(unit, spawnNode, team, prefab);
+                InstantiateUnit(unit, spawnNode, team, prefab, enemyZone);
             }
         }
 
-        private void InstantiateEnemy(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab)
+        private void InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
         {
-            BaseUnit unitEnemy = Instantiate(prefab, enemyZone);
-            unitEnemy.Setup(spawnNode, unit, team);
-            DictionaryTeamBattle.AddUnit(team, unitEnemy);
-        }
-
-        private void InstantiatePlayerUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab)
-        {
-            BaseUnit newUnit = Instantiate(prefab, playerZone);
+            BaseUnit newUnit = Instantiate(prefab, parrent);
             newUnit.Setup(spawnNode, unit, team);
             DictionaryTeamBattle.AddUnit(team, newUnit);
-            _player.IncreaseMember();
         }
 
         private BaseUnit GetUnit(BaseUnitID ID)
@@ -84,6 +83,11 @@ namespace PH
                 }
             }
             return null;
+        }
+
+        public void DropItem(CardItem item, Node nodeDrop, UnitTeam team)
+        {
+            _equipmentSystem.DropItem(item, nodeDrop, team);
         }
     }
 }

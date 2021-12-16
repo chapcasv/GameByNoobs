@@ -12,9 +12,9 @@ namespace PH
     {
         public static Phase CurrentPhase { get; private set; }
 
-        public static bool UseTimeBar { get; private set; } = true;
+        public static bool UseTimeBar { get; private set; }
 
-        public static bool BattleIsEnd { get; private set; } = false;
+        public static bool BattleIsEnd { get; private set; }
 
         [SerializeField] Phase[] phases;
         [SerializeField] Button btnSkipControlPhase;
@@ -36,6 +36,10 @@ namespace PH
             _deckSystem = DS;
             _coinSystem = CS;
             _resultSystem = RS;
+
+            CurrentPhase = null;
+            UseTimeBar = true;
+            BattleIsEnd = false;
         }
 
 
@@ -47,9 +51,10 @@ namespace PH
             btnSkipControlPhase.onClick.AddListener(SkipControlPhase);
         }
 
+
         private void Update()
         {
-            if (CurrentPhase == null) return; ///StartCardPhase or ResultBattlePhase
+            if (CurrentPhase == null) return; ///Start Card phase or Result phase
 
             bool phaseIsComplete = CurrentPhase.IsComplete();
 
@@ -85,39 +90,30 @@ namespace PH
             }
         }
 
-        private void OnTeamDefeat(UnitTeam team)
-        {
-            if (team == UnitTeam.Player)
-            {
-                var allUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
-                foreach (BaseUnit unit in allUnit)
-                {
-                    int dmg =  unit.GetDamageLife();
-                    _lifeSystem.DescreasePlayerLife(dmg);
-                }
-            }
-            else
-            {
-                var allUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
-                foreach (BaseUnit unit in allUnit)
-                {
-                    int dmg = unit.GetDamageLife();
-                    _lifeSystem.DecreaseEnemyLife(dmg);
-                }
-            }
-        }
 
-
+        /// <summary>
+        /// Run phase loop after Complete start card phase
+        /// </summary>
         public void CompleteStartCard()
         {
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
         }
 
+        //Draw Card Phase
         public void PlayerDrawCard() => _deckSystem.DrawCard();
 
-        public void SpawnEnemy() => _boardSystem.SpawnEnemy(_waveSystem.GetCurrentWave());
+        //Before Team Fight Phase
+        public void SpawnEnemy()
+        {
+            var currentWave = _waveSystem.GetCurrentWave();
+            _boardSystem.SpawnEnemyInWave(currentWave);
+        }
 
+        //Team Fight
+        private void OnTeamDefeat(UnitTeam team) => _lifeSystem.AtkTo(team);
+
+        //After Team Fight Phase
         public bool PlayerLifeIsZero() => _lifeSystem.PlayerLifeIsZero();
 
         public bool EnemyLifeIsZero() => _lifeSystem.EnemyLifeIsZero();
@@ -131,6 +127,7 @@ namespace PH
 
         public bool IsLastWave() => _waveSystem.IsLastWave();
 
+        //Result Phase
         public void PlayerVictory()
         {
             BattleIsEnd = true;
@@ -145,6 +142,7 @@ namespace PH
             _resultSystem.PlayerDefeated();
         }
 
+        //Time bar
         public void StopTimeBar() => UseTimeBar = false;
 
         public void RunTimeBar(float maxTime)
@@ -153,7 +151,14 @@ namespace PH
             timeBar.StopAllCoroutines();
             StartCoroutine(timeBar.TimeBarPhaseLoop(maxTime));
         }
-       
+
+        private void OnDisable()
+        {
+            StartCardPhase.OnComplete -= CompleteStartCard;
+            DictionaryTeamBattle.OnTeamDefeat -= OnTeamDefeat;
+
+            btnSkipControlPhase.onClick.RemoveAllListeners();
+        }
     }
 }
 

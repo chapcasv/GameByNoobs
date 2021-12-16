@@ -97,6 +97,13 @@ namespace PH.GraphSystem
                 }
             }
         }
+
+        public static void Reset()
+        {
+            graph.nodes.Clear();
+            graph.edges.Clear();
+            isInit = false;
+        }
     }
 }
 

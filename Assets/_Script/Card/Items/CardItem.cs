@@ -8,14 +8,18 @@ namespace PH
     [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Item")]
     public class CardItem : Card
     {
-        public override bool CanDropBoard(Node node)
+        public override bool CanDropBoard(Node dropNode)
         {
-            return false;
+            if (dropNode.IsOccupied && GridBoard.NodePlayerTeam.Contains(dropNode))
+            {
+                return true;
+            }
+            else return false;
         }
 
         public override void DropBoard(Node node, BoardSystem boardSystem)
         {
-
+            boardSystem.DropItem(this, node, UnitTeam.Player);
         }
     }
 }

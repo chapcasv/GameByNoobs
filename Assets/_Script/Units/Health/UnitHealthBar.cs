@@ -10,11 +10,13 @@ namespace PH
         [SerializeField] Image HpBar;
         [SerializeField] Image HpShrink;
         private const float SHRINK_SPEED = 0.5f;
+        private IHealth health;
 
         private void Awake()
         {
-            GetComponentInParent<IHealth>().OnTakeDamage += ChangeOnTakeDamage;
-            GetComponentInParent<IHealth>().OnHealthUp += ChangeOnHealthUp;
+            health = GetComponentInParent<IHealth>();
+            health.OnTakeDamage += ChangeOnTakeDamage;
+            health.OnHealthUp += ChangeOnHealthUp;
         }
 
         private void ChangeOnTakeDamage(float pct)
@@ -39,6 +41,12 @@ namespace PH
             }
 
             HpShrink.fillAmount = pct;
+        }
+
+        private void OnDisable()
+        {
+            health.OnHealthUp -= ChangeOnHealthUp;
+            health.OnTakeDamage -= ChangeOnTakeDamage;
         }
     }
 }

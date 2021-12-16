@@ -10,7 +10,7 @@ namespace PH
         public string RaidName;
         [Range(20, 40)]
         public int PlayerLife = 20;
-        [Range(10, 99)]
+        [Range(2, 99)]
         public int EnemyLife = 50;
         [Range(10, 20)]
         [Tooltip("Number coin player have when raid start")]

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using PH.GraphSystem;
 
 namespace PH
 {
@@ -24,6 +25,12 @@ namespace PH
 
         private void ExitBattle()
         {
+            _resultSystem.OnPlayerDefeated -= DisplayPlayerDefeated;
+            _resultSystem.OnPlayerDefeated -= DisplayPlayerVictory;
+            btnExitBattle.onClick.RemoveAllListeners();
+
+            GridBoard.Reset();
+            DictionaryTeamBattle.Reset();
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
 

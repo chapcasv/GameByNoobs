@@ -9,43 +9,61 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Life System")]
     public class LifeSystem : ScriptableObject
     {
-        [SerializeField] IntReference _enemyLife;
-        [SerializeField] IntReference _playerLife;
 
         public event Action OnEnemyLifeChange;
         public event Action OnPlayerLifeChange;
 
-        public int GetEnemyLife() => _enemyLife.Value;
-        public int GetPlayerLife() => _playerLife.Value;
+        private int _enemyLife;
+        private int _playerLife;
+
+        public int GetEnemyLife() => _enemyLife;
+        public int GetPlayerLife() => _playerLife;
+
+        public void AtkTo(UnitTeam team)
+        {
+            var allUnit = DictionaryTeamBattle.GetUnitsAgainst(team);
+
+            foreach (BaseUnit unit in allUnit)
+            {
+                int dmg = unit.GetDamageLife();
+
+                if(team == UnitTeam.Player)
+                {
+                    DecreasePlayerLife(dmg);
+                }
+                else DecreaseEnemyLife(dmg);
+            }
+        }
+
 
         public bool PlayerLifeIsZero()
         {
-            if (_playerLife.Value <= 0) return true;
+            if (_playerLife <= 0) return true;
             else return false;
         }
 
         public bool EnemyLifeIsZero()
         {
-            if(_enemyLife.Value <= 0) return true;
+            if(_enemyLife <= 0) return true;
             else return false;
         }
 
-        public void DecreaseEnemyLife(int value)
+        private void DecreaseEnemyLife(int value)
         {
-            _enemyLife.Value -= value;
+            _enemyLife -= value;
             OnEnemyLifeChange?.Invoke();
         }
 
-        public void DescreasePlayerLife(int value)
+        private void DecreasePlayerLife(int value)
         {
-            _playerLife.Value -= value;
+            _playerLife -= value;
             OnPlayerLifeChange?.Invoke();
         }
 
         public void SetData(PVE_Raid raid)
         {
-            _enemyLife.Value = raid.EnemyLife;
-            _playerLife.Value = raid.PlayerLife;
+            _enemyLife = raid.EnemyLife;
+            _playerLife = raid.PlayerLife;
         }
     }
 }
