@@ -1,6 +1,4 @@
 using UnityEngine;
-using SO;
-
 
 namespace PH 
 {   
@@ -37,7 +35,11 @@ namespace PH
                 _drop.MoveRadar();
                 if (Input.GetMouseButtonUp(0)) OnEndDrag();
             }
-            else BackToHand();
+            else
+            {
+                Setting.effectGridMap.StopHighLighMap();
+                BackToHand();
+            }
         }
 
         public void LoadCard()
@@ -52,10 +54,15 @@ namespace PH
         {
             Setting.effectGridMap.StopHighLighMap();
 
-            if (_drop.CanDrop(GetCostCurrentCard()))
+            int cost = GetCostCurrentCard();
+
+            if (cost == int.MaxValue) throw new System.Exception("Cant get card cost");
+
+            if (_drop.CanDrop(cost))
             {          
                 if (_drop.TryDropCard(currentCard))
                 {
+                    _drop.DecraseCoin(cost);
                     ReLoadHandZone();
                 }
                 else BackToHand();
@@ -87,7 +94,7 @@ namespace PH
                     return BaseProperties[i].intValue;
                 }
             }
-            return 9999; //Cant find card cost
+            return int.MaxValue; //Cant find card cost
         }
     }
 }

@@ -17,9 +17,10 @@ namespace PH
             else return false;
         }
 
-        public override void DropBoard(Node node, BoardSystem boardSystem)
+        public override bool TryDropBoard(Node node, BoardSystem boardSystem)
         {
-            boardSystem.DropItem(this, node, UnitTeam.Player);
+            bool canDrop = boardSystem.TryDropItem(this, node, UnitTeam.Player);
+            return canDrop;
         }
     }
 }

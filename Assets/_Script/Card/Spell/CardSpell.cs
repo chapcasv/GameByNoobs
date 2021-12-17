@@ -13,9 +13,9 @@ namespace PH
             return false;
         }
 
-        public override void DropBoard(Node node , BoardSystem boardSystem)
+        public override bool TryDropBoard(Node node , BoardSystem boardSystem)
         {
-            
+            return false;
         }
     }
 }

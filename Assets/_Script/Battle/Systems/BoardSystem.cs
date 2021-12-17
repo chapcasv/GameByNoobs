@@ -47,21 +47,24 @@ namespace PH
             }
         }
 
-        public void SpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
+        public bool SpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
         {
             BaseUnit prefab = GetUnit(unit.UnitID);
 
-            if (prefab == null) throw new Exception("Cant find prefab");
+            if (prefab == null) return false;
 
             if (team == UnitTeam.Player)
             {
-                InstantiateUnit(unit, spawnNode, team, prefab,playerZone);
+                InstantiateUnit(unit, spawnNode, team, prefab, playerZone);
                 _memberSystem.IncreaseMember();
+                return true;
             }
             else if (team == UnitTeam.Enemy)
             {
                 InstantiateUnit(unit, spawnNode, team, prefab, enemyZone);
+                return true;
             }
+            else return false;
         }
 
         private void InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
@@ -85,9 +88,10 @@ namespace PH
             return null;
         }
 
-        public void DropItem(CardItem item, Node nodeDrop, UnitTeam team)
+        public bool TryDropItem(CardItem item, Node nodeDrop, UnitTeam team)
         {
-            _equipmentSystem.DropItem(item, nodeDrop, team);
+            bool canDrop = _equipmentSystem.DropItem(item, nodeDrop, team);
+            return canDrop;
         }
     }
 }

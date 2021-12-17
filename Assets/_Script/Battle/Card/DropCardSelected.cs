@@ -18,7 +18,7 @@ namespace PH
             _cam = Camera.main;
         }
 
-        public bool TryDropCard(Card currentCard )
+        public bool TryDropCard(Card currentCard)
         {
             Tile t = GetTileUnder();
             Node node = GridBoard.GetNodeForTile(t);
@@ -26,12 +26,14 @@ namespace PH
             if (currentCard.CanDropBoard(node))
             {
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
-                currentCard.DropBoard(node, boardSystem);
-                return true;
+                bool dropResult = currentCard.TryDropBoard(node, boardSystem);
+                return dropResult;
             }
             else return false;
   
         }
+
+        public void DecraseCoin(int cardCost) => _coinSystem.Sub(cardCost);
 
         public bool CanDrop(int cardCost)
         {
@@ -48,7 +50,7 @@ namespace PH
 
             if (coinAfterSub >= 0)
             {
-                _coinSystem.Sub(cardCost);
+
                 return true;
             }
             else return false;

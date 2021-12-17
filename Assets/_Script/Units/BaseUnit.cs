@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
-
+using System;
 
 namespace PH
 {
@@ -14,6 +14,7 @@ namespace PH
         protected UnitMove Move;
         protected UnitAttack Atk;
         protected UnitAtkLife Life;
+        protected UnitEquipment Equipment;
 
         protected IHealth Health;
         protected IMana Mana;
@@ -57,6 +58,13 @@ namespace PH
             SetUpAttack(unit);
             SetUpSkill(unit);
             SetUpMove(unit);
+            SetUpEquipment();
+        }
+
+        private void SetUpEquipment()
+        {
+            Equipment = GetComponent<UnitEquipment>();
+            Equipment.SetUp();
         }
 
         protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife);
@@ -137,6 +145,12 @@ namespace PH
         {
             Health.TakeDamage(amount);
             Mana.IncreaseMana();
+        }
+
+        public virtual bool Equip(CardItem item)
+        {
+            bool canEquip = Equipment.Equip(item);
+            return canEquip;
         }
 
         protected virtual void Die()

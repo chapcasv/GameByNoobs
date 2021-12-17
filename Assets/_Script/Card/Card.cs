@@ -33,7 +33,7 @@ namespace PH
 
         public abstract bool CanDropBoard(Node node);
 
-        public abstract void DropBoard(Node node, BoardSystem boardSystem);
+        public abstract bool TryDropBoard(Node node, BoardSystem boardSystem);
     }
 }
 

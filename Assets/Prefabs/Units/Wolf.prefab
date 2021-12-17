@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 578556355032408347}
   - component: {fileID: 3489417489549582076}
   - component: {fileID: 151391451326629081}
+  - component: {fileID: -8126823348405186155}
   - component: {fileID: 2031633659074299519}
   m_Layer: 0
   m_Name: Wolf
@@ -90,7 +91,19 @@ MonoBehaviour:
   releaseMask:
     serializedVersion: 2
     m_Bits: 2048
-  unit: {fileID: 0}
+--- !u!114 &-8126823348405186155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661071473084560552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9858d757a41b41f4abc25200f91f9579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardItemArt: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
 --- !u!65 &2031633659074299519
 BoxCollider:
   m_ObjectHideFlags: 0
