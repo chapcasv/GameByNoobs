@@ -21,6 +21,7 @@ namespace PH
         [SerializeField] TimeBar timeBar;
 
         private int _phaseIndex;
+        private UnitTeam teamDefeatInTeamFight;
         private WaveSystem _waveSystem;
         private BoardSystem _boardSystem;
         private CoinSystem _coinSystem;
@@ -111,9 +112,12 @@ namespace PH
         }
 
         //Team Fight
-        private void OnTeamDefeat(UnitTeam team) => _lifeSystem.AtkTo(team);
+        private void OnTeamDefeat(UnitTeam team) => teamDefeatInTeamFight = team;
 
         //After Team Fight Phase
+
+        public void AtkLifeTeamDefeat() => _lifeSystem.AtkTo(teamDefeatInTeamFight);
+
         public bool PlayerLifeIsZero() => _lifeSystem.PlayerLifeIsZero();
 
         public bool EnemyLifeIsZero() => _lifeSystem.EnemyLifeIsZero();

@@ -7,7 +7,11 @@ namespace PH
 {
     [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Unit")]
     public class CardUnit : Card
-    {   
+    {
+        [SerializeField] BaseUnitID unitID;
+        [Header("Ability")]
+        [SerializeField] Ability abitity;
+
         [Header("Stat")]
         [SerializeField] int hp;
         [SerializeField] int manaMax;
@@ -30,7 +34,7 @@ namespace PH
         private int critRate = 25;
         [Range(1, 5)]
         [SerializeField] int dmgLife = 1;
-        [SerializeField] BaseUnitID unitID;
+
         #region Properties
         public int Range { get => range; }
         public int Damage { get => damage;}
@@ -45,6 +49,7 @@ namespace PH
         public int MagicResist { get => magicResist;}
         public int CritRate { get => critRate;}
         public int DmgLife { get => dmgLife;}
+        public Ability Abitity { get => abitity;}
         #endregion
 
         public override bool CanDropBoard(Node dropNode)
@@ -57,7 +62,7 @@ namespace PH
         }
 
         public override bool TryDropBoard(Node node, BoardSystem boardSystem)
-        {
+        {   
             bool spawnResult = boardSystem.SpawnUnit(this, node);
 
             return spawnResult;

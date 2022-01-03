@@ -22,6 +22,8 @@ namespace PH
         {
             PhaseSystem.RunTimeBar(maxTime);
 
+            PhaseSystem.AtkLifeTeamDefeat();
+
             if (PhaseSystem.PlayerLifeIsZero())
             {
                 PhaseSystem.PlayerDefeated();
@@ -35,46 +37,38 @@ namespace PH
                 PhaseSystem.PlayerDefeated();
             }
             else
-            {   
+            {
                 //Continue phase
+                DestroyEnemy();
                 ReLoadPlayerUnit();
-                ReLoadEnemy();
+
                 PhaseSystem.RewardClearWave();
                 PhaseSystem.IncreaseWaveIndex();
             }
 
         }
 
-        private void ReLoadEnemy()
+        private void DestroyEnemy()
         {
-            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
+            var enemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
 
-            foreach (var enemy in allEnemies)
+            foreach (var e in enemies)
             {
-                SetInTeamFight(enemy);
-                ReLoadPosition(enemy);
+                Destroy(e.gameObject);
             }
+            DictionaryTeamBattle.Clear(UnitTeam.Enemy);
         }
 
-        private  void ReLoadPlayerUnit()
+
+        private void ReLoadPlayerUnit()
         {
-            var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+            var allUnitPlayer = PlayerCacheUnitData.GetAllUnit();
 
             foreach (var unit in allUnitPlayer)
             {
+                PlayerCacheUnitData.ReuseUnit(unit);
                 SetInTeamFight(unit);
-                ReLoadPosition(unit);
             }
-        }
-
-        private void ReLoadPosition(BaseUnit unit)
-        {
-            int cachePos = DictionaryTeamBattle.GetCachePos(unit);
-            Node cacheNode = GridBoard.IntPositiontoNode(cachePos);
-            unit.CurrentNode.SetOccupied(false);
-            unit.CurrentNode = cacheNode;
-            unit.transform.position = unit.CurrentNode.WorldPosition;
-            unit.CurrentNode.SetOccupied(true);
         }
 
         private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;

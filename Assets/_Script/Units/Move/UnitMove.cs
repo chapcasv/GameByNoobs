@@ -9,18 +9,22 @@ namespace PH
     {
         protected float moveSpeed;
         protected Transform myTransform;
+        protected Animator animator;
+        protected Rigidbody rigidbody;
 
         public bool IsMoving { get; set ; }
 
-        public UnitMove(float moveSpeed, Transform transform)
+        public UnitMove(float ms, Transform tf, Animator anim, Rigidbody rb)
         {
-            this.moveSpeed = moveSpeed;
-            myTransform = transform;
+            moveSpeed = ms;
+            myTransform = tf;
+            animator = anim;
             IsMoving = false;
+            rigidbody = rb;
         }
 
         public void SetMoveSpeed(float value) => moveSpeed = value;
-        public abstract bool MoveTowards(Node nextNode);
+        public abstract bool MoveTowards(Node nextNode, BaseUnit currentTarget);
     }
 }
 

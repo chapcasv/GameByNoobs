@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,14 +5,19 @@ namespace PH
 {
     public class SlotItemUI : MonoBehaviour
     {
-        [SerializeField] Image[] slot;
+        [SerializeField] Image[] slotUI;
 
         private UnitEquipment _unitEquipment;
 
         private void Awake()
         {
             _unitEquipment = GetComponentInParent<UnitEquipment>();
-            _unitEquipment.OnEquipItem += OnEquipItem;
+           
+        }
+
+        private void OnEnable()
+        {
+            _unitEquipment.OnSlotChange += OnEquipItem;
         }
 
         private void OnEquipItem(SlotItem[] slots)
@@ -22,20 +26,19 @@ namespace PH
             {   
                 if(!slots[i].SlotFree)
                 {
-                    slot[i].sprite = slots[i].GetIconItem();
-                    slot[i].gameObject.SetActive(true);
+                    slotUI[i].sprite = slots[i].GetIconItem();
+                    slotUI[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    slot[i].gameObject.SetActive(false);
+                    slotUI[i].gameObject.SetActive(false);
                 }
-                
-            };
+            }
         }
 
         private void OnDisable()
         {
-            _unitEquipment.OnEquipItem -= OnEquipItem;
+            _unitEquipment.OnSlotChange -= OnEquipItem;
         }
     }
 }

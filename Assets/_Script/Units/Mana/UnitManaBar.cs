@@ -13,18 +13,13 @@ namespace PH
         private void Awake()
         {
             mana = GetComponentInParent<IMana>();
-            mana.OnManaValueChange += OnManaChange;
         }
 
-        private void OnManaChange(float pct)
-        {
-            manaBar.fillAmount = pct;
-        }
+        private void OnEnable() => mana.OnManaValueChange += OnManaChange;
 
-        private void OnDisable()
-        {
-            mana.OnManaValueChange -= OnManaChange;
-        }
+        private void OnManaChange(float pct) => manaBar.fillAmount = pct;
+
+        private void OnDisable() => mana.OnManaValueChange -= OnManaChange;
     }
 }
 

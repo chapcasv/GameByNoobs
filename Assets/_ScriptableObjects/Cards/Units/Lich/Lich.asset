@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
+  m_Name: Lich
+  m_EditorClassIdentifier: 
+  Unlocked: 0
+  baseProperties:
+  - stringValue: 
+    intValue: 0
+    sprite: {fileID: 21300000, guid: 8ccbbae9afc645248b457d7426ebb683, type: 3}
+    element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
+  - stringValue: Alpha Robot
+    intValue: 0
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
+  - stringValue: 
+    intValue: 5
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+  - stringValue: 
+    intValue: 700
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
+  - stringValue: 
+    intValue: 0
+    sprite: {fileID: 21300000, guid: c8002e9ba9649a34c869c268683ec89a, type: 3}
+    element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+  synergies:
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
+  unitID: {fileID: 11400000, guid: 3ce719249a97caf4e902f7cc9d6e0bb3, type: 2}
+  abitity: {fileID: 11400000, guid: a640874f988aefe4e9786a7bbf5f939e, type: 2}
+  hp: 450
+  manaMax: 50
+  manaStart: 40
+  manaRegen: 5
+  magicResist: 20
+  damage: 35
+  armor: 10
+  atkSpeed: 0.5
+  moveSpeed: 4
+  range: 3
+  dmgLife: 1

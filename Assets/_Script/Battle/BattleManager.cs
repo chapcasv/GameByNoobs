@@ -40,6 +40,7 @@ namespace PH
             _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
 
             DictionaryTeamBattle.Init();
+            PlayerCacheUnitData.Init();
         }
 
         private void SetSystemByCurrentRaid(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS)

@@ -24,7 +24,7 @@ namespace PH
             foreach (BaseUnit e in allEnemies)
             {
                 float distance = Vector3.Distance(e.transform.position, myTransform.position);
-                if (distance <= minDistance)
+                if (distance <= minDistance && e.IsLive)
                 {
                     minDistance = distance;
                     entity = e;

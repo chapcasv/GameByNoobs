@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -31,6 +29,7 @@ namespace PH
 
             GridBoard.Reset();
             DictionaryTeamBattle.Reset();
+            PlayerCacheUnitData.Reset();
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
 

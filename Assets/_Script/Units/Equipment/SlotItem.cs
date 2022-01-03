@@ -9,16 +9,22 @@ namespace PH
         private UnitItem item;
         private bool slotFree;
 
-        public UnitItem Item { get => item; set => item = value; }
-        public bool SlotFree { get => slotFree; set => slotFree = value; }
+        public UnitItem Item { get => item; }
+        public bool SlotFree { get => slotFree; }
 
         public SlotItem()
         {
-            Item = null;
-            SlotFree = true;
+            item = null;
+            slotFree = true;
         }
 
         public Sprite GetIconItem() => Item.Icon();
+
+        public void SetItem(UnitItem item)
+        {
+            slotFree = false;
+            this.item = item;
+        }
     }
 }
 

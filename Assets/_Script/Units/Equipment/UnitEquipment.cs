@@ -7,25 +7,29 @@ namespace PH
 {
     public class UnitEquipment : MonoBehaviour
     {
-        public event Action<SlotItem[]> OnEquipItem;
+        public event Action<SlotItem[]> OnSlotChange;
+        public event Action<UnitItem> OnEquipItem; //Reload Unit Stat
 
         [SerializeField] ElementImage cardItemArt;
 
         private SlotItem[] _slots;
 
-        public bool Equip(CardItem item)
+        public bool Equip(CardItem cardItem)
         {
-            Sprite icon = GetIcon(item);
+            Sprite icon = GetIcon(cardItem);
 
             int index = GetIndexSlotFree();
             if(index == int.MaxValue) return false;
 
             if(icon != null)
             {
-                UnitItem newItem = new UnitItem(icon);
-                _slots[index].Item = newItem;
-                _slots[index].SlotFree = false;
-                OnEquipItem?.Invoke(_slots);
+                UnitItem newItem = new UnitItem(icon,cardItem);
+
+                _slots[index].SetItem(newItem);
+                OnEquipItem?.Invoke(_slots[index].Item);
+
+                OnSlotChange?.Invoke(_slots);
+
                 return true;
             }
             else return false;

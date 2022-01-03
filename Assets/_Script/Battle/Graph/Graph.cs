@@ -17,8 +17,9 @@ namespace PH.GraphSystem
         }
 
         public void AddNode(Vector3 worldPosition)
-        {
-            Vector3 setWorldPos = new Vector3(worldPosition.x, worldPosition.y + 0.2f, worldPosition.z);
+        {   
+
+            Vector3 setWorldPos = new Vector3(worldPosition.x, worldPosition.y + 0.1f, worldPosition.z);//offset map
             nodes.Add(new Node(nodes.Count, setWorldPos));
         }
 

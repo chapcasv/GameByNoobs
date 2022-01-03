@@ -43,7 +43,7 @@ namespace PH
             for (int i = 0; i < enemies.Length; i++)
             {
                 Node node = GridBoard.IntPositiontoNode(enemies[i].Pos);
-                SpawnUnit(enemies[i].GetEnemy, node, UnitTeam.Enemy);
+                SpawnUnit(enemies[i].enemy.GetEnemy, node, UnitTeam.Enemy);
             }
         }
 
@@ -51,12 +51,16 @@ namespace PH
         {
             BaseUnit prefab = GetUnit(unit.UnitID);
 
-            if (prefab == null) return false;
+            if (prefab == null)
+            {
+                throw new Exception("Cant Find prefab !!!");
+            }
 
             if (team == UnitTeam.Player)
             {
                 InstantiateUnit(unit, spawnNode, team, prefab, playerZone);
                 _memberSystem.IncreaseMember();
+
                 return true;
             }
             else if (team == UnitTeam.Enemy)

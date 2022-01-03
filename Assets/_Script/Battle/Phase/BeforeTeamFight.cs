@@ -22,25 +22,16 @@ namespace PH
             PhaseSystem.SpawnEnemy();
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
 
-            EnemyCacheNode();
-            PlayerUnitCacheNode();
+            PlayerCacheUnit();
         }
 
-        private void EnemyCacheNode()
-        {
-            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
-            foreach (var e in allEnemies)
-            {
-                DictionaryTeamBattle.CacheNode(e);
-            }
-        }
 
-        private void PlayerUnitCacheNode()
+        private void PlayerCacheUnit()
         {
             var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
-            foreach (var e in allUnits)
+            foreach (var unit in allUnits)
             {
-                DictionaryTeamBattle.CacheNode(e);
+                PlayerCacheUnitData.CacheUnitData(unit);
             }
         }
     }
