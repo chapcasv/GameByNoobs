@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PH
@@ -14,6 +12,8 @@ namespace PH
         [SerializeField] DeckSystem deckSystem;
         [SerializeField] ResultSystem resultSystem;
         [SerializeField] EquipmentSystem equipmentSystem;
+        [SerializeField] CastSpellSystem castSpellSystem;
+        [SerializeField] SpawnSystem spawnSystem;
 
         public MemberSystem GetMemberSystem() => memberSystem;
         public LifeSystem GetLifeSystem() => lifeSystem;
@@ -22,7 +22,8 @@ namespace PH
         public DeckSystem GetDeckSystem() => deckSystem;
         public ResultSystem GetResultSystem() => resultSystem;
         public EquipmentSystem GetEquipmentSystem() => equipmentSystem;
-
+        public CastSpellSystem GetCastSpellSystem() => castSpellSystem;
+        public SpawnSystem GetSpawnSystem() => spawnSystem;
 
     }
 }

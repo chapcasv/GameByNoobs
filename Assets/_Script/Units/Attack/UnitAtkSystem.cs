@@ -7,10 +7,10 @@ namespace PH
     public abstract class UnitAtkSystem : MonoBehaviour
     {
         [SerializeField] protected Ability ability;
-        [SerializeField] protected float attackSpeed;
-        [SerializeField] protected int damage;
+        protected float attackSpeed;
+        protected int damage;
         protected int critRate;
-        [SerializeField] protected int lifeSteal;
+        protected int lifeSteal;
         protected int abilityPct;
 
         protected float range;
@@ -25,8 +25,8 @@ namespace PH
         public int AbilityPower => abilityPct;
         public bool CanAtk => canAttack;
         public bool CanCastAbility => canCastAbility;
-        
-        public virtual void Constructor(float ats, float range, int dmg, int critRate, Ability ability, 
+
+        public virtual void Constructor(float ats, float range, int dmg, int critRate, Ability ability,
                                 UnitSurvivalStat uss, Animator anim)
         {
             unitSurvivalStat = uss;
@@ -41,9 +41,6 @@ namespace PH
             animator = anim;
         }
 
-
-        public virtual void ReLoadStat(UnitItem item) => item.SetPhysicalAtkStat(this);
-
         public virtual void UpAtkSPD(float value) => attackSpeed += value;
 
         public virtual void UpCritRate(int value) => critRate += value;
@@ -52,11 +49,20 @@ namespace PH
 
         public virtual void UpLifeSteal(int value) => lifeSteal += value;
 
+        public virtual void UpAbilityPower(int value) => abilityPct += value;
+
         public abstract bool IsInRange(BaseUnit currentTarget);
         public abstract bool IsInRangeAbility(BaseUnit currentTarget);
 
         public abstract void BasicAtk(BaseUnit currentTarget);
         public abstract void CastAbility(BaseUnit currentTarget);
+
+        protected void RotationFollowTarget(BaseUnit currentTarget)
+        {
+            Vector3 moveDir = (currentTarget.transform.position - transform.position).normalized;
+            Quaternion rotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = rotation;
+        }
 
         private float CaculatorRangeAtk(float range) => range * 6 + 2.5f; //CellSize
     }

@@ -42,11 +42,6 @@ namespace PH
             }
         }
 
-        public override void ReLoadStat(UnitItem item)
-        {   
-            item.SetSurvivalStat(this);
-        }
-
         public override void UpStatMaxHP(int value)
         {
             MaxHP += value;

@@ -17,7 +17,7 @@ namespace PH
             //Number atk in one second
             waitBetweenAttack = 1 / attackSpeed;
             CreateProjectile(currentTarget);
-
+            RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
         }
 

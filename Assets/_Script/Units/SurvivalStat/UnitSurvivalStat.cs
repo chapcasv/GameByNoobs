@@ -30,7 +30,6 @@ namespace PH
         public int MagicResist { get; set; }
         public int Armor { get; set; }
 
-        public abstract void ReLoadStat(UnitItem item);
         public abstract void UpStatMR(int value);
         public abstract void UpStatMaxHP(int value);
         public abstract void UpStatArmor(int value);

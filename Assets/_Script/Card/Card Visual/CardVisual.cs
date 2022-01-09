@@ -24,7 +24,7 @@ namespace PH
         {
             if (_card == null) return;
 
-            c.OnSetSynergyViz(this);
+            c.OnSetFactionViz(this);
 
             for (int i = 0; i < c.baseProperties.Length; i++)
             {
@@ -49,7 +49,7 @@ namespace PH
             }
         }
 
-        public void LoadSynergy(Synergy[] synergies)
+        public void LoadSynergy(Faction[] synergies)
         {
             _synergyHolder.SetActive(true);
 

@@ -9,20 +9,33 @@ namespace PH
     {
         [Range(0, 9999)]
         private int cardID;
+
         public bool Unlocked;
         public BaseProperties[] baseProperties;
-        public Synergy[] synergies;
+        public Faction[] Faction;
         
+
         //Use for ConvertCard
         public int CardID { get => cardID;}
 
-        public virtual void OnSetSynergyViz(CardVisual cardViz) {
 
-            if (synergies.Length == 0)
+        [SerializeField] protected CardDropPlaceLogic dropPlace;
+        [SerializeField] protected CardDropTrigger[] dropTrigger;
+
+        public abstract TypeMode GetCardType();
+
+        public virtual void OnSetFactionViz(CardVisual cardViz) {
+
+            if (Faction.Length == 0)
             {
                 cardViz.HidenSynergyHolder();
             }
-            else { cardViz.LoadSynergy(synergies); } 
+            else { cardViz.LoadSynergy(Faction); } 
+        }
+
+        public Faction[] GetFaction()
+        {
+            return Faction;
         }
 
         public void OnSetUnlocked(CardVisual cardViz)
@@ -31,9 +44,30 @@ namespace PH
         }
     
 
-        public abstract bool CanDropBoard(Node node);
+        public bool CanDropBoard(Node node)
+        {
+            return dropPlace.CanDrop(node);
+        }
 
-        public abstract bool TryDropBoard(Node node, BoardSystem boardSystem);
+        public bool TryTriggerOnDrop(Node node, BoardSystem boardSystem)
+        {
+            for (int i = 0; i < dropTrigger.Length;)
+            {
+                CardDropTrigger trigger = dropTrigger[i];
+
+                var input = trigger.Input;
+                var logic = trigger.Logic;
+
+                bool canTrigger = logic.CanTrigger(node, boardSystem, this, input);
+
+                if (canTrigger)
+                {
+                    i++;
+                }
+                else return false;
+            }
+            return true;
+        }
     }
 }
 

@@ -26,7 +26,7 @@ namespace PH
             if (currentCard.CanDropBoard(node))
             {
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
-                bool dropResult = currentCard.TryDropBoard(node, boardSystem);
+                bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
                 return dropResult;
             }
             else return false;

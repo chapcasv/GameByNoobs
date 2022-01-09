@@ -17,7 +17,7 @@ namespace PH
         protected Animator anim;
         protected Rigidbody rb;
 
-        protected IMana Mana;
+        protected ManaSystem Mana;
 
         [SerializeField] protected Node currentNode;
         [SerializeField] protected UnitTeam _myTeam;
@@ -31,7 +31,7 @@ namespace PH
         public bool InTeamFight { set => inTeamFight = value; }
         public UnitTeam GetTeam() => _myTeam;
 
-        public UnitSurvivalStat GetUnitSurvivalStat() => SurvivalStat;
+
 
         protected virtual void Update()
         {
@@ -73,6 +73,9 @@ namespace PH
         }
 
         protected abstract void SetUpAttack(CardUnit unit);
+
+        public UnitAtkSystem GetAtkSystem() => Atk;
+
         protected void SetUpRotationByTeam(UnitTeam team)
         {
             _myTeam = team;
@@ -109,14 +112,16 @@ namespace PH
             SurvivalStat = GetComponent<UnitSurvivalStat>();
             SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist, myTeam);
             SurvivalStat.OnDie += Die;
-            Equipment.OnEquipItem += SurvivalStat.ReLoadStat;
         }
+        public UnitSurvivalStat GetUnitSurvivalStat() => SurvivalStat;
 
         protected virtual void SetUpManaSystem(CardUnit unit)
         {
-            Mana = GetComponent<IMana>();
+            Mana = GetComponent<ManaSystem>();
             Mana.SetMana(unit.ManaMax, unit.ManaStart, unit.ManaRegen);
         }
+
+        public ManaSystem GetManaSystem() => Mana;
 
         protected void GetInRange()
         {
@@ -196,8 +201,7 @@ namespace PH
 
         protected virtual void OnDestroy()
         {
-            Equipment.OnEquipItem -= Atk.ReLoadStat;
-            Equipment.OnEquipItem -= SurvivalStat.ReLoadStat;
+
             SurvivalStat.OnDie -= Die;
         }
     }

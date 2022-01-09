@@ -11,6 +11,7 @@ namespace PH.GraphSystem
         
         private static Graph graph = new Graph();
         public static List<Node> NodePlayerTeam { get; private set; }
+        public static List<Node> NodeEnemyTeam { get; private set; }
  
         private static readonly float _horizontalEdge = 6f;
         private static readonly float _diagonalEdge = 9f;
@@ -51,7 +52,7 @@ namespace PH.GraphSystem
 
             AddNode(tilesHolder);     
             AddEdge();          
-            SetNodePlayerTeam();
+            SetNodePerTeam();
 
             isInit = true;
         }
@@ -85,9 +86,11 @@ namespace PH.GraphSystem
             }
         }
 
-        private static void SetNodePlayerTeam()
+        private static void SetNodePerTeam()
         {
             NodePlayerTeam = new List<Node>();
+            NodeEnemyTeam = new List<Node>();
+
             foreach (Node node in graph.nodes)
             {   
                 //PlayerZone will start from botleft
@@ -95,8 +98,14 @@ namespace PH.GraphSystem
                 {
                     NodePlayerTeam.Add(node);
                 }
+                else
+                {
+                    NodeEnemyTeam.Add(node);
+                }
             }
         }
+
+       
 
         public static void Reset()
         {

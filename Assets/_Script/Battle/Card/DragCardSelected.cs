@@ -5,9 +5,9 @@ namespace PH
     [RequireComponent(typeof(DropCardSelected))]
     public class DragCardSelected : MonoBehaviour
     {
-        [SerializeField] CoinSystem coinSystem;
-        [SerializeField] DeckSystem deckSystem;
-        [SerializeField] ElementInt cardCost;
+        private CoinSystem _coinSystem;
+        private DeckSystem _deckSystem;
+        private GetBaseProperties _getBaseProperties;
 
         private DropCardSelected _drop;
         private Transform _transform;
@@ -18,12 +18,16 @@ namespace PH
         public Card CurrentCard { set => currentCard = value; }
         public CardInstance CardInstanceCache {set => cache = value; }
 
-        void Start()
+        public void Constructor(CoinSystem CS, DeckSystem DS, GetBaseProperties GBP)
         {
+            _coinSystem = CS;
+            _deckSystem = DS;
+            _getBaseProperties = GBP;
+
             _drop = GetComponent<DropCardSelected>();
             _transform = GetComponent<Transform>();
             _cardViz = GetComponent<CardSelectedVisual>();
-            _drop.CoinSystem = coinSystem;
+            _drop.CoinSystem = _coinSystem;
             gameObject.SetActive(false);
         }
 
@@ -73,7 +77,7 @@ namespace PH
         private void ReLoadHandZone()
         {
             cache.Card = currentCard;
-            cache.OnDrop(deckSystem);
+            cache.OnDrop(_deckSystem);
             gameObject.SetActive(false);
         }
 
@@ -86,15 +90,8 @@ namespace PH
 
         private int GetCostCurrentCard()
         {
-            var BaseProperties = currentCard.baseProperties;
-            for (int i = 0; i < BaseProperties.Length; i++)
-            {
-                if(BaseProperties[i].element == cardCost)
-                {
-                    return BaseProperties[i].intValue;
-                }
-            }
-            return int.MaxValue; //Cant find card cost
+            int cost = _getBaseProperties.GetCost(currentCard);
+            return cost;
         }
     }
 }

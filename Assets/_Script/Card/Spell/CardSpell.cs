@@ -5,18 +5,10 @@ using PH.GraphSystem;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Spell")]
+    [CreateAssetMenu(fileName = "new Card", menuName = "ScriptableObject/Card/Spell/New Spell")]
     public class CardSpell : Card
     {
-        public override bool CanDropBoard(Node node)
-        {
-            return false;
-        }
-
-        public override bool TryDropBoard(Node node , BoardSystem boardSystem)
-        {
-            return false;
-        }
+        public override TypeMode GetCardType() => TypeMode.SPELL;
     }
 }
 

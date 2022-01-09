@@ -11,7 +11,7 @@ namespace PH
         {
             Atk = gameObject.GetComponent<MeleeUnitAtk>();
             Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.CritRate, unit.Abitity, SurvivalStat, anim);
-            Equipment.OnEquipItem += Atk.ReLoadStat;
+         
         }
     }
 }

@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
-using System;
-using SO;
 
 namespace PH
 {
@@ -22,13 +18,14 @@ namespace PH
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
-        private MemberSystem _memberSystem;
-        private EquipmentSystem _equipmentSystem;
+        private CastSpellSystem _castSpellSystem;
+        private SpawnSystem _spawnSystem;
 
-        public void Constructor(MemberSystem MB, EquipmentSystem ES)
-        {
-            _memberSystem = MB;
-            _equipmentSystem = ES;
+        public void Constructor(MemberSystem MS, EquipmentSystem ES, CastSpellSystem CS, SpawnSystem SS)
+        {  
+            _castSpellSystem = CS;
+            _spawnSystem = SS;
+            _spawnSystem.Constructor(unitsDatabase, playerZone, enemyZone, MS);
         }
 
         private void Awake()
@@ -36,65 +33,18 @@ namespace PH
             GridBoard.InitializeGraph(tilesHolder);
         }
 
-        public void SpawnEnemyInWave(Wave wave)
-        {
-            var enemies = wave.enemies;
+        public void SpawnEnemyInWave(Wave wave) => _spawnSystem.SpawnEnemyInWave(wave);
 
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                Node node = GridBoard.IntPositiontoNode(enemies[i].Pos);
-                SpawnUnit(enemies[i].enemy.GetEnemy, node, UnitTeam.Enemy);
-            }
+        public bool TrySpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
+        {
+            bool canSpawn = _spawnSystem.SpawnUnit(unit, spawnNode);
+            return canSpawn;
         }
 
-        public bool SpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
+
+        public bool TryDropSpell(CardSpell spell, Node nodeDrop, UnitTeam team = UnitTeam.Player)
         {
-            BaseUnit prefab = GetUnit(unit.UnitID);
-
-            if (prefab == null)
-            {
-                throw new Exception("Cant Find prefab !!!");
-            }
-
-            if (team == UnitTeam.Player)
-            {
-                InstantiateUnit(unit, spawnNode, team, prefab, playerZone);
-                _memberSystem.IncreaseMember();
-
-                return true;
-            }
-            else if (team == UnitTeam.Enemy)
-            {
-                InstantiateUnit(unit, spawnNode, team, prefab, enemyZone);
-                return true;
-            }
-            else return false;
-        }
-
-        private void InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
-        {
-            BaseUnit newUnit = Instantiate(prefab, parrent);
-            newUnit.Setup(spawnNode, unit, team);
-            DictionaryTeamBattle.AddUnit(team, newUnit);
-        }
-
-        private BaseUnit GetUnit(BaseUnitID ID)
-        {
-            var allBaseUnits = unitsDatabase.allBaseUnits;
-
-            foreach (var baseUnit in allBaseUnits)
-            {
-                if (baseUnit.unitID == ID)
-                {
-                    return baseUnit.prefab;
-                }
-            }
-            return null;
-        }
-
-        public bool TryDropItem(CardItem item, Node nodeDrop, UnitTeam team)
-        {
-            bool canDrop = _equipmentSystem.DropItem(item, nodeDrop, team);
+            bool canDrop = _castSpellSystem.Drop(spell, nodeDrop, team);
             return canDrop;
         }
     }

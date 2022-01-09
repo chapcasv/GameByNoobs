@@ -17,7 +17,7 @@ namespace PH
             waitBetweenAttack = 1 / attackSpeed;
 
             atkPoint.SetUp(damage, currentTarget);
-
+            RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
 
         }
@@ -67,6 +67,8 @@ namespace PH
 
             canAttack = true;
         }
+
+        
     }
 }
 

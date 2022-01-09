@@ -2051,7 +2051,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentRaid: {fileID: 11400000, guid: 6ca79e97dfff26a40953d30ee1fbe4a4, type: 2}
   battleUIManager: {fileID: 39500439}
+  dragCardSelected: {fileID: 1949502721}
   container: {fileID: 11400000, guid: c99767d0c17ee3b4a8509c9e62dda413, type: 2}
+  GBP: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
 --- !u!1001 &340656461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9357,6 +9359,10 @@ PrefabInstance:
       propertyPath: dropBoardSystem
       value: 
       objectReference: {fileID: 11400000, guid: 82fff836f5ce2854aa1642b414635529, type: 2}
+    - target: {fileID: 8258242635680936434, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
+      propertyPath: getBaseProperties
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f96b4647321ae4e4594fa2f4308c91ea, type: 3}
 --- !u!1001 &1919550895

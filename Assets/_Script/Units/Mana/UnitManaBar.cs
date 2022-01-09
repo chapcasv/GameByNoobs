@@ -8,14 +8,15 @@ namespace PH
     public class UnitManaBar : MonoBehaviour
     {
         [SerializeField] Image manaBar;
-        private IMana mana;
+        private ManaSystem mana;
 
         private void Awake()
         {
-            mana = GetComponentInParent<IMana>();
+            mana = GetComponentInParent<ManaSystem>();
         }
 
         private void OnEnable() => mana.OnManaValueChange += OnManaChange;
+
 
         private void OnManaChange(float pct) => manaBar.fillAmount = pct;
 

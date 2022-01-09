@@ -13,8 +13,6 @@ namespace PH
         {
             Atk = GetComponent<RangerUnitAtk>();
             Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.CritRate, unit.Abitity, SurvivalStat, anim);
-
-            Equipment.OnEquipItem += Atk.ReLoadStat;
         }
 
         protected override void AttackInRange()

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace PH
 {
@@ -9,16 +6,18 @@ namespace PH
     {
         [SerializeField] PVE_Raid currentRaid;
         [SerializeField] BattleUIManager battleUIManager;
+        [SerializeField] DragCardSelected dragCardSelected;
 
         [Header("Container")]
         [SerializeField] SystemContainer container;
 
+        [Header("Extension Methods")]
+        [SerializeField] GetBaseProperties GBP;
+
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 
-
         /// Constructor Injection
-
         private void Awake()
         {
             var LS = container.GetLifeSystem();
@@ -28,19 +27,29 @@ namespace PH
             var MS = container.GetMemberSystem();
             var ES = container.GetEquipmentSystem();
             var DS = container.GetDeckSystem();
+            var CSS = container.GetCastSpellSystem();
+            var SS = container.GetSpawnSystem();
 
             SetSystemByCurrentRaid(LS, WS, CS, MS);
 
             battleUIManager.Constructor(LS, WS, CS, MS, RS);
 
             _boardSystem = GetComponent<BoardSystem>();
-            _boardSystem.Constructor(MS, ES);
+            _boardSystem.Constructor(MS, ES, CSS, SS);
 
             _phaseSystem = GetComponent<PhaseSystem>();
             _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
 
+            SetExtensionMethods(DS);
+
             DictionaryTeamBattle.Init();
             PlayerCacheUnitData.Init();
+            dragCardSelected.Constructor(CS, DS, GBP);
+        }
+
+        private void SetExtensionMethods(DeckSystem DS)
+        {
+            DS.GetBaseProperties = GBP;
         }
 
         private void SetSystemByCurrentRaid(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS)

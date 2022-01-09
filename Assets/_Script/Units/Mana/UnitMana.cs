@@ -1,49 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 namespace PH
 {
-    public class UnitMana : MonoBehaviour, IMana
+    public class UnitMana :  ManaSystem
     {
-        public event Action<float> OnManaValueChange;
-
-        private int maxMana;
-        private int manaCurrent;
-        private int manaRegen;
-        private bool isFullMana;
-
-        public void SetMana(int maxMana, int startMana, int manaRegen)
+        public override void SetMana(int maxMana, int startMana, int manaRegen)
         {
             this.maxMana = maxMana;
-            this.manaRegen = manaRegen;
+            this.manaRegenOnHit = manaRegen;
             manaCurrent = startMana;
+            manaStart = startMana;
             isFullMana = false;
 
             float currentManaPct = (float)manaCurrent / this.maxMana;
-            OnManaValueChange?.Invoke(currentManaPct);
+            OnManaChange(currentManaPct);
         }
 
-        public void CastSkill()
+        public override void CastSkill()
         {
             manaCurrent = 0;
             isFullMana = false;
-            OnManaValueChange?.Invoke(0);
+            OnManaChange(0);
         }
 
-        public void IncreaseMana()
+        public override void IncreaseMana()
         {
-            manaCurrent += manaRegen;
+            manaCurrent += manaRegenOnHit;
             float currentManaPct = (float)manaCurrent / maxMana;
-            OnManaValueChange?.Invoke(currentManaPct);
+            OnManaChange(currentManaPct);
 
             if(manaCurrent == maxMana) isFullMana = true;
-
         }
 
-        public bool IsFullMana() => isFullMana;
+        public override bool IsFullMana() => isFullMana;
     }
 }
 
