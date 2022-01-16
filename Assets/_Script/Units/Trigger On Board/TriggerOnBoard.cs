@@ -1,6 +1,7 @@
 
 namespace PH
-{
+{   
+    [System.Serializable]
     public class TriggerOnBoard 
     {
         private TriggerOnBoardInput _input;
