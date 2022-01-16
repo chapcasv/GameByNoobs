@@ -22,7 +22,7 @@ namespace PH
                 if (Atk.CanAtk)
                 {
                     Atk.BasicAtk(currentTarget);
-                    Mana.IncreaseMana();
+                    Mana.IncreaseManaOnHit();
                 }
             }
             else GetInRange();

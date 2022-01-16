@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SO;
 using System;
 
 namespace PH
@@ -25,7 +22,7 @@ namespace PH
 
             foreach (BaseUnit unit in allUnit)
             {
-                int dmg = unit.GetDamageLife();
+                int dmg = unit.GetDamageLife;
 
                 if(team == UnitTeam.Player)
                 {

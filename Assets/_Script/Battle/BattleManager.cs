@@ -9,7 +9,8 @@ namespace PH
         [SerializeField] DragCardSelected dragCardSelected;
 
         [Header("Container")]
-        [SerializeField] SystemContainer container;
+        [SerializeField] SystemContainer systemContainer;
+        [SerializeField] FactionContainer factionContainer;
 
         [Header("Extension Methods")]
         [SerializeField] GetBaseProperties GBP;
@@ -20,29 +21,27 @@ namespace PH
         /// Constructor Injection
         private void Awake()
         {
-            var LS = container.GetLifeSystem();
-            var WS = container.GetWaveSystem();
-            var CS = container.GetCoinSystem();
-            var RS = container.GetResultSystem();
-            var MS = container.GetMemberSystem();
-            var ES = container.GetEquipmentSystem();
-            var DS = container.GetDeckSystem();
-            var CSS = container.GetCastSpellSystem();
-            var SS = container.GetSpawnSystem();
+            var LS = systemContainer.GetLifeSystem();
+            var WS = systemContainer.GetWaveSystem();
+            var CS = systemContainer.GetCoinSystem();
+            var RS = systemContainer.GetResultSystem();
+            var MS = systemContainer.GetMemberSystem();
+            var DS = systemContainer.GetDeckSystem();
+            var SS = systemContainer.GetSpawnSystem();
 
             SetSystemByCurrentRaid(LS, WS, CS, MS);
 
             battleUIManager.Constructor(LS, WS, CS, MS, RS);
 
             _boardSystem = GetComponent<BoardSystem>();
-            _boardSystem.Constructor(MS, ES, CSS, SS);
+            _boardSystem.Constructor(MS, SS, DS);
 
             _phaseSystem = GetComponent<PhaseSystem>();
             _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
 
             SetExtensionMethods(DS);
 
-            DictionaryTeamBattle.Init();
+            DictionaryTeamBattle.Init(factionContainer);
             PlayerCacheUnitData.Init();
             dragCardSelected.Constructor(CS, DS, GBP);
         }

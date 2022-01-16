@@ -34,8 +34,10 @@ MonoBehaviour:
     intValue: 100
     sprite: {fileID: 21300000, guid: 5d5490526c93e334d9d417c45f514b31, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-  Faction: []
+  Faction:
+  - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
   dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
   dropTrigger:
-  - input: {fileID: 11400000, guid: 30014378a4db3b946bef7cd614ec22d6, type: 2}
+  - Ediscription: Bonus 20 dmg - 0.3 ats
+    input: {fileID: 11400000, guid: 30014378a4db3b946bef7cd614ec22d6, type: 2}
     logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}

@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace PH
 {
-  
 
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Deck System")]
     public class DeckSystem : ScriptableObject
     {   
         public event Action OnDrawCard;
         public event Action OnDropCard;
+        public event Action OnAddCardHand;
 
         [SerializeField] PlayerSO data;
         [SerializeField] Deck deckBeforeShuffle;
@@ -29,6 +29,7 @@ namespace PH
 
         public List<Card> CardsInHand { get; private set; }
         public GetBaseProperties GetBaseProperties { set => _getBaseProperties = value; }
+ 
 
         public void DrawStartCard()
         {
@@ -138,6 +139,11 @@ namespace PH
             }
         }
 
+        public void AddCardToHand(Card card)
+        {
+            CardsInHand.Add(card);
+            OnAddCardHand?.Invoke();
+        }
 
         public void DropCard(Card card)
         {
@@ -176,14 +182,14 @@ namespace PH
             _dictionaryCardType[TypeMode.ITEM] = new List<Card>();
             _dictionaryCardType[TypeMode.SPELL] = new List<Card>();
 
-            CoplyPlayerCurrentDeck();
+            CopyPlayerCurrentDeck();
             Shuffle();
 
             _currentDeck = deckAfterShuffle;
             CardsInHand = new List<Card>();
         }
 
-        private void CoplyPlayerCurrentDeck()
+        private void CopyPlayerCurrentDeck()
         {
             Deck deckDefault = data.CurrentDeck;
 
@@ -237,7 +243,6 @@ namespace PH
 
             int cost  = _getBaseProperties.GetCost(card);
             _dictionaryCardCost[cost].Remove(card);
-
         }
     }
 }

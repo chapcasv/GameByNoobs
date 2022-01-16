@@ -12,13 +12,22 @@ namespace PH
         private Transform _enemyZone;
         private MemberSystem _memberSystem;
 
+        private BaseUnit _lastUnitSpawn;
+
         public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS)
         {
             _unitData = udb;
             _playerZone = player;
             _enemyZone = enemy;
             _memberSystem = MS;
+
+            _lastUnitSpawn = null;
         }
+
+        public BaseUnit GetLastUnitSpawn() => _lastUnitSpawn;
+
+        public void SetLastUnitSpawn() => _lastUnitSpawn = null;
+        
 
         public void SpawnEnemyInWave(Wave wave)
         {
@@ -42,24 +51,26 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                InstantiateUnit(unit, spawnNode, team, prefab, _playerZone);
+                _lastUnitSpawn = InstantiateUnit(unit, spawnNode, team, prefab, _playerZone);
                 _memberSystem.IncreaseMember();
 
                 return true;
             }
             else if (team == UnitTeam.Enemy)
             {
-                InstantiateUnit(unit, spawnNode, team, prefab, _enemyZone);
+                _lastUnitSpawn = InstantiateUnit(unit, spawnNode, team, prefab, _enemyZone);
                 return true;
             }
             else return false;
         }
 
-        private void InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
+        private BaseUnit InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
         {
             BaseUnit newUnit = Instantiate(prefab, parrent);
             newUnit.Setup(spawnNode, unit, team);
             DictionaryTeamBattle.AddUnit(team, newUnit);
+
+            return newUnit;
         }
 
         private BaseUnit GetUnit(BaseUnitID ID, UnitsDatabaseSO unitsDatabase)

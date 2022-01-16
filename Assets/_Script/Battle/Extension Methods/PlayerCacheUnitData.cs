@@ -64,12 +64,12 @@ namespace PH
 
         private static void CacheSurvivalStat(UnitCache cache, BaseUnit baseUnit)
         {
-            var USS = baseUnit.GetUnitSurvivalStat();
+            var USS = baseUnit.GetUnitSurvivalStat;
 
-            cache.MaxHP = USS.MaxHP;
-            cache.CurrentHP = USS.CurrentHP;
-            cache.MagicResist = USS.MagicResist;
-            cache.Armor = USS.Armor;
+            cache.MaxHP = USS.BaseMaxHP;
+            cache.CurrentHP = cache.MaxHP;
+            cache.MagicResist = USS.BaseMagicResist;
+            cache.Armor = USS.BaseArmor;
             cache.IsLive = true;
         }
 
@@ -106,10 +106,9 @@ namespace PH
 
         private static void ReuseSurvialStat(UnitCache cache, BaseUnit baseUnit)
         {
-            var USS = baseUnit.GetUnitSurvivalStat();
+            var USS = baseUnit.GetUnitSurvivalStat;
 
-            USS.MaxHP = cache.MaxHP;
-            USS.CurrentHP = cache.CurrentHP;
+            USS.ReuseMaxHP(cache.MaxHP);
             //USS.MagicResist = cache.MagicResist;
             //USS.Armor = cache.Armor;
             USS.IsLive = true;

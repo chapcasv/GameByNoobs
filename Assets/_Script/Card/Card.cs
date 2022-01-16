@@ -12,7 +12,7 @@ namespace PH
 
         public bool Unlocked;
         public BaseProperties[] baseProperties;
-        public Faction[] Faction;
+        [SerializeField] protected Faction[] Faction;
         
 
         //Use for ConvertCard
@@ -28,9 +28,9 @@ namespace PH
 
             if (Faction.Length == 0)
             {
-                cardViz.HidenSynergyHolder();
+                cardViz.HidenFactionHolder();
             }
-            else { cardViz.LoadSynergy(Faction); } 
+            else { cardViz.LoadFaction(Faction); } 
         }
 
         public Faction[] GetFaction()

@@ -53,6 +53,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9619dd03352f5fd46a363374cc8e40cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataTriggerOnBoards:
+  - discription: Create Card Unit on other Card drop
+    logic: {fileID: 11400000, guid: 223df83eb8922914d89b5574bebdd1fa, type: 2}
+    input: {fileID: 11400000, guid: 9915178a1526fcc44b24723a9b6e1708, type: 2}
+    readInput: {fileID: 11400000, guid: 9bad93a78db889944bc7178e6e8af937, type: 2}
 --- !u!114 &8205493456412967043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,9 +71,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 0}
-  attackSpeed: 0
-  damage: 0
-  lifeSteal: 0
   atkPoint: {fileID: 6367114886845704429}
 --- !u!114 &3904100237004700071
 MonoBehaviour:

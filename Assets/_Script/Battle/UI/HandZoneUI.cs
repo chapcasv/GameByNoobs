@@ -23,6 +23,7 @@ namespace PH
             StartCardPhase.OnComplete += LoadHandZone;
             deckSystem.OnDrawCard += LoadHandZone;
             deckSystem.OnDropCard += LoadHandZone;
+            deckSystem.OnAddCardHand += LoadHandZone;
         }
 
         private void Init()
@@ -88,6 +89,7 @@ namespace PH
             StartCardPhase.OnComplete -= LoadHandZone;
             deckSystem.OnDrawCard -= LoadHandZone;
             deckSystem.OnDropCard -= LoadHandZone;
+            deckSystem.OnAddCardHand -= LoadHandZone;
         }
 
       

@@ -8,6 +8,7 @@ namespace PH
 {
     public abstract class BaseUnit : MonoBehaviour
     {
+        #region Properties
         protected UnitFinding Find;
         protected UnitMove Move;
         protected UnitAtkSystem Atk;
@@ -16,12 +17,15 @@ namespace PH
         protected UnitSurvivalStat SurvivalStat;
         protected Animator anim;
         protected Rigidbody rb;
-
         protected ManaSystem Mana;
 
-        [SerializeField] protected Node currentNode;
-        [SerializeField] protected UnitTeam _myTeam;
-        [SerializeField] protected bool inTeamFight = false;
+        protected TriggerOnBoard[] triggerOnBoards;
+
+        protected Faction[] factions;
+
+        protected Node currentNode;
+        protected UnitTeam _myTeam;
+        protected bool inTeamFight = false;
         protected BaseUnit currentTarget;
         protected Node destination;
 
@@ -30,8 +34,13 @@ namespace PH
         public bool IsLive { get => SurvivalStat.IsLive; }
         public bool InTeamFight { set => inTeamFight = value; }
         public UnitTeam GetTeam() => _myTeam;
+        public int GetDamageLife => Life.GetDamageLife();
+        public ManaSystem GetManaSystem => Mana;
+        public UnitSurvivalStat GetUnitSurvivalStat => SurvivalStat;
+        public UnitAtkSystem GetAtkSystem => Atk;
+        public Faction[] GetFactions => factions;
 
-
+        #endregion
 
         protected virtual void Update()
         {
@@ -39,7 +48,7 @@ namespace PH
 
             if (!HasEnemy) currentTarget = Find.CurrentTarget();
 
-            if (!Mana.IsFullMana())
+            if (!Mana.IsFullMana)
             {
                 AttackInRange();
             }
@@ -49,6 +58,7 @@ namespace PH
             }
         }
 
+        #region SetUp
         public virtual void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
         {
             SetUpRotationByTeam(team);
@@ -63,20 +73,13 @@ namespace PH
             SetUpSurvivalStatSystem(unit, team); //Need SetUpEquipment
             SetUpManaSystem(unit);//Need SetUpEquipment
             SetUpAttack(unit);
-            SetUpMove(unit,rb);
+            SetUpMove(unit, rb);
+            SetUpFaction(unit);
+            SetUpTriggerOnBoard(unit);
+
             AddPlayerCacheUnitData();
         }
-
-        private void AddPlayerCacheUnitData()
-        {
-            if(_myTeam == UnitTeam.Player) PlayerCacheUnitData.Add(this);
-        }
-
-        protected abstract void SetUpAttack(CardUnit unit);
-
-        public UnitAtkSystem GetAtkSystem() => Atk;
-
-        protected void SetUpRotationByTeam(UnitTeam team)
+        private void SetUpRotationByTeam(UnitTeam team)
         {
             _myTeam = team;
             if (_myTeam == UnitTeam.Enemy)
@@ -84,44 +87,76 @@ namespace PH
                 transform.rotation = new Quaternion(0f, 180f, 0f, 0);
             }
         }
-
         protected void SetUpPosByNode(Node spawnNode)
         {
             CurrentNode = spawnNode;
             transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
         }
-
         protected virtual void SetUpEquipment()
         {
             Equipment = GetComponent<UnitEquipment>();
             Equipment.SetUp();
         }
-
-        protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife);
-
         protected virtual void SetUpFinding(UnitTeam team) => Find = new NormalFinding(team, transform);
-
-        protected virtual void SetUpMove(CardUnit unit, Rigidbody rb)
-        {
-            Move = new NormalUnitMove(unit.MoveSpeed, transform, anim,rb);
-        }
-
+        protected virtual void SetUpAtkLife(CardUnit unit, UnitTeam team) => Life = new UnitAtkLife(unit.DmgLife);
         protected virtual void SetUpSurvivalStatSystem(CardUnit unit, UnitTeam myTeam)
         {
             SurvivalStat = GetComponent<UnitSurvivalStat>();
             SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist, myTeam);
             SurvivalStat.OnDie += Die;
         }
-        public UnitSurvivalStat GetUnitSurvivalStat() => SurvivalStat;
-
         protected virtual void SetUpManaSystem(CardUnit unit)
         {
             Mana = GetComponent<ManaSystem>();
             Mana.SetMana(unit.ManaMax, unit.ManaStart, unit.ManaRegen);
         }
+        protected abstract void SetUpAttack(CardUnit unit);
+        protected virtual void SetUpMove(CardUnit unit, Rigidbody rb)
+        {
+            Move = new NormalUnitMove(unit.MoveSpeed, transform, anim, rb);
+        }
+        private void SetUpFaction(CardUnit unit) => factions = unit.GetFaction();
+        private void SetUpTriggerOnBoard(CardUnit unit)
+        {
+            DataTriggerOnBoard[] dt = unit.GetDataTriggerOnBoards;
 
-        public ManaSystem GetManaSystem() => Mana;
+            triggerOnBoards = new TriggerOnBoard[dt.Length];
+
+            for (int i = 0; i < dt.Length; i++)
+            {
+                var logic = dt[i].GetLogic;
+                var input = dt[i].GetInput;
+                var readInput = dt[i].GetReadInput;
+
+                TriggerOnBoard newTrigger = new TriggerOnBoard(input, readInput, logic);
+                triggerOnBoards[i] = newTrigger;
+            }
+        }
+        private void AddPlayerCacheUnitData()
+        {
+            if (_myTeam == UnitTeam.Player) PlayerCacheUnitData.Add(this);
+        }
+        #endregion
+        public void AddListernerTriggerOnBoard()
+        {
+            for (int i = 0; i < triggerOnBoards.Length; i++)
+            {
+                triggerOnBoards[i].AddListerner();
+            }
+        }
+
+        public virtual void TakeDamage(int amount)
+        {
+            SurvivalStat.TakeDamage(amount);
+            Mana.IncreaseManaOnTakeDame();
+        }
+
+        public virtual bool Equip(CardItem item)
+        {
+            bool canEquip = Equipment.Equip(item);
+            return canEquip;
+        }
 
         protected void GetInRange()
         {
@@ -144,8 +179,6 @@ namespace PH
             }
         }
 
-        public int GetDamageLife() => Life.GetDamageLife();
-
         protected virtual void AttackInRange()
         {
             if (Atk.IsInRange(currentTarget) && !Move.IsMoving && currentTarget.IsLive)
@@ -153,7 +186,7 @@ namespace PH
                 if (Atk.CanAtk)
                 {
                     Atk.BasicAtk(currentTarget);
-                    Mana.IncreaseMana();
+                    Mana.IncreaseManaOnHit();
                 }
             }
             else GetInRange();
@@ -172,18 +205,6 @@ namespace PH
             else GetInRange();
         }
 
-        public virtual void TakeDamage(int amount)
-        {
-            SurvivalStat.TakeDamage(amount);
-            Mana.IncreaseMana();
-        }
-
-        public virtual bool Equip(CardItem item)
-        {
-            bool canEquip = Equipment.Equip(item);
-            return canEquip;
-        }
-
         protected virtual void Die()
         {
             currentNode.SetOccupied(false);
@@ -191,7 +212,7 @@ namespace PH
             StartCoroutine(WaitAnimDie(3)); //deplay animation die
         }
 
-        private IEnumerator WaitAnimDie(float deplay)
+        protected IEnumerator WaitAnimDie(float deplay)
         {
             yield return new WaitForSeconds(deplay);
 
@@ -201,8 +222,16 @@ namespace PH
 
         protected virtual void OnDestroy()
         {
-
+            RemoveTriggerOnBoard();
             SurvivalStat.OnDie -= Die;
+        }
+
+        protected void RemoveTriggerOnBoard()
+        {
+            for (int i = 0; i < triggerOnBoards.Length; i++)
+            {
+                triggerOnBoards[i].RemoveListerner();
+            }
         }
     }
 }

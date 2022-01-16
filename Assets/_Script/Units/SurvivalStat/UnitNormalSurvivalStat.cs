@@ -7,19 +7,15 @@ namespace PH
 {
     public class UnitNormalSurvivalStat : UnitSurvivalStat
     {
-        public override void HealthUp(int amount)
-        {
-            CurrentHP += amount;
-            float currentHPPct = (float)CurrentHP / MaxHP;
-            TriggerOnHealUp(currentHPPct);
-        }
 
         public override void SetUp(int maxHP, int armor, int mr, UnitTeam team)
         {
-            this.MaxHP = maxHP;
-            CurrentHP = this.MaxHP;
-            this.Armor = armor;
-            this.MagicResist = mr;
+            baseMaxHP = maxHP;
+            orMaxHP = BaseMaxHP;
+            ORCurrentHP = ORMaxHP;
+
+            BaseArmor = armor;
+            BaseMagicResist = mr;
             IsLive = true;
 
             if (team == UnitTeam.Enemy) HpBar.color = COLOR_ENEMY;
@@ -30,27 +26,17 @@ namespace PH
         {
             if (!IsLive) return;
 
-            CurrentHP -= amount;
+            ORCurrentHP -= amount;
 
-            float currentHPPct = (float)CurrentHP / MaxHP;
+            float currentHPPct = (float)ORCurrentHP / ORMaxHP;
             TriggerOnTakeDmg(currentHPPct);
 
-            if (CurrentHP <= 0 && IsLive)
+            if (ORCurrentHP <= 0 && IsLive)
             {
                 IsLive = false;
                 Die();
             }
         }
-
-        public override void UpStatMaxHP(int value)
-        {
-            MaxHP += value;
-            HealthUp(value);
-        }
-
-        public override void UpStatMR(int value) => MagicResist += value;
-
-        public override void UpStatArmor(int value) => Armor += value;
 
         public override void Die() => TriggerOnDie();
     }

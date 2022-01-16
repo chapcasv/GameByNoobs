@@ -22,16 +22,6 @@ namespace PH
             OnManaChange(0);
         }
 
-        public override void IncreaseMana()
-        {
-            manaCurrent += manaRegenOnHit;
-            float currentManaPct = (float)manaCurrent / maxMana;
-            OnManaChange(currentManaPct);
-
-            if(manaCurrent == maxMana) isFullMana = true;
-        }
-
-        public override bool IsFullMana() => isFullMana;
     }
 }
 

@@ -18,13 +18,15 @@ namespace PH
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
-        private CastSpellSystem _castSpellSystem;
         private SpawnSystem _spawnSystem;
-
-        public void Constructor(MemberSystem MS, EquipmentSystem ES, CastSpellSystem CS, SpawnSystem SS)
+        private DeckSystem _deckSystem;
+        public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS)
         {  
-            _castSpellSystem = CS;
             _spawnSystem = SS;
+
+            //Set up trigger after spawn
+            _deckSystem = DS;
+            _deckSystem.OnDropCard += SetUpTriggerOnBoard;
             _spawnSystem.Constructor(unitsDatabase, playerZone, enemyZone, MS);
         }
 
@@ -41,11 +43,16 @@ namespace PH
             return canSpawn;
         }
 
-
-        public bool TryDropSpell(CardSpell spell, Node nodeDrop, UnitTeam team = UnitTeam.Player)
+        public void SetUpTriggerOnBoard()
         {
-            bool canDrop = _castSpellSystem.Drop(spell, nodeDrop, team);
-            return canDrop;
+            BaseUnit lastUnitSpawn = _spawnSystem.GetLastUnitSpawn();
+
+            if(lastUnitSpawn != null)
+            {
+                lastUnitSpawn.AddListernerTriggerOnBoard();
+
+                _spawnSystem.SetLastUnitSpawn();
+            }
         }
     }
 }

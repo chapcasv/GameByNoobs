@@ -14,10 +14,29 @@ namespace PH
         protected int manaRegenOnTakeDmg;
         protected bool isFullMana;
 
-        public abstract bool IsFullMana();
+        public bool IsFullMana => isFullMana;
 
         public abstract void CastSkill();
-        public abstract void IncreaseMana();
+        public virtual void IncreaseManaOnHit()
+        {
+            manaCurrent += manaRegenOnHit;
+            CaculatorManaPCT();
+        }
+        public virtual void IncreaseManaOnTakeDame()
+        {
+            manaCurrent += manaRegenOnTakeDmg;
+
+            CaculatorManaPCT();
+        }
+
+        protected void CaculatorManaPCT()
+        {
+            float currentManaPct = (float)manaCurrent / maxMana;
+            OnManaChange(currentManaPct);
+
+            if (manaCurrent == maxMana) isFullMana = true;
+        }
+        
         public abstract void SetMana(int maxSP, int startSP, int spRegen);
 
         public void UpManaStart(int value) => manaStart += value;

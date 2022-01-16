@@ -1,6 +1,5 @@
 using UnityEngine;
 using PH.GraphSystem;
-using SO;
 
 namespace PH
 {

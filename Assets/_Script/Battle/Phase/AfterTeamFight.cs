@@ -59,7 +59,6 @@ namespace PH
             DictionaryTeamBattle.Clear(UnitTeam.Enemy);
         }
 
-
         private void ReLoadPlayerUnit()
         {
             var allUnitPlayer = PlayerCacheUnitData.GetAllUnit();

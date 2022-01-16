@@ -12,6 +12,8 @@ namespace PH
         [Header("Ability")]
         [SerializeField] Ability abitity;
 
+        [SerializeField] DataTriggerOnBoard[] dataTriggerOnBoards;
+
         [Header("Survival Stat")]
         [SerializeField] int hp;
         [SerializeField] int magicResist;
@@ -54,6 +56,8 @@ namespace PH
         public Ability Abitity { get => abitity; }
 
         public override TypeMode GetCardType() => TypeMode.UNIT;
+
+        public DataTriggerOnBoard[] GetDataTriggerOnBoards => dataTriggerOnBoards;
         #endregion
 
 
