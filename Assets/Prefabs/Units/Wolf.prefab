@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 151391451326629081}
   - component: {fileID: -8126823348405186155}
   - component: {fileID: 2031633659074299519}
+  - component: {fileID: 3654495520869007815}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Untagged
@@ -64,10 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBar: {fileID: 3899728318245161763}
-  maxHP: 0
-  currentHP: 0
-  magicResist: 0
-  armor: 0
 --- !u!114 &3489417489549582076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +118,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.7090156, y: 3.6710227, z: 4.6677227}
   m_Center: {x: -0.08906734, y: 1.7464007, z: 0.62741756}
+--- !u!114 &3654495520869007815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661071473084560552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c250ad0d891bb0448abdf10ebc35d09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atkPoint: {fileID: 0}
 --- !u!1001 &1268586437664749410
 PrefabInstance:
   m_ObjectHideFlags: 0

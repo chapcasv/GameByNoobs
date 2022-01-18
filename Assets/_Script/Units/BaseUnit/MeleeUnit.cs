@@ -10,7 +10,7 @@ namespace PH
         protected override void SetUpAttack(CardUnit unit)
         {
             Atk = gameObject.GetComponent<MeleeUnitAtk>();
-            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.CritRate, unit.Abitity, SurvivalStat, anim);
+            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.Abitity, SurvivalStat, anim);
         }
     }
 }

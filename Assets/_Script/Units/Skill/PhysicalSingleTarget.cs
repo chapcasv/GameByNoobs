@@ -13,8 +13,8 @@ namespace PH
         {
             if (currentTarget == null) return; //Target dead
 
-            int dmg = physicalDmg + atkSystem.PhysicalDamage;
-            currentTarget.TakeDamage(dmg);
+            int dmg = physicalDmg + atkSystem.ORPhysicalDamage;
+            currentTarget.TakeDamage(dmg,DmgType.Magic);
         }
     }
 }

@@ -5,21 +5,30 @@ namespace PH
     {
         public override void SetMana(int maxMana, int startMana, int manaRegen)
         {
-            this.maxMana = maxMana;
-            this.manaRegenOnHit = manaRegen;
-            manaCurrent = startMana;
-            manaStart = startMana;
+            baseMaxMana = maxMana;
+            orMaxMana = baseMaxMana;
+
+            baseManaRegenOnHit = manaRegen;
+            orManaRegenOnHit = baseManaRegenOnHit;
+            baseManaRegenOnTakeDmg = baseManaRegenOnHit;
+            orManaRegenOnTakeDmg = baseManaRegenOnTakeDmg;
+
+            baseManaStart = startMana;
+            orManaStart = baseManaStart;
+
+            baseManaCurrent = baseManaStart;
+            orManaCurrent = baseManaCurrent;
+
             isFullMana = false;
 
-            float currentManaPct = (float)manaCurrent / this.maxMana;
+            float currentManaPct = (float)orManaCurrent / orMaxMana;
             OnManaChange(currentManaPct);
         }
 
         public override void CastSkill()
         {
-            manaCurrent = 0;
+            ORManaCurrent = 0;
             isFullMana = false;
-            OnManaChange(0);
         }
 
     }

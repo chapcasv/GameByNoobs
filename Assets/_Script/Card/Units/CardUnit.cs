@@ -27,11 +27,10 @@ namespace PH
 
         [Header("Basic Atk")]
         [SerializeField] int damage;
-        private int critRate = 25;
         [Range(1, 4)]
         [SerializeField] int range = 1;
-        [Range(0.50f, 1f)]
-        [SerializeField] float atkSpeed = 0.50f;
+        [Range(0.20f, 1f)]
+        [SerializeField] float atkSpeed = 0.20f;
 
         [Header("Other")]
         [Range(4, 8)]
@@ -51,7 +50,6 @@ namespace PH
         public float AtkSpeed { get => atkSpeed; }
         public int Armor { get => armor; }
         public int MagicResist { get => magicResist; }
-        public int CritRate { get => critRate; }
         public int DmgLife { get => dmgLife; }
         public Ability Abitity { get => abitity; }
 

@@ -11,7 +11,7 @@ namespace PH
     /// Reuse data in phase draw card
     /// </summary>
     public static class PlayerCacheUnitData
-    {   
+    {
         private static Dictionary<BaseUnit, UnitCache> dictionaryNodeCache;
         private static List<BaseUnit> playerUnits;
         private static bool isInit = false;
@@ -57,19 +57,51 @@ namespace PH
 
         private static void Cache(UnitCache cache, BaseUnit baseUnit)
         {
+            CacheManaStat(cache, baseUnit);
             CacheSurvivalStat(cache, baseUnit);
+            CacheAtkStat(cache, baseUnit);
             CacheNode(cache, baseUnit);
             CacheRoration(cache, baseUnit);
+        }
+
+        private static void CacheManaStat(UnitCache cache, BaseUnit baseUnit)
+        {
+            var mana = baseUnit.GetManaSystem;
+
+            var cacheMNS = cache.cacheMNS;
+
+            cacheMNS.MaxMana = mana.BaseMaxMana;
+            cacheMNS.RegenOnHit = mana.BaseManaRegenOnHit;
+            cacheMNS.RegenOnTakeDmg = mana.BaseManaRegenOnTakeDmg;
+            cacheMNS.StartMana = mana.BaseManaStart;
+
+        }
+
+        private static void CacheAtkStat(UnitCache cache, BaseUnit baseUnit)
+        {
+            var UAS = baseUnit.GetAtkSystem;
+
+            var cacheUAS = cache.cacheUAS;
+
+            cacheUAS.AtkSpd = UAS.BaseAttackSpeed;
+            cacheUAS.CritRate = UAS.BaseCritRate;
+            cacheUAS.CritDmg = UAS.BaseCritDmg;
+            cacheUAS.Dmg = UAS.BasePhysicalDmg;
+            cacheUAS.LifeSteal = UAS.BaseLifeSteal;
+            cacheUAS.Range = UAS.BaseRangeAtk;
+            cacheUAS.AbilityPower = UAS.BaseAbilityPower;
         }
 
         private static void CacheSurvivalStat(UnitCache cache, BaseUnit baseUnit)
         {
             var USS = baseUnit.GetUnitSurvivalStat;
 
-            cache.MaxHP = USS.BaseMaxHP;
-            cache.CurrentHP = cache.MaxHP;
-            cache.MagicResist = USS.BaseMagicResist;
-            cache.Armor = USS.BaseArmor;
+            var cacheUSS = cache.cacheUSS;
+
+            cacheUSS.MaxHP = USS.BaseMaxHP;
+            cacheUSS.CurrentHP = cacheUSS.MaxHP;
+            cacheUSS.MagicResist = USS.BaseMagicResist;
+            cacheUSS.Armor = USS.BaseArmor;
             cache.IsLive = true;
         }
 
@@ -86,7 +118,9 @@ namespace PH
                 var cacheUnit = dictionaryNodeCache[unit];
                 unit.gameObject.SetActive(true);
 
+                ReuseManaStat(cacheUnit, unit);
                 ReuseSurvialStat(cacheUnit, unit);
+                ReuseAtkStat(cacheUnit, unit);
                 ReuseRoration(cacheUnit, unit);
                 ReuseNode(cacheUnit, unit);
                 DictionaryTeamBattle.AddUnit(unit.GetTeam(), unit);
@@ -104,14 +138,41 @@ namespace PH
             baseUnit.CurrentNode.SetOccupied(true);
         }
 
+        private static void ReuseManaStat(UnitCache cache, BaseUnit baseUnit)
+        {
+            var mana = baseUnit.GetManaSystem;
+            var cacheMNS = cache.cacheMNS;
+
+            mana.ReuseMaxMana(cacheMNS.MaxMana);
+            mana.ReuseManaStart(cacheMNS.StartMana);
+            mana.ReuseManaRegenOnHit(cacheMNS.RegenOnHit);
+            mana.ReuseManaRegenOnTakeDmg(cacheMNS.RegenOnTakeDmg);
+        }
+
         private static void ReuseSurvialStat(UnitCache cache, BaseUnit baseUnit)
         {
             var USS = baseUnit.GetUnitSurvivalStat;
+            var cacheUSS = cache.cacheUSS;
 
-            USS.ReuseMaxHP(cache.MaxHP);
-            //USS.MagicResist = cache.MagicResist;
-            //USS.Armor = cache.Armor;
+            USS.ReuseMaxHP(cacheUSS.MaxHP);
+            USS.ReuseMagicResist(cacheUSS.MagicResist);
+            USS.ReuseArmor(cacheUSS.Armor);
             USS.IsLive = true;
+        }
+
+        private static void ReuseAtkStat(UnitCache cache, BaseUnit baseUnit)
+        {
+            var UAS = baseUnit.GetAtkSystem;
+            var cacheUAS = cache.cacheUAS;
+
+            UAS.ReuseAtkSpeed(cacheUAS.AtkSpd);
+            UAS.ReuseCritRate(cacheUAS.CritRate);
+            UAS.ReuseCritDmg(cacheUAS.CritDmg);
+            UAS.ReuseLifeSteal(cacheUAS.LifeSteal);
+            UAS.ReusePhysicalDmg(cacheUAS.Dmg);
+            UAS.ReuseRangeAtk(cacheUAS.Range);
+            UAS.ReuseAbilityPower(cacheUAS.AbilityPower);
+
         }
 
         private static void ReuseRoration(UnitCache cache, BaseUnit baseUnit)
