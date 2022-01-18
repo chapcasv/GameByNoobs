@@ -35,7 +35,10 @@ namespace PH
                 }
             }
         }
+        private void OnReMoveSlotItem()
+        {
 
+        }
         private void OnDisable()
         {
             _unitEquipment.OnSlotChange -= OnEquipItem;

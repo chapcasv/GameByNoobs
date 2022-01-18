@@ -8,6 +8,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
+        public System.Action OnClearItemSlot;
         public override bool IsComplete()
         {
             if (forceExit)
@@ -41,7 +42,7 @@ namespace PH
                 //Continue phase
                 DestroyEnemy();
                 ReLoadPlayerUnit();
-
+                ResetItemSlot();
                 PhaseSystem.RewardClearWave();
                 PhaseSystem.IncreaseWaveIndex();
             }
@@ -69,7 +70,10 @@ namespace PH
                 SetInTeamFight(unit);
             }
         }
-
+        private void ResetItemSlot()
+        {
+            OnClearItemSlot?.Invoke();
+        }
         private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }

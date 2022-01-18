@@ -5,18 +5,20 @@ using UnityEngine;
 using System;
 namespace PH
 {
-    public class TriggerGetTargetItem : CardDropTriggerLogic
+    public class TriggerOnRoundDestroy : CardDropTriggerLogic
     {
         [SerializeField] AfterTeamFight after;
 
         public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, CardDropTriggerInput input, UnitTeam team = UnitTeam.Player)
-        {   
-
-            //after.OnStartPhase += destroys item
-            throw new System.NotImplementedException();
+        {
+            after.OnClearItemSlot += DestroyItemOnEndRound;
+            throw new NotImplementedException();
         }
-        //destroys item
-      
+
+        private void DestroyItemOnEndRound()
+        {
+            
+        }
     }
 }
 

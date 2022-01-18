@@ -7,13 +7,16 @@ namespace PH
         private UnitItem item;
         private bool slotFree;
 
+        private bool equipSlotOneRound;
         public UnitItem Item { get => item; }
         public bool SlotFree { get => slotFree; }
 
+        public bool EquipSlotOneRound { get => equipSlotOneRound; }
         public SlotItem()
         {
             item = null;
             slotFree = true;
+            equipSlotOneRound = false;
         }
 
         public Sprite GetIconItem() => Item.Icon();
@@ -22,6 +25,10 @@ namespace PH
         {
             slotFree = false;
             this.item = item;
+        }
+        public void ClearItem()
+        {
+            equipSlotOneRound = true;
         }
     }
 }
