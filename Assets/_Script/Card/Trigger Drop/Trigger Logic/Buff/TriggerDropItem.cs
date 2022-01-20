@@ -22,7 +22,7 @@ namespace PH
 
                     if (canDrop)
                     {
-                        UpStat(inputDropItem, unit);
+                        Excute(inputDropItem, unit);
                     }
 
                     return canDrop;
@@ -31,7 +31,7 @@ namespace PH
             return false;
         }
 
-        private void UpStat(TriggerInputDropItem input, BaseUnit unit)
+        private void Excute(TriggerInputDropItem input, BaseUnit unit)
         {
             Buff[] buffs = input.GetBuffs;
 

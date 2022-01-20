@@ -12,7 +12,7 @@ namespace PH
         protected override void SetUpAttack(CardUnit unit)
         {
             Atk = GetComponent<RangerUnitAtk>();
-            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.CritRate, unit.Abitity, SurvivalStat, anim);
+            Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.Abitity, SurvivalStat, anim);
         }
 
         protected override void AttackInRange()

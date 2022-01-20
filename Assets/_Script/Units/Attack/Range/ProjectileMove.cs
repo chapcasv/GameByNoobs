@@ -7,13 +7,17 @@ namespace PH
     public class ProjectileMove : MonoBehaviour
     {
         private BaseUnit _currentTarget;
+        private UnitAtkSystem _sender;
+        private DmgType _type;
         private float _moveSpeed = 10f;
-        private int _dmgSender;
+        private int _rawDmg;
 
-        public void SetUp(BaseUnit currentTarget, int dmgSender)
+        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DmgType type)
         {
             _currentTarget = currentTarget;
-            _dmgSender = dmgSender;
+            _sender = sender;
+            _rawDmg = rawDmg;
+            _type = type;
         }
 
         private void Update()
@@ -37,7 +41,8 @@ namespace PH
 
             if (unit != null && unit == _currentTarget)
             {
-                unit.TakeDamage(_dmgSender);
+                int dmgDeal = unit.TakeDamage(_rawDmg,_type);
+                _sender.LifeStealByDmg(dmgDeal);
                 Destroy(gameObject);
             }
 

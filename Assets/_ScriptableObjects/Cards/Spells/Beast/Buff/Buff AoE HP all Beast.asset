@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2d981fe6d7d01c43afd6e8ef2d6b239, type: 3}
-  m_Name: Buff Aoe HP all Beast
+  m_Name: Buff AoE HP all Beast
   m_EditorClassIdentifier: 
   Unlocked: 0
   baseProperties:
@@ -38,6 +38,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
   dropPlace: {fileID: 11400000, guid: 6483b68eef40db14482a95b8dffce6a3, type: 2}
   dropTrigger:
-  - Ediscription: Buff HP for all beast on board
+  - Ediscription: Buff HP + dmg for all beast on board
     input: {fileID: 11400000, guid: 1fe67d7b017fbc443841c328a22c2ba8, type: 2}
     logic: {fileID: 11400000, guid: c97f58adb7b98734f8fd95f8dea6850e, type: 2}

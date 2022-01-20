@@ -4,22 +4,27 @@ using UnityEngine;
 
 namespace PH
 {
-    public class MeleeUnitAtk : UnitAtkSystem
+    public class RangerUnitAtk : UnitAtkSystem
     {
-        [SerializeField] protected AtkPointMelee atkPoint;
+        [SerializeField] protected ProjectileMove pfProjectile;
+        [SerializeField] protected Transform firePoint;
+
         public override void BasicAtk(BaseUnit currentTarget)
         {
-            if (!canAttack || !currentTarget.IsLive)
+            if (!canAttack || !currentTarget.IsLive )
                 return;
 
-
             //Number atk in one second
-            waitBetweenAttack = 1 / attackSpeed;
-
-            atkPoint.SetUp(damage, currentTarget);
+            waitBetweenAttack = 1 / baseAttackSpeed;
+            CreateProjectile(currentTarget);
             RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
+        }
 
+        private void CreateProjectile(BaseUnit currentTarget)
+        {
+            ProjectileMove pm = Instantiate(pfProjectile, firePoint.position, Quaternion.identity,this.transform);
+            pm.SetUp(currentTarget, this, basePhysicalDmg, DmgType.Physical);
         }
 
         public override void CastAbility(BaseUnit currentTarget)
@@ -33,7 +38,7 @@ namespace PH
 
             float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
 
-            if (distance <= range)
+            if (distance <= baseRangeAtk)
             {
                 return true;
             }
@@ -53,22 +58,16 @@ namespace PH
             else return false;
         }
 
-
-
         IEnumerator WaitCoroutine()
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
             canAttack = false;
-            animator.SetTrigger(AnimEnum.IsAtk.ToString());
-            
             yield return null;
+            animator.SetTrigger(AnimEnum.IsAtk.ToString());
 
             yield return new WaitForSeconds(waitBetweenAttack);
-
             canAttack = true;
         }
-
-        
     }
 }
 

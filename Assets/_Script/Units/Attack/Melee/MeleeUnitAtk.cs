@@ -4,27 +4,22 @@ using UnityEngine;
 
 namespace PH
 {
-    public class RangerUnitAtk : UnitAtkSystem
+    public class MeleeUnitAtk : UnitAtkSystem
     {
-        [SerializeField] protected ProjectileMove pfProjectile;
-        [SerializeField] protected Transform firePoint;
-
+        [SerializeField] protected AtkPointMelee atkPoint;
         public override void BasicAtk(BaseUnit currentTarget)
         {
-            if (!canAttack || !currentTarget.IsLive )
+            if (!canAttack || !currentTarget.IsLive)
                 return;
 
+
             //Number atk in one second
-            waitBetweenAttack = 1 / attackSpeed;
-            CreateProjectile(currentTarget);
+            waitBetweenAttack = 1 / baseAttackSpeed;
+
+            atkPoint.SetUp(basePhysicalDmg, currentTarget, this, DmgType.Physical);
             RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
-        }
 
-        private void CreateProjectile(BaseUnit currentTarget)
-        {
-            ProjectileMove pm = Instantiate(pfProjectile, firePoint.position, Quaternion.identity,this.transform);
-            pm.SetUp(currentTarget, damage);
         }
 
         public override void CastAbility(BaseUnit currentTarget)
@@ -38,7 +33,7 @@ namespace PH
 
             float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
 
-            if (distance <= range)
+            if (distance <= baseRangeAtk)
             {
                 return true;
             }
@@ -62,10 +57,12 @@ namespace PH
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
             canAttack = false;
-            yield return null;
             animator.SetTrigger(AnimEnum.IsAtk.ToString());
+            
+            yield return null;
 
             yield return new WaitForSeconds(waitBetweenAttack);
+
             canAttack = true;
         }
     }

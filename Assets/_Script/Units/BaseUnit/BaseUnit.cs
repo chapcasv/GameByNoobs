@@ -11,9 +11,12 @@ namespace PH
         #region Properties
         protected UnitFinding Find;
         protected UnitMove Move;
+
         protected UnitAtkSystem Atk;
+
         protected UnitAtkLife Life;
         protected UnitEquipment Equipment;
+
         protected UnitSurvivalStat SurvivalStat;
         protected Animator anim;
         protected Rigidbody rb;
@@ -146,10 +149,12 @@ namespace PH
             }
         }
 
-        public virtual void TakeDamage(int amount)
+        public virtual int TakeDamage(int rawDmg,DmgType dmgType)
         {
-            SurvivalStat.TakeDamage(amount);
+            int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType);
             Mana.IncreaseManaOnTakeDame();
+
+            return dmgDeal;
         }
 
         public virtual bool Equip(CardItem item)
