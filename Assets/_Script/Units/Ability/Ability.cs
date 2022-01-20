@@ -19,7 +19,7 @@ namespace PH
 
         public float GetRange()
         {
-            return range * 6 + 2.5f;
+            return range * 6 + 2.5f;//Cel Size
         }
 
         public abstract string GetDiscription(CardUnit unit);

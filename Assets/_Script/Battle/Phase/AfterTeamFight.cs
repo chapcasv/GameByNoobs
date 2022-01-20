@@ -9,9 +9,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
-
         public event Action<BaseUnit> OnReLoadUnit;
-
 
         public override bool IsComplete()
         {
