@@ -8,9 +8,9 @@ namespace PH
 {
     public class CardVisual : MonoBehaviour
     {
-        [SerializeField] GameObject factionHolder;
-        [SerializeField] PropertiesUI[] basePropertiesViz;
-        [SerializeField] GameObject[] factionSlotViz;
+        [SerializeField] protected GameObject factionHolder;
+        [SerializeField] protected PropertiesUI[] basePropertiesViz;
+        [SerializeField] protected GameObject[] factionSlotViz;
 
         protected Card _card;
 
@@ -49,7 +49,7 @@ namespace PH
             }
         }
 
-        public void LoadFaction(Faction[] factions)
+        public virtual void LoadFaction(Faction[] factions)
         {
             factionHolder.SetActive(true);
 
@@ -58,16 +58,16 @@ namespace PH
                 HidenFactionSlot(); //Reload
                 for (int i = 0; i < factions.Length; i++)
                 {
-                    if (factions[i].icon == null) continue;
+                    if (factions[i].Icon == null) continue;
 
                     var icon = factionSlotViz[i].transform.GetChild(2);
-                    icon.GetComponent<Image>().sprite = factions[i].icon;
+                    icon.GetComponent<Image>().sprite = factions[i].Icon;
                     factionSlotViz[i].SetActive(true);
                 }
             } 
         }
 
-        private void HidenFactionSlot()
+        protected void HidenFactionSlot()
         {
             for (int i = 0; i < factionSlotViz.Length; i++)
             {

@@ -27,10 +27,9 @@ namespace PH
             {
                 EndLess(unit);
             }
-            
         }
 
-        private void OneRound(BaseUnit unit)
+        protected virtual void OneRound(BaseUnit unit)
         {
             var atkSystem = unit.GetAtkSystem;
 
@@ -42,7 +41,7 @@ namespace PH
             atkSystem.UpOneRoundAbilityPower(abilityPower);
         }
 
-        private void EndLess(BaseUnit unit)
+        protected virtual void EndLess(BaseUnit unit)
         {
             var atkSystem = unit.GetAtkSystem;
 

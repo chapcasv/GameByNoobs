@@ -24,7 +24,12 @@ namespace PH
         private void CreateProjectile(BaseUnit currentTarget)
         {
             ProjectileMove pm = Instantiate(pfProjectile, firePoint.position, Quaternion.identity,this.transform);
-            pm.SetUp(currentTarget, this, basePhysicalDmg, DmgType.Physical);
+
+            int preMitigationDmg = orPhysicalDmg;
+
+            Caculator(ref preMitigationDmg, currentTarget);
+
+            pm.SetUp(currentTarget, this, preMitigationDmg, DmgType.Physical);
         }
 
         public override void CastAbility(BaseUnit currentTarget)

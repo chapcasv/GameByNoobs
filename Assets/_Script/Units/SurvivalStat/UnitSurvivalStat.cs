@@ -33,6 +33,7 @@ namespace PH
         public bool CanRegen { get; set; }
         public bool IsNegatesBonusCritDmg => negatesBonusCritDmg;
         public int BaseMaxHP { get => baseMaxHP;}
+        public int ORMaxHP => orMaxHP;
         public int ORCurrentHP
         {
             get => orCurrentHP;

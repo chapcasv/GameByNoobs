@@ -51,6 +51,19 @@ namespace PH
 
         public static List<BaseUnit> GetAllUnits(UnitTeam team) => unitOfTeam[team];
 
+        public static BaseUnit GetUnitByNode(UnitTeam team , Node node)
+        {
+            BaseUnit unitResult;
+
+            foreach (var unit in unitOfTeam[team])
+            {
+                if (unit.CurrentNode == node)
+                    return unitResult = unit;
+            }
+
+            throw new Exception("Dont have unit stay in node");
+        }
+
         public static List<BaseUnit> GetAllUnitsByFaction(UnitTeam team, Faction[] factions, bool useModeSame = true)
         {
             List<BaseUnit> newList = new List<BaseUnit>();

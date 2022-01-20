@@ -9,6 +9,9 @@ namespace PH
         #region Properties
         protected Ability ability;
 
+        [SerializeField] protected List<CalPreMitigation> baseCalPreMitigations;
+        protected List<CalPreMitigation> orCalPreMitigations;
+
         protected float baseAttackSpeed;
         protected float orAttackSpeed;
 
@@ -82,6 +85,8 @@ namespace PH
 
             baseAbilityPower = ABILITY_DEFAULT;
             orAbilityPower = baseAbilityPower;
+
+            orCalPreMitigations = new List<CalPreMitigation>();
 
             canAttack = true;
             canCastAbility = true;
@@ -181,6 +186,42 @@ namespace PH
             orAbilityPower += value;
         }
         public virtual void UpOneRoundAbilityPower(int value) => orAbilityPower += value;
+        #endregion
+
+        #region Caculator Pre-mitigation damage
+
+        public void RemoveOneRoundAddOn()
+        {
+            RemoveOneRoundCal();
+        }
+
+        protected void RemoveOneRoundCal() => orCalPreMitigations.Clear();
+
+        public void AddOneRoundCal(CalPreMitigation cal) => orCalPreMitigations.Add(cal);
+
+        public void AddBaseCaculator(CalPreMitigation cal) => baseCalPreMitigations.Add(cal);
+
+        public void RemoveBaseCaculator(CalPreMitigation cal)
+        {
+            if (baseCalPreMitigations.Contains(cal))
+            {
+                baseCalPreMitigations.Remove(cal);
+            }
+        }
+
+        protected void Caculator(ref int preMitigationDmg, BaseUnit currentTarget)
+        {
+            foreach (var cal in baseCalPreMitigations)
+            {
+                cal.Cal(ref preMitigationDmg, currentTarget, this);
+            }
+
+            foreach (var cal in orCalPreMitigations)
+            {
+                cal.Cal(ref preMitigationDmg, currentTarget, this);
+            }
+        }
+
         #endregion
 
         public abstract bool IsInRange(BaseUnit currentTarget);

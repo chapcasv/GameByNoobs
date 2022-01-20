@@ -141,12 +141,19 @@ namespace PH
             if (_myTeam == UnitTeam.Player) PlayerCacheUnitData.Add(this);
         }
         #endregion
+        
         public void AddListernerTriggerOnBoard()
         {
             for (int i = 0; i < triggerOnBoards.Length; i++)
             {
                 triggerOnBoards[i].AddListerner();
             }
+        }
+
+        public void RemoveOneRoundAddOn()
+        {
+            Atk.RemoveOneRoundAddOn();
+            Equipment.RemoveOneRoundAddOn();
         }
 
         public virtual int TakeDamage(int rawDmg,DmgType dmgType)

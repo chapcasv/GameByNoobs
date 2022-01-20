@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d801b8fea8010438fce74663590bde, type: 3}
-  m_Name: LichSkill
+  m_Script: {fileID: 11500000, guid: 112548eddbd3836488210a428fb39039, type: 3}
+  m_Name: BAS Broken Sword
   m_EditorClassIdentifier: 
-  range: 4
-  physicalDmg: 10
+  buffOneRound: 1
+  calculator: {fileID: 11400000, guid: ed69b452695169b45870ea98c4db0853, type: 2}
+  afterTeamFight: {fileID: 11400000, guid: 8d1d56cd3498bc147875d4deeadafb7b, type: 2}

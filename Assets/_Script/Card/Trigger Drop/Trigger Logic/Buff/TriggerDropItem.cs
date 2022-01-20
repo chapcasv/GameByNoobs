@@ -12,23 +12,15 @@ namespace PH
 
             TriggerInputDropItem inputDropItem = (TriggerInputDropItem)input;
 
-            var allTeamMate = DictionaryTeamBattle.GetAllUnits(team);
+            BaseUnit unitTakeItem = DictionaryTeamBattle.GetUnitByNode(team, dropNode);
 
-            foreach (var unit in allTeamMate)
+            bool canDrop = unitTakeItem.Equip(item);
+
+            if (canDrop)
             {
-                if (unit.CurrentNode == dropNode)
-                {
-                    bool canDrop = unit.Equip(item);
-
-                    if (canDrop)
-                    {
-                        Excute(inputDropItem, unit);
-                    }
-
-                    return canDrop;
-                }
+                Excute(inputDropItem, unitTakeItem);
             }
-            return false;
+            return canDrop;
         }
 
         private void Excute(TriggerInputDropItem input, BaseUnit unit)

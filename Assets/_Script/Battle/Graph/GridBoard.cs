@@ -45,7 +45,6 @@ namespace PH.GraphSystem
  
         public static List<Node> GetPath(Node from, Node to) => graph.GetShortestPath(from,to);
 
-
         public static void InitializeGraph(Transform tilesHolder )
         {
             if (isInit) return;
@@ -104,8 +103,6 @@ namespace PH.GraphSystem
                 }
             }
         }
-
-       
 
         public static void Reset()
         {

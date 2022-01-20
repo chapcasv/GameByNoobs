@@ -6,6 +6,9 @@ namespace PH
 {
     public class BattleUIManager : MonoBehaviour
     {
+        [SerializeField] CardInfoVisual cardInfoViz;
+        [SerializeField] HandZoneUI handZoneUI;
+
         [Header("Player Info")]
         [SerializeField] RectTransform battleInfo;
         [SerializeField] TextMeshProUGUI memberAmountText;
@@ -24,6 +27,7 @@ namespace PH
         private CoinSystem _coinSystem;
         private MemberSystem _memberSystem;
         private ResultSystem _resultBattle;
+        private GetBaseProperties _getBaseProperties;
 
         private int _maxMemberAmount = 9;
         private int _maxWave;
@@ -31,6 +35,7 @@ namespace PH
         private void Awake()
         {
             StartCardPhase.OnComplete += MoveBattleInfo;
+            handZoneUI.SetCardInfomation(cardInfoViz);
         }
 
         void Start()

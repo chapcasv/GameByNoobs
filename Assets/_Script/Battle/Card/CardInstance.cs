@@ -6,19 +6,22 @@ namespace PH
 {
     public class CardInstance : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IDragHandler, IEndDragHandler
     {
-
-        [SerializeField] DragCardSelected cardSeleted;
+        private DragCardSelected _cardSeleted;
+        private CardInfoVisual _cardInfoViz;
         public Card Card { get; set; }
+        public DragCardSelected CardSeleted { get => _cardSeleted; set => _cardSeleted = value; }
+        public CardInfoVisual CardInfomation {set => _cardInfoViz = value; }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (!(PhaseSystem.CurrentPhase as PlayerControl)) 
                 return;
 
-            cardSeleted.CurrentCard = Card;
+            _cardInfoViz.gameObject.SetActive(false);
+            CardSeleted.CurrentCard = Card;
             this.Card = null;
-            cardSeleted.CardInstanceCache = this;
-            cardSeleted.LoadCard();
+            CardSeleted.CardInstanceCache = this;
+            CardSeleted.LoadCard();
             gameObject.SetActive(false);
         }
 
@@ -26,7 +29,7 @@ namespace PH
 
         public void OnPointerDown(PointerEventData eventData)
         {
-
+            _cardInfoViz.SetCard(Card);
         }
 
         //Only use OnBeginDrag

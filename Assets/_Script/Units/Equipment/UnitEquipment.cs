@@ -12,6 +12,16 @@ namespace PH
 
         private SlotItem[] _slots;
 
+        public void RemoveOneRoundAddOn()
+        {
+            RemoveOneRoundItem();
+        }
+
+        protected void RemoveOneRoundItem()
+        {
+
+        }
+
         public bool Equip(CardItem cardItem)
         {
             Sprite icon = GetIcon(cardItem);
