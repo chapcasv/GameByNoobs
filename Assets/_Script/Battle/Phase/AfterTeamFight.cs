@@ -46,7 +46,6 @@ namespace PH
                 //Continue phase
                 DestroyEnemy();
                 ReLoadPlayerUnit();
-                ResetItemSlot();
                 PhaseSystem.RewardClearWave();
                 PhaseSystem.IncreaseWaveIndex();
             }
@@ -76,10 +75,7 @@ namespace PH
                 OnReLoadUnit?.Invoke(unit);
             }
         }
-        private void ResetItemSlot()
-        {
-            OnClearItemSlot?.Invoke();
-        }
+       
         private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }
