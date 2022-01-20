@@ -160,8 +160,11 @@ namespace PH
         {
             int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType);
             Mana.IncreaseManaOnTakeDame();
-
-            return dmgDeal;
+            if(dmgType == DmgType.Physical)
+            {
+                return dmgDeal;
+            }
+            return 0;
         }
 
         public virtual bool Equip(CardItem item)

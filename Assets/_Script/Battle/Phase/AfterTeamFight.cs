@@ -9,7 +9,9 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
+
         public event Action<BaseUnit> OnReLoadUnit;
+
 
         public override bool IsComplete()
         {
@@ -44,7 +46,7 @@ namespace PH
                 //Continue phase
                 DestroyEnemy();
                 ReLoadPlayerUnit();
-
+                ResetItemSlot();
                 PhaseSystem.RewardClearWave();
                 PhaseSystem.IncreaseWaveIndex();
             }
@@ -74,7 +76,10 @@ namespace PH
                 OnReLoadUnit?.Invoke(unit);
             }
         }
-
+        private void ResetItemSlot()
+        {
+            OnClearItemSlot?.Invoke();
+        }
         private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }

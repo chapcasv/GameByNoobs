@@ -170,13 +170,14 @@ namespace PH
         }
 
         protected virtual int CalPostMitigationPhysical(int rawDmg)
-        {   
-            //use ORStat
+        {
+            rawDmg = GetDamageAfterArmor(rawDmg, orArmor);
             return rawDmg;
         }
 
         protected virtual int CalPostMitigationMagic(int rawDmg)
         {
+            rawDmg = GetDamageAfterArmor(rawDmg, orMagicResist);
             return rawDmg;
         }
 
@@ -189,7 +190,11 @@ namespace PH
         {
             return rawDmg;
         }
-
+        private int GetDamageAfterArmor(int rawDmg, int armor)
+        {
+            rawDmg = (int)(rawDmg / (1 + (armor / 100f)));
+            return rawDmg;
+        }
         protected virtual void TriggerOnDie() => OnDie?.Invoke();
 
         protected void TriggerOnHealUp(float pct) => OnHealthUp?.Invoke(pct);
