@@ -6,11 +6,19 @@ namespace PH
 {
     public class HandZoneUI : MonoBehaviour
     {
+        [SerializeField] DragCardSelected dragCardSelected;
         [SerializeField] GameObject[] cardHand;
         [SerializeField] DeckSystem deckSystem;
 
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
+        private CardInfoVisual _cardInfoViz;
+
+        public void SetCardInfomation(CardInfoVisual value)
+        {
+            _cardInfoViz = value;
+            _cardInfoViz.Init();
+        }
 
         private void Awake()
         {
@@ -35,6 +43,8 @@ namespace PH
             {
                 _cardVizs[i] = cardHand[i].GetComponent<CardVisual>();
                 _cardInstance[i] = cardHand[i].GetComponent<CardInstance>();
+                _cardInstance[i].CardSeleted = dragCardSelected;
+                _cardInstance[i].CardInfomation = _cardInfoViz;
             }
         }
 

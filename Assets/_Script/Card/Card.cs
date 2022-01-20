@@ -9,18 +9,17 @@ namespace PH
     {
         [Range(0, 9999)]
         private int cardID;
-
-        public bool Unlocked;
+        [Multiline]
+        [SerializeField] string cardDiscription;
         public BaseProperties[] baseProperties;
         [SerializeField] protected Faction[] Faction;
-        
-
-        //Use for ConvertCard
-        public int CardID { get => cardID;}
-
-
         [SerializeField] protected CardDropPlaceLogic dropPlace;
         [SerializeField] protected CardDropTrigger[] dropTrigger;
+
+        public bool Unlocked;
+        //Use for ConvertCard
+        public int CardID { get => cardID; }
+        public string GetDiscription => cardDiscription;
 
         public abstract TypeMode GetCardType();
 

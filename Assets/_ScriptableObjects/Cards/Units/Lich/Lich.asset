@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
   m_Name: Lich
   m_EditorClassIdentifier: 
-  Unlocked: 0
+  cardDiscription: 
   baseProperties:
   - stringValue: 
     intValue: 0
@@ -40,8 +40,9 @@ MonoBehaviour:
   - Ediscription: 
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  Unlocked: 0
   unitID: {fileID: 11400000, guid: 3ce719249a97caf4e902f7cc9d6e0bb3, type: 2}
-  abitity: {fileID: 11400000, guid: a640874f988aefe4e9786a7bbf5f939e, type: 2}
+  abitity: {fileID: 11400000, guid: a3d6b1d31c19efa458b71845f5b13686, type: 2}
   dataTriggerOnBoards: []
   hp: 450
   magicResist: 20

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d981fe6d7d01c43afd6e8ef2d6b239, type: 3}
   m_Name: Buff AoE HP all Beast
   m_EditorClassIdentifier: 
-  Unlocked: 0
+  cardDiscription: "Trao \u0111\u1ED3ng minh D\xE3 Th\xFA +100 HP| trong v\xF2ng
+    n\xE0y"
   baseProperties:
   - stringValue: 
     intValue: 0
@@ -41,3 +42,4 @@ MonoBehaviour:
   - Ediscription: Buff HP + dmg for all beast on board
     input: {fileID: 11400000, guid: 1fe67d7b017fbc443841c328a22c2ba8, type: 2}
     logic: {fileID: 11400000, guid: c97f58adb7b98734f8fd95f8dea6850e, type: 2}
+  Unlocked: 0

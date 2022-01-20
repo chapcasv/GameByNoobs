@@ -12,11 +12,14 @@ namespace PH
             if (!canAttack || !currentTarget.IsLive)
                 return;
 
-
             //Number atk in one second
             waitBetweenAttack = 1 / baseAttackSpeed;
 
-            atkPoint.SetUp(basePhysicalDmg, currentTarget, this, DmgType.Physical);
+            int preMitigationDmg = orPhysicalDmg;
+
+            Caculator(ref preMitigationDmg, currentTarget);
+
+            atkPoint.SetUp(preMitigationDmg, currentTarget, this, DmgType.Physical);
             RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
 

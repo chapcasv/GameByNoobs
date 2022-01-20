@@ -6,7 +6,11 @@ namespace PH
 {
     public abstract class Faction : ScriptableObject
     {
-        public Sprite icon;
+        [SerializeField] string factionName;
+        [SerializeField] Sprite icon;
+
+        public string FactionName { get => factionName;}
+        public Sprite Icon { get => icon; }
     }
 }
 

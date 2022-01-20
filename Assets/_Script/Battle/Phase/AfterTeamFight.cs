@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
+using System;
 
 namespace PH
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
+        public event Action<BaseUnit> OnReLoadUnit;
+
         public override bool IsComplete()
         {
             if (forceExit)
@@ -67,6 +70,8 @@ namespace PH
             {
                 PlayerCacheUnitData.ReuseUnit(unit);
                 SetInTeamFight(unit);
+                unit.RemoveOneRoundAddOn();
+                OnReLoadUnit?.Invoke(unit);
             }
         }
 
