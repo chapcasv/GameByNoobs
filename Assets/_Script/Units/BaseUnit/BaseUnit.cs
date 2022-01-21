@@ -31,6 +31,7 @@ namespace PH
         protected bool inTeamFight = false;
         protected BaseUnit currentTarget;
         protected Node destination;
+        protected int baseID;
 
         protected bool HasEnemy => currentTarget != null && currentTarget.IsLive;
         public Node CurrentNode { get => currentNode; set => currentNode = value; }
@@ -42,6 +43,7 @@ namespace PH
         public UnitSurvivalStat GetUnitSurvivalStat => SurvivalStat;
         public UnitAtkSystem GetAtkSystem => Atk;
         public Faction[] GetFactions => factions;
+        public int GetID => baseID;
 
         #endregion
 
@@ -62,7 +64,7 @@ namespace PH
         }
 
         #region SetUp
-        public virtual void Setup(Node spawnNode, CardUnit unit, UnitTeam team)
+        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, CardInfoVisual infoVisual)
         {
             SetUpRotationByTeam(team);
             SetUpPosByNode(spawnNode);
@@ -79,8 +81,11 @@ namespace PH
             SetUpMove(unit, rb);
             SetUpFaction(unit);
             SetUpTriggerOnBoard(unit);
+            SetUpDrag(infoVisual);
 
             AddPlayerCacheUnitData();
+
+            baseID = cardID;
         }
         private void SetUpRotationByTeam(UnitTeam team)
         {
@@ -135,6 +140,11 @@ namespace PH
                 TriggerOnBoard newTrigger = new TriggerOnBoard(input, readInput, logic);
                 triggerOnBoards[i] = newTrigger;
             }
+        }
+
+        private void SetUpDrag(CardInfoVisual infoVisual)
+        {
+            GetComponent<DragUnit>().CardInfoVisual = infoVisual;
         }
         private void AddPlayerCacheUnitData()
         {

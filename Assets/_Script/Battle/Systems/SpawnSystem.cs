@@ -11,15 +11,16 @@ namespace PH
         private Transform _playerZone;
         private Transform _enemyZone;
         private MemberSystem _memberSystem;
-
+        private CardInfoVisual _cardInfoVisual;
         private BaseUnit _lastUnitSpawn;
 
-        public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS)
+        public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS, CardInfoVisual infoVisual)
         {
             _unitData = udb;
             _playerZone = player;
             _enemyZone = enemy;
             _memberSystem = MS;
+            _cardInfoVisual = infoVisual;
 
             _lastUnitSpawn = null;
         }
@@ -51,23 +52,24 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, spawnNode, team, prefab, _playerZone);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _playerZone);
                 _memberSystem.IncreaseMember();
 
                 return true;
             }
             else if (team == UnitTeam.Enemy)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, spawnNode, team, prefab, _enemyZone);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _enemyZone);
                 return true;
             }
             else return false;
         }
 
-        private BaseUnit InstantiateUnit(CardUnit unit, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
+        private BaseUnit InstantiateUnit(CardUnit unit, int id, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
         {
             BaseUnit newUnit = Instantiate(prefab, parrent);
-            newUnit.Setup(spawnNode, unit, team);
+            newUnit.Setup(spawnNode, unit, id, team, _cardInfoVisual);
+
             DictionaryTeamBattle.AddUnit(team, newUnit);
 
             return newUnit;

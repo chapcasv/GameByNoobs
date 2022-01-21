@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using PH.GraphSystem;
 
 namespace PH
@@ -11,11 +7,14 @@ namespace PH
     {
         public LayerMask releaseMask;
 
+        private CardInfoVisual _cardInfoVisual;
         private BaseUnit _unit;
         private Vector3 _oldPos;
         private Camera _cam;
         private float _mZCoord;
         private Vector3 _dragOffset;
+
+        public CardInfoVisual CardInfoVisual {set => _cardInfoVisual = value; }
 
         void Start()
         {
@@ -23,27 +22,17 @@ namespace PH
             _cam = Camera.main;
         }
 
-        public void OnMouseDown()
+        public void OnStartDrag()
         {
             if (_unit.GetTeam() == UnitTeam.Enemy) return;
             if (!(PhaseSystem.CurrentPhase as PlayerControl)) return;
 
             Setting.effectGridMap.HighLighMap();
 
-            _oldPos = transform.position;
-            _mZCoord = _cam.WorldToScreenPoint(transform.position).z;
-            _dragOffset = transform.position - GetMouseWorldPos();
-
+            Cache();
         }
 
-        private Vector3 GetMouseWorldPos()
-        {
-            Vector3 mousePoint = Input.mousePosition;
-            mousePoint.z = _mZCoord;
-            return _cam.ScreenToWorldPoint(mousePoint);
-        }
-
-        public void OnMouseDrag()
+        public void OnDragging()
         {
             if (!(PhaseSystem.CurrentPhase as PlayerControl))
             {
@@ -51,12 +40,12 @@ namespace PH
                 transform.position = _oldPos;
                 return;
             }
-            transform.position = GetMouseWorldPos() + _dragOffset;
+            transform.position = GetMouseWorldPos() ;
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
             Setting.effectGridMap.HighLighMap();
         }
 
-        public void OnMouseUp()
+        public void OnEndDrag()
         {
             if (!(PhaseSystem.CurrentPhase as PlayerControl))
             {
@@ -70,6 +59,26 @@ namespace PH
                 transform.position = _oldPos;
             }
             Setting.effectGridMap.StopHighLighMap();
+        }
+        
+        public void OnClick()
+        {
+            _cardInfoVisual.LoadUnit(_unit);
+        }
+        
+
+        private void Cache()
+        {
+            _oldPos = transform.position;
+            _mZCoord = _cam.WorldToScreenPoint(transform.position).z;
+            _dragOffset = transform.position - GetMouseWorldPos();
+        }
+
+        private Vector3 GetMouseWorldPos()
+        {
+            Vector3 mousePoint = Input.mousePosition;
+            mousePoint.z = _mZCoord;
+            return _cam.ScreenToWorldPoint(mousePoint);
         }
 
         private bool TryMove()
@@ -114,7 +123,7 @@ namespace PH
             return null;
         }
 
-
+       
     }
 }
 

@@ -47,7 +47,9 @@ namespace PH
         }
 
         public int BaseMagicResist { get => baseMagicResist;}
+        public int ORMagicResist => orMagicResist;
         public int BaseArmor { get => baseArmor;}
+        public int ORArmor => orArmor;
 
         public abstract void SetUp(int maxHP, int armor, int mr, UnitTeam team);
       

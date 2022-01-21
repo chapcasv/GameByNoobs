@@ -35,9 +35,9 @@ namespace PH
         protected float baseRangeAtk;
         protected float orRangeAtk;
 
-        protected const int ABILITY_DEFAULT = 100;
-        protected int baseAbilityPower;
-        protected int orAbilityPower;
+        protected const int MAGIC_DEFAULT = 100;
+        protected int baseMagicPower;
+        protected int orMagicPower;
 
         protected bool canAttack;
         protected bool canCastAbility;
@@ -47,14 +47,21 @@ namespace PH
         protected Animator animator;
 
         public float BaseAttackSpeed { get => baseAttackSpeed; }
+        public float ORAtkSpd => orAttackSpeed;
         public int BasePhysicalDmg { get => basePhysicalDmg; }
         public int ORPhysicalDamage { get => orPhysicalDmg; }
         public bool CanAtk => canAttack;
         public int BaseCritRate { get => baseCritRate; }
+        public int ORCritRate { get => orCritRate; }
         public int BaseCritDmg { get => baseCritDmgBonus; }
+        public int ORCritDmg { get => orCritDmg; }
         public int BaseLifeSteal { get => baseLifeSteal; }
+        public int ORLifeSteal { get => orLifeSteal; }
         public float BaseRangeAtk { get => baseRangeAtk; }
-        public int BaseAbilityPower { get => baseAbilityPower; }
+        public int BaseMagicPower { get => baseMagicPower; }
+        public int ORMagicPower { get => orMagicPower; }
+
+        public Ability GetAbility => ability;
         public bool CanCastAbility => canCastAbility;
 
         #endregion
@@ -83,8 +90,8 @@ namespace PH
             baseRangeAtk = CaculatorRangeAtk(range);
             orRangeAtk = baseRangeAtk;
 
-            baseAbilityPower = ABILITY_DEFAULT;
-            orAbilityPower = baseAbilityPower;
+            baseMagicPower = MAGIC_DEFAULT;
+            orMagicPower = baseMagicPower;
 
             orCalPreMitigations = new List<CalPreMitigation>();
 
@@ -136,8 +143,8 @@ namespace PH
 
         public void ReuseAbilityPower(int value)
         {
-            baseAbilityPower = value;
-            orAbilityPower = baseAbilityPower;
+            baseMagicPower = value;
+            orMagicPower = baseMagicPower;
         }
 
         #endregion
@@ -182,10 +189,10 @@ namespace PH
 
         public virtual void UpBaseAbilityPower(int value)
         {
-            baseAbilityPower += value;
-            orAbilityPower += value;
+            baseMagicPower += value;
+            orMagicPower += value;
         }
-        public virtual void UpOneRoundAbilityPower(int value) => orAbilityPower += value;
+        public virtual void UpOneRoundAbilityPower(int value) => orMagicPower += value;
         #endregion
 
         #region Caculator Pre-mitigation damage

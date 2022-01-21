@@ -8,7 +8,7 @@ namespace PH
     public abstract class Card : ScriptableObject
     {
         [Range(0, 9999)]
-        private int cardID;
+        [SerializeField] int cardID;
         [Multiline]
         [SerializeField] string cardDiscription;
         public BaseProperties[] baseProperties;

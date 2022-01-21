@@ -17,7 +17,6 @@ namespace PH
         public void SetCardInfomation(CardInfoVisual value)
         {
             _cardInfoViz = value;
-            _cardInfoViz.Init();
         }
 
         private void Awake()

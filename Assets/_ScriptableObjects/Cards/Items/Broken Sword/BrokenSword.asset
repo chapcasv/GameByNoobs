@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b94bc6beec68646aeb067d57c694cf, type: 3}
   m_Name: BrokenSword
   m_EditorClassIdentifier: 
-  Unlocked: 0
+  cardID: 3
+  cardDiscription: 
   baseProperties:
   - stringValue: Broken Sword
     intValue: 0
@@ -43,3 +44,4 @@ MonoBehaviour:
       health."
     input: {fileID: 11400000, guid: 30014378a4db3b946bef7cd614ec22d6, type: 2}
     logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}
+  Unlocked: 0

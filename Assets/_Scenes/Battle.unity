@@ -307,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c02884c982432d4a93ff418b2c347af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfoViz: {fileID: 779647057}
   handZoneUI: {fileID: 188022661}
   battleInfo: {fileID: 209047267}
   memberAmountText: {fileID: 1910830631}
@@ -2974,7 +2973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec78b20a704d354baddbb4091741487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitsDatabase: {fileID: 11400000, guid: 87ef1ec663c03444d9d784279682a692, type: 2}
   tilesHolder: {fileID: 573613183}
   playerZone: {fileID: 1664997793}
   enemyZone: {fileID: 2010682343}
@@ -3028,9 +3026,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf93a1985f9d7f4f9a19c6d22d3b2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataSO: {fileID: 11400000, guid: 87ef1ec663c03444d9d784279682a692, type: 2}
+  aLLCard: {fileID: 11400000, guid: e4b0ee94beca7b344bc45d30c412d7ff, type: 2}
   currentRaid: {fileID: 11400000, guid: 6ca79e97dfff26a40953d30ee1fbe4a4, type: 2}
   battleUIManager: {fileID: 39500439}
   dragCardSelected: {fileID: 1949502721}
+  cardInfoVisual: {fileID: 779647057}
   systemContainer: {fileID: 11400000, guid: c99767d0c17ee3b4a8509c9e62dda413, type: 2}
   factionContainer: {fileID: 11400000, guid: b5a77f38555ff0b4b99ba28a22a5cce3, type: 2}
   GBP: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
@@ -5894,7 +5895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &779647056
 RectTransform:
   m_ObjectHideFlags: 0

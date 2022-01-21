@@ -6,7 +6,6 @@ namespace PH
 {
     public class BattleUIManager : MonoBehaviour
     {
-        [SerializeField] CardInfoVisual cardInfoViz;
         [SerializeField] HandZoneUI handZoneUI;
 
         [Header("Player Info")]
@@ -28,6 +27,7 @@ namespace PH
         private MemberSystem _memberSystem;
         private ResultSystem _resultBattle;
         private GetBaseProperties _getBaseProperties;
+        private CardInfoVisual _cardInfoViz;
 
         private int _maxMemberAmount = 9;
         private int _maxWave;
@@ -35,7 +35,7 @@ namespace PH
         private void Awake()
         {
             StartCardPhase.OnComplete += MoveBattleInfo;
-            handZoneUI.SetCardInfomation(cardInfoViz);
+            
         }
 
         void Start()
@@ -48,13 +48,16 @@ namespace PH
             RemoveListerner();
         }
 
-        public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS)
+        public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS, CardInfoVisual CIV)
         {
             _lifeSystem = LS;
             _wavesSystem = WS;
             _coinSystem = CS;
             _memberSystem = MS;
             _resultBattle = RS;
+            _cardInfoViz = CIV;
+
+            handZoneUI.SetCardInfomation(_cardInfoViz);
 
             AddListener();
             SetUpBattleInfomation();

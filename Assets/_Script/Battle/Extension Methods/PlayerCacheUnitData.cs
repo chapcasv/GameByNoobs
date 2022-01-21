@@ -89,7 +89,7 @@ namespace PH
             cacheUAS.Dmg = UAS.BasePhysicalDmg;
             cacheUAS.LifeSteal = UAS.BaseLifeSteal;
             cacheUAS.Range = UAS.BaseRangeAtk;
-            cacheUAS.AbilityPower = UAS.BaseAbilityPower;
+            cacheUAS.AbilityPower = UAS.BaseMagicPower;
         }
 
         private static void CacheSurvivalStat(UnitCache cache, BaseUnit baseUnit)

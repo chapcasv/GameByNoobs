@@ -26,6 +26,7 @@ namespace PH
         protected bool isFullMana;
 
         public int BaseMaxMana => baseMaxMana;
+        public int ORMaxMana => orMaxMana;
 
         public int ORManaCurrent 
         {   get => orManaCurrent;

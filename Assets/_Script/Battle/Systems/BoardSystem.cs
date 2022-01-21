@@ -11,7 +11,6 @@ namespace PH
 
     public class BoardSystem : MonoBehaviour
     {
-        [SerializeField] UnitsDatabaseSO unitsDatabase;
         [Header("GridBoard")]
         [SerializeField] Transform tilesHolder;
         [Header("Parent")]
@@ -20,14 +19,13 @@ namespace PH
 
         private SpawnSystem _spawnSystem;
         private DeckSystem _deckSystem;
-        public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS)
+        public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS, CardInfoVisual CIV, UnitsDatabaseSO data)
         {  
             _spawnSystem = SS;
-
             //Set up trigger after spawn
             _deckSystem = DS;
             _deckSystem.OnDropCard += SetUpTriggerOnBoard;
-            _spawnSystem.Constructor(unitsDatabase, playerZone, enemyZone, MS);
+            _spawnSystem.Constructor(data, playerZone, enemyZone, MS, CIV);
         }
 
         private void Awake()
