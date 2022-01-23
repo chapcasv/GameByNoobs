@@ -19,19 +19,29 @@ namespace PH
         }
 
         protected override void OnStartPhase()
-        {   
+        {
             PhaseSystem.RunTimeBar(maxTime);
+
+            var playerUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+            var enemyUnit = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
+
+            bool bothTeamHaveMember = CheckMember(playerUnit, enemyUnit);
+
+            if (!bothTeamHaveMember) return;
 
             DictionaryTeamBattle.OnTeamDefeat += ChangePhase;
 
-            var allUnitPlayer = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
-            foreach (var unit in allUnitPlayer)
+            SetInTeamFight(playerUnit, enemyUnit);
+        }
+
+        private void SetInTeamFight(List<BaseUnit> playerUnit, List<BaseUnit> enemyUnit)
+        {
+            foreach (var unit in playerUnit)
             {
                 unit.InTeamFight = true;
             }
 
-            var allEnemies = DictionaryTeamBattle.GetAllUnits(UnitTeam.Enemy);
-            foreach (var enemy in allEnemies)
+            foreach (var enemy in enemyUnit)
             {
                 enemy.InTeamFight = true;
             }
@@ -40,6 +50,33 @@ namespace PH
         private void ChangePhase(UnitTeam team)
         {   
             PhaseSystem.StopTimeBar();
+        }
+
+        private bool CheckMember(List<BaseUnit> playerUnit, List<BaseUnit> enemyUnit)
+        {   
+            bool playerDontHaveUnitInBoard = playerUnit.Count == 0;
+            bool enemyDontHaveUnitInBoard = enemyUnit.Count == 0;
+
+            if (playerDontHaveUnitInBoard && !enemyDontHaveUnitInBoard)
+            {
+                PhaseSystem.ResultLastRound = ResultLastRound.PlayerLose;
+                forceExit = true;
+                return false;
+            }
+            else if (!playerDontHaveUnitInBoard && enemyDontHaveUnitInBoard)
+            {
+
+                PhaseSystem.ResultLastRound = ResultLastRound.PlayerWin;
+                forceExit = true;
+                return false;
+            }
+            else if (playerDontHaveUnitInBoard && enemyDontHaveUnitInBoard)
+            {
+                PhaseSystem.ResultLastRound = ResultLastRound.Draw;
+                forceExit = true;
+                return false;
+            }
+            else return true;
         }
     }
 }

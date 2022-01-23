@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Card/Trigger Drop/Logic/Item")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Card/Trigger Drop Logic/Item")]
     public class TriggerDropItem : CardDropTriggerLogic
     {
-        public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, CardDropTriggerInput input, UnitTeam team = UnitTeam.Player)
+        public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, TriggerInput input, UnitTeam team = UnitTeam.Player)
         {
             var item = (CardItem)card;
 
@@ -19,6 +19,7 @@ namespace PH
             if (canDrop)
             {
                 Excute(inputDropItem, unitTakeItem);
+                CardDropHistory.AddCardItemDrop(item,team);
             }
             return canDrop;
         }

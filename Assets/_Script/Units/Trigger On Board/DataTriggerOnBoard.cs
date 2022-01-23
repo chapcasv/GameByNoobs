@@ -8,11 +8,11 @@ namespace PH
         [Multiline]
         [SerializeField] string discription; //use for editor
         [SerializeField] TriggerOnBoardLogic logic;
-        [SerializeField] TriggerOnBoardInput input;
+        [SerializeField] TriggerInput input;
         [SerializeField] TriggerOnBoardReadInput readInput;
 
         public TriggerOnBoardReadInput GetReadInput => readInput;
-        public TriggerOnBoardInput GetInput => input;
+        public TriggerInput GetInput => input;
         public TriggerOnBoardLogic GetLogic => logic;
     }
 }

@@ -5,6 +5,12 @@ using UnityEngine;
 namespace PH
 {   
     [RequireComponent(typeof(MeleeUnitAtk))]
+    [RequireComponent(typeof(DragUnit))]
+    [RequireComponent(typeof(UnitEquipment))]
+
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Animator))]
     public class MeleeUnit : BaseUnit
     {
         protected override void SetUpAttack(CardUnit unit)

@@ -48,7 +48,7 @@ namespace PH
             return dropPlace.CanDrop(node);
         }
 
-        public bool TryTriggerOnDrop(Node node, BoardSystem boardSystem)
+        public virtual bool TryTriggerOnDrop(Node node, BoardSystem boardSystem)
         {
             for (int i = 0; i < dropTrigger.Length;)
             {

@@ -6,6 +6,12 @@ using UnityEngine;
 namespace PH
 {
     [RequireComponent(typeof(RangerUnitAtk))]
+    [RequireComponent(typeof(DragUnit))]
+    [RequireComponent(typeof(UnitEquipment))]
+    
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Animator))]
     public class RangerUnit : BaseUnit
     {
 

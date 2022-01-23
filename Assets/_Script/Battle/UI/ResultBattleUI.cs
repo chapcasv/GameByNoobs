@@ -29,6 +29,7 @@ namespace PH
 
             GridBoard.Reset();
             DictionaryTeamBattle.Reset();
+            CardDropHistory.Reset();
             PlayerCacheUnitData.Reset();
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }

@@ -46,6 +46,7 @@ namespace PH
             SetExtensionMethods(DS);
 
             DictionaryTeamBattle.Init(factionContainer);
+            CardDropHistory.Init();
             PlayerCacheUnitData.Init();
             dragCardSelected.Constructor(CS, DS, GBP);
         }

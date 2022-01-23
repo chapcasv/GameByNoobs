@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 772db82580e89fa4a9fd91b6fc8be72a, type: 3}
+  m_Name: Create Random Card by History Item
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: 1ca3ffdb91b69644e9b081f671accc82, type: 2}
+  - {fileID: 11400000, guid: 63bf2960410b59c4da66c539306455db, type: 2}
+  numberCardCreate: 1
+  requireHistoryItemCount: 2

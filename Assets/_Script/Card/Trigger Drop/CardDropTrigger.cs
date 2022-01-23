@@ -9,10 +9,10 @@ namespace PH
     {   
         [Multiline]
         [SerializeField] string Ediscription; // editor
-        [SerializeField] CardDropTriggerInput input;
+        [SerializeField] TriggerInput input;
         [SerializeField] CardDropTriggerLogic logic;
 
-        public CardDropTriggerInput Input { get => input; }
+        public TriggerInput Input { get => input; }
         public CardDropTriggerLogic Logic { get => logic; }
     }
 }

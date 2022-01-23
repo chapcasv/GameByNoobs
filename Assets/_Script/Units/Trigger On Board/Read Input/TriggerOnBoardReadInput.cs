@@ -5,7 +5,7 @@ namespace PH
 {
     public abstract class TriggerOnBoardReadInput : ScriptableObject
     {
-        public abstract void Read(TriggerOnBoardInput input);
+        public abstract void Read(TriggerInput input);
     }
 }
 

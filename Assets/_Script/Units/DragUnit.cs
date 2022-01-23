@@ -5,6 +5,8 @@ namespace PH
 {
     public class DragUnit : MonoBehaviour
     {
+        private const float CLICK_TIME = 0.2f;
+
         public LayerMask releaseMask;
 
         private CardInfoVisual _cardInfoVisual;
@@ -14,6 +16,9 @@ namespace PH
         private float _mZCoord;
         private Vector3 _dragOffset;
 
+        private float startTimeMouseDown;
+        private float startTimeMouseUp;
+
         public CardInfoVisual CardInfoVisual {set => _cardInfoVisual = value; }
 
         void Start()
@@ -22,17 +27,20 @@ namespace PH
             _cam = Camera.main;
         }
 
-        public void OnStartDrag()
+
+        public void OnMouseDown()
         {
             if (_unit.GetTeam() == UnitTeam.Enemy) return;
             if (!(PhaseSystem.CurrentPhase as PlayerControl)) return;
 
-            Setting.effectGridMap.HighLighMap();
+            startTimeMouseDown = Time.time;
 
+            Setting.effectGridMap.HighLighMap();
+            
             Cache();
         }
 
-        public void OnDragging()
+        public void OnMouseDrag()
         {
             if (!(PhaseSystem.CurrentPhase as PlayerControl))
             {
@@ -40,18 +48,29 @@ namespace PH
                 transform.position = _oldPos;
                 return;
             }
-            transform.position = GetMouseWorldPos() ;
+
+            _cardInfoVisual.gameObject.SetActive(false);
+            transform.position = GetMouseWorldPos();
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
             Setting.effectGridMap.HighLighMap();
         }
 
-        public void OnEndDrag()
+        public void OnMouseUp()
         {
             if (!(PhaseSystem.CurrentPhase as PlayerControl))
             {
                 Setting.effectGridMap.StopHighLighMap();
                 transform.position = _oldPos;
                 return;
+            }
+
+            startTimeMouseUp = Time.time;
+
+            float time = startTimeMouseUp - startTimeMouseDown;
+            
+            if(time < CLICK_TIME)
+            {
+                _cardInfoVisual.LoadUnit(_unit);
             }
 
             if (!TryMove())
@@ -60,12 +79,6 @@ namespace PH
             }
             Setting.effectGridMap.StopHighLighMap();
         }
-        
-        public void OnClick()
-        {
-            _cardInfoVisual.LoadUnit(_unit);
-        }
-        
 
         private void Cache()
         {
@@ -122,8 +135,6 @@ namespace PH
             }
             return null;
         }
-
-       
     }
 }
 

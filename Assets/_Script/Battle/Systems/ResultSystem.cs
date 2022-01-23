@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PH
@@ -23,6 +21,13 @@ namespace PH
         {
             OnPlayerDefeated?.Invoke();
         }
+    }
+
+    public enum ResultLastRound
+    {
+        PlayerWin,
+        PlayerLose,
+        Draw
     }
 }
 

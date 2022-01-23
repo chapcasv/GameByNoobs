@@ -8,7 +8,7 @@ namespace PH
     {
         [SerializeField] DeckSystem deckSystem;
 
-        public override void Read(TriggerOnBoardInput input)
+        public override void Read(TriggerInput input)
         {
             InputCreateCard inputCreateCard = (InputCreateCard)input;
 

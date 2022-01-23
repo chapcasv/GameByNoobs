@@ -11,17 +11,16 @@ namespace PH
     public class PhaseSystem : MonoBehaviour
     {
         public static Phase CurrentPhase { get; private set; }
-
         public static bool UseTimeBar { get; private set; }
-
         public static bool BattleIsEnd { get; private set; }
+        public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
         [SerializeField] Phase[] phases;
         [SerializeField] Button btnSkipControlPhase;
         [SerializeField] TimeBar timeBar;
 
         private int _phaseIndex;
-        private UnitTeam teamDefeatInTeamFight;
+        private ResultLastRound resultLastRound;
         private WaveSystem _waveSystem;
         private BoardSystem _boardSystem;
         private CoinSystem _coinSystem;
@@ -43,7 +42,6 @@ namespace PH
             BattleIsEnd = false;
         }
 
-
         private void Awake()
         {
             StartCardPhase.OnComplete += CompleteStartCard;
@@ -51,7 +49,6 @@ namespace PH
 
             btnSkipControlPhase.onClick.AddListener(SkipControlPhase);
         }
-
 
         private void Update()
         {
@@ -112,11 +109,23 @@ namespace PH
         }
 
         //Team Fight
-        private void OnTeamDefeat(UnitTeam team) => teamDefeatInTeamFight = team;
+        private void OnTeamDefeat(UnitTeam team)
+        {
+            switch (team)
+            {
+                case UnitTeam.Player:
+                    resultLastRound = ResultLastRound.PlayerLose;
+                    break;
+                case UnitTeam.Enemy:
+                    resultLastRound = ResultLastRound.PlayerWin;
+                    break;
+            }
+        }
+
 
         //After Team Fight Phase
 
-        public void AtkLifeTeamDefeat() => _lifeSystem.AtkTo(teamDefeatInTeamFight);
+        public void AtkLifeTeamDefeat() => _lifeSystem.AtkByResultLastRound(resultLastRound);
 
         public bool PlayerLifeIsZero() => _lifeSystem.PlayerLifeIsZero();
 

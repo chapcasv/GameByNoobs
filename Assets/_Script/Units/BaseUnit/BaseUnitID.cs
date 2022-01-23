@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName = "ScriptableObject/Database/UnitsID")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Card/Unit/UnitsID")]
     public class BaseUnitID : ScriptableObject
     {
         

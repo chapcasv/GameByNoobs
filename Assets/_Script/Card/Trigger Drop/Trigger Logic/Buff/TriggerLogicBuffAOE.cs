@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "Logic Buff AoE", menuName = "ScriptableObject/Card/Trigger Drop/Logic/Buff/Buff AoE")]
+    [CreateAssetMenu(fileName = "Logic Buff AoE", menuName = "ScriptableObject/Card/Trigger Drop Logic/Buff/Buff AoE")]
     public class TriggerLogicBuffAOE : CardDropTriggerLogic
     {
-        public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, CardDropTriggerInput input, UnitTeam team = UnitTeam.Player)
+        public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, TriggerInput input, UnitTeam team = UnitTeam.Player)
         {
 
             TriggerInputBuffAOE inputBuffAOE = (TriggerInputBuffAOE)input;

@@ -13,7 +13,6 @@ namespace PH
         {
             public BaseUnit prefab;
             public BaseUnitID unitID;
-            public Image art;
         }
 
         public List<BaseUnitData> allBaseUnits;

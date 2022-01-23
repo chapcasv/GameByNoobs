@@ -16,7 +16,24 @@ namespace PH
         public int GetEnemyLife() => _enemyLife;
         public int GetPlayerLife() => _playerLife;
 
-        public void AtkTo(UnitTeam team)
+        public void AtkByResultLastRound(ResultLastRound result)
+        {
+            switch (result)
+            {
+                case ResultLastRound.PlayerWin:
+                    AtkTo(UnitTeam.Enemy);
+                    break;
+                case ResultLastRound.PlayerLose:
+                    AtkTo(UnitTeam.Player);
+                    break;
+                case ResultLastRound.Draw:
+                    AtkTo(UnitTeam.Enemy);
+                    AtkTo(UnitTeam.Player);
+                    break;
+            }
+        }
+
+        private void AtkTo(UnitTeam team)
         {
             var allUnit = DictionaryTeamBattle.GetUnitsAgainst(team);
 
