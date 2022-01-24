@@ -170,11 +170,8 @@ namespace PH
         {
             int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType);
             Mana.IncreaseManaOnTakeDame();
-            if(dmgType == DmgType.Physical)
-            {
-                return dmgDeal;
-            }
-            return 0;
+           
+            return dmgDeal;
         }
 
         public virtual bool Equip(CardItem item)
@@ -182,7 +179,7 @@ namespace PH
             bool canEquip = Equipment.Equip(item);
             return canEquip;
         }
-
+       
         protected void GetInRange()
         {
             if (currentTarget == null || !currentTarget.IsLive)

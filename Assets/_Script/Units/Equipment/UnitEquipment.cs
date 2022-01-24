@@ -19,11 +19,15 @@ namespace PH
 
         protected void RemoveOneRoundItem()
         {
-            int index = GetDestroyOnRoundIndex();
-            if (index == int.MaxValue) return;
-           
-            OnDestroyItemOnRound?.Invoke(_slots);
-            _slots[index].ClearItem();
+            while (true)
+            {
+                int index = GetDestroyOnRoundIndex();
+                if (index == int.MaxValue) return;
+
+                OnDestroyItemOnRound?.Invoke(_slots);
+                _slots[index].ClearItem();
+            }
+          
 
         }
 
