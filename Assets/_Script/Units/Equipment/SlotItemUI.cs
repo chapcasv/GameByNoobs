@@ -18,10 +18,12 @@ namespace PH
         private void OnEnable()
         {
             _unitEquipment.OnSlotChange += OnEquipItem;
+            _unitEquipment.OnDestroyItemOnRound += OnReMoveSlotItem;
         }
 
         private void OnEquipItem(SlotItem[] slots)
         {
+            Debug.Log("euip");
             for (int i = 0; i < slots.Length; i++)
             {   
                 if(!slots[i].SlotFree)
@@ -35,13 +37,23 @@ namespace PH
                 }
             }
         }
-        private void OnReMoveSlotItem()
+        private void OnReMoveSlotItem(SlotItem[] slots)
         {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (!slots[i].SlotFree && slots[i].EquipSlotOneRound)
+                {
+                    slotUI[i].gameObject.SetActive(false);
 
+                }
+                else return;
+                
+            }
         }
         private void OnDisable()
         {
             _unitEquipment.OnSlotChange -= OnEquipItem;
+            _unitEquipment.OnDestroyItemOnRound -= OnReMoveSlotItem;
         }
     }
 }

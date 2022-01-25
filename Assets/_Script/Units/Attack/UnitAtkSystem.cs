@@ -10,6 +10,7 @@ namespace PH
         protected Ability ability;
 
         [SerializeField] protected List<CalPreMitigation> baseCalPreMitigations;
+        [SerializeField] private const float percentDamageToLifeSteal = 0.33f;
         protected List<CalPreMitigation> orCalPreMitigations;
 
         protected float baseAttackSpeed;
@@ -36,6 +37,7 @@ namespace PH
         protected float orRangeAtk;
 
         protected const int MAGIC_DEFAULT = 100;
+    
         protected int baseMagicPower;
         protected int orMagicPower;
 
@@ -246,9 +248,10 @@ namespace PH
         }
 
         private int CalHPRegenByDmgDealt(int dmgDealt)
-        {   
-            //use ORstat
-            dmgDealt *= 2;
+        {
+
+            dmgDealt = (int)(dmgDealt * percentDamageToLifeSteal);
+           
             return dmgDealt;
         }
 

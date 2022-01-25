@@ -194,7 +194,8 @@ namespace PH
         }
         private int GetDamageAfterArmor(int rawDmg, int armor)
         {
-            rawDmg = (int)(rawDmg / (1 + (armor / 100f)));
+            int defenseStatPreventDamage = (int)(1 + (armor / 100f));
+            rawDmg = (int)(rawDmg / defenseStatPreventDamage);
             return rawDmg;
         }
         protected virtual void TriggerOnDie() => OnDie?.Invoke();

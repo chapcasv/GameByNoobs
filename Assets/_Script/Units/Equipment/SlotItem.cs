@@ -16,19 +16,20 @@ namespace PH
         {
             item = null;
             slotFree = true;
-            equipSlotOneRound = false;
+            
         }
 
         public Sprite GetIconItem() => Item.Icon();
-
+        
         public void SetItem(UnitItem item)
         {
             slotFree = false;
             this.item = item;
+            equipSlotOneRound = item.IsOnRound;
         }
         public void ClearItem()
         {
-            equipSlotOneRound = true;
+            slotFree = true;
         }
     }
 }

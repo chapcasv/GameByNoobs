@@ -7,7 +7,7 @@ namespace PH
     {
         public event Action<SlotItem[]> OnSlotChange;
         public event Action<UnitItem> OnEquipItem; //Reload Unit Stat
-
+        public event Action<SlotItem[]> OnDestroyItemOnRound; 
         [SerializeField] ElementImage cardItemArt;
 
         private SlotItem[] _slots;
@@ -19,6 +19,15 @@ namespace PH
 
         protected void RemoveOneRoundItem()
         {
+            while (true)
+            {
+                int index = GetDestroyOnRoundIndex();
+                if (index == int.MaxValue) return;
+
+                OnDestroyItemOnRound?.Invoke(_slots);
+                _slots[index].ClearItem();
+            }
+          
 
         }
 
@@ -28,7 +37,7 @@ namespace PH
 
             int index = GetIndexSlotFree();
             if(index == int.MaxValue) return false;
-
+            Debug.Log(index);
             if(icon != null)
             {
                 UnitItem newItem = new UnitItem(icon,cardItem);
@@ -55,7 +64,17 @@ namespace PH
             }
             return int.MaxValue; //full slot
         }
-
+        private int GetDestroyOnRoundIndex()
+        {
+            for (int i = 0; i < _slots.Length; i++)
+            {
+                if (_slots[i].EquipSlotOneRound && !_slots[i].SlotFree)
+                {
+                    return i;
+                }
+            }
+            return int.MaxValue; // slot empty
+        }
         private Sprite GetIcon(CardItem item)
         {
             Sprite icon = null;
