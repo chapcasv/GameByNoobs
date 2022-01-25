@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace PH
         protected Ability ability;
 
         [SerializeField] protected List<CalPreMitigation> baseCalPreMitigations;
-        [SerializeField] private const float percentDamageToLifeSteal = 0.33f;
         protected List<CalPreMitigation> orCalPreMitigations;
 
         protected float baseAttackSpeed;
@@ -36,7 +36,7 @@ namespace PH
         protected float orRangeAtk;
 
         protected const int MAGIC_DEFAULT = 100;
-
+    
         protected int baseMagicPower;
         protected int orMagicPower;
 
@@ -98,7 +98,7 @@ namespace PH
 
             canAttack = true;
             canCastAbility = true;
-
+        
             this.ability = ability;
 
             animator = anim;
@@ -181,7 +181,7 @@ namespace PH
         public virtual void UpOneRoundLifeSteal(int value) => orLifeSteal += value;
 
         public virtual void UpBaseRangeAtk(float value)
-        {
+        {   
             float rangeValue = CaculatorRangeAtk(value);
             baseRangeAtk += rangeValue;
             orRangeAtk += rangeValue;
@@ -219,12 +219,12 @@ namespace PH
 
         protected void Caculator(ref int preMitigationDmg, BaseUnit currentTarget)
         {
-            foreach (var cal in orCalPreMitigations)
+            foreach (var cal in baseCalPreMitigations)
             {
                 cal.Cal(ref preMitigationDmg, currentTarget, this);
             }
 
-            foreach (var cal in baseCalPreMitigations)
+            foreach (var cal in orCalPreMitigations)
             {
                 cal.Cal(ref preMitigationDmg, currentTarget, this);
             }
@@ -248,10 +248,10 @@ namespace PH
 
         private int CalHPRegenByDmgDealt(int dmgDealt)
         {
+            // => dmgdealt / pct * value
 
-            dmgDealt = (int)(dmgDealt * percentDamageToLifeSteal);
-
-            return dmgDealt;
+            float HPregen = dmgDealt / 100f * ORLifeSteal;
+            return (int)HPregen;
         }
 
         protected void RotationFollowTarget(BaseUnit currentTarget)
@@ -262,8 +262,8 @@ namespace PH
         }
 
         private float CaculatorRangeAtk(float range)
-        {
-            if (range == 0)
+        {   
+            if(range == 0)
             {
                 return 0;
             }

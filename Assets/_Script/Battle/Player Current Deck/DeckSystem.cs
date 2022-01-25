@@ -24,12 +24,13 @@ namespace PH
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
 
         private const int MAX_COST_IN_GAME = 9;
+        private Card _lastCardDrop;
 
         private GetBaseProperties _getBaseProperties;
 
         public List<Card> CardsInHand { get; private set; }
         public GetBaseProperties GetBaseProperties { set => _getBaseProperties = value; }
- 
+        public Card GetLastCardDrop => _lastCardDrop;
 
         public void DrawStartCard()
         {
@@ -148,6 +149,7 @@ namespace PH
         public void DropCard(Card card)
         {
             CardsInHand.Remove(card);
+            _lastCardDrop = card;
             OnDropCard?.Invoke();
         }
 

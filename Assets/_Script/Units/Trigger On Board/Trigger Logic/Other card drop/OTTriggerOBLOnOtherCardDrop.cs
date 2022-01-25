@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PH
 {
     [CreateAssetMenu(fileName = "OT", menuName = "ScriptableObject/Card/Trigger On Board/Logic/Other Card Drop/One Time")]
-    public class TriggerOneTimeOnOtherCardDrop : TriggerOnBoardLogic
+    public class OTTriggerOBLOnOtherCardDrop : TriggerOnBoardLogic
     {
         [SerializeField] DeckSystem deckSystem;
 

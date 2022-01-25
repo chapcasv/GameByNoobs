@@ -16,7 +16,6 @@ namespace PH
         {
             item = null;
             slotFree = true;
-            
         }
 
         public Sprite GetIconItem() => Item.Icon();

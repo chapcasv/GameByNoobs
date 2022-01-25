@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PH
 {
     [CreateAssetMenu(fileName ="EL", menuName = "ScriptableObject/Card/Trigger On Board/Logic/Other Card Drop/End Less")]
-    public class TriggerEndlessOnOtherCardDrop : TriggerOnBoardLogic
+    public class ELTriggerOBLOnOtherCardDrop : TriggerOnBoardLogic
     {
         [SerializeField] DeckSystem deckSystem;
 

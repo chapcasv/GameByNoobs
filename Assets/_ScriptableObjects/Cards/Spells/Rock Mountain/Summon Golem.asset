@@ -20,7 +20,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 0b0f4f2b42aee9d42ae66172c845cbed, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
   - stringValue: 
-    intValue: 2
+    intValue: 3
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
   - stringValue: Summon Golem
@@ -38,7 +38,10 @@ MonoBehaviour:
   Faction: []
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
-  - Ediscription: 
+  - Ediscription: 'Summon golem 2 cost '
     input: {fileID: 11400000, guid: a1f7d5029f4bda342a4d4ff7faba87ec, type: 2}
     logic: {fileID: 11400000, guid: 8641c4bbac3f2df439ae1cb160a8d76f, type: 2}
+  - Ediscription: Draw 1 card
+    input: {fileID: 11400000, guid: adefdf81a25516446a0385f3ddbd33ac, type: 2}
+    logic: {fileID: 11400000, guid: d30dd86b3fe504642a737536a748575f, type: 2}
   Unlocked: 0
