@@ -10,7 +10,6 @@ namespace PH
         protected Ability ability;
 
         [SerializeField] protected List<CalPreMitigation> baseCalPreMitigations;
-        [SerializeField] private const float percentDamageToLifeSteal = 0.33f;
         protected List<CalPreMitigation> orCalPreMitigations;
 
         protected float baseAttackSpeed;
@@ -249,10 +248,10 @@ namespace PH
 
         private int CalHPRegenByDmgDealt(int dmgDealt)
         {
+            // => dmgdealt / pct * value
 
-            dmgDealt = (int)(dmgDealt * percentDamageToLifeSteal);
-           
-            return dmgDealt;
+            float HPregen = dmgDealt / 100f * ORLifeSteal;
+            return (int)HPregen;
         }
 
         protected void RotationFollowTarget(BaseUnit currentTarget)

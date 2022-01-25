@@ -27,8 +27,6 @@ namespace PH
                 OnDestroyItemOnRound?.Invoke(_slots);
                 _slots[index].ClearItem();
             }
-          
-
         }
 
         public bool Equip(CardItem cardItem)
@@ -37,7 +35,7 @@ namespace PH
 
             int index = GetIndexSlotFree();
             if(index == int.MaxValue) return false;
-            Debug.Log(index);
+
             if(icon != null)
             {
                 UnitItem newItem = new UnitItem(icon,cardItem);
@@ -50,7 +48,6 @@ namespace PH
                 return true;
             }
             else return false;
-
         }
 
         private int GetIndexSlotFree()
@@ -64,6 +61,7 @@ namespace PH
             }
             return int.MaxValue; //full slot
         }
+
         private int GetDestroyOnRoundIndex()
         {
             for (int i = 0; i < _slots.Length; i++)
@@ -75,6 +73,7 @@ namespace PH
             }
             return int.MaxValue; // slot empty
         }
+
         private Sprite GetIcon(CardItem item)
         {
             Sprite icon = null;
@@ -94,7 +93,6 @@ namespace PH
         {
             _slots = new SlotItem[] { new SlotItem(), new SlotItem(), new SlotItem() };
         }
-        
     }
 }
 

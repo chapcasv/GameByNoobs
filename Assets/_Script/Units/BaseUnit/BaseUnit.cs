@@ -75,8 +75,8 @@ namespace PH
 
             SetUpFinding(team);
             SetUpAtkLife(unit, team);
-            SetUpSurvivalStatSystem(unit, team); //Need SetUpEquipment
-            SetUpManaSystem(unit);//Need SetUpEquipment
+            SetUpSurvivalStatSystem(unit, team); 
+            SetUpManaSystem(unit);
             SetUpAttack(unit);
             SetUpMove(unit, rb);
             SetUpFaction(unit);
@@ -164,6 +164,16 @@ namespace PH
         {
             Atk.RemoveOneRoundAddOn();
             Equipment.RemoveOneRoundAddOn();
+            ResetTriggerOnBoard();
+        }
+
+        //Need move
+        protected void ResetTriggerOnBoard()
+        {
+            for (int i = 0; i < triggerOnBoards.Length; i++)
+            {
+                triggerOnBoards[i].IsTriggered = false;
+            }
         }
 
         public virtual int TakeDamage(int rawDmg,DmgType dmgType)

@@ -14,7 +14,7 @@ namespace PH
             this.isOnRound = cardItem.IsOnRound;
         }
         public Sprite Icon() => _icon;
-        public bool IsOnRound{get => isOnRound;}
+        public bool IsOnRound {get => isOnRound;}
     }
 }
 

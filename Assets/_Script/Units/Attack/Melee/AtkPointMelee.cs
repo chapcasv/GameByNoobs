@@ -15,7 +15,6 @@ namespace PH
         private void Awake()
         {
             box = GetComponent<BoxCollider>();
-
             box.enabled = false;
         }
 

@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 namespace PH
@@ -6,7 +5,6 @@ namespace PH
     public abstract class InputCreateCard : TriggerInput
     {
         [SerializeField] protected Card[] cards;
-
        
         public abstract Card[] GetCard();
     }
