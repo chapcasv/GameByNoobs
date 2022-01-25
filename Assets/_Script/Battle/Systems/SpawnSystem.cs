@@ -13,6 +13,7 @@ namespace PH
         private MemberSystem _memberSystem;
         private CardInfoVisual _cardInfoVisual;
         private BaseUnit _lastUnitSpawn;
+        [SerializeField] private CalPreMitigation[] defaultCalDamage;
 
         public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS, CardInfoVisual infoVisual)
         {
@@ -53,6 +54,7 @@ namespace PH
             if (team == UnitTeam.Player)
             {
                 _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _playerZone);
+                AddDefaultCalDamage(_lastUnitSpawn);
                 _memberSystem.IncreaseMember();
 
                 return true;
@@ -60,6 +62,7 @@ namespace PH
             else if (team == UnitTeam.Enemy)
             {
                 _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _enemyZone);
+                AddDefaultCalDamage(_lastUnitSpawn);
                 return true;
             }
             else return false;
@@ -87,6 +90,14 @@ namespace PH
                 }
             }
             return null;
+        }
+        private void AddDefaultCalDamage(BaseUnit unit)
+        {
+            var unitAtkSystem = unit.GetAtkSystem;
+            for (int i = 0; i < defaultCalDamage.Length; i++)
+            {
+                unitAtkSystem.AddBaseCaculator(defaultCalDamage[i]);
+            }
         }
     }
 }
