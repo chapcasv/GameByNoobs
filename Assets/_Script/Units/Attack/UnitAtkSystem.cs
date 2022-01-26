@@ -9,7 +9,7 @@ namespace PH
         #region Properties
         protected Ability ability;
 
-        [SerializeField] protected List<CalPreMitigation> baseCalPreMitigations;
+        protected List<CalPreMitigation> baseCalPreMitigations;
         protected List<CalPreMitigation> orCalPreMitigations;
 
         protected float baseAttackSpeed;
@@ -95,6 +95,7 @@ namespace PH
             orMagicPower = baseMagicPower;
 
             orCalPreMitigations = new List<CalPreMitigation>();
+            baseCalPreMitigations = new List<CalPreMitigation>();
 
             canAttack = true;
             canCastAbility = true;
