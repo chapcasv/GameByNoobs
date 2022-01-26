@@ -45,6 +45,7 @@ namespace PH
 
         private void GiongOneRound(BaseUnit unit)
         {
+
             var mana = unit.GetManaSystem;
 
             mana.UpOneRoundManaRegenOnHit(manaRegenOnHitG);
