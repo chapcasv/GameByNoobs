@@ -12,14 +12,13 @@ namespace PH
         [Tooltip("If the enemy has over hpOverValue, system will use max increased dmg")]
         [SerializeField] int hpOverValue = 600;
 
-
         public override void Cal(ref int dmg, BaseUnit currentTarget, UnitAtkSystem atkSystem)
         {
             var HPtarget = currentTarget.GetUnitSurvivalStat.ORMaxHP;
 
-            if(HPtarget >= hpOverValue)
+            if (HPtarget >= hpOverValue)
             {
-                float dmgInCreased = dmg * 1f / 100 * maxIncreasedDmg ;
+                float dmgInCreased = dmg * 1f / 100 * maxIncreasedDmg;
                 dmg += (int)dmgInCreased;
             }
             else
@@ -27,7 +26,6 @@ namespace PH
                 float dmgInCreased = dmg * 1f / 100 * minIncreasedDmg;
                 dmg += (int)dmgInCreased;
             }
-            
         }
     }
 }
