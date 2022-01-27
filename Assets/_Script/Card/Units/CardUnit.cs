@@ -38,6 +38,9 @@ namespace PH
         [Range(1, 5)]
         [SerializeField] int dmgLife = 1;
 
+        [SerializeField] private bool negativeBonusDamage;
+
+
         #region Properties
         public int Range { get => range; }
         public int Damage { get => damage; }
@@ -51,6 +54,8 @@ namespace PH
         public int Armor { get => armor; }
         public int MagicResist { get => magicResist; }
         public int DmgLife { get => dmgLife; }
+
+        public bool NegativeBonusDamage { get => negativeBonusDamage; }
         public Ability Abitity { get => abitity; }
 
         public override TypeMode GetCardType() => TypeMode.UNIT;

@@ -51,7 +51,7 @@ namespace PH
         public int BaseArmor { get => baseArmor;}
         public int ORArmor => orArmor;
 
-        public abstract void SetUp(int maxHP, int armor, int mr, UnitTeam team);
+        public abstract void SetUp(int maxHP, int armor, int mr,bool negativeBonusDamage ,UnitTeam team);
       
         #endregion
 
@@ -112,7 +112,10 @@ namespace PH
             baseArmor += value;
             orArmor += value;
         }
-
+        public virtual void BuffNegative(bool isNegative)
+        {
+            this.negatesBonusCritDmg = isNegative;
+        }
         #endregion
         
         public void HealthUp(int amount)

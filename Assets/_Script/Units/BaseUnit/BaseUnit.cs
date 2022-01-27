@@ -111,7 +111,7 @@ namespace PH
         protected virtual void SetUpSurvivalStatSystem(CardUnit unit, UnitTeam myTeam)
         {
             SurvivalStat = GetComponent<UnitSurvivalStat>();
-            SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist, myTeam);
+            SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist,unit.NegativeBonusDamage, myTeam);
             SurvivalStat.OnDie += Die;
         }
         protected virtual void SetUpManaSystem(CardUnit unit)

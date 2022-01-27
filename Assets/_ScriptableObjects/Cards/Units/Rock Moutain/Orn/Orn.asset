@@ -10,49 +10,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
-  m_Name: Lich
+  m_Name: Orn
   m_EditorClassIdentifier: 
-  cardID: 3
-  cardDiscription: 
+  cardID: 7
+  cardDiscription: mot vi than ren duc vu khi
   baseProperties:
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: 8ccbbae9afc645248b457d7426ebb683, type: 3}
+    sprite: {fileID: 21300000, guid: df985477d38111a49b2f14ece47824af, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-  - stringValue: Lich
+  - stringValue: 
+    intValue: 7
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+  - stringValue: Solid
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
   - stringValue: 
-    intValue: 2
-    sprite: {fileID: 0}
-    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
-  - stringValue: 
-    intValue: 700
+    intValue: 500
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
-    intValue: 0
+    intValue: 1000
     sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-  Faction: []
+  Faction:
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
-  - Ediscription: Spawn Lich
+  - Ediscription: 'Spawn Solid
+
+'
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  - Ediscription: Create Legendary item if you drop 2 Item in game
+    input: {fileID: 11400000, guid: 4444e6d685a86e745a0100ebe9c39199, type: 2}
+    logic: {fileID: 11400000, guid: 7ad2c6862af5fe64f9b443e9f04c113d, type: 2}
   Unlocked: 0
-  unitID: {fileID: 11400000, guid: 3ce719249a97caf4e902f7cc9d6e0bb3, type: 2}
-  abitity: {fileID: 11400000, guid: a3d6b1d31c19efa458b71845f5b13686, type: 2}
+  unitID: {fileID: 11400000, guid: b8680b101201de34f9231ab79f36d1d1, type: 2}
+  abitity: {fileID: 11400000, guid: b00608fcbcc20bc4cb6c904be434e6db, type: 2}
   dataTriggerOnBoards: []
-  hp: 900
-  magicResist: 15
-  armor: 15
-  manaMax: 40
-  manaStart: 0
+  hp: 750
+  magicResist: 30
+  armor: 30
+  manaMax: 150
+  manaStart: 80
   manaRegen: 10
-  damage: 90
-  range: 4
-  atkSpeed: 0.65
+  damage: 40
+  range: 1
+  atkSpeed: 0.7
   moveSpeed: 4
   dmgLife: 1
