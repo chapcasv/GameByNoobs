@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
   m_Name: Golem 2 cost
   m_EditorClassIdentifier: 
-  cardID: 6
+  cardID: 2
   cardDiscription: 
   baseProperties:
   - stringValue: 
@@ -38,20 +38,20 @@ MonoBehaviour:
   Faction: []
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
-  - Ediscription: 
+  - Ediscription: Spawn Unit
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
   Unlocked: 0
   unitID: {fileID: 11400000, guid: 2a868487add8ee04fb421b80e994641b, type: 2}
-  abitity: {fileID: 11400000, guid: 8b96eb956cff652479b92c70da44c3b2, type: 2}
+  abitity: {fileID: 11400000, guid: 283d6d1ac24d27f4f9cd66eeda7d3508, type: 2}
   dataTriggerOnBoards: []
-  hp: 450
-  magicResist: 10
-  armor: 50
-  manaMax: 10
-  manaStart: 40
+  hp: 1260
+  magicResist: 40
+  armor: 40
+  manaMax: 80
+  manaStart: 0
   manaRegen: 5
-  damage: 20
+  damage: 144
   range: 1
   atkSpeed: 0.5
   moveSpeed: 4

@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28608bc68252a364d805b2a68c65c215, type: 3}
-  m_Name: Spawn System
+  m_Script: {fileID: 11500000, guid: c194996b3978ae24f8ec4cf6c27e0d0c, type: 3}
+  m_Name: BSS Giap Mai Rua
   m_EditorClassIdentifier: 
-  defaultCalDamage:
-  - {fileID: 11400000, guid: 3c20769466d20c5498c6f3e761ea0da8, type: 2}
+  buffOneRound: 0
+  hpBonus: 0
+  armorBonus: 70
+  magicResistBonus: 0

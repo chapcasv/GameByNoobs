@@ -9,17 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
-  m_Name: BullMonster
+  m_Script: {fileID: 11500000, guid: c9b94bc6beec68646aeb067d57c694cf, type: 3}
+  m_Name: Giap Mai rua
   m_EditorClassIdentifier: 
-  cardID: 4
+  cardID: 9
   cardDiscription: 
   baseProperties:
-  - stringValue: 
-    intValue: 0
-    sprite: {fileID: 21300000, guid: 95899997042aeca4caa9ffd37c5c298f, type: 3}
-    element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-  - stringValue: Beta
+  - stringValue: Giap Mai Rua
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
@@ -28,32 +24,25 @@ MonoBehaviour:
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
   - stringValue: 
-    intValue: 10
+    intValue: 300
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
-    intValue: 0
+    intValue: 100
+    sprite: {fileID: 21300000, guid: 22e5b070b7546f84db0137f90d8138e3, type: 3}
+    element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
+  - stringValue: 
+    intValue: 100
     sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
   Faction:
   - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
-  dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
+  dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
   dropTrigger:
-  - Ediscription: Spawn Bull
-    input: {fileID: 0}
-    logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  - Ediscription: "Bonus 20 dmg - 0.3 ats\nBasic attacks and spells gain 20% increased
+      damage (pre-mitigation), \nincreased to 60% if the enemy has over 1800 maximum
+      health."
+    input: {fileID: 11400000, guid: 30014378a4db3b946bef7cd614ec22d6, type: 2}
+    logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}
   Unlocked: 0
-  unitID: {fileID: 11400000, guid: d6e0256be1d3ea6429056cdb48d211f3, type: 2}
-  abitity: {fileID: 11400000, guid: 8b96eb956cff652479b92c70da44c3b2, type: 2}
-  dataTriggerOnBoards: []
-  hp: 750
-  magicResist: 45
-  armor: 45
-  manaMax: 90
-  manaStart: 0
-  manaRegen: 10
-  damage: 55
-  range: 1
-  atkSpeed: 0.6
-  moveSpeed: 4
-  dmgLife: 1
+  isOnRound: 1
