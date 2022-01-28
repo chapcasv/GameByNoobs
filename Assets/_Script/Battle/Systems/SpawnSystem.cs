@@ -13,6 +13,7 @@ namespace PH
         private MemberSystem _memberSystem;
         private CardInfoVisual _cardInfoVisual;
         private BaseUnit _lastUnitSpawn;
+
         [SerializeField] private CalPreMitigation[] defaultCalDamage;
 
         public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS, CardInfoVisual infoVisual)

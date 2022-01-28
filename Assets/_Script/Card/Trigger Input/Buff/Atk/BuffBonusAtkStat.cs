@@ -17,7 +17,7 @@ namespace PH
 
         [SerializeField] int abilityPower;
 
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             if (buffOneRound)
             {

@@ -10,7 +10,7 @@ namespace PH
         {
             var item = (CardItem)card;
 
-            TriggerInputDropItem inputDropItem = (TriggerInputDropItem)input;
+            TriggerInputSingle inputDropItem = (TriggerInputSingle)input;
 
             BaseUnit unitTakeItem = DictionaryTeamBattle.GetUnitByNode(team, dropNode);
 
@@ -24,13 +24,13 @@ namespace PH
             return canDrop;
         }
 
-        private void Excute(TriggerInputDropItem input, BaseUnit unit)
+        private void Excute(TriggerInputSingle input, BaseUnit unit)
         {
             Buff[] buffs = input.GetBuffs;
 
             for (int i = 0; i < buffs.Length; i++)
             {
-                buffs[i].Excute(unit);
+                buffs[i].Execute(unit);
             }
         }
     }

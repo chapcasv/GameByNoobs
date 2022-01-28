@@ -5,7 +5,7 @@ namespace PH
     public abstract class Buff : ScriptableObject
     {
         [SerializeField] protected bool buffOneRound = false;
-        public abstract void Excute(BaseUnit unit);
+        public abstract void Execute(BaseUnit unit);
     }
 }
 

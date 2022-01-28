@@ -13,7 +13,7 @@ namespace PH
         {
             var item = (CardItem)card;
 
-            TriggerInputDropItem inputDropItem = (TriggerInputDropItem)input;
+            TriggerInputSingle inputDropItem = (TriggerInputSingle)input;
 
             BaseUnit unitTakeItem = DictionaryTeamBattle.GetUnitByNode(team, dropNode);
 
@@ -23,7 +23,7 @@ namespace PH
             } else  return Equip(team, item, inputDropItem, unitTakeItem);
         }
 
-        private bool Equip(UnitTeam team, CardItem item, TriggerInputDropItem inputDropItem, BaseUnit unitTakeItem)
+        private bool Equip(UnitTeam team, CardItem item, TriggerInputSingle inputDropItem, BaseUnit unitTakeItem)
         {
             bool canDrop = unitTakeItem.Equip(item);
 
@@ -35,7 +35,7 @@ namespace PH
             return canDrop;
         }
 
-        private bool EquipGiong(UnitTeam team, CardItem item, TriggerInputDropItem inputDropItem, GiongUnit giong)
+        private bool EquipGiong(UnitTeam team, CardItem item, TriggerInputSingle inputDropItem, GiongUnit giong)
         {
             bool canDrop = giong.Equip(item);
 
@@ -49,13 +49,13 @@ namespace PH
         }
 
 
-        private void Excute(TriggerInputDropItem input, BaseUnit unit)
+        private void Excute(TriggerInputSingle input, BaseUnit unit)
         {
             Buff[] buffs = input.GetBuffs;
 
             for (int i = 0; i < buffs.Length; i++)
             {
-                buffs[i].Excute(unit);
+                buffs[i].Execute(unit);
             }
         }
     }

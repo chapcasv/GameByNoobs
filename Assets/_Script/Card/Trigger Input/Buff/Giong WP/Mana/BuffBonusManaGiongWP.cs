@@ -32,7 +32,7 @@ namespace PH
         //CardID
         private int giongID = 8;
 
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             var id = unit.GetID;
 

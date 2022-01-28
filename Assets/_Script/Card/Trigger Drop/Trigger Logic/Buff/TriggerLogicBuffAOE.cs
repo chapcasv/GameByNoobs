@@ -64,7 +64,7 @@ namespace PH
             {
                 for (int i = 0; i < buffs.Length; i++)
                 {
-                    buffs[i].Excute(unit);
+                    buffs[i].Execute(unit);
                 }
             }
         }

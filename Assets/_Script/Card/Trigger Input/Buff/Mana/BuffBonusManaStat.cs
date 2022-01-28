@@ -14,7 +14,7 @@ namespace PH
 
         [SerializeField] int manaRegenOnTakeDame;
 
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             if (buffOneRound)
             {

@@ -9,7 +9,7 @@ namespace PH
     [CreateAssetMenu(fileName = "BSS", menuName = "ScriptableObject/Card/Trigger Input/Buff/Negative Bonus Damage")]
     public class BuffNegativeBonusDamage : Buff
     {
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             if (buffOneRound)
             {

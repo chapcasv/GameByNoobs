@@ -9,7 +9,7 @@ namespace PH
         [SerializeField] int armorBonus;
         [SerializeField] int magicResistBonus;
 
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             if (buffOneRound)
             {

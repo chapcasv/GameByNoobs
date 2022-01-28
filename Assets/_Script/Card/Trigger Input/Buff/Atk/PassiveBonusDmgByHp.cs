@@ -8,7 +8,7 @@ namespace PH
     {
         [SerializeField] CalculatorDmgByBigHP calculator;
 
-        public override void Excute(BaseUnit unit)
+        public override void Execute(BaseUnit unit)
         {
             var atkSystem = unit.GetAtkSystem;
 
