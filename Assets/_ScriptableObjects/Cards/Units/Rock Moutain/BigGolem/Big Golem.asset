@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
   m_Name: Big Golem
   m_EditorClassIdentifier: 
-  cardID: 8
+  cardID: 14
   cardDiscription: Duoc coi nhu than nui lang thang khap moi noi
   baseProperties:
   - stringValue: 
@@ -23,7 +23,7 @@ MonoBehaviour:
     intValue: 8
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
-  - stringValue: Golem blue 2 cost
+  - stringValue: "H\u1ED9 V\u1EC7 V\u0169 Trang"
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
@@ -33,16 +33,17 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
     intValue: 100
-    sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
+    sprite: {fileID: 21300000, guid: 2b493089ee9bc354d955b4efaef04c69, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-  Faction: []
+  Faction:
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
   - Ediscription: Spawn Unit
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
   Unlocked: 0
-  unitID: {fileID: 11400000, guid: 2a868487add8ee04fb421b80e994641b, type: 2}
+  unitID: {fileID: 11400000, guid: 7aecee536fc7e6347b01d250e3e19c29, type: 2}
   abitity: {fileID: 11400000, guid: 6a3fe3fbece14e445a337c7c554eea01, type: 2}
   dataTriggerOnBoards: []
   hp: 3330
@@ -56,3 +57,4 @@ MonoBehaviour:
   atkSpeed: 0.6
   moveSpeed: 4
   dmgLife: 1
+  negativeBonusDamage: 0
