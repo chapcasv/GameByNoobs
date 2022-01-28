@@ -7,28 +7,22 @@ namespace PH
    
     public class MeleeUnitAtk : UnitAtkSystem
     {
-        [SerializeField] protected AtkPointMelee atkPoint;
-        public override void BasicAtk(BaseUnit currentTarget)
+        public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive)
                 return;
 
             //Number atk in one second
             waitBetweenAttack = 1 / baseAttackSpeed;
-
-            int preMitigationDmg = orPhysicalDmg;
-
-            Caculator(ref preMitigationDmg, currentTarget);
-
-            atkPoint.SetUp(preMitigationDmg, currentTarget, this, DmgType.Physical);
+            
             RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
 
         }
 
-        public override void CastAbility(BaseUnit currentTarget)
+        public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
-            ability.CastSkill(currentTarget, this);
+            ability.CastSkill(currentTarget, caster);
         }
 
         public override bool IsInRange(BaseUnit currentTarget)
@@ -62,12 +56,25 @@ namespace PH
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
             canAttack = false;
             animator.SetTrigger(AnimEnum.IsAtk.ToString());
-            
+
             yield return null;
 
             yield return new WaitForSeconds(waitBetweenAttack);
 
             canAttack = true;
+        }
+
+        //animation event
+        public void SenderDmgToCurrentTarget()
+        {
+            int preMitigationDmg = orPhysicalDmg;
+
+            Caculator(ref preMitigationDmg, currentTarget);
+
+            int dmgDeal = currentTarget.TakeDamage(preMitigationDmg, DmgType.Physical);
+
+            LifeStealByDmg(dmgDeal);
+            TriggerBasicAtkAddOn();
         }
     }
 }

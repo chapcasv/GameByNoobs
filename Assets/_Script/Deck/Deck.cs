@@ -40,6 +40,22 @@ namespace PH
         {
             return CardsInDeck[index];
         }
+
+        public Card FindCard(int id)
+        {
+            Card result = null;
+
+            foreach (var card in cardsInDeck)
+            {
+                if(card.CardID == id)
+                {
+                    result = card;
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }
 

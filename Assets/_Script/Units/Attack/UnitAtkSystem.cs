@@ -9,8 +9,12 @@ namespace PH
         #region Properties
         protected Ability ability;
 
+        protected BaseUnit currentTarget;
+
         protected List<CalPreMitigation> baseCalPreMitigations;
         protected List<CalPreMitigation> orCalPreMitigations;
+        protected List<AddOnBasicAtk> baseAddOnBasicAtk;
+        protected List<AddOnBasicAtk> orAddOnBasicAtk;
 
         protected float baseAttackSpeed;
         protected float orAttackSpeed;
@@ -65,6 +69,8 @@ namespace PH
         public Ability GetAbility => ability;
         public bool CanCastAbility => canCastAbility;
 
+        public BaseUnit CurrentTarget { set => currentTarget = value; }
+
         #endregion
 
         public virtual void Constructor(float ats, float range, int dmg, Ability ability,
@@ -96,6 +102,9 @@ namespace PH
 
             orCalPreMitigations = new List<CalPreMitigation>();
             baseCalPreMitigations = new List<CalPreMitigation>();
+
+            baseAddOnBasicAtk = new List<AddOnBasicAtk>();
+            orAddOnBasicAtk = new List<AddOnBasicAtk>();
 
             canAttack = true;
             canCastAbility = true;
@@ -174,6 +183,8 @@ namespace PH
         }
         public virtual void UpOneRoundCritRate(int value) => orCritRate += value;
 
+        public virtual void UpOneRoundCritDmg(int value) => orCritDmg += value;
+
         public virtual void UpBaseLifeSteal(int value)
         {
             baseLifeSteal += value;
@@ -187,6 +198,7 @@ namespace PH
             baseRangeAtk += rangeValue;
             orRangeAtk += rangeValue;
         }
+
         public virtual void UpOneRoundRangeAtk(float value) => orRangeAtk += CaculatorRangeAtk(value);
 
         public virtual void UpBaseAbilityPower(int value)
@@ -199,10 +211,32 @@ namespace PH
 
         #region Caculator Pre-mitigation damage
 
-        public void RemoveOneRoundAddOn()
+        public virtual void RemoveOneRoundAddOn()
         {
             RemoveOneRoundCal();
+            RemoveOneRoundAddOnBasicAtk();
         }
+
+        public void AddOneRoundAddOnBasicAtk(AddOnBasicAtk addOn)
+        {
+            orAddOnBasicAtk.Add(addOn);
+        }
+
+        protected void RemoveOneRoundAddOnBasicAtk() => orAddOnBasicAtk.Clear();
+
+        protected void TriggerBasicAtkAddOn()
+        {
+            foreach (var addOn in orAddOnBasicAtk)
+            {
+                addOn.Execute(currentTarget, this);
+            }
+
+            foreach (var addOn in baseAddOnBasicAtk)
+            {
+                addOn.Execute(currentTarget, this);
+            }
+        }
+
 
         protected void RemoveOneRoundCal() => orCalPreMitigations.Clear();
 
@@ -235,8 +269,8 @@ namespace PH
 
         public abstract bool IsInRange(BaseUnit currentTarget);
         public abstract bool IsInRangeAbility(BaseUnit currentTarget);
-        public abstract void BasicAtk(BaseUnit currentTarget);
-        public abstract void CastAbility(BaseUnit currentTarget);
+        public abstract void BasicAtk();
+        public abstract void CastAbility(BaseUnit currentTarget, BaseUnit caster);
 
         public virtual void LifeStealByDmg(int damageDealt)
         {

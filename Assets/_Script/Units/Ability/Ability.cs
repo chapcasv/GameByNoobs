@@ -8,10 +8,9 @@ namespace PH
     public abstract class Ability : ScriptableObject
     {   
         [SerializeField] string abilityName;
-        [SerializeField] string discription;
         [SerializeField] Sprite icon;
 
-        [Range(1, 4)]
+        [Range(1, 32)]
         [SerializeField] float range = 1;
         public string GetAbilityName => abilityName;
       
@@ -24,7 +23,9 @@ namespace PH
 
         public abstract string GetDiscription(CardUnit unit);
         public abstract string GetDiscription(BaseUnit unit);
-        public abstract void CastSkill(BaseUnit currentTarget, UnitAtkSystem atkSystem);
+        protected abstract string GetDiscription(int value);
+
+        public abstract void CastSkill(BaseUnit currentTarget, BaseUnit caster);
     }
 }
 

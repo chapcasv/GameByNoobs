@@ -117,6 +117,17 @@ namespace PH
         public bool IsFullMana => isFullMana;
 
         public abstract void CastSkill();
+
+        public void DecreaseMana(int value)
+        {
+            ORManaCurrent -= value;
+
+            if(ORManaCurrent == 0)
+            {
+                ORManaCurrent = 0;
+            }
+        }
+
         public virtual void IncreaseManaOnHit()
         {
             if (IsFullMana) return;

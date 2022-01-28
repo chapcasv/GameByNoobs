@@ -49,14 +49,7 @@ namespace PH
         public void Init(ALLCard aLLCard)
         {
             _allCard = aLLCard;
-            _iconFactions = new Image[factionSlotViz.Length];
-            _nameFactions = new TextMeshProUGUI[factionSlotViz.Length];
-
-            for (int i = 0; i < factionSlotViz.Length; i++)
-            {
-                _iconFactions[i] = factionSlotViz[i].GetComponent<Image>();
-                _nameFactions[i] = factionSlotViz[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            }
+            gameObject.SetActive(false);
         }
 
         public void LoadUnit(BaseUnit unit)
@@ -198,21 +191,9 @@ namespace PH
 
         public override void LoadFaction(Faction[] factions)
         {
-            factionHolder.SetActive(true);
+            if (factions.Length == 0) return;
 
-            if (factions.Length <= factionSlotViz.Length)
-            {
-                HidenFactionSlot(); //Reload
-                for (int i = 0; i < factions.Length; i++)
-                {   
-                    if (factions[i].Icon == null) continue;
-
-                    _iconFactions[i].sprite = factions[i].Icon;
-                    _nameFactions[i].text = factions[i].FactionName;
-
-                    factionSlotViz[i].SetActive(true);
-                }
-            }
+            factionIcon.sprite = factions[0].Icon;
         }
     }
 }

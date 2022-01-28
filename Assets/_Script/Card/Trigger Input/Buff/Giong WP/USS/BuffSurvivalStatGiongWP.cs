@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "BSS_GiongWP", 
+    [CreateAssetMenu(fileName = "BSS_", 
         menuName = "ScriptableObject/Card/Trigger Input/Buff/Giong WP Bonus Survival Stat")]
     public class BuffSurvivalStatGiongWP : Buff
     {   

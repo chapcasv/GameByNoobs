@@ -8,9 +8,9 @@ namespace PH
         public event Action<SlotItem[]> OnSlotChange;
         public event Action<UnitItem> OnEquipItem; //Reload Unit Stat
         public event Action<SlotItem[]> OnDestroyItemOnRound; 
-        [SerializeField] ElementImage cardItemArt;
+        [SerializeField] protected ElementImage cardItemArt;
 
-        private SlotItem[] _slots;
+        protected SlotItem[] _slots;
 
         public void RemoveOneRoundAddOn()
         {

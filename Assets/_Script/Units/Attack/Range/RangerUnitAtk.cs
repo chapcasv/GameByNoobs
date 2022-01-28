@@ -9,7 +9,7 @@ namespace PH
         [SerializeField] protected ProjectileMove pfProjectile;
         [SerializeField] protected Transform firePoint;
 
-        public override void BasicAtk(BaseUnit currentTarget)
+        public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive )
                 return;
@@ -32,9 +32,9 @@ namespace PH
             pm.SetUp(currentTarget, this, preMitigationDmg, DmgType.Physical);
         }
 
-        public override void CastAbility(BaseUnit currentTarget)
+        public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
-            ability.CastSkill(currentTarget, this);
+            ability.CastSkill(currentTarget, caster);
         }
 
         public override bool IsInRange(BaseUnit currentTarget)

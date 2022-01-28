@@ -160,7 +160,7 @@ namespace PH
             }
         }
 
-        public void RemoveOneRoundAddOn()
+        public virtual void RemoveOneRoundAddOn()
         {
             Atk.RemoveOneRoundAddOn();
             Equipment.RemoveOneRoundAddOn();
@@ -213,11 +213,13 @@ namespace PH
 
         protected virtual void AttackInRange()
         {
+            Atk.CurrentTarget = currentTarget;
+
             if (Atk.IsInRange(currentTarget) && !Move.IsMoving && currentTarget.IsLive)
             {   
                 if (Atk.CanAtk)
                 {
-                    Atk.BasicAtk(currentTarget);
+                    Atk.BasicAtk();
                     Mana.IncreaseManaOnHit();
                 }
             }
@@ -230,7 +232,7 @@ namespace PH
             {
                 if (Atk.CanCastAbility && Atk.CanAtk)
                 {
-                    Atk.CastAbility(currentTarget);
+                    Atk.CastAbility(currentTarget, this);
                     Mana.CastSkill();
                 }
             }

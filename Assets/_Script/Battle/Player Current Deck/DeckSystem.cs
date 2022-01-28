@@ -32,6 +32,8 @@ namespace PH
         public GetBaseProperties GetBaseProperties { set => _getBaseProperties = value; }
         public Card GetLastCardDrop => _lastCardDrop;
 
+        public Deck CurrentDeck => _currentDeck;
+
         public void DrawStartCard()
         {
             Card card = _currentDeck.GetCard(0);

@@ -8,9 +8,9 @@ namespace PH
 {
     public class CardVisual : MonoBehaviour
     {
-        [SerializeField] protected GameObject factionHolder;
+
         [SerializeField] protected PropertiesUI[] basePropertiesViz;
-        [SerializeField] protected GameObject[] factionSlotViz;
+        [SerializeField] protected Image factionIcon;
 
         protected Card _card;
 
@@ -51,29 +51,11 @@ namespace PH
 
         public virtual void LoadFaction(Faction[] factions)
         {
-            factionHolder.SetActive(true);
+            if (factions.Length == 0) return;
 
-            if (factions.Length <= factionSlotViz.Length)
-            {
-                HidenFactionSlot(); //Reload
-                for (int i = 0; i < factions.Length; i++)
-                {
-                    if (factions[i].Icon == null) continue;
-
-                    var icon = factionSlotViz[i].transform.GetChild(2);
-                    icon.GetComponent<Image>().sprite = factions[i].Icon;
-                    factionSlotViz[i].SetActive(true);
-                }
-            } 
+            factionIcon.sprite = factions[0].Icon;
         }
 
-        protected void HidenFactionSlot()
-        {
-            for (int i = 0; i < factionSlotViz.Length; i++)
-            {
-                factionSlotViz[i].SetActive(false);
-            }
-        }
 
         protected PropertiesUI GetBaseProperty(Element e)
         {
@@ -90,7 +72,6 @@ namespace PH
             return result;
         }
 
-        public void HidenFactionHolder() => factionHolder.gameObject.SetActive(false);
 
     }
 }

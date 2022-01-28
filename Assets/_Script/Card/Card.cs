@@ -27,7 +27,7 @@ namespace PH
 
             if (Faction.Length == 0)
             {
-                cardViz.HidenFactionHolder();
+                return;
             }
             else { cardViz.LoadFaction(Faction); } 
         }

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
+  m_Name: Solid
+  m_EditorClassIdentifier: 
+  cardID: 6
+  cardDiscription: "N\u1EBFu c\xF3 Gi\xF3ng tr\xEAn s\xE2n, t\u1EA1o 1 l\xE1 Gi\xF3ng
+    WP tr\xEAn tay.\n N\u1EBFu kh\xF4ng c\xF3, b\u1ED1c 1 l\xE1 Gi\xF3ng"
+  baseProperties:
+  - stringValue: 
+    intValue: 0
+    sprite: {fileID: 21300000, guid: df985477d38111a49b2f14ece47824af, type: 3}
+    element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
+  - stringValue: 
+    intValue: 5
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+  - stringValue: Solid
+    intValue: 0
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
+  - stringValue: 
+    intValue: 300
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
+  - stringValue: 
+    intValue: 1000
+    sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
+    element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+  Faction:
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
+  dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
+  dropTrigger:
+  - Ediscription: 'Spawn Solid
+
+'
+    input: {fileID: 0}
+    logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  - Ediscription: "N\u1EBFu c\xF3 Gi\xF3ng tr\xEAn s\xE2n, t\u1EA1o 1 l\xE1 Gi\xF3ng
+      WP tr\xEAn tay.\n N\u1EBFu kh\xF4ng c\xF3, b\u1ED1c 1 l\xE1 Gi\xF3ng"
+    input: {fileID: 11400000, guid: a6427f3d12272ff4eb5a27bca9608901, type: 2}
+    logic: {fileID: 11400000, guid: 9c9e365e80204e74c838cb4150d6a687, type: 2}
+  Unlocked: 0
+  unitID: {fileID: 11400000, guid: b8680b101201de34f9231ab79f36d1d1, type: 2}
+  abitity: {fileID: 11400000, guid: b00608fcbcc20bc4cb6c904be434e6db, type: 2}
+  dataTriggerOnBoards: []
+  hp: 1300
+  magicResist: 55
+  armor: 50
+  manaMax: 165
+  manaStart: 100
+  manaRegen: 5
+  damage: 90
+  range: 1
+  atkSpeed: 0.55
+  moveSpeed: 4
+  dmgLife: 1
+  negativeBonusDamage: 0

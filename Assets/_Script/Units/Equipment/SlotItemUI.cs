@@ -30,10 +30,11 @@ namespace PH
                 {
                     slotUI[i].sprite = slots[i].GetIconItem();
                     slotUI[i].gameObject.SetActive(true);
+                    slotUI[i].transform.parent.gameObject.SetActive(true);
                 }
                 else
                 {
-                    slotUI[i].gameObject.SetActive(false);
+                    slotUI[i].transform.parent.gameObject.SetActive(false);
                 }
             }
         }
@@ -44,7 +45,7 @@ namespace PH
             {
                 if (!slots[i].SlotFree && slots[i].EquipSlotOneRound)
                 {
-                    slotUI[i].gameObject.SetActive(false);
+                    slotUI[i].transform.parent.gameObject.SetActive(false);
                 }
                 else return;
             }

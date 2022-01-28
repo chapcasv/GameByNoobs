@@ -8,11 +8,11 @@ namespace PH
     {
         [SerializeField] int magicDmg;
 
-        public override void CastSkill(BaseUnit currentTarget, UnitAtkSystem atkSystem)
+        public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             if (currentTarget == null) return; //Target dead
 
-            int dmg = magicDmg + atkSystem.ORPhysicalDamage;
+            int dmg = magicDmg + caster.GetAtkSystem.ORPhysicalDamage;
             currentTarget.TakeDamage(dmg, DmgType.Magic);
         }
 
@@ -28,7 +28,7 @@ namespace PH
             return GetDiscription(dmg);
         }
 
-        protected string GetDiscription(int value)
+        protected override string GetDiscription(int value)
         {
             int dmg = magicDmg + value;
             string physicalColor = HexColorString.MagicDmg();

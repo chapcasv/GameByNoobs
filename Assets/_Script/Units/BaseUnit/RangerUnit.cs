@@ -23,11 +23,12 @@ namespace PH
 
         protected override void AttackInRange()
         {
+            Atk.CurrentTarget = currentTarget;
             if (Atk.IsInRange(currentTarget) && !Move.IsMoving && currentTarget.IsLive)
             {
                 if (Atk.CanAtk)
                 {
-                    Atk.BasicAtk(currentTarget);
+                    Atk.BasicAtk();
                     Mana.IncreaseManaOnHit();
                 }
             }

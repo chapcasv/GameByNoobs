@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(fileName = "Create Random Card", menuName = "ScriptableObject/Card/Trigger Input/Create Card/Random Card")]
+    [CreateAssetMenu(fileName = "Create Random Card", 
+        menuName = "ScriptableObject/Card/Trigger Input/Create Card/Random Card/Random")]
     public class InputCreateRandomCard : InputCreateCard
     {
         [SerializeField] protected int numberCardCreate = 1;
