@@ -220,6 +220,7 @@ namespace PH
                 if (Atk.CanAtk)
                 {
                     Atk.BasicAtk();
+
                     Mana.IncreaseManaOnHit();
                 }
             }
@@ -233,6 +234,7 @@ namespace PH
                 if (Atk.CanCastAbility && Atk.CanAtk)
                 {
                     Atk.CastAbility(currentTarget, this);
+
                     Mana.CastSkill();
                 }
             }
