@@ -17,7 +17,7 @@ MonoBehaviour:
   baseProperties:
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: df985477d38111a49b2f14ece47824af, type: 3}
+    sprite: {fileID: 21300000, guid: 3662e20c26804de429db41a9c3733f3e, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
   - stringValue: 
     intValue: 7
@@ -33,13 +33,13 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
     intValue: 1000
-    sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
+    sprite: {fileID: 21300000, guid: c8fadb34054886c4cad1f9b92ae63252, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
   Faction:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
-  - Ediscription: 'Spawn Solid
+  - Ediscription: 'Spawn Orn
 
 '
     input: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
     input: {fileID: 11400000, guid: 4444e6d685a86e745a0100ebe9c39199, type: 2}
     logic: {fileID: 11400000, guid: 7ad2c6862af5fe64f9b443e9f04c113d, type: 2}
   Unlocked: 0
-  unitID: {fileID: 11400000, guid: b8680b101201de34f9231ab79f36d1d1, type: 2}
+  unitID: {fileID: 11400000, guid: 4901b1b1e2d169c489172186c486d39d, type: 2}
   abitity: {fileID: 11400000, guid: b00608fcbcc20bc4cb6c904be434e6db, type: 2}
   dataTriggerOnBoards: []
   hp: 750
@@ -62,3 +62,4 @@ MonoBehaviour:
   atkSpeed: 0.7
   moveSpeed: 4
   dmgLife: 1
+  negativeBonusDamage: 0

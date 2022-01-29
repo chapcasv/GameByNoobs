@@ -23,6 +23,8 @@ namespace PH
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
             ability.CastSkill(currentTarget, caster);
+            TriggerAtkToBase(caster);
+
         }
 
         public override bool IsInRange(BaseUnit currentTarget)

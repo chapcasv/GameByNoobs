@@ -15,6 +15,9 @@ namespace PH
         protected List<CalPreMitigation> orCalPreMitigations;
         protected List<AddOnBasicAtk> baseAddOnBasicAtk;
         protected List<AddOnBasicAtk> orAddOnBasicAtk;
+        protected List<AddOnBonusBasicAtk> baseAddBaseATK;
+
+        
 
         protected float baseAttackSpeed;
         protected float orAttackSpeed;
@@ -102,9 +105,11 @@ namespace PH
 
             orCalPreMitigations = new List<CalPreMitigation>();
             baseCalPreMitigations = new List<CalPreMitigation>();
-
+            
             baseAddOnBasicAtk = new List<AddOnBasicAtk>();
             orAddOnBasicAtk = new List<AddOnBasicAtk>();
+
+            baseAddBaseATK = new List<AddOnBonusBasicAtk>();
 
             canAttack = true;
             canCastAbility = true;
@@ -244,6 +249,7 @@ namespace PH
 
         public void AddBaseCaculator(CalPreMitigation cal) => baseCalPreMitigations.Add(cal);
 
+        public void AddToBaseATK(AddOnBonusBasicAtk addTo) => baseAddBaseATK.Add(addTo);
         public void RemoveBaseCaculator(CalPreMitigation cal)
         {
             if (baseCalPreMitigations.Contains(cal))
@@ -264,7 +270,13 @@ namespace PH
                 cal.Cal(ref preMitigationDmg, currentTarget, this);
             }
         }
-
+        protected void TriggerAtkToBase(BaseUnit unit)
+        {
+            foreach (var addAtk in baseAddBaseATK)
+            {
+                addAtk.Execute(unit);
+            }
+        }
         #endregion
 
         public abstract bool IsInRange(BaseUnit currentTarget);
