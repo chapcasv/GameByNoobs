@@ -14,7 +14,6 @@ namespace PH
             int lowHp = (int)(curHP.ORMaxHP / 10);
             if(curHP.ORCurrentHP <= lowHp)
             {
-                Debug.Log("a");
                 curHP.ORCurrentHP = 0;
             }
         }
