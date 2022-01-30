@@ -38,7 +38,7 @@ namespace PH
             atkSystem.UpOneRoundPhysicalDmg(damageBonus);
             atkSystem.UpOneRoundLifeSteal(lifeStealBonus);
             atkSystem.UpOneRoundRangeAtk(range);
-            atkSystem.UpOneRoundAbilityPower(abilityPower);
+            atkSystem.UpOneRoundMagicPower(abilityPower);
         }
 
         protected virtual void EndLess(BaseUnit unit)
@@ -50,7 +50,7 @@ namespace PH
             atkSystem.UpBasePhysicalDmg(damageBonus);
             atkSystem.UpBaseLifeSteal(lifeStealBonus);
             atkSystem.UpBaseRangeAtk(range);
-            atkSystem.UpBaseAbilityPower(abilityPower);
+            atkSystem.UpBaseMagicPower(abilityPower);
         }
     }
 }

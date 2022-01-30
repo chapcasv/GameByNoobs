@@ -15,7 +15,9 @@ namespace PH
         protected List<CalPreMitigation> orCalPreMitigations;
         protected List<AddOnBasicAtk> baseAddOnBasicAtk;
         protected List<AddOnBasicAtk> orAddOnBasicAtk;
-        protected List<AddOnBonusBasicAtk> baseAddBaseATK;
+
+        protected List<AddOnAfterCastAbility> addOnAfterCastSkills;
+        protected List<AddOnAfterCastAbility> orAddOnAfterCastSkills;
 
         
 
@@ -109,7 +111,8 @@ namespace PH
             baseAddOnBasicAtk = new List<AddOnBasicAtk>();
             orAddOnBasicAtk = new List<AddOnBasicAtk>();
 
-            baseAddBaseATK = new List<AddOnBonusBasicAtk>();
+            addOnAfterCastSkills = new List<AddOnAfterCastAbility>();
+            orAddOnAfterCastSkills = new List<AddOnAfterCastAbility>();
 
             canAttack = true;
             canCastAbility = true;
@@ -206,12 +209,12 @@ namespace PH
 
         public virtual void UpOneRoundRangeAtk(float value) => orRangeAtk += CaculatorRangeAtk(value);
 
-        public virtual void UpBaseAbilityPower(int value)
+        public virtual void UpBaseMagicPower(int value)
         {
             baseMagicPower += value;
             orMagicPower += value;
         }
-        public virtual void UpOneRoundAbilityPower(int value) => orMagicPower += value;
+        public virtual void UpOneRoundMagicPower(int value) => orMagicPower += value;
         #endregion
 
         #region Caculator Pre-mitigation damage
@@ -245,11 +248,16 @@ namespace PH
 
         protected void RemoveOneRoundCal() => orCalPreMitigations.Clear();
 
+        protected void RemoveOnRoundCastSkillPowerUp() => orAddOnAfterCastSkills.Clear();
         public void AddOneRoundCal(CalPreMitigation cal) => orCalPreMitigations.Add(cal);
 
         public void AddBaseCaculator(CalPreMitigation cal) => baseCalPreMitigations.Add(cal);
 
-        public void AddToBaseATK(AddOnBonusBasicAtk addTo) => baseAddBaseATK.Add(addTo);
+        public void AddToBaseATK(AddOnAfterCastAbility powerPlus) => addOnAfterCastSkills.Add(powerPlus);
+
+        public void AddOnRoundAfterCastSkill(AddOnAfterCastAbility powerPlus) => orAddOnAfterCastSkills.Add(powerPlus);
+
+
         public void RemoveBaseCaculator(CalPreMitigation cal)
         {
             if (baseCalPreMitigations.Contains(cal))
@@ -272,9 +280,13 @@ namespace PH
         }
         protected void TriggerAtkToBase(BaseUnit unit)
         {
-            foreach (var addAtk in baseAddBaseATK)
+            foreach (var addBase in addOnAfterCastSkills)
             {
-                addAtk.Execute(unit);
+                addBase.Execute(unit);
+            }
+            foreach (var addOr in orAddOnAfterCastSkills)
+            {
+                addOr.Execute(unit);
             }
         }
         #endregion

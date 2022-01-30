@@ -69,7 +69,7 @@ namespace PH
             atkSystem.UpOneRoundPhysicalDmg(damageBonusG);
             atkSystem.UpOneRoundLifeSteal(lifeStealBonusG);
             atkSystem.UpOneRoundRangeAtk(rangeG);
-            atkSystem.UpOneRoundAbilityPower(abilityPowerG);
+            atkSystem.UpOneRoundMagicPower(abilityPowerG);
 
             foreach (var addOn in listAddOn)
             {
@@ -92,7 +92,7 @@ namespace PH
             atkSystem.UpOneRoundPhysicalDmg(damageBonus);
             atkSystem.UpOneRoundLifeSteal(lifeStealBonus);
             atkSystem.UpOneRoundRangeAtk(range);
-            atkSystem.UpOneRoundAbilityPower(abilityPower);
+            atkSystem.UpOneRoundMagicPower(abilityPower);
         }
     }
 
