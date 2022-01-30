@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e4be5db02f9124581c46355e257d53, type: 3}
-  m_Name: Input Buff AOE
+  m_Script: {fileID: 11500000, guid: 665db0e27b0d6544fad49194c0a18080, type: 3}
+  m_Name: Stun 2 Sec
   m_EditorClassIdentifier: 
-  factionTakeBuff: 2
-  buffs:
-  - {fileID: 11400000, guid: d0b8ed28b23ed584fa550fa72a5f9002, type: 2}
-  - {fileID: 11400000, guid: 79d7f408e61633d4abcec749e7f18eda, type: 2}
+  statusDiscription: "L\xE0m cho\xE1ng"
+  lifeTime: 2
+  tickSpeed: 1

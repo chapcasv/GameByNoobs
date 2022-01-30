@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Big Golem
   m_EditorClassIdentifier: 
   cardID: 14
-  cardDiscription: Duoc coi nhu than nui lang thang khap moi noi
+  cardDiscription: "Khi ta \u0111\u01B0\u1EE3c tri\u1EC7u h\u1ED3i, gia t\u0103ng
+    s\u1ED1 gi\xE1p v\xE0 kh\xE1ng ph\xE9p d\u1EF1a tr\xEAn s\u1ED1 b\xE0i Trang
+    B\u1ECB ng\u01B0\u1EDDi ch\u01A1i \u0111\xE3 s\u1EED d\u1EE5ng"
   baseProperties:
   - stringValue: 
     intValue: 0
@@ -42,19 +44,22 @@ MonoBehaviour:
   - Ediscription: Spawn Unit
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  - Ediscription: Up 30 Armor + MR by history item count
+    input: {fileID: 11400000, guid: d638564924d7feb49851205fc93e2a9d, type: 2}
+    logic: {fileID: 11400000, guid: 0c746b5758f1bbc4ba9a811dcf5b3a78, type: 2}
   Unlocked: 0
   unitID: {fileID: 11400000, guid: 7aecee536fc7e6347b01d250e3e19c29, type: 2}
-  abitity: {fileID: 11400000, guid: 6a3fe3fbece14e445a337c7c554eea01, type: 2}
+  abitity: {fileID: 11400000, guid: 49728071ccfdd09469b9537eac98bd75, type: 2}
   dataTriggerOnBoards: []
   hp: 3330
   magicResist: 60
   armor: 60
   manaMax: 200
   manaStart: 125
-  manaRegen: 10
+  manaRegen: 5
   damage: 180
   range: 1
   atkSpeed: 0.6
-  moveSpeed: 4
+  moveSpeed: 6
   dmgLife: 1
   negativeBonusDamage: 0

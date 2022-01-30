@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using HexColor;
+using PH.GraphSystem;
 using System.Collections.Generic;
 using UnityEngine;
-using PH.GraphSystem;
-using HexColor;
 
 namespace PH
 {
@@ -27,7 +26,6 @@ namespace PH
             int heal = healPerTarget * targets.Count;
 
             caster.GetUnitSurvivalStat.HealthUp(heal);
-
         }
 
         public override string GetDiscription(CardUnit unit)
@@ -59,6 +57,7 @@ namespace PH
             return preMitigationDmg;
         }
 
+        //Need create extension methods
         private List<BaseUnit> GetTarget(BaseUnit caster)
         {
             List<Node> nodeClose = GridBoard.GetNodesCloseTo(caster.CurrentNode);

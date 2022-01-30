@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {
-   
+
     public class MeleeUnitAtk : UnitAtkSystem
     {
         public override void BasicAtk()
@@ -14,7 +14,7 @@ namespace PH
 
             //Number atk in one second
             waitBetweenAttack = 1 / baseAttackSpeed;
-            
+
             RotationFollowTarget(currentTarget);
             StartCoroutine(WaitCoroutine());
 
@@ -54,19 +54,26 @@ namespace PH
         IEnumerator WaitCoroutine()
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
+
             canAttack = false;
-            animator.SetTrigger(AnimEnum.IsAtk.ToString());
 
-            yield return null;
+            if (!IsDisableAtk)
+            {
+                animator.SetTrigger(AnimEnum.IsAtk.ToString());
 
-            yield return new WaitForSeconds(waitBetweenAttack);
+                yield return null;
 
-            canAttack = true;
+                yield return new WaitForSeconds(waitBetweenAttack);
+
+                canAttack = true;
+            }
         }
 
         //animation event
         public void SenderDmgToCurrentTarget()
         {
+
+
             int preMitigationDmg = orPhysicalDmg;
 
             Caculator(ref preMitigationDmg, currentTarget);

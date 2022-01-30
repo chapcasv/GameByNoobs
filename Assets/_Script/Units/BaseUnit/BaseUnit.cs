@@ -23,8 +23,9 @@ namespace PH
         protected ManaSystem Mana;
 
         protected TriggerOnBoard[] triggerOnBoards;
-
         protected Faction[] factions;
+
+        protected UnitStatusEffect unitStatusEffect;
 
         protected Node currentNode;
         protected UnitTeam _myTeam;
@@ -42,6 +43,9 @@ namespace PH
         public ManaSystem GetManaSystem => Mana;
         public UnitSurvivalStat GetUnitSurvivalStat => SurvivalStat;
         public UnitAtkSystem GetAtkSystem => Atk;
+        public UnitMove GetMove => Move;
+        public UnitStatusEffect GetUnitStatusEffect => unitStatusEffect;
+        
         public Faction[] GetFactions => factions;
         public int GetID => baseID;
 
@@ -50,6 +54,8 @@ namespace PH
         protected virtual void Update()
         {
             if (!inTeamFight || !IsLive) return;
+
+            unitStatusEffect.Execute();
 
             if (!HasEnemy) currentTarget = Find.CurrentTarget();
 
@@ -73,6 +79,7 @@ namespace PH
             anim = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
 
+
             SetUpFinding(team);
             SetUpAtkLife(unit, team);
             SetUpSurvivalStatSystem(unit, team); 
@@ -82,11 +89,12 @@ namespace PH
             SetUpFaction(unit);
             SetUpTriggerOnBoard(unit);
             SetUpDrag(infoVisual);
-
+            SetUpStatusEffect();
             AddPlayerCacheUnitData();
 
-            baseID = cardID;
+            baseID = cardID;  
         }
+
         private void SetUpRotationByTeam(UnitTeam team)
         {
             _myTeam = team;
@@ -122,7 +130,8 @@ namespace PH
         protected abstract void SetUpAttack(CardUnit unit);
         protected virtual void SetUpMove(CardUnit unit, Rigidbody rb)
         {
-            Move = new NormalUnitMove(unit.MoveSpeed, transform, anim, rb);
+            Move = GetComponent<UnitMove>();
+            Move.SetUp(unit.MoveSpeed, transform, anim, rb);
         }
         private void SetUpFaction(CardUnit unit) => factions = unit.GetFaction();
         private void SetUpTriggerOnBoard(CardUnit unit)
@@ -146,6 +155,13 @@ namespace PH
         {
             GetComponent<DragUnit>().CardInfoVisual = infoVisual;
         }
+
+        private void SetUpStatusEffect()
+        {
+            unitStatusEffect = GetComponent<UnitStatusEffect>();
+            unitStatusEffect.SetUp(this);
+        }
+
         private void AddPlayerCacheUnitData()
         {
             if (_myTeam == UnitTeam.Player) PlayerCacheUnitData.Add(this);
@@ -192,7 +208,7 @@ namespace PH
        
         protected void GetInRange()
         {
-            if (currentTarget == null || !currentTarget.IsLive)
+            if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove)
                 return;
 
             if (!Move.IsMoving)

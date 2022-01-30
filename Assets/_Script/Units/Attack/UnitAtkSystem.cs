@@ -40,7 +40,7 @@ namespace PH
         protected float orRangeAtk;
 
         protected const int MAGIC_DEFAULT = 100;
-    
+
         protected int baseMagicPower;
         protected int orMagicPower;
 
@@ -55,7 +55,6 @@ namespace PH
         public float ORAtkSpd => orAttackSpeed;
         public int BasePhysicalDmg { get => basePhysicalDmg; }
         public int ORPhysicalDamage { get => orPhysicalDmg; }
-        public bool CanAtk => canAttack;
         public int BaseCritRate { get => baseCritRate; }
         public int ORCritRate { get => orCritRate; }
         public int BaseCritDmg { get => baseCritDmgBonus; }
@@ -67,7 +66,9 @@ namespace PH
         public int ORMagicPower { get => orMagicPower; }
 
         public Ability GetAbility => ability;
-        public bool CanCastAbility => canCastAbility;
+        public bool CanCastAbility { get => canCastAbility; set => canCastAbility = value; }
+        public bool CanAtk { get => canAttack; set => canAttack = value; }
+        public bool IsDisableAtk { get; set; } //only for status effect
 
         public BaseUnit CurrentTarget { set => currentTarget = value; }
 
@@ -108,7 +109,8 @@ namespace PH
 
             canAttack = true;
             canCastAbility = true;
-        
+            IsDisableAtk = false;
+
             this.ability = ability;
 
             animator = anim;
@@ -193,7 +195,7 @@ namespace PH
         public virtual void UpOneRoundLifeSteal(int value) => orLifeSteal += value;
 
         public virtual void UpBaseRangeAtk(float value)
-        {   
+        {
             float rangeValue = CaculatorRangeAtk(value);
             baseRangeAtk += rangeValue;
             orRangeAtk += rangeValue;
@@ -297,8 +299,8 @@ namespace PH
         }
 
         private float CaculatorRangeAtk(float range)
-        {   
-            if(range == 0)
+        {
+            if (range == 0)
             {
                 return 0;
             }

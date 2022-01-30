@@ -8,7 +8,9 @@ namespace PH
     [RequireComponent(typeof(RangerUnitAtk))]
     [RequireComponent(typeof(DragUnit))]
     [RequireComponent(typeof(UnitEquipment))]
-    
+    [RequireComponent(typeof(UnitStatusEffect))]
+    [RequireComponent(typeof(NormalUnitMove))]
+
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Animator))]

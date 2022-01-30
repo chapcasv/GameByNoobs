@@ -67,11 +67,14 @@ namespace PH
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
             canAttack = false;
-            yield return null;
-            animator.SetTrigger(AnimEnum.IsAtk.ToString());
 
-            yield return new WaitForSeconds(waitBetweenAttack);
-            canAttack = true;
+            if (!IsDisableAtk)
+            {
+                yield return null;
+                animator.SetTrigger(AnimEnum.IsAtk.ToString());
+                yield return new WaitForSeconds(waitBetweenAttack);
+                canAttack = true;
+            }
         }
     }
 }

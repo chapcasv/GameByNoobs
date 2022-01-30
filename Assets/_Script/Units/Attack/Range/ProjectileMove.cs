@@ -45,7 +45,6 @@ namespace PH
                 _sender.LifeStealByDmg(dmgDeal);
                 Destroy(gameObject);
             }
-
         }
     }
 }

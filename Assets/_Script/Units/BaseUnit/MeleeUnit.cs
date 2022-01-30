@@ -7,6 +7,8 @@ namespace PH
     [RequireComponent(typeof(MeleeUnitAtk))]
     [RequireComponent(typeof(DragUnit))]
     [RequireComponent(typeof(UnitEquipment))]
+    [RequireComponent(typeof(UnitStatusEffect))]
+    [RequireComponent (typeof(NormalUnitMove))]
 
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]
