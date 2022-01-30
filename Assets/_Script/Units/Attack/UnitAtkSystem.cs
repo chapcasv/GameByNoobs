@@ -257,7 +257,7 @@ namespace PH
 
         public void AddOnRoundAfterCastSkill(AddOnAfterCastAbility powerPlus) => orAddOnAfterCastSkills.Add(powerPlus);
 
-
+        public void AddOnBasicAtk(AddOnBasicAtk summon) => baseAddOnBasicAtk.Add(summon);
         public void RemoveBaseCaculator(CalPreMitigation cal)
         {
             if (baseCalPreMitigations.Contains(cal))
