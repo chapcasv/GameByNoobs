@@ -23,6 +23,7 @@ namespace PH
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
             ability.CastSkill(currentTarget, caster);
+            TriggerAfterCastSkill(caster);
         }
 
         public override bool IsInRange(BaseUnit currentTarget)
@@ -72,8 +73,6 @@ namespace PH
         //animation event
         public void SenderDmgToCurrentTarget()
         {
-
-
             int preMitigationDmg = orPhysicalDmg;
 
             Caculator(ref preMitigationDmg, currentTarget);

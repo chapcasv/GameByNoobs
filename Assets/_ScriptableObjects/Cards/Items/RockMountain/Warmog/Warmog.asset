@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b94bc6beec68646aeb067d57c694cf, type: 3}
+  m_Name: Warmog
+  m_EditorClassIdentifier: 
+  cardID: 13
+  cardDiscription: 
+  baseProperties:
+  - stringValue: Warmog
+    intValue: 0
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
+  - stringValue: 
+    intValue: 3
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+  - stringValue: 
+    intValue: 300
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
+  - stringValue: 
+    intValue: 100
+    sprite: {fileID: 21300000, guid: a1c5c3c3c82d2e348889cb0c636202f7, type: 3}
+    element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
+  - stringValue: 
+    intValue: 100
+    sprite: {fileID: 21300000, guid: 2b493089ee9bc354d955b4efaef04c69, type: 3}
+    element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+  Faction:
+  - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
+  dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
+  dropTrigger:
+  - Ediscription: Bonus 1000 Max Health
+    input: {fileID: 11400000, guid: d1ad245ad82a6034b85d81c2dbc13b81, type: 2}
+    logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}
+  Unlocked: 0
+  isOnRound: 1

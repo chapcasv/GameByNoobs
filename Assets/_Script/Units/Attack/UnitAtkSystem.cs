@@ -16,6 +16,11 @@ namespace PH
         protected List<AddOnBasicAtk> baseAddOnBasicAtk;
         protected List<AddOnBasicAtk> orAddOnBasicAtk;
 
+        protected List<AddOnAfterCastSkill> baseAddOnAfterCastSkill;
+
+        protected List<AddOnAfterCastSkill> orAddOnAfterCastSkill;
+
+        
         protected float baseAttackSpeed;
         protected float orAttackSpeed;
 
@@ -106,6 +111,10 @@ namespace PH
 
             baseAddOnBasicAtk = new List<AddOnBasicAtk>();
             orAddOnBasicAtk = new List<AddOnBasicAtk>();
+
+
+            baseAddOnAfterCastSkill = new List<AddOnAfterCastSkill>();
+            orAddOnAfterCastSkill = new List<AddOnAfterCastSkill>();
 
             canAttack = true;
             canCastAbility = true;
@@ -238,13 +247,32 @@ namespace PH
                 addOn.Execute(currentTarget, this);
             }
         }
-
+        protected void TriggerAfterCastSkill(BaseUnit unit)
+        {
+            foreach (var OrAddOn in orAddOnAfterCastSkill)
+            {
+                OrAddOn.Execute(unit);
+            }
+            foreach (var AddOn in baseAddOnAfterCastSkill)
+            {
+                AddOn.Execute(unit);
+            }
+           
+        }
 
         protected void RemoveOneRoundCal() => orCalPreMitigations.Clear();
 
         public void AddOneRoundCal(CalPreMitigation cal) => orCalPreMitigations.Add(cal);
 
         public void AddBaseCaculator(CalPreMitigation cal) => baseCalPreMitigations.Add(cal);
+
+        public void AddAfterCastSkill(AddOnAfterCastSkill cast) => baseAddOnAfterCastSkill.Add(cast);
+
+        public void AddOnRoundAfterCastSkill(AddOnAfterCastSkill cast) => orAddOnAfterCastSkill.Add(cast);
+
+        public void AddOnBasicAtk(AddOnBasicAtk summon) => baseAddOnBasicAtk.Add(summon);
+
+        public void AddOnRoundBasicAtk(AddOnBasicAtk summon) => orAddOnBasicAtk.Add(summon);
 
         public void RemoveBaseCaculator(CalPreMitigation cal)
         {
