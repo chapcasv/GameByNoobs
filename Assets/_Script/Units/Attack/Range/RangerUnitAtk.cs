@@ -35,6 +35,7 @@ namespace PH
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
             ability.CastSkill(currentTarget, caster);
+            TriggerAfterCastSkill(caster);
         }
 
         public override bool IsInRange(BaseUnit currentTarget)
