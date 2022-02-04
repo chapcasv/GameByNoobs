@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b94bc6beec68646aeb067d57c694cf, type: 3}
-  m_Name: Slayer
+  m_Name: Legen_MagicStone
   m_EditorClassIdentifier: 
-  cardID: 21
+  cardID: 20
   cardDiscription: 
   baseProperties:
-  - stringValue: Slayer
+  - stringValue: Magic Stone
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: b3bbe9391fae80d48b8d2e5c0d9e9cd5, type: 3}
+    sprite: {fileID: 21300000, guid: 6134fc3318e2352439d1575e753015eb, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
   - stringValue: 
-    intValue: 300
+    intValue: 200
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
@@ -39,8 +39,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
   dropTrigger:
-  - Ediscription: Ket lieu doi thu khi duoi 10% mau.
-    input: {fileID: 11400000, guid: 16ad57b42e339cf48aff0898abf78638, type: 2}
+  - Ediscription: Moi khi dung ky nang tang 10 SMPT
+    input: {fileID: 11400000, guid: 7f1293e887b673f48871ead02a0eff02, type: 2}
     logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}
   Unlocked: 0
   isOnRound: 0
