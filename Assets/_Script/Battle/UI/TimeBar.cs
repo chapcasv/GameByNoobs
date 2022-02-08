@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 namespace PH
 {
     public class TimeBar : MonoBehaviour
     {
         [SerializeField] Slider sliderTime;
         [SerializeField] float smooth;
+        [SerializeField] private TextMeshProUGUI timeNumbers;
         private const float smoothOffset = 200;
 
+    
 
         public IEnumerator TimeBarPhaseLoop(float maxTime)
         {
