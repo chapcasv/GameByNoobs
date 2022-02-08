@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PH.GraphSystem;
 using UnityEngine.UI;
 using System;
-using SO;
+using PH.State;
 
 namespace PH
 {
@@ -15,8 +14,8 @@ namespace PH
         public static bool BattleIsEnd { get; private set; }
         public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
-        [SerializeField] Phase[] phases;
-        [SerializeField] Button btnSkipControlPhase;
+        [SerializeField] ControlState controlState;
+        [SerializeField] List<Phase> phases;
         [SerializeField] TimeBar timeBar;
 
         private int _phaseIndex;
@@ -28,7 +27,8 @@ namespace PH
         private LifeSystem _lifeSystem;
         private ResultSystem _resultSystem;
 
-        public void Constructor(BoardSystem BS, LifeSystem LS, WaveSystem WS, DeckSystem DS, CoinSystem CS, ResultSystem RS)
+        public void Constructor(BoardSystem BS, LifeSystem LS, WaveSystem WS, DeckSystem DS, 
+            CoinSystem CS, ResultSystem RS)
         {
             _boardSystem = BS;
             _lifeSystem = LS;
@@ -44,15 +44,19 @@ namespace PH
 
         private void Awake()
         {
-            StartCardPhase.OnComplete += CompleteStartCard;
             DictionaryTeamBattle.OnTeamDefeat += OnTeamDefeat;
+            controlState.OnRightClick += SkipControlPhase;
+        }
 
-            btnSkipControlPhase.onClick.AddListener(SkipControlPhase);
+        private void Start()
+        {
+            SetPhase(phases[_phaseIndex]); //StartCardPhase
+           
         }
 
         private void Update()
         {
-            if (CurrentPhase == null) return; ///Start Card phase or Result phase
+            if (CurrentPhase == null || CurrentPhase is StartCard) return; ///Start Card phase or Result phase
 
             bool phaseIsComplete = CurrentPhase.IsComplete();
 
@@ -66,14 +70,20 @@ namespace PH
         private void SetPhase(Phase phase)
         {
             CurrentPhase = phase;
+            StateSystem.CurrentState = (CurrentPhase.state);
             CurrentPhase.Init(this);
+        }
+
+        public void RemovePhase(Phase phase)
+        {
+            phases.Remove(phase);
         }
 
         private void LoopPhase()
         {
             _phaseIndex++;
 
-            if (_phaseIndex > phases.Length - 1)
+            if (_phaseIndex > phases.Count - 1)
             {
                 _phaseIndex = 0;
             }
@@ -167,10 +177,9 @@ namespace PH
 
         private void OnDisable()
         {
-            StartCardPhase.OnComplete -= CompleteStartCard;
             DictionaryTeamBattle.OnTeamDefeat -= OnTeamDefeat;
+            controlState.OnRightClick -= SkipControlPhase;
 
-            btnSkipControlPhase.onClick.RemoveAllListeners();
         }
     }
 }

@@ -22,7 +22,6 @@ namespace PH
             }
         }
 
-
         private int CalCritDamageBonus(BaseUnit currentTarget, UnitAtkSystem atkSystem)
         {
             int damageCrit = 0;

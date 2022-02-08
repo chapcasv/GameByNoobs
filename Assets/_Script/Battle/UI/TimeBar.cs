@@ -32,24 +32,6 @@ namespace PH
             }
             
         }
-
-
-        public IEnumerator TimeBarStartCard(float maxTime, StartCardUI startCardUI)
-        {
-            sliderTime.maxValue = maxTime;
-            sliderTime.value = sliderTime.maxValue;
-            float smooth = sliderTime.maxValue / smoothOffset;
-
-            while (sliderTime.value > sliderTime.minValue && StartCardPhase.RunTimeBar)
-            {
-                sliderTime.value -= smooth;
-
-                yield return new WaitForSeconds(smooth);
-            }
-            StartCardPhase.RunTimeBar = false;
-            startCardUI.Complete();
-        }
-
     }
 }
 

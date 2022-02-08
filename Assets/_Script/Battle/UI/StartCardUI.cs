@@ -7,31 +7,22 @@ using System;
 
 namespace PH
 {
-    [RequireComponent(typeof(StartCardPhase))]
+
     public class StartCardUI : MonoBehaviour
     {
-        [SerializeField] TimeBar timeBar;
         [SerializeField] List<Transform> startCardSlot;
-        private float _time;
-        private StartCardPhase _startCardSystem;
+        [SerializeField] StartCard startCardPhase;
 
         private void Awake()
         {
-            _startCardSystem = GetComponent<StartCardPhase>();
-            _time = _startCardSystem.Time;
-            _startCardSystem.OnStartCard += LoadStartCard;
-            _startCardSystem.OnStartCard += RunTimeBar;
-            _startCardSystem.OnReplace += LoadStartCard;
-        }
-
-        private void RunTimeBar()
-        {
-            StartCoroutine(timeBar.TimeBarStartCard(_time,this));
+            startCardPhase.OnStartCard += LoadStartCard;
+            startCardPhase.OnReplace += LoadStartCard;
+            startCardPhase.OnComplete += Complete;
         }
 
         public void Complete()
         {
-            _startCardSystem.Complete();
+            gameObject.SetActive(false);
         }
 
         private void LoadStartCard()
@@ -51,10 +42,17 @@ namespace PH
 
         private Card[] GetStartCard()
         {
-            Card[] startCard = _startCardSystem.GetStartCard();
+            Card[] startCard = startCardPhase.GetStartCard();
             return startCard;
         }
-  
+
+        private void OnDisable()
+        {
+            startCardPhase.OnStartCard -= LoadStartCard;
+            startCardPhase.OnReplace -= LoadStartCard;
+            startCardPhase.OnComplete -= Complete;
+        }
+
     }
 }
 

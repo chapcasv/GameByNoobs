@@ -7,12 +7,15 @@ namespace PH
     public class HandZoneUI : MonoBehaviour
     {
         [SerializeField] DragCardSelected dragCardSelected;
+        [SerializeField] ControlState controlState;
         [SerializeField] GameObject[] cardHand;
         [SerializeField] DeckSystem deckSystem;
 
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
         private CardInfoVisual _cardInfoViz;
+        private Animator anim;
+        private bool isShowHandZone = true;
 
         public void SetCardInfomation(CardInfoVisual value)
         {
@@ -23,14 +26,15 @@ namespace PH
         {
             Init();
             AddListerner();
+            anim = GetComponent<Animator>();
         }
 
         private void AddListerner()
         {
-            StartCardPhase.OnComplete += LoadHandZone;
             deckSystem.OnDrawCard += LoadHandZone;
             deckSystem.OnDropCard += LoadHandZone;
             deckSystem.OnAddCardHand += LoadHandZone;
+            controlState.OnLeftClick += MoveHandZone;
         }
 
         private void Init()
@@ -81,6 +85,13 @@ namespace PH
             }
         }
 
+        private void MoveHandZone()
+        {
+            isShowHandZone = !isShowHandZone;
+
+            anim.SetBool("IsShow", isShowHandZone);
+        }
+
         private void SetViz(List<Card> cardsInHand)
         {
             for (int i = 0; i < cardsInHand.Count; i++)
@@ -95,10 +106,10 @@ namespace PH
         }
         private void RemoveListerner()
         {
-            StartCardPhase.OnComplete -= LoadHandZone;
             deckSystem.OnDrawCard -= LoadHandZone;
             deckSystem.OnDropCard -= LoadHandZone;
             deckSystem.OnAddCardHand -= LoadHandZone;
+            controlState.OnLeftClick -= MoveHandZone;
         }
 
       

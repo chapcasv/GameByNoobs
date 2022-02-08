@@ -1,44 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using SO;
-using UnityEngine.UI;
 
 namespace PH
 {
-    
-    public class StartCardPhase : MonoBehaviour
+    [CreateAssetMenu(menuName = "ScriptableObject/Phase/Start Card")]
+    public class StartCard : Phase
     {
-        public static bool RunTimeBar;
-        public static event Action OnComplete;
+        [SerializeField] DeckSystem deckSystem;
+
         public event Action OnStartCard;
         public event Action OnReplace;
-        [SerializeField] DeckSystem deckSystem;
-        [SerializeField] Button btnComplete;
+        public event Action OnComplete;
 
-        private const float time = 20f;
+        public override bool IsComplete()
+        {
+            if (forceExit)
+            {   
+                //Hiden UI StartCard
+                OnComplete?.Invoke();
 
-        public float Time { get => time;}
+                //Remove StartCard Phase
+                PhaseSystem.RemovePhase(this);
+                PhaseSystem.CompleteStartCard();
+                forceExit = false;
+                return true;
+            }
+            return false;
+        }
 
-        private void Awake()
+        protected override void OnStartPhase()
         {
             deckSystem.InitializePlayerDeck();
-            btnComplete.onClick.AddListener(StopTimeBar);
-        }
-
-        private void OnDisable()
-        {
-            btnComplete.onClick.RemoveAllListeners();
-        }
-
-        private void Start()
-        {
-            RunTimeBar = true;
             DrawStartCard();
+
+            PhaseSystem.RunTimeBar(maxTime);
+
             OnStartCard?.Invoke();
         }
-
 
         private void DrawStartCard()
         {
@@ -48,7 +48,7 @@ namespace PH
                 deckSystem.DrawStartCard();
             }
         }
-        
+
         public Card[] GetStartCard()
         {
             Card[] startCards = new Card[4];
@@ -60,26 +60,14 @@ namespace PH
             return startCards;
         }
 
-        //Tracking ===Start Card ===
+        //Call by Btn Replace
         public void Replace(Transform slot)
         {
             int startCardIndex = GetSlotIndex(slot);
             deckSystem.ReplaceCardHand(startCardIndex);
             OnReplace?.Invoke();
         }
-
         private int GetSlotIndex(Transform slot) => slot.GetSiblingIndex();
-
-        private void StopTimeBar() => RunTimeBar = false;
-
-        public void Complete()
-        {
-            OnComplete?.Invoke();
-            Hiden();
-        }
-
-        private void Hiden() => gameObject.SetActive(false);
-
     }
 }
 

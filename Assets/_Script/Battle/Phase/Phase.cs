@@ -13,6 +13,9 @@ namespace PH
         protected PhaseSystem PhaseSystem;
 
         public bool forceExit = false;
+
+        public GameState state;
+
         public virtual void Init(PhaseSystem phaseSystem)
         {
             if (!isInit)
