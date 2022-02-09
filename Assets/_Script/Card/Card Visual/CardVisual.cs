@@ -22,7 +22,7 @@ namespace PH
 
         protected virtual void LoadCard(Card c)
         {
-            if (_card == null) return;
+            if (c == null) return;
 
             c.OnSetFactionViz(this);
 

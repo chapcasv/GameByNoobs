@@ -9,6 +9,8 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/Draw Card")]
     public class DrawCard : Phase
     {
+        public event Action OnEnterDrawCard;
+
         public override bool IsComplete()
         {
             if (forceExit)
@@ -20,7 +22,9 @@ namespace PH
         }
         
         protected override void OnStartPhase()
-        {
+        {   
+            
+            OnEnterDrawCard?.Invoke(); //UI Obj
             PhaseSystem.PlayerDrawCard();
             PhaseSystem.RunTimeBar(maxTime); //Anim draw Card
         }

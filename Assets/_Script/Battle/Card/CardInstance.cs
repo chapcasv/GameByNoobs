@@ -28,8 +28,11 @@ namespace PH
         public void OnDrop(DeckSystem deckSystem) => deckSystem.DropCard(Card);   
 
         public void OnPointerDown(PointerEventData eventData)
-        {
-            _cardInfoViz.SetCard(Card);
+        {   
+            if(eventData.clickCount > 1)
+            {
+                _cardInfoViz.SetCard(Card);
+            }
         }
 
         //Only use OnBeginDrag

@@ -70,7 +70,7 @@ namespace PH
         }
 
         #region SetUp
-        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, CardInfoVisual infoVisual)
+        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, DragLogic dragLogic)
         {
             SetUpRotationByTeam(team);
             SetUpPosByNode(spawnNode);
@@ -88,7 +88,7 @@ namespace PH
             SetUpMove(unit, rb);
             SetUpFaction(unit);
             SetUpTriggerOnBoard(unit);
-            SetUpDrag(infoVisual);
+            SetUpDrag(dragLogic);
             SetUpStatusEffect();
             AddPlayerCacheUnitData();
 
@@ -151,9 +151,9 @@ namespace PH
             }
         }
 
-        private void SetUpDrag(CardInfoVisual infoVisual)
+        private void SetUpDrag(DragLogic dragLogic)
         {
-            GetComponent<DragUnit>().CardInfoVisual = infoVisual;
+            GetComponent<DragUnit>().SetLogic = dragLogic;
         }
 
         private void SetUpStatusEffect()

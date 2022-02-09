@@ -16,7 +16,11 @@ namespace PH
 
         [SerializeField] private CalPreMitigation[] defaultCalDamage;
 
-        public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS, CardInfoVisual infoVisual)
+        private EnemyDragLogic eDragLogic;
+        private PlayerDragLogic pDragLogic;
+
+        public void Constructor(UnitsDatabaseSO udb, Transform player, Transform enemy, MemberSystem MS, 
+            CardInfoVisual infoVisual)
         {
             _unitData = udb;
             _playerZone = player;
@@ -29,6 +33,9 @@ namespace PH
 
         public BaseUnit GetLastUnitSpawn() => _lastUnitSpawn;
 
+        public EnemyDragLogic SetEnemyDragLogic { set => eDragLogic = value; }
+
+        public PlayerDragLogic SetPlayerDragLogic { set => pDragLogic = value; }
         public void SetLastUnitSpawn() => _lastUnitSpawn = null;
         
 
@@ -54,7 +61,7 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _playerZone);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _playerZone, pDragLogic);
                 AddDefaultCalDamage(_lastUnitSpawn);
                 _memberSystem.IncreaseMember();
 
@@ -62,17 +69,18 @@ namespace PH
             }
             else if (team == UnitTeam.Enemy)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _enemyZone);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, _enemyZone, eDragLogic);
                 AddDefaultCalDamage(_lastUnitSpawn);
                 return true;
             }
             else return false;
         }
 
-        private BaseUnit InstantiateUnit(CardUnit unit, int id, Node spawnNode, UnitTeam team, BaseUnit prefab, Transform parrent)
+        private BaseUnit InstantiateUnit(CardUnit unit, int id, Node node, 
+            UnitTeam team, BaseUnit prefab, Transform parrent, DragLogic dragLogic)
         {
             BaseUnit newUnit = Instantiate(prefab, parrent);
-            newUnit.Setup(spawnNode, unit, id, team, _cardInfoVisual);
+            newUnit.Setup(node, unit, id, team, dragLogic);
 
             DictionaryTeamBattle.AddUnit(team, newUnit);
 

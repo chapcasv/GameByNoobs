@@ -7,7 +7,14 @@ namespace PH
     public class HandZoneUI : MonoBehaviour
     {
         [SerializeField] DragCardSelected dragCardSelected;
+
+        [Header("State")]
         [SerializeField] ControlState controlState;
+        [SerializeField] TeamFightState teamFightState;
+
+        [Header("Phase")]
+        [SerializeField] BeforeTeamFight beforeTeamFight;
+
         [SerializeField] GameObject[] cardHand;
         [SerializeField] DeckSystem deckSystem;
 
@@ -15,7 +22,7 @@ namespace PH
         private CardInstance[] _cardInstance;
         private CardInfoVisual _cardInfoViz;
         private Animator anim;
-        private bool isShowHandZone = true;
+        private bool isShowHandZone = false;
 
         public void SetCardInfomation(CardInfoVisual value)
         {
@@ -34,7 +41,9 @@ namespace PH
             deckSystem.OnDrawCard += LoadHandZone;
             deckSystem.OnDropCard += LoadHandZone;
             deckSystem.OnAddCardHand += LoadHandZone;
-            controlState.OnLeftClick += MoveHandZone;
+            controlState.OnLeftClick += DisplayHandZone;
+            teamFightState.OnLeftClick += DisplayHandZone;
+            beforeTeamFight.OnEnterBeforeTeamFight += HidenHandZone;
         }
 
         private void Init()
@@ -52,15 +61,16 @@ namespace PH
         }
 
         private void LoadHandZone()
-        {
+        {   
             SetViz(deckSystem.CardsInHand);
             SetCardsInstance(deckSystem.CardsInHand);
             SetActive();
+
+            if (!isShowHandZone)  DisplayHandZone(); 
         }
 
         private void SetActive()
         {
-
             for (int i = 0; i < _cardVizs.Length; i++)
             {
                 if (_cardInstance[i].Card != null)
@@ -85,10 +95,15 @@ namespace PH
             }
         }
 
-        private void MoveHandZone()
+        private void DisplayHandZone()
         {
             isShowHandZone = !isShowHandZone;
+            anim.SetBool("IsShow", isShowHandZone);
+        }
 
+        private void HidenHandZone()
+        {
+            isShowHandZone = false;
             anim.SetBool("IsShow", isShowHandZone);
         }
 
@@ -104,15 +119,16 @@ namespace PH
         {
             RemoveListerner();
         }
+
         private void RemoveListerner()
         {
             deckSystem.OnDrawCard -= LoadHandZone;
             deckSystem.OnDropCard -= LoadHandZone;
             deckSystem.OnAddCardHand -= LoadHandZone;
-            controlState.OnLeftClick -= MoveHandZone;
+            controlState.OnLeftClick -= DisplayHandZone;
+            teamFightState.OnLeftClick -= DisplayHandZone;
+            beforeTeamFight.OnEnterBeforeTeamFight -= HidenHandZone;
         }
-
-      
     }
 }
 
