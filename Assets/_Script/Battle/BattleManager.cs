@@ -18,6 +18,10 @@ namespace PH
         [Header("Extension Methods")]
         [SerializeField] GetBaseProperties GBP;
 
+        [Header("Drag Logic")]
+        [SerializeField] PlayerDragLogic playerDragLogic;
+        [SerializeField] EnemyDragLogic enemyDragLogic;
+
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 
@@ -32,13 +36,16 @@ namespace PH
             var DS = systemContainer.GetDeckSystem();
             var SS = systemContainer.GetSpawnSystem();
 
+            SS.SetEnemyDragLogic = enemyDragLogic;
+            SS.SetPlayerDragLogic = playerDragLogic;
+
             SetSystemByCurrentRaid(LS, WS, CS, MS);
 
             cardInfoVisual.Init(aLLCard);
-            battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual);
+            battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic);
 
             _boardSystem = GetComponent<BoardSystem>();
-            _boardSystem.Constructor(MS, SS, DS,cardInfoVisual,dataSO);
+            _boardSystem.Constructor(MS, SS, DS, cardInfoVisual, dataSO);
 
             _phaseSystem = GetComponent<PhaseSystem>();
 
@@ -50,6 +57,17 @@ namespace PH
             CardDropHistory.Init();
             PlayerCacheUnitData.Init();
             dragCardSelected.Constructor(CS, DS, GBP);
+
+            SetterDragLogic();
+        }
+
+        private void SetterDragLogic()
+        {
+            playerDragLogic.CardInfoVisual = cardInfoVisual;
+            playerDragLogic.SetCam = Camera.main;
+
+            enemyDragLogic.CardInfoVisual = cardInfoVisual;
+            enemyDragLogic.SetCam = Camera.main;
         }
 
         private void SetExtensionMethods(DeckSystem DS)

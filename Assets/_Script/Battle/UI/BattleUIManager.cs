@@ -8,20 +8,24 @@ namespace PH
     {
         [SerializeField] HandZoneUI handZoneUI;
 
-        [Header("Player Info")]
-        [SerializeField] RectTransform battleInfo;
-        [SerializeField] TextMeshPro memberAmountText;
         [SerializeField] TextMeshProUGUI coinText;
-       
 
-        [Header("Enemy Info")]
         [SerializeField] TextMeshProUGUI waveText;
-       
 
-        [Header("Result UI")]
         [SerializeField] ResultBattleUI resultBattleUI;
-
         [SerializeField] BattleLifeUI lifePointUI;
+
+        [Header("Member player")]
+        [SerializeField] TextMeshPro memberAmountText;
+        [SerializeField] GameObject memberObj;
+
+        [Header("Phase")]
+        [SerializeField] DrawCard drawCard;
+        [SerializeField] BeforeTeamFight beforeTeamFight;
+
+        [Header("Remove Button")]
+        [SerializeField] RemoveUnit left;
+        [SerializeField] RemoveUnit right;
 
         private LifeSystem _lifeSystem;
         private WaveSystem _wavesSystem;
@@ -30,14 +34,10 @@ namespace PH
         private ResultSystem _resultBattle;
         private GetBaseProperties _getBaseProperties;
         private CardInfoVisual _cardInfoViz;
+        private PlayerDragLogic _playerDragLogic;
 
         private int _maxMemberAmount = 9;
         private int _maxWave;
-
-        private void Awake()
-        {
-            
-        }
 
         void Start()
         {
@@ -50,7 +50,8 @@ namespace PH
             RemoveListerner();
         }
 
-        public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS, CardInfoVisual CIV)
+        public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
+            CardInfoVisual CIV, PlayerDragLogic playerDragLogic)
         {
             _lifeSystem = LS;
             _wavesSystem = WS;
@@ -59,17 +60,13 @@ namespace PH
             _resultBattle = RS;
             _cardInfoViz = CIV;
 
+            _playerDragLogic = playerDragLogic;
+
             handZoneUI.SetCardInfomation(_cardInfoViz);
 
             AddListener();
             SetUpBattleInfomation();
         }
-
-        private void MoveBattleInfo()
-        {
-            battleInfo.gameObject.SetActive(true);
-        }
-
 
         private void SetUpBattleInfomation()
         {
@@ -82,10 +79,9 @@ namespace PH
         {
             ///Index start is 0
             int currentWaveIndex = _wavesSystem.GetCurrentIndex();
-            waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
+            waveText.text = currentWaveIndex.ToString() + 1;
+            //waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
         }
-
-        
 
         private void DisplayMemberAmount()
         {
@@ -93,14 +89,34 @@ namespace PH
             memberAmountText.text = amount.ToString() + $"/{_maxMemberAmount}";
         }
 
+        private void ShowMemberOBJ() => memberObj.SetActive(true);
+        private void HidenMemberOBJ() => memberObj.SetActive(false);
 
         private void DisplayerCoin() => coinText.text = _coinSystem.GetCoin().ToString();
+
+        private void ShowRemoveButton()
+        {
+            left.gameObject.SetActive(true);
+            right.gameObject.SetActive(true);
+        }
+
+        private void HidenRemoveButton()
+        {
+            left.gameObject.SetActive(false);
+            right.gameObject.SetActive(false);
+        }
 
         private void AddListener()
         {
             _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
             _wavesSystem.OnWaveIndexChange += DisplayWaves;
             _coinSystem.OnCoinValueChange += DisplayerCoin;
+
+            drawCard.OnEnterDrawCard += ShowMemberOBJ;
+            beforeTeamFight.OnEnterBeforeTeamFight += HidenMemberOBJ;
+
+            _playerDragLogic.OnBeginDrag += ShowRemoveButton;
+            _playerDragLogic.OnEndDrag += HidenRemoveButton;
         }
 
         private void RemoveListerner()
@@ -108,6 +124,12 @@ namespace PH
             _memberSystem.OnMemberAmountChange -= DisplayMemberAmount;
             _wavesSystem.OnWaveIndexChange -= DisplayWaves;
             _coinSystem.OnCoinValueChange -= DisplayerCoin;
+
+            drawCard.OnEnterDrawCard -= ShowMemberOBJ;
+            beforeTeamFight.OnEnterBeforeTeamFight -= HidenMemberOBJ;
+
+            _playerDragLogic.OnBeginDrag -= ShowRemoveButton;
+            _playerDragLogic.OnEndDrag -= HidenRemoveButton;
         }
        
     }

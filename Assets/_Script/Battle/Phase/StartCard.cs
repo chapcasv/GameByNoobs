@@ -37,6 +37,7 @@ namespace PH
 
             PhaseSystem.RunTimeBar(maxTime);
 
+            //Load Start card UI
             OnStartCard?.Invoke();
         }
 
@@ -65,6 +66,8 @@ namespace PH
         {
             int startCardIndex = GetSlotIndex(slot);
             deckSystem.ReplaceCardHand(startCardIndex);
+
+            //Display new card
             OnReplace?.Invoke();
         }
         private int GetSlotIndex(Transform slot) => slot.GetSiblingIndex();

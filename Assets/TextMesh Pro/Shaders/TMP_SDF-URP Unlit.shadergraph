@@ -7,6 +7,9 @@
             "m_Id": "dc75c4e3a1bc4bb0a128086c2b0679a5"
         },
         {
+            "m_Id": "a317b745390d45fdb79de9f1e58c53a5"
+        },
+        {
             "m_Id": "77f78b0d409a49de87222c63d38b5880"
         },
         {
@@ -380,6 +383,9 @@
         },
         {
             "m_Id": "3c01ad17c7214085b0b6f38b17a2758f"
+        },
+        {
+            "m_Id": "9d51e779f39d455594f8d37bf20e9fbf"
         }
     ],
     "m_GroupDatas": [
@@ -1220,6 +1226,20 @@
                     "m_Id": "ec1f2e8bc9fd4ae38b133c60ee6c49b8"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "9d51e779f39d455594f8d37bf20e9fbf"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "d9231063244941288e39a446d946506a"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -3341,6 +3361,19 @@
     "m_Property": {
         "m_Id": "22b7f3c2bb7b48c0a7fdeb50e33e7d5e"
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
+    "m_ObjectId": "2889d8893b364da584bae1738d548761",
+    "m_Id": 0,
+    "m_DisplayName": "My Face Texture",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_BareResource": false
 }
 
 {
@@ -8221,6 +8254,41 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "9d51e779f39d455594f8d37bf20e9fbf",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -4637.14794921875,
+            "y": -1923.9068603515625,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "2889d8893b364da584bae1738d548761"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "a317b745390d45fdb79de9f1e58c53a5"
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "9e6e50a71d9843b49b62ebe1cf7d3d59",
     "m_Group": {
         "m_Id": "d258902c6ec74942afdb9ebf8c1d07f8"
@@ -8420,6 +8488,29 @@
     "m_Labels": [
         "X"
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
+    "m_ObjectId": "a317b745390d45fdb79de9f1e58c53a5",
+    "m_Guid": {
+        "m_GuidSerialized": "4beb73e0-ac3b-4d0d-b93f-1abc5116e671"
+    },
+    "m_Name": "My Face Texture",
+    "m_DefaultReferenceName": "Texture2D_a317b745390d45fdb79de9f1e58c53a5",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "m_Modifiable": true,
+    "m_DefaultType": 0
 }
 
 {

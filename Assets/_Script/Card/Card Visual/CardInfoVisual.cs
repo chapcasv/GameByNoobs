@@ -57,7 +57,7 @@ namespace PH
             int baseID = unit.GetID;
 
             Card card = _allCard.GetCard(baseID);
-            base.LoadCard(card);
+            LoadCard(card);
 
             LoadInfoUnit(unit);
             gameObject.SetActive(true);
