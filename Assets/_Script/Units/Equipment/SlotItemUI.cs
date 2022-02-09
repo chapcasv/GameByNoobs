@@ -47,7 +47,7 @@ namespace PH
                 {
                     slotUI[i].transform.parent.gameObject.SetActive(false);
                 }
-                else return;
+                
             }
         }
 
