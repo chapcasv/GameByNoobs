@@ -21,12 +21,17 @@ namespace PH
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
         private CardInfoVisual _cardInfoViz;
+        private PlayerDragLogic _playerDragLogic;
         private Animator anim;
         private bool isShowHandZone = false;
 
-        public void SetCardInfomation(CardInfoVisual value)
+        public void Setter(CardInfoVisual value, PlayerDragLogic playerDragLogic)
         {
             _cardInfoViz = value;
+            _playerDragLogic = playerDragLogic;
+
+            _playerDragLogic.OnBeginDrag += HidenHandZone;
+            _playerDragLogic.OnEndDrag += DisplayHandZone;
         }
 
         private void Awake()
@@ -96,13 +101,16 @@ namespace PH
         }
 
         private void DisplayHandZone()
-        {
+        {   
+            //Need fix this line
+            if (PhaseSystem.CurrentPhase as BeforeTeamFight) return;
+
             isShowHandZone = !isShowHandZone;
             anim.SetBool("IsShow", isShowHandZone);
         }
 
         private void HidenHandZone()
-        {
+        {   
             isShowHandZone = false;
             anim.SetBool("IsShow", isShowHandZone);
         }
@@ -128,6 +136,10 @@ namespace PH
             controlState.OnLeftClick -= DisplayHandZone;
             teamFightState.OnLeftClick -= DisplayHandZone;
             beforeTeamFight.OnEnterBeforeTeamFight -= HidenHandZone;
+
+            //Add by setter
+            _playerDragLogic.OnBeginDrag -= HidenHandZone;
+            _playerDragLogic.OnEndDrag -= DisplayHandZone;
         }
     }
 }

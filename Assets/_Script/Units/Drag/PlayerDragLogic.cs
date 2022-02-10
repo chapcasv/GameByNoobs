@@ -32,18 +32,18 @@ namespace PH
 
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
-                //Show UI Remove
+                //Show UI Remove - Hiden Card Hand
                 OnBeginDrag?.Invoke();
 
                 _cardInfoVisual.gameObject.SetActive(false);
                 UnitFollowMouse(unit);
             }
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
-            {
+            {   
                 Setting.effectGridMap.StopHighLighMap();
                 unit.transform.position = _oldPos;
 
-                //Hiden UI Remove
+                //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
             else return;
@@ -83,7 +83,7 @@ namespace PH
                 }
             }
 
-            //Hiden UI Remove
+            //Hiden UI Remove - Show Card Hand
             OnEndDrag?.Invoke();
         }
 

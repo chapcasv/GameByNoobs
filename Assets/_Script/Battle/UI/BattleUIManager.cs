@@ -63,7 +63,7 @@ namespace PH
 
             _playerDragLogic = playerDragLogic;
 
-            handZoneUI.SetCardInfomation(_cardInfoViz);
+            handZoneUI.Setter(_cardInfoViz, _playerDragLogic);
 
             AddListener();
             SetUpBattleInfomation();
@@ -78,7 +78,7 @@ namespace PH
         }
         private void DisplayWaves()
         {
-            ///Index start is 0
+            //Index start is 0 
             int currentWaveIndex = _wavesSystem.GetCurrentIndex() + 1;
             waveText.text = currentWaveIndex.ToString();
             //waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
