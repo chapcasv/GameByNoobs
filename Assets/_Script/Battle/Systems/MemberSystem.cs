@@ -12,16 +12,11 @@ namespace PH
     {
         public event Action OnMemberAmountChange;
         [SerializeField] IntReference memberAmount;
-        [NonSerialized] bool _isInit = false;
         public int GetMemberAmount => memberAmount.Value;
 
         public void SetData()
         {
-            if (_isInit) return;
-
             memberAmount.Value = 0;
-
-            _isInit = true;
         }
 
         public void IncreaseMember()
@@ -30,7 +25,7 @@ namespace PH
             OnMemberAmountChange?.Invoke();
         }
 
-        public void SubTractMember()
+        public void DecreaseMember()
         {
             memberAmount.Value--;
             OnMemberAmountChange?.Invoke();

@@ -313,8 +313,6 @@ namespace PH
 
         private int CalHPRegenByDmgDealt(int dmgDealt)
         {
-            // => dmgdealt / pct * value
-
             float HPregen = dmgDealt / 100f * ORLifeSteal;
             return (int)HPregen;
         }

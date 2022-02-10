@@ -23,9 +23,9 @@ namespace PH
         [SerializeField] DrawCard drawCard;
         [SerializeField] BeforeTeamFight beforeTeamFight;
 
-        [Header("Remove Button")]
-        [SerializeField] RemoveUnit left;
-        [SerializeField] RemoveUnit right;
+        [Header("Sell Button")]
+        [SerializeField] SellUnit left;
+        [SerializeField] SellUnit right;
 
         private LifeSystem _lifeSystem;
         private WaveSystem _wavesSystem;
@@ -43,6 +43,7 @@ namespace PH
         {
             resultBattleUI.Constructor(_resultBattle);
             lifePointUI.Constructor(_lifeSystem);
+            ResetMemberAmount();
         }
 
         private void OnDisable()
@@ -78,15 +79,21 @@ namespace PH
         private void DisplayWaves()
         {
             ///Index start is 0
-            int currentWaveIndex = _wavesSystem.GetCurrentIndex();
-            waveText.text = currentWaveIndex.ToString() + 1;
+            int currentWaveIndex = _wavesSystem.GetCurrentIndex() + 1;
+            waveText.text = currentWaveIndex.ToString();
             //waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
         }
 
         private void DisplayMemberAmount()
         {
             int amount = _memberSystem.GetMemberAmount;
-            memberAmountText.text = amount.ToString() + $"/{_maxMemberAmount}";
+            memberAmountText.text = amount + $"/{_maxMemberAmount}";
+        }
+
+        
+        private void ResetMemberAmount()
+        {
+            memberAmountText.text = 0 + $"/{_maxMemberAmount}";
         }
 
         private void ShowMemberOBJ() => memberObj.SetActive(true);

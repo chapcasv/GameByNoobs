@@ -11,13 +11,11 @@ namespace PH
 
         public override void LeftClick()
         {
-            Debug.Log("Draw L");
             return;
         }
 
         public override void RightClick()
         {
-            Debug.Log("Draw R");
             return;
         }
     }

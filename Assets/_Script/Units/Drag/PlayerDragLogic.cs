@@ -79,7 +79,7 @@ namespace PH
                     {
                         unit.transform.position = _oldPos;
                     }
-                    TryRemove(unit);
+                    TrySell(unit);
                 }
             }
 
@@ -123,13 +123,13 @@ namespace PH
             else return Vector3.zero;
         }
 
-        private void TryRemove(BaseUnit unit)
+        private void TrySell(BaseUnit unit)
         {
-            RemoveUnit removeUnit = GetButtonRemove();
+            SellUnit sellUnit = GetButtonSell();
 
-            if (removeUnit != null)
+            if (sellUnit != null)
             {
-                removeUnit.Remove();
+                sellUnit.Sell(unit);
             }
         }
 
@@ -174,7 +174,7 @@ namespace PH
             return null;
         }
 
-        private RemoveUnit GetButtonRemove()
+        private SellUnit GetButtonSell()
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {
@@ -186,7 +186,7 @@ namespace PH
 
             foreach (var r in raycastResults)
             {
-                RemoveUnit remove = r.gameObject.GetComponentInParent<RemoveUnit>();
+                SellUnit remove = r.gameObject.GetComponentInParent<SellUnit>();
 
                 if (remove != null)
                 {

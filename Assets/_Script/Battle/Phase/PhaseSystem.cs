@@ -51,7 +51,6 @@ namespace PH
         private void Start()
         {
             SetPhase(phases[_phaseIndex]); //StartCardPhase
-           
         }
 
         private void Update()

@@ -7,34 +7,35 @@ namespace PH
 {
     public class NormalUnitMove : UnitMove
     {
-       
-
         public override bool MoveTowards(Node nextNode,BaseUnit currentTarget)
         {
             if (nextNode == null ) return false;
 
             Vector3 direction = (nextNode.WorldPosition - myTransform.position);
 
-            if (direction.sqrMagnitude <= 0.005f)
+            //Unit stay in next Node => return true
+            if (direction.sqrMagnitude <= 0.05f)
             {
                 myTransform.position = nextNode.WorldPosition;
-                animator.SetBool(AnimEnum.IsMoving.ToString(), true);
+                animator.SetBool(AnimEnum.IsMoving.ToString(), false);
                 return true;
             }
+            else //Unit moving to next Node => return false
+            {
+                RotationFollow(nextNode);
 
-            RotationFollow(currentTarget);
+                animator.SetBool(AnimEnum.IsMoving.ToString(), true);
+                myTransform.position += direction.normalized * moveSpeed * Time.deltaTime;
 
-            animator.SetBool(AnimEnum.IsMoving.ToString(), true);
-            myTransform.position += direction.normalized * moveSpeed * Time.deltaTime;
-
-            return false;
+                return false;
+            }
         }
 
-        protected virtual void RotationFollow(BaseUnit currentTarget)
+        protected virtual void RotationFollow(Node nextNode)
         {
-            Vector3 direction = currentTarget.CurrentNode.WorldPosition - myTransform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            GetComponent<Rigidbody>().rotation = rotation;
+            Vector3 directionNode = nextNode.WorldPosition - myTransform.position;
+
+            _rigidbody.rotation = Quaternion.LookRotation(directionNode);
         }
     }
 }

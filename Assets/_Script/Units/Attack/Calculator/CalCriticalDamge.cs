@@ -10,6 +10,8 @@ namespace PH
         
         public override void Cal(ref int dmg, BaseUnit currentTarget, UnitAtkSystem atkSystem)
         {
+            if (currentTarget == null) return; //target die
+
             int critDamageBonus = CalCritDamageBonus(currentTarget, atkSystem);
             int random = Random.Range(0, 100);
             if(random < atkSystem.ORCritRate)
@@ -24,7 +26,6 @@ namespace PH
 
         private int CalCritDamageBonus(BaseUnit currentTarget, UnitAtkSystem atkSystem)
         {
-            if (!currentTarget.IsLive) return 0;
 
             int damageCrit = 0;
             if (currentTarget.GetUnitSurvivalStat.IsNegatesBonusCritDmg)

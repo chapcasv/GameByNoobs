@@ -205,7 +205,7 @@ namespace PH
             bool canEquip = Equipment.Equip(item);
             return canEquip;
         }
-       
+
         protected void GetInRange()
         {
             if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove)

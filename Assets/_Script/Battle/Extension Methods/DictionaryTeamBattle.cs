@@ -163,6 +163,7 @@ namespace PH
 
         public static void Clear(UnitTeam team) => unitOfTeam[team].Clear();
 
+        //Remove in team fight
         public static void RemoveUnit(UnitTeam team, BaseUnit unit)
         {
             unitOfTeam[team].Remove(unit);
@@ -171,6 +172,17 @@ namespace PH
             {
                 //Change team fight to next phase
                 OnTeamDefeat?.Invoke(team);
+            }
+        }
+
+        //Remove in control phase
+        public static void SellUnit(UnitTeam team, BaseUnit unit)
+        {
+            unitOfTeam[team].Remove(unit);
+
+            foreach (var faction in unit.GetFactions)
+            {
+                unitOfFaction[faction].Remove(unit);
             }
         }
 
