@@ -73,6 +73,8 @@ namespace PH
         //animation event
         public void SenderDmgToCurrentTarget()
         {
+            if (currentTarget == null) return;
+
             int preMitigationDmg = orPhysicalDmg;
 
             Caculator(ref preMitigationDmg, currentTarget);

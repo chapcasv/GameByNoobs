@@ -34,7 +34,7 @@ namespace PH
 
         [Header("Other")]
         [Range(4, 8)]
-        [SerializeField] float moveSpeed = 4;
+        [SerializeField] float moveSpeed = 6;
         [Range(1, 5)]
         [SerializeField] int dmgLife = 1;
 

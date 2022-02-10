@@ -206,6 +206,21 @@ namespace PH
             return canEquip;
         }
 
+        protected virtual void AttackInRange()
+        {
+            Atk.CurrentTarget = currentTarget;
+
+            if (Atk.IsInRange(currentTarget) && !Move.IsMoving && currentTarget.IsLive)
+            {
+                if (Atk.CanAtk)
+                {
+                    Atk.BasicAtk();
+                    Mana.IncreaseManaOnHit();
+                }
+            }
+            else GetInRange();
+        }
+
         protected void GetInRange()
         {
             if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove)
@@ -225,21 +240,6 @@ namespace PH
                 CurrentNode.SetOccupied(false);
                 CurrentNode = destination;
             }
-        }
-
-        protected virtual void AttackInRange()
-        {
-            Atk.CurrentTarget = currentTarget;
-
-            if (Atk.IsInRange(currentTarget) && !Move.IsMoving && currentTarget.IsLive)
-            {   
-                if (Atk.CanAtk)
-                {
-                    Atk.BasicAtk();
-                    Mana.IncreaseManaOnHit();
-                }
-            }
-            else GetInRange();
         }
 
         protected virtual void CastAbilityInRange()
