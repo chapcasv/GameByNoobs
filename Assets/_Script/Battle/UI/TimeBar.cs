@@ -12,8 +12,6 @@ namespace PH
         [SerializeField] private TextMeshProUGUI timeNumbers;
         private const float smoothOffset = 200;
 
-    
-
         public IEnumerator TimeBarPhaseLoop(float maxTime)
         {
             sliderTime.maxValue = maxTime;
