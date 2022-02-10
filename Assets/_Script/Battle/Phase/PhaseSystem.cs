@@ -172,6 +172,7 @@ namespace PH
             UseTimeBar = true;
             timeBar.StopAllCoroutines();
             StartCoroutine(timeBar.TimeBarPhaseLoop(maxTime));
+            timeBar.SetDuration(maxTime).Begin();
         }
 
         private void OnDisable()
