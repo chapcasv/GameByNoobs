@@ -25,8 +25,6 @@ namespace PH
             ResetTimer();
         }
 
-        
-
         public IEnumerator TimeBarPhaseLoop(float maxTime)
         {
             sliderTime.maxValue = maxTime;
@@ -98,8 +96,6 @@ namespace PH
             }
             End();
         }
-
-     
         private void UpdateTimeUI(int timeRemaining)
         {
             if (timeRemaining >= 10)
