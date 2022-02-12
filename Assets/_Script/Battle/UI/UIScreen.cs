@@ -9,7 +9,6 @@ namespace PH
     {
         public virtual void Initialize()
         {
-            
         }
         public virtual void Show()
         {
