@@ -41,7 +41,6 @@ namespace PH
         [SerializeField] private TopButtonTap musicButtonTab;
         [SerializeField] private TopButtonTap audioButtonTab; 
         
-
         public override void Initialize()
         {
             base.Initialize();
