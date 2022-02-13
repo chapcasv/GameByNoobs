@@ -15,6 +15,7 @@ namespace PH
         public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
         [SerializeField] ControlState controlState;
+        [SerializeField] StartCard startCardPhase;
         [SerializeField] List<Phase> phases;
         [SerializeField] TimeBar timeBar;
 
@@ -50,7 +51,7 @@ namespace PH
 
         private void Start()
         {
-            SetPhase(phases[_phaseIndex]); //StartCardPhase
+            SetPhaseStart();
         }
 
         private void Update()
@@ -64,6 +65,13 @@ namespace PH
                 LoopPhase();
                 SetPhase(phases[_phaseIndex]);
             }
+        }
+
+        private void SetPhaseStart()
+        {
+            CurrentPhase = startCardPhase;
+            StateSystem.CurrentState = (CurrentPhase.state);
+            CurrentPhase.Init(this);
         }
 
         private void SetPhase(Phase phase)
@@ -172,6 +180,14 @@ namespace PH
             UseTimeBar = true;
             timeBar.StopAllCoroutines();
             StartCoroutine(timeBar.TimeBarPhaseLoop(maxTime));
+            timeBar.SetDuration(maxTime).Begin();
+        }
+
+        public void RunTimeBarStartCard(float maxTime)
+        {
+            UseTimeBar = true;
+            timeBar.StopAllCoroutines();
+            StartCoroutine(timeBar.TimeBarStartCardPhase(maxTime));
             timeBar.SetDuration(maxTime).Begin();
         }
 

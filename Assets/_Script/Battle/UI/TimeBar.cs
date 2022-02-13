@@ -44,8 +44,25 @@ namespace PH
             {
                 PhaseSystem.CurrentPhase.forceExit = true;
             }
-            
         }
+
+        public IEnumerator TimeBarStartCardPhase(float maxTime)
+        {
+            sliderTime.maxValue = maxTime;
+            sliderTime.value = sliderTime.maxValue;
+            smooth = sliderTime.maxValue / smoothOffset;
+
+            while (sliderTime.value > sliderTime.minValue && PhaseSystem.UseTimeBar && !PhaseSystem.BattleIsEnd)
+            {
+                sliderTime.value -= smooth;
+
+                yield return new WaitForSeconds(smooth);
+            }
+
+            PhaseSystem.CurrentPhase.forceExit = true;
+            PhaseSystem.CurrentPhase.IsComplete();
+        }
+
         private void ResetTimer()
         {
             timeNumbers.text = "00";
@@ -81,8 +98,6 @@ namespace PH
                 onTimerBeginAction?.Invoke();
             StopAllCoroutines();
             StartCoroutine(UpdateTimer());
-
-
         }
 
         private IEnumerator UpdateTimer()
@@ -104,7 +119,6 @@ namespace PH
                 timeNumbers.text = timeRemaining.ToString();
             else
                 timeNumbers.text = "0" + timeRemaining.ToString();
-
         }
 
         private void End()
@@ -112,7 +126,6 @@ namespace PH
             if (onTimerEndAction != null)
                 onTimerEndAction?.Invoke();
             ResetTimer();
-                
         }
 
     }

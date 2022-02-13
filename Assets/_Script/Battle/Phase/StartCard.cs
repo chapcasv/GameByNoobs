@@ -21,8 +21,6 @@ namespace PH
                 //Hiden UI StartCard
                 OnComplete?.Invoke();
 
-                //Remove StartCard Phase
-                PhaseSystem.RemovePhase(this);
                 PhaseSystem.CompleteStartCard();
                 forceExit = false;
                 return true;
@@ -35,7 +33,7 @@ namespace PH
             deckSystem.InitializePlayerDeck();
             DrawStartCard();
 
-            PhaseSystem.RunTimeBar(maxTime);
+            PhaseSystem.RunTimeBarStartCard(maxTime);
 
             //Load Start card UI
             OnStartCard?.Invoke();
