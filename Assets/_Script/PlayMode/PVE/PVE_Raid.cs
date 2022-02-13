@@ -8,7 +8,7 @@ namespace PH
     public class PVE_Raid : ScriptableObject
     {
         public string RaidName;
-        [Range(20, 40)]
+        [Range(0, 40)]
         public int PlayerLife = 20;
         [Range(2, 99)]
         public int EnemyLife = 50;

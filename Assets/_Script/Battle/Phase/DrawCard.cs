@@ -10,7 +10,14 @@ namespace PH
     public class DrawCard : Phase
     {
         public event Action OnEnterDrawCard;
-        [SerializeField] DeckSystem _deckSystem;
+        private DeckSystem _deckSystem;
+
+        public override void Init(PhaseSystem phaseSystem)
+        {
+            base.Init(phaseSystem);
+            _deckSystem = phaseSystem.GetDeckSystem;
+        }
+
         public override bool IsComplete()
         {
             if (forceExit)

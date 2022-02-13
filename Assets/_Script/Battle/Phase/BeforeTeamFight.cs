@@ -9,6 +9,16 @@ namespace PH
     public class BeforeTeamFight : Phase
     {
         public event Action OnEnterBeforeTeamFight;
+        private WaveSystem _ws;
+        private BoardSystem _bs;
+
+        public override void Init(PhaseSystem phaseSystem)
+        {
+            base.Init(phaseSystem);
+
+            _ws = PhaseSystem.GetWaveSystem;
+            _bs = PhaseSystem.GetBoardSystem;
+        }
 
         public override bool IsComplete()
         {
@@ -23,12 +33,19 @@ namespace PH
         public override void OnStartPhase()
         {
             OnEnterBeforeTeamFight?.Invoke(); //UI
-            PhaseSystem.SpawnEnemy();
+
+            SpawnEnemy();
+
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
 
             PlayerCacheUnit();
         }
 
+        private void SpawnEnemy()
+        {
+            var currentWave = _ws.GetCurrentWave();
+            _bs.SpawnEnemyInWave(currentWave);
+        }
 
         private void PlayerCacheUnit()
         {

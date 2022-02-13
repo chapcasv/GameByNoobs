@@ -9,10 +9,9 @@ namespace PH
 {
     public class PhaseSystem : MonoBehaviour
     {
-        public static Phase CurrentPhase { get; private set; }
+        public static Phase CurrentPhase { get; set; }
         public static bool UseTimeBar { get; private set; }
-        public static bool BattleIsEnd { get; private set; }
-        public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
+        public static bool BattleIsEnd { get; set; }
 
         [SerializeField] ControlState controlState;
         [SerializeField] StartCard startCardPhase;
@@ -27,6 +26,14 @@ namespace PH
         private DeckSystem _deckSystem;
         private LifeSystem _lifeSystem;
         private ResultSystem _resultSystem;
+
+        public DeckSystem GetDeckSystem { get => _deckSystem; }
+        public WaveSystem GetWaveSystem { get => _waveSystem; }
+        public BoardSystem GetBoardSystem { get => _boardSystem; }
+        public LifeSystem GetLifeSystem { get => _lifeSystem; }
+        public ResultSystem GetResultSystem { get => _resultSystem; }
+
+        public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
         public void Constructor(BoardSystem BS, LifeSystem LS, WaveSystem WS, DeckSystem DS, 
             CoinSystem CS, ResultSystem RS)
@@ -87,15 +94,12 @@ namespace PH
 
         private void SkipControlPhase()
         {
-            Debug.Log(CurrentPhase);
-
             if (CurrentPhase as PlayerControl)
             {
                 UseTimeBar = false;
                 timeBar.StopAllCoroutines();
             }
         }
-
 
         /// <summary>
         /// Run phase loop after complete start card phase
@@ -104,15 +108,6 @@ namespace PH
         {
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
-        }
-
-        //Draw Card Phase
-
-        //Before Team Fight Phase
-        public void SpawnEnemy()
-        {
-            var currentWave = _waveSystem.GetCurrentWave();
-            _boardSystem.SpawnEnemyInWave(currentWave);
         }
 
         //Team Fight
@@ -129,37 +124,10 @@ namespace PH
             }
         }
 
-
-        //After Team Fight Phase
-
-        public void AtkLifeTeamDefeat() => _lifeSystem.AtkByResultLastRound(resultLastRound);
-
-        public bool PlayerLifeIsZero() => _lifeSystem.PlayerLifeIsZero();
-
-        public bool EnemyLifeIsZero() => _lifeSystem.EnemyLifeIsZero();
-
         public void RewardClearWave()
         {
             int coin = _waveSystem.GetRewardClearWave();
             _coinSystem.Add(coin);
-        }
-        public void IncreaseWaveIndex() => _waveSystem.IncreaseIndex();
-
-        public bool IsLastWave() => _waveSystem.IsLastWave();
-
-        //Result Phase
-        public void PlayerVictory()
-        {
-            BattleIsEnd = true;
-            CurrentPhase = null;
-            _resultSystem.PlayerVictory();
-        }
-
-        public void PlayerDefeated()
-        {
-            BattleIsEnd = true;
-            CurrentPhase = null;
-            _resultSystem.PlayerDefeated();
         }
 
         //Time bar

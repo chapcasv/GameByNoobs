@@ -10,6 +10,17 @@ namespace PH
     public class AfterTeamFight : Phase
     {
         public event Action<BaseUnit> OnReLoadUnit;
+        private LifeSystem _ls;
+        private WaveSystem _ws;
+        private ResultSystem _rs;
+
+        public override void Init(PhaseSystem phaseSystem)
+        {
+            base.Init(phaseSystem);
+            _ls = PhaseSystem.GetLifeSystem;
+            _ws = PhaseSystem.GetWaveSystem;
+            _rs = PhaseSystem.GetResultSystem;
+        }
 
         public override bool IsComplete()
         {
@@ -25,19 +36,20 @@ namespace PH
         {
             PhaseSystem.RunTimeBar(maxTime);
 
-            PhaseSystem.AtkLifeTeamDefeat();
+            var teamDefeat = PhaseSystem.ResultLastRound;
+            _ls.AtkByResultLastRound(teamDefeat);
 
-            if (PhaseSystem.PlayerLifeIsZero())
+            if (_ls.PlayerLifeIsZero())
             {
-                PhaseSystem.PlayerDefeated();
+                PlayerDefeat();
             }
-            else if (PhaseSystem.EnemyLifeIsZero())
+            else if (_ls.EnemyLifeIsZero())
             {
-                PhaseSystem.PlayerVictory();
+                PlayerVictory();
             }
-            else if (PhaseSystem.IsLastWave())
+            else if (_ws.IsLastWave())
             {
-                PhaseSystem.PlayerDefeated();
+                PlayerDefeat();
             }
             else
             {
@@ -45,9 +57,23 @@ namespace PH
                 DestroyEnemy();
                 ReLoadPlayerUnit();
                 PhaseSystem.RewardClearWave();
-                PhaseSystem.IncreaseWaveIndex();
+                _ws.IncreaseIndex();
             }
 
+        }
+
+        private void PlayerDefeat()
+        {
+            PhaseSystem.BattleIsEnd = true;
+            PhaseSystem.CurrentPhase = null;
+            _rs.PlayerDefeated();
+        }
+
+        private void PlayerVictory()
+        {
+            PhaseSystem.BattleIsEnd = true;
+            PhaseSystem.CurrentPhase = null;
+            _rs.PlayerVictory();
         }
 
         private void DestroyEnemy()
