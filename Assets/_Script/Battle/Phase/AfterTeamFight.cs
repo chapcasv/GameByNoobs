@@ -21,7 +21,7 @@ namespace PH
             return false;
         }
 
-        protected override void OnStartPhase()
+        public override void OnStartPhase()
         {
             PhaseSystem.RunTimeBar(maxTime);
 
@@ -56,6 +56,7 @@ namespace PH
 
             foreach (var e in enemies)
             {
+                e.CurrentNode.SetOccupied(false);
                 Destroy(e.gameObject);
             }
             DictionaryTeamBattle.Clear(UnitTeam.Enemy);

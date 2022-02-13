@@ -23,12 +23,10 @@ namespace PH
                 PhaseSystem = phaseSystem;
                 isInit = true;
             }
-
-            OnStartPhase();
         }
 
         public abstract bool IsComplete();
-        protected abstract void OnStartPhase();
+        public abstract void OnStartPhase();
     }
 }
 

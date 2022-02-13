@@ -10,7 +10,7 @@ namespace PH
     public class DrawCard : Phase
     {
         public event Action OnEnterDrawCard;
-
+        [SerializeField] DeckSystem _deckSystem;
         public override bool IsComplete()
         {
             if (forceExit)
@@ -21,11 +21,10 @@ namespace PH
             return false;
         }
         
-        protected override void OnStartPhase()
+        public override void OnStartPhase()
         {   
-            
             OnEnterDrawCard?.Invoke(); //UI Obj
-            PhaseSystem.PlayerDrawCard();
+            _deckSystem.DrawCard();
             PhaseSystem.RunTimeBar(maxTime); //Anim draw Card
         }
   

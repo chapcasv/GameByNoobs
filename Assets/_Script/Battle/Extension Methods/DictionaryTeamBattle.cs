@@ -13,9 +13,9 @@ namespace PH
         private static Dictionary<UnitTeam, List<BaseUnit>> unitOfTeam;
         private static Dictionary<Faction, List<BaseUnit>> unitOfFaction;
 
-
         public static event Action<UnitTeam> OnTeamDefeat;
 
+        #region Initialize
         public static void Reset() => isInit = false;
 
         public static void Init(FactionContainer factionContainer)
@@ -24,8 +24,6 @@ namespace PH
 
             InitTeam();
             InitFaction(factionContainer);
-
-
             isInit = true;
         }
 
@@ -49,6 +47,10 @@ namespace PH
             }
         }
 
+        #endregion
+
+
+        #region Get Unit Methods
         public static List<BaseUnit> GetAllUnits(UnitTeam team) => unitOfTeam[team];
 
         public static BaseUnit GetUnitByNode(UnitTeam team , Node node)
@@ -62,6 +64,18 @@ namespace PH
             }
 
             throw new Exception("Dont have unit stay in node");
+        }
+
+        public static List<BaseUnit> GetUnitsAgainst(UnitTeam unitTeam)
+        {
+            if (unitTeam == UnitTeam.Player)
+            {
+                return unitOfTeam[UnitTeam.Enemy];
+            }
+            else
+            {
+                return unitOfTeam[UnitTeam.Player];
+            }
         }
 
         public static List<BaseUnit> GetAllUnitsByFaction(UnitTeam team, Faction[] factions, bool useModeSame = true)
@@ -81,13 +95,17 @@ namespace PH
                     newList.Add(unit);
                 }
             }
-
             return newList;
         }
 
+        // 0 references 13/2/2022
+        public static List<BaseUnit> GetTeamMate(UnitTeam unitTeam) => unitOfTeam[unitTeam];
+
+        #endregion
+
         private static List<BaseUnit> FilterFactionByMode(Faction[] factions, bool useModeSame)
         {
-            List<BaseUnit> unitFactionFilter = new List<BaseUnit>();
+            List<BaseUnit> unitFactionFilter;
 
             if (useModeSame)
             {
@@ -130,7 +148,6 @@ namespace PH
                     }
                 }
             }
-
             return factionFilter;
         }
 
@@ -185,20 +202,6 @@ namespace PH
                 unitOfFaction[faction].Remove(unit);
             }
         }
-
-        public static List<BaseUnit> GetUnitsAgainst(UnitTeam unitTeam)
-        {
-            if (unitTeam == UnitTeam.Player)
-            {
-                return unitOfTeam[UnitTeam.Enemy];
-            }
-            else
-            {
-                return unitOfTeam[UnitTeam.Player];
-            }
-        }
-
-        public static List<BaseUnit> GetTeamMate(UnitTeam unitTeam) => unitOfTeam[unitTeam];
     }
 }
 

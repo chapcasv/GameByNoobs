@@ -51,7 +51,7 @@ namespace PH
 
         private void Start()
         {
-            SetPhaseStart();
+            SetPhase(startCardPhase);
         }
 
         private void Update()
@@ -67,23 +67,12 @@ namespace PH
             }
         }
 
-        private void SetPhaseStart()
-        {
-            CurrentPhase = startCardPhase;
-            StateSystem.CurrentState = (CurrentPhase.state);
-            CurrentPhase.Init(this);
-        }
-
         private void SetPhase(Phase phase)
         {
             CurrentPhase = phase;
             StateSystem.CurrentState = (CurrentPhase.state);
             CurrentPhase.Init(this);
-        }
-
-        public void RemovePhase(Phase phase)
-        {
-            phases.Remove(phase);
+            CurrentPhase.OnStartPhase();
         }
 
         private void LoopPhase()
@@ -98,16 +87,18 @@ namespace PH
 
         private void SkipControlPhase()
         {
+            Debug.Log(CurrentPhase);
+
             if (CurrentPhase as PlayerControl)
             {
-                timeBar.StopAllCoroutines();
                 UseTimeBar = false;
+                timeBar.StopAllCoroutines();
             }
         }
 
 
         /// <summary>
-        /// Run phase loop after Complete start card phase
+        /// Run phase loop after complete start card phase
         /// </summary>
         public void CompleteStartCard()
         {
@@ -116,7 +107,6 @@ namespace PH
         }
 
         //Draw Card Phase
-        public void PlayerDrawCard() => _deckSystem.DrawCard();
 
         //Before Team Fight Phase
         public void SpawnEnemy()
@@ -195,7 +185,6 @@ namespace PH
         {
             DictionaryTeamBattle.OnTeamDefeat -= OnTeamDefeat;
             controlState.OnRightClick -= SkipControlPhase;
-
         }
     }
 }

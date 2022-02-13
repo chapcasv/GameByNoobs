@@ -28,7 +28,7 @@ namespace PH
             return false;
         }
 
-        protected override void OnStartPhase()
+        public override void OnStartPhase()
         {
             deckSystem.InitializePlayerDeck();
             DrawStartCard();

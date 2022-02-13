@@ -18,7 +18,7 @@ namespace PH
             return false;
         }
 
-        protected override void OnStartPhase()
+        public override void OnStartPhase()
         {
             PhaseSystem.RunTimeBar(maxTime);
 

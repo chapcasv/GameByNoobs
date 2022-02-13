@@ -20,6 +20,7 @@ namespace PH
         //Skip control phase
         public override void RightClick()
         {
+            
             OnRightClick?.Invoke();
         }
     }

@@ -37,7 +37,7 @@ namespace PH
         private PlayerDragLogic _playerDragLogic;
 
         private int _maxMemberAmount = 9;
-        private int _maxWave;
+        //private int _maxWave;
 
         void Start()
         {
@@ -46,10 +46,6 @@ namespace PH
             ResetMemberAmount();
         }
 
-        private void OnDisable()
-        {   
-            RemoveListerner();
-        }
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
             CardInfoVisual CIV, PlayerDragLogic playerDragLogic)
@@ -69,13 +65,27 @@ namespace PH
             SetUpBattleInfomation();
         }
 
+        private void AddListener()
+        {
+            _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
+            _wavesSystem.OnWaveIndexChange += DisplayWaves;
+            _coinSystem.OnCoinValueChange += DisplayerCoin;
+
+            drawCard.OnEnterDrawCard += ShowMemberOBJ;
+            beforeTeamFight.OnEnterBeforeTeamFight += HidenMemberOBJ;
+
+            _playerDragLogic.OnBeginDrag += ShowRemoveButton;
+            _playerDragLogic.OnEndDrag += HidenRemoveButton;
+        }
+
         private void SetUpBattleInfomation()
         {
-            _maxWave = _wavesSystem.GetWavesLength();
+            //_maxWave = _wavesSystem.GetWavesLength();
             DisplayWaves();
             DisplayMemberAmount();
             DisplayerCoin();
         }
+
         private void DisplayWaves()
         {
             //Index start is 0 
@@ -84,20 +94,24 @@ namespace PH
             //waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
         }
 
+        #region Member UI
         private void DisplayMemberAmount()
         {
             int amount = _memberSystem.GetMemberAmount;
             memberAmountText.text = amount + $"/{_maxMemberAmount}";
         }
 
-        
-        private void ResetMemberAmount()
-        {
-            memberAmountText.text = 0 + $"/{_maxMemberAmount}";
-        }
+        /// <summary>
+        /// When start new battle,
+        /// reset current member amount to zero
+        /// </summary>
+        private void ResetMemberAmount() => memberAmountText.text = 0 + $"/{_maxMemberAmount}";
 
         private void ShowMemberOBJ() => memberObj.SetActive(true);
+
         private void HidenMemberOBJ() => memberObj.SetActive(false);
+
+        #endregion
 
         private void DisplayerCoin() => coinText.text = _coinSystem.GetCoin().ToString();
 
@@ -113,18 +127,8 @@ namespace PH
             right.gameObject.SetActive(false);
         }
 
-        private void AddListener()
-        {
-            _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
-            _wavesSystem.OnWaveIndexChange += DisplayWaves;
-            _coinSystem.OnCoinValueChange += DisplayerCoin;
 
-            drawCard.OnEnterDrawCard += ShowMemberOBJ;
-            beforeTeamFight.OnEnterBeforeTeamFight += HidenMemberOBJ;
-
-            _playerDragLogic.OnBeginDrag += ShowRemoveButton;
-            _playerDragLogic.OnEndDrag += HidenRemoveButton;
-        }
+        private void OnDisable() => RemoveListerner();
 
         private void RemoveListerner()
         {

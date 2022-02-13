@@ -13,13 +13,12 @@ namespace PH
 
         protected List<CalPreMitigation> baseCalPreMitigations;
         protected List<CalPreMitigation> orCalPreMitigations;
+
         protected List<AddOnBasicAtk> baseAddOnBasicAtk;
         protected List<AddOnBasicAtk> orAddOnBasicAtk;
 
         protected List<AddOnAfterCastSkill> baseAddOnAfterCastSkill;
-
         protected List<AddOnAfterCastSkill> orAddOnAfterCastSkill;
-
         
         protected float baseAttackSpeed;
         protected float orAttackSpeed;
@@ -45,7 +44,6 @@ namespace PH
         protected float orRangeAtk;
 
         protected const int MAGIC_DEFAULT = 100;
-
         protected int baseMagicPower;
         protected int orMagicPower;
 
@@ -247,6 +245,7 @@ namespace PH
                 addOn.Execute(currentTarget, this);
             }
         }
+
         protected void TriggerAfterCastSkill(BaseUnit unit)
         {
             foreach (var OrAddOn in orAddOnAfterCastSkill)
@@ -257,7 +256,6 @@ namespace PH
             {
                 AddOn.Execute(unit);
             }
-           
         }
 
         protected void RemoveOneRoundCal() => orCalPreMitigations.Clear();
@@ -272,8 +270,10 @@ namespace PH
 
         public void AddOnBasicAtk(AddOnBasicAtk summon) => baseAddOnBasicAtk.Add(summon);
 
+        // 0 References 13/2/2022
         public void AddOnRoundBasicAtk(AddOnBasicAtk summon) => orAddOnBasicAtk.Add(summon);
 
+        // 0 References 13/2/2022
         public void RemoveBaseCaculator(CalPreMitigation cal)
         {
             if (baseCalPreMitigations.Contains(cal))
