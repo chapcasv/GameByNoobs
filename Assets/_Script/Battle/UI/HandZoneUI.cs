@@ -25,9 +25,10 @@ namespace PH
         private PlayerDragLogic _playerDragLogic;
         private Animator anim;
         private GridLayoutGroup gridLayout;
-        private Vector2 gridCellSizeDefault = new Vector2(120, 100);
-        private const int CELL_SIZE_OFFSET = 500;
-        private const int CELL_SIZE_Y = 100;
+        private const int SPACING_X_DEFAULT = 100;
+        private const int SPACING_Y_DEFAULT = 0;
+        private const int SPACING_X_OFFSET = 30;
+        private const int NUMBER_CARD_HAND_DEFAULT = 5;
         private bool isShowHandZone = false;
 
         public void Setter(CardInfoVisual value, PlayerDragLogic playerDragLogic)
@@ -44,7 +45,7 @@ namespace PH
             Init();
             AddListerner();
             anim = GetComponent<Animator>();
-            GetGridLayout();
+            gridLayout = GetComponent<GridLayoutGroup>();
         }
 
         private void AddListerner()
@@ -82,21 +83,21 @@ namespace PH
         }
 
         private void SortUI(int cardHandCount)
-        {
-            if(cardHandCount > 4)
+        {   
+            //If player have 5+ card hand, sort logic will change
+            if(cardHandCount > NUMBER_CARD_HAND_DEFAULT)
             {
-                int cellSizeX = CELL_SIZE_OFFSET / cardHandCount;
-                gridLayout.cellSize = new Vector2(cellSizeX, CELL_SIZE_Y);
-            }
-            else
-            {
-                gridLayout.cellSize = gridCellSizeDefault;
-            }
-        }
+                int cardOut = cardHandCount - NUMBER_CARD_HAND_DEFAULT;
 
-        private void GetGridLayout()
-        {
-            gridLayout = GetComponent<GridLayoutGroup>();
+                int spacingX = SPACING_X_DEFAULT - (cardOut * SPACING_X_OFFSET);
+
+                if(spacingX < 0)
+                {
+                    spacingX = 0;
+                }
+
+                gridLayout.spacing = new Vector2(spacingX, SPACING_Y_DEFAULT);
+            }
         }
 
         private void SetActive()

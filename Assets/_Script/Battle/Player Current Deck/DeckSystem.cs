@@ -24,6 +24,7 @@ namespace PH
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
 
         private const int MAX_COST_IN_GAME = 9;
+        private const int MAX_CARD_IN_HAND = 9;
         private Card _lastCardDrop;
 
         private GetBaseProperties _getBaseProperties;
@@ -74,11 +75,20 @@ namespace PH
             {
                 Card card = listCard[0];
                 RemoveAfterDraw(card);
-                CardsInHand.Add(card);
-                OnDrawCard?.Invoke();
+                AddCardDraw(card);
                 return true;
             }
             else return false;
+        }
+
+        private void AddCardDraw(Card card)
+        {   
+            if(CardsInHand.Count < MAX_CARD_IN_HAND)
+            {
+                CardsInHand.Add(card);
+                //Reload card hand UI
+                OnDrawCard?.Invoke();
+            }
         }
 
         private void GetFilterType(TriggerInputDrawCard input, List<Card> newList)
@@ -144,8 +154,12 @@ namespace PH
 
         public void AddCardToHand(Card card)
         {
-            CardsInHand.Add(card);
-            OnAddCardHand?.Invoke();
+            if (CardsInHand.Count < MAX_CARD_IN_HAND)
+            {
+                CardsInHand.Add(card);
+                //Reload card hand UI
+                OnAddCardHand?.Invoke();
+            }
         }
 
         public void DropCard(Card card)
@@ -170,6 +184,9 @@ namespace PH
             _currentDeck.RemoveAt(indexRandom);
             return newCard;
         }
+
+
+        #region Deck
 
         public void InitializePlayerDeck()
         {
@@ -222,6 +239,10 @@ namespace PH
             }
         }
 
+        #endregion
+
+        #region Dictionary
+
         private void AddDictionaryType(Card card)
         {
             var type = card.GetCardType();
@@ -248,6 +269,8 @@ namespace PH
             int cost  = _getBaseProperties.GetCost(card);
             _dictionaryCardCost[cost].Remove(card);
         }
+
+        #endregion
     }
 }
 
