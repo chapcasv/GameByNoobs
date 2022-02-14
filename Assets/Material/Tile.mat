@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SG_HightLightBoard
-  m_Shader: {fileID: -6465566751694194690, guid: fda412ce62a4eac4da71f1f94d67b77f, type: 3}
+  m_Name: Tile
+  m_Shader: {fileID: -6465566751694194690, guid: cc889d67415e66346a59d8fd066412cc, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_216ef61fabb144fab23a418d6f63cae9_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8ca6672f1d733cd499bea6bddbe26025, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -32,9 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_6f98c7258af54ee287cf95fd1cd170ce: 0.9
-    - Vector1_7068fc399d8a457fb87c0940f910f277: 1
+    - Vector1_ac6a14c119fe4f029ec4067876e54b23: 0.05
     m_Colors:
-    - Color_c786210bc412490fa36100a6f48d6401: {r: 0, g: 0.6791744, b: 1, a: 0}
-    - Vector2_14337242ff984bd09246d1bbf7d8e48b: {r: 8, g: 4, b: 0, a: 0}
+    - Color_6b7dc7001640481fb467062888d00932: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
