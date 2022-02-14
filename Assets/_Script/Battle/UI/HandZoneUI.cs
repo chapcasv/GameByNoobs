@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PH
 {
@@ -23,6 +24,10 @@ namespace PH
         private CardInfoVisual _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
         private Animator anim;
+        private GridLayoutGroup gridLayout;
+        private Vector2 gridCellSizeDefault = new Vector2(120, 100);
+        private const int CELL_SIZE_OFFSET = 500;
+        private const int CELL_SIZE_Y = 100;
         private bool isShowHandZone = false;
 
         public void Setter(CardInfoVisual value, PlayerDragLogic playerDragLogic)
@@ -39,6 +44,7 @@ namespace PH
             Init();
             AddListerner();
             anim = GetComponent<Animator>();
+            GetGridLayout();
         }
 
         private void AddListerner()
@@ -69,9 +75,28 @@ namespace PH
         {   
             SetViz(deckSystem.CardsInHand);
             SetCardsInstance(deckSystem.CardsInHand);
+            SortUI(deckSystem.CardsInHand.Count);
             SetActive();
 
             if (!isShowHandZone)  DisplayHandZone(); 
+        }
+
+        private void SortUI(int cardHandCount)
+        {
+            if(cardHandCount > 4)
+            {
+                int cellSizeX = CELL_SIZE_OFFSET / cardHandCount;
+                gridLayout.cellSize = new Vector2(cellSizeX, CELL_SIZE_Y);
+            }
+            else
+            {
+                gridLayout.cellSize = gridCellSizeDefault;
+            }
+        }
+
+        private void GetGridLayout()
+        {
+            gridLayout = GetComponent<GridLayoutGroup>();
         }
 
         private void SetActive()

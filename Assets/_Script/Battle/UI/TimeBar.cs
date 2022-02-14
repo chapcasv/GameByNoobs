@@ -15,7 +15,6 @@ namespace PH
         [SerializeField] private TextMeshProUGUI timeNumbers;
         private const float smoothOffset = 200;
 
-
         private int timeRemaining;
         private UnityAction onTimerBeginAction;
         private UnityAction<int> onTimerChangeAction;
@@ -39,7 +38,7 @@ namespace PH
                 yield return new WaitForSeconds(smooth);
             }
 
-            //When Battle End currentPhase is null
+            //end battle current phase is null
             if(PhaseSystem.CurrentPhase != null)
             {
                 PhaseSystem.CurrentPhase.forceExit = true;
@@ -58,8 +57,7 @@ namespace PH
 
                 yield return new WaitForSeconds(smooth);
             }
-
-            PhaseSystem.CurrentPhase.forceExit = true;
+            //Current phase is start card
             PhaseSystem.CurrentPhase.IsComplete();
         }
 
@@ -71,6 +69,7 @@ namespace PH
             onTimerChangeAction = null;
             onTimerEndAction = null;
         }
+
         public TimeBar SetDuration(float _time)
         {
             timeRemaining = (int)_time;

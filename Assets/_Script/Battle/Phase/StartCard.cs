@@ -16,15 +16,11 @@ namespace PH
 
         public override bool IsComplete()
         {
-            if (forceExit)
-            {   
-                //Hiden UI StartCard
-                OnComplete?.Invoke();
+            //Hiden UI StartCard
+            OnComplete?.Invoke();
 
-                PhaseSystem.CompleteStartCard();
-                forceExit = false;
-                return true;
-            }
+            PhaseSystem.CompleteStartCard();
+
             return false;
         }
 

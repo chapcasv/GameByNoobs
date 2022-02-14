@@ -1683,7 +1683,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
+  m_StartCorner: 1
   m_StartAxis: 0
   m_CellSize: {x: 130, y: 100}
   m_Spacing: {x: 100, y: 0}
@@ -1714,6 +1714,7 @@ MonoBehaviour:
   - {fileID: 1878743188}
   - {fileID: 771689519}
   - {fileID: 497499669}
+  - {fileID: 226130130}
   deckSystem: {fileID: 11400000, guid: be21402767b376e4c99daba4df38335d, type: 2}
 --- !u!95 &188022662
 Animator:
@@ -1978,6 +1979,11 @@ RectTransform:
   m_AnchoredPosition: {x: -116.33873, y: -36.599953}
   m_SizeDelta: {x: 110.0533, y: 30.8906}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &226130130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4115026046395573046, guid: a424bcf9d7dba8e4099e0dfba38f266e, type: 3}
+  m_PrefabInstance: {fileID: 1567829562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &226663239
 GameObject:
   m_ObjectHideFlags: 0
