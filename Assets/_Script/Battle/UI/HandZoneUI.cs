@@ -56,6 +56,7 @@ namespace PH
             controlState.OnLeftClick += DisplayHandZone;
             teamFightState.OnLeftClick += DisplayHandZone;
             beforeTeamFight.OnEnterBeforeTeamFight += HidenHandZone;
+            dragCardSelected.OnBeginDrag += HidenHandZone;
         }
 
         private void Init()
@@ -126,7 +127,7 @@ namespace PH
             }
         }
 
-        private void DisplayHandZone()
+        public void DisplayHandZone()
         {   
             //Need fix this line
             if (PhaseSystem.CurrentPhase as BeforeTeamFight) return;
@@ -135,7 +136,7 @@ namespace PH
             anim.SetBool("IsShow", isShowHandZone);
         }
 
-        private void HidenHandZone()
+        public void HidenHandZone()
         {   
             isShowHandZone = false;
             anim.SetBool("IsShow", isShowHandZone);
@@ -162,6 +163,7 @@ namespace PH
             controlState.OnLeftClick -= DisplayHandZone;
             teamFightState.OnLeftClick -= DisplayHandZone;
             beforeTeamFight.OnEnterBeforeTeamFight -= HidenHandZone;
+            dragCardSelected.OnBeginDrag -= HidenHandZone;
 
             //Add by setter
             _playerDragLogic.OnBeginDrag -= HidenHandZone;

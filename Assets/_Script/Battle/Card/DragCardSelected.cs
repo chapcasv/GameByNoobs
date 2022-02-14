@@ -1,10 +1,14 @@
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 namespace PH 
 {   
     [RequireComponent(typeof(DropCardSelected))]
     public class DragCardSelected : MonoBehaviour
     {
+        public Action OnBeginDrag;
+
         private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
         private GetBaseProperties _getBaseProperties;
@@ -52,6 +56,8 @@ namespace PH
             _transform.position = Input.mousePosition;
             _cardViz.SetCard(currentCard);
             gameObject.SetActive(true);
+
+            OnBeginDrag?.Invoke();
         }
 
         private void OnEndDrag()
