@@ -5,21 +5,14 @@ using UnityEngine;
 
 namespace PH.PopUp
 {   
-    public enum TypeText
-    {
-        Dot,
-        Heal,
-        Physical,
-        Magic,
-        TrueDmg
-    }
 
     public class DmgPopUp : MonoBehaviour
     {
         private TextMeshPro textMesh;
-        private float moveUpSpeed = 1f;
-        [SerializeField] private float disappearTime = 0.8f;
-        private float disappearSpeed = 1.2f;
+        private float moveUpSpeed = 1.5f;
+        [SerializeField] private float disappearTime = 1f;
+        [SerializeField] private float disappearSpeed = 1.2f;
+        private Animator anim;
         private Color textColor;
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
         private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
@@ -29,6 +22,7 @@ namespace PH.PopUp
         private void Awake()
         {
             textMesh = transform.GetComponent<TextMeshPro>();
+            anim = GetComponent<Animator>();
             cam = Camera.main.transform;
         }
 
