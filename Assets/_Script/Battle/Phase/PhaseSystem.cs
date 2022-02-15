@@ -10,7 +10,7 @@ namespace PH
     public class PhaseSystem : MonoBehaviour
     {
         public static Phase CurrentPhase { get; set; }
-        public static bool UseTimeBar { get; private set; }
+        public static bool UseTimeBar { get; set; }
         public static bool BattleIsEnd { get; set; }
 
         [SerializeField] ControlState controlState;

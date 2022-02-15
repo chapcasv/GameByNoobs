@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using PH.PopUp;
 
 namespace PH
 {
@@ -133,11 +134,15 @@ namespace PH
 
         public virtual int TakeDmg(int rawDmg, DmgType dmgType)
         {
-            if (!IsLive) return 0;
-
             int postMitigationDmg = CalculatorByDmgType(rawDmg, dmgType);
 
             DecreaseHP(postMitigationDmg);
+
+            //Create dmg pop-up if enemy
+            if(HpBar.color == COLOR_ENEMY)
+            {
+                DmgPopUpPool.Instance.Create(postMitigationDmg, dmgType, transform.position);
+            }
 
             return postMitigationDmg;
         }

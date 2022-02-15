@@ -8,7 +8,6 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Game State/Start Card")]
     public class StartCardState : GameState
     {
-        [SerializeField] StartCard start;
         public override void LeftClick()
         {
             ForceExitStartCardPhase();
@@ -21,8 +20,7 @@ namespace PH
 
         private void ForceExitStartCardPhase()
         {
-            start.forceExit = true;
-            start.IsComplete();
+            PhaseSystem.UseTimeBar = false;
         }
     }
 }

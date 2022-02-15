@@ -7,7 +7,8 @@ namespace PH
         Physical,
         Magic,
         TrueDmg,
-        DoT
+        DoT,
+        Heal
     }
 
 }
