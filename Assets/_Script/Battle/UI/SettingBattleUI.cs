@@ -2,7 +2,7 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
+ 
 namespace PH
 {
     public class SettingBattleUI : UIScreen
@@ -13,7 +13,7 @@ namespace PH
             public Button main;
             public GameObject selectImg;
             public Action OnSelect;
-
+            public GameObject Screen;
             public void Initialize()
             {
                 main.onClick.AddListener(OnClickCallBack);
@@ -22,11 +22,13 @@ namespace PH
             private void OnClickCallBack()
             {
                 selectImg.gameObject.SetActive(true);
+                Screen.gameObject.SetActive(true);
                 OnSelect?.Invoke();
             }
             public void DeSelect()
             {
                 selectImg.gameObject.SetActive(false);
+                Screen.gameObject.SetActive(false);
             }
         }
         [SerializeField] private GameObject main;
@@ -39,7 +41,8 @@ namespace PH
         [Header("Top Button Tab")]
         [SerializeField] private TopButtonTap generalButtonTab;
         [SerializeField] private TopButtonTap musicButtonTab;
-        [SerializeField] private TopButtonTap audioButtonTab; 
+        [SerializeField] private TopButtonTap videoButtonTab;
+        [SerializeField] private TopButtonTap keyBindingButtonTab;
         
         public override void Initialize()
         {
@@ -49,17 +52,20 @@ namespace PH
             exitGameButton.onClick.AddListener(OnExitgameCallBack);
             surdererButton.onClick.AddListener(OnSurdererCallBack);
 
-
+            keyBindingButtonTab.Initialize();
             generalButtonTab.Initialize();
-            audioButtonTab.Initialize();
+            videoButtonTab.Initialize();
             musicButtonTab.Initialize();
-
+            
             generalButtonTab.OnSelect = OnGeneralSetting;
             musicButtonTab.OnSelect = OnMusicSetting;
-            audioButtonTab.OnSelect = OnAudioSetting;
-           
+            videoButtonTab.OnSelect = OnAudioSetting;
+            keyBindingButtonTab.OnSelect = OnKeyBindingSetting;
 
+            
         }
+
+       
 
         private void OnSurdererCallBack()
         {
@@ -76,13 +82,15 @@ namespace PH
         private void OnGeneralSetting()
         {
             musicButtonTab.DeSelect();
-            audioButtonTab.DeSelect();
+            videoButtonTab.DeSelect();
+            keyBindingButtonTab.DeSelect();
 
         }
         private void OnMusicSetting()
         {
             generalButtonTab.DeSelect();
-            audioButtonTab.DeSelect();
+            videoButtonTab.DeSelect();
+            keyBindingButtonTab.DeSelect();
         }
 
 
@@ -90,8 +98,14 @@ namespace PH
         {
             generalButtonTab.DeSelect();
             musicButtonTab.DeSelect();
+            keyBindingButtonTab.DeSelect();
         }
-
+        private void OnKeyBindingSetting()
+        {
+            musicButtonTab.DeSelect();
+            videoButtonTab.DeSelect();
+            generalButtonTab.DeSelect();
+        }
 
 
         private void OnCloseSettingCallBack()
