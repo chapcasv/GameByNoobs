@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1351931626087648910}
   - component: {fileID: 2224852711808834305}
   - component: {fileID: 7355158899978748478}
-  - component: {fileID: 6312368203132610261}
   m_Layer: 0
   m_Name: pfDmgPopUp
   m_TagString: Untagged
@@ -109,8 +108,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281626623
-  m_fontColor: {r: 1, g: 0.43529412, b: 0.20392157, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -184,24 +183,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256abc849021d9c42882d1eeeb6f085c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearTime: 1
-  disappearSpeed: 1.2
---- !u!95 &6312368203132610261
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7365002789229577364}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d242b5b3751ff6a4ca08c108b0fc26b8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
