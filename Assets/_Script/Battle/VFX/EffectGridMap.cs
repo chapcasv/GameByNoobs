@@ -9,9 +9,8 @@ namespace PH
     {
         [SerializeField] GameObject localPlayerZone;
         [SerializeField] ParticleSystem highLight_TileUnder;
-
-        private List<ParticleSystem> highLightMap;
-        private ParticleSystem prefeb_highLight_TileUnder;
+        [SerializeField] ParticleSystem dropUnit;
+        
 
         private void Awake()
         {
@@ -24,14 +23,20 @@ namespace PH
            
         }
 
-        public void HighLighMap()
+        public void HighLightMap()
         {
             localPlayerZone.SetActive(true);
         }
 
-        public void StopHighLighMap()
+        public void StopHighLightMap()
         {
             localPlayerZone.SetActive(false);
+        }
+
+        public void EffectDropUnit(Node nodeDrop)
+        {
+            dropUnit.transform.position = nodeDrop.WorldPosition;
+            
         }
 
         public void HighLight_TileUnder(Vector3 pos)

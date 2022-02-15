@@ -192,9 +192,9 @@ namespace PH
             }
         }
 
-        public virtual int TakeDamage(int rawDmg,DmgType dmgType)
+        public virtual int TakeDamage(int rawDmg, DmgType dmgType, bool isCrit = false)
         {
-            int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType);
+            int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType, isCrit);
             Mana.IncreaseManaOnTakeDame();
            
             return dmgDeal;

@@ -41,7 +41,7 @@ namespace PH
 
             if (unit != null && unit == _currentTarget)
             {
-                int dmgDeal = unit.TakeDamage(_rawDmg,_type);
+                int dmgDeal = unit.TakeDamage(_rawDmg,_type, _sender.IsCrit);
                 _sender.LifeStealByDmg(dmgDeal);
                 Destroy(gameObject);
             }

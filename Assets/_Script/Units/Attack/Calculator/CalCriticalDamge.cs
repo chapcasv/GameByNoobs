@@ -17,10 +17,12 @@ namespace PH
             if(random < atkSystem.ORCritRate)
             {
                 dmg += (int)(dmg * (critDamageBonus / 100f));
+                atkSystem.IsCrit = true;
             }
             else
             {
                 dmg += 0;
+                atkSystem.IsCrit = false;
             }
         }
 

@@ -132,7 +132,7 @@ namespace PH
         }
 
 
-        public virtual int TakeDmg(int rawDmg, DmgType dmgType)
+        public virtual int TakeDmg(int rawDmg, DmgType dmgType, bool isCrit = false)
         {
             int postMitigationDmg = CalculatorByDmgType(rawDmg, dmgType);
 
@@ -141,7 +141,7 @@ namespace PH
             //Create dmg pop-up if enemy
             if(HpBar.color == COLOR_ENEMY)
             {
-                DmgPopUpPool.Instance.Create(postMitigationDmg, dmgType, transform.position);
+                DmgPopUpPool.Instance.Create(postMitigationDmg, dmgType, transform.position, isCrit);
             }
 
             return postMitigationDmg;

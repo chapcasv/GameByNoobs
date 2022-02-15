@@ -23,7 +23,7 @@ namespace PH
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
                 Cache(unit);
-                Setting.effectGridMap.HighLighMap();
+                Setting.effectGridMap.HighLightMap();
             }
         }
 
@@ -40,7 +40,7 @@ namespace PH
             }
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
             {   
-                Setting.effectGridMap.StopHighLighMap();
+                Setting.effectGridMap.StopHighLightMap();
                 unit.transform.position = _oldPos;
 
                 //Hiden UI Remove - Show Card Hand
@@ -56,7 +56,7 @@ namespace PH
 
         public override void MouseUp(BaseUnit unit)
         {
-            Setting.effectGridMap.StopHighLighMap();
+            Setting.effectGridMap.StopHighLightMap();
             startTimeMouseUp = Time.time;
 
             float time = startTimeMouseUp - startTimeMouseDown;

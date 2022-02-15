@@ -51,6 +51,7 @@ namespace PH
         protected bool canCastAbility;
         protected float waitBetweenAttack;
 
+
         protected UnitSurvivalStat unitSurvivalStat;
         protected Animator animator;
 
@@ -74,6 +75,7 @@ namespace PH
         public bool IsDisableAtk { get; set; } //only for status effect
 
         public BaseUnit CurrentTarget { set => currentTarget = value; }
+        public bool IsCrit { get ; set; }
 
         #endregion
 

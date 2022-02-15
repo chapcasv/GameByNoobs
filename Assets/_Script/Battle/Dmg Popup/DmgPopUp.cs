@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using HexColor;
 
 namespace PH.PopUp
 {   
@@ -14,9 +13,11 @@ namespace PH.PopUp
         private const float DISAPPEAR_MAX = 1f;
         private const float INCREASE_SCALE = 1f;
         private const float DECREASE_SCALE = 0.5f;
-        private const float DISPAPPEAR_SPEED = 1.2f;
+        private const float DISPAPPEAR_SPEED = 1.6f;
         private const float MOVE_VECTOR_X = 0.7f;
         private const float MOVE_VECTOR_Y = 1;
+        private const float MOVE_DISTANCE = 8f;
+        private const float MOVE_VECTOR_OFFSET = 20f;
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
         private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
         private readonly Color colorMagic = new Color32(98, 239, 255, 255);
@@ -36,7 +37,7 @@ namespace PH.PopUp
         private void Update()
         {
             transform.position += moveVector * Time.deltaTime;
-            moveVector -= moveVector * 8f * Time.deltaTime;
+            moveVector -= moveVector * MOVE_DISTANCE * Time.deltaTime;
 
             ScaleByDisappear();
 
@@ -86,14 +87,31 @@ namespace PH.PopUp
             textMesh.sortingOrder = sortingOder;
 
             //pop-up to top right
-            moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * 20f;
+            moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+
+            gameObject.SetActive(true);
+        }
+
+        public void SetUpCrit(int amount,Vector3 spawnPos)
+        {
+            SetUpTransform(spawnPos);
+            SetUpCritTextColor(amount);
+            SetUpTextSize(amount);
+
+            disappearTime = DISAPPEAR_MAX;
+
+            sortingOder++;
+            textMesh.sortingOrder = sortingOder;
+
+            //pop-up to top right
+            moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
 
             gameObject.SetActive(true);
         }
 
         private void SetUpTransform(Vector3 spawnPos)
         {
-            transform.position = new Vector3(spawnPos.x, spawnPos.y + 8f, spawnPos.z);
+            transform.position = new Vector3(spawnPos.x, spawnPos.y + 6f, spawnPos.z);
             transform.localScale = Vector3.one;
             transform.LookAt(transform.position + cam.forward);
         }
@@ -117,6 +135,13 @@ namespace PH.PopUp
                     break;
             }
 
+            textColor = textMesh.color;
+        }
+
+        private void SetUpCritTextColor(int amount)
+        {
+            textMesh.color = Color.red;
+            textMesh.SetText(amount.ToString());
             textColor = textMesh.color;
         }
 

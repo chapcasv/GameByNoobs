@@ -23,10 +23,18 @@ namespace PH.PopUp
             }
         }
 
-        public void Create(int dmg, DmgType type, Vector3 spawnPos)
+        public void Create(int dmg, DmgType type, Vector3 spawnPos, bool isCrit)
         {
             var DmgPopUp = Get();
-            DmgPopUp.SetUp(dmg, type, spawnPos);
+
+            if (isCrit)
+            {
+                DmgPopUp.SetUpCrit(dmg, spawnPos);
+            }
+            else
+            {
+                DmgPopUp.SetUp(dmg, type, spawnPos);
+            }
         }
         
         private DmgPopUp Get()
