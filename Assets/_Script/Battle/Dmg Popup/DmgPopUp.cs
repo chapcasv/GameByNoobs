@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 namespace PH.PopUp
-{   
+{
     public class DmgPopUp : MonoBehaviour
     {
         private static int sortingOder;
@@ -17,6 +17,9 @@ namespace PH.PopUp
         private const float MOVE_VECTOR_Y = 1;
         private const float MOVE_DISTANCE = 8f;
         private const float MOVE_VECTOR_OFFSET = 20f;
+        private const int TEXT_SIZE_SMALL = 14;
+        private const int TEXT_SIZE_MEDIUM = 16;
+        private const int TEXT_SIZE_LARGE = 17;
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
         private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
         private readonly Color colorMagic = new Color32(98, 239, 255, 255);
@@ -72,7 +75,7 @@ namespace PH.PopUp
                 transform.localScale -= Vector3.one * DECREASE_SCALE * Time.deltaTime;
             }
         }
-        
+
 
         public void SetUp(int amount, DmgType type, Vector3 spawnPos)
         {
@@ -89,7 +92,7 @@ namespace PH.PopUp
             gameObject.SetActive(true);
         }
 
-        public void SetUpCrit(int amount,Vector3 spawnPos)
+        public void SetUpCrit(int amount, Vector3 spawnPos)
         {
             SetUpTransform(spawnPos);
             SetUpCritTextColor(amount);
@@ -137,25 +140,15 @@ namespace PH.PopUp
 
         private void SetUpVectorMove(DmgType dmgType)
         {
-            switch (dmgType)
-            {
-                case DmgType.Physical:
-                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
-                    break;
-                case DmgType.Magic:
-                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
-                    break;
-                case DmgType.TrueDmg:
-                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
-                    break;
-                case DmgType.DoT:
-                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
-                    break;
-                case DmgType.Heal:
-                    moveVector = new Vector3(0, 10f);
-                    break;
-                default:
-                    break;
+            if (dmgType != DmgType.Heal)
+            {   
+                //top right
+                moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+            }
+            else
+            {   
+                //top up
+                moveVector = new Vector3(0, 10f);
             }
         }
 
@@ -163,7 +156,6 @@ namespace PH.PopUp
         {
             textMesh.color = Color.red;
             textMesh.SetText(amount.ToString());
-            textColor = textMesh.color;
         }
 
         private void SetUpPhysicalColor(int amount)
@@ -173,7 +165,7 @@ namespace PH.PopUp
         }
 
         private void SetUpHealColor(int amount)
-        {   
+        {
             textMesh.color = colorHeal;
             textMesh.SetText("+" + amount.ToString());
         }
@@ -186,21 +178,17 @@ namespace PH.PopUp
 
         private void SetUpTextSize(int amount)
         {
-            if(amount <= 9)
+            if (amount <= 9)
             {
-                textMesh.fontSize = 14;
+                textMesh.fontSize = TEXT_SIZE_SMALL;
             }
-            else if( amount <= 99)
+            else if (amount <= 99)
             {
-                textMesh.fontSize = 16;
-            }
-            else if (amount <= 999)
-            {
-                textMesh.fontSize = 17;
+                textMesh.fontSize = TEXT_SIZE_MEDIUM;
             }
             else
             {
-                textMesh.fontSize = 18;
+                textMesh.fontSize = TEXT_SIZE_LARGE;
             }
         }
     }
