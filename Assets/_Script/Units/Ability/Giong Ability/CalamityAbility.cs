@@ -19,7 +19,7 @@ namespace PH
             var Atk = caster.GetAtkSystem;
             Atk.UpOneRoundCritDmg(critDmgBonus);
             float dmg = GetPreMitigationDmg(Atk.ORPhysicalDamage);
-            currentTarget.TakeDamage((int)dmg, DmgType.Physical);
+            currentTarget.TakeDamage(caster, (int)dmg, DmgType.Physical);
             currentTarget.GetUnitStatusEffect.ApplyStatusEffect(effect);
         }
 

@@ -42,7 +42,7 @@ namespace PH
             {   
                 Setting.effectGridMap.StopHighLightMap();
                 unit.transform.position = _oldPos;
-
+                Setting.effectGridMap.DropUnit(_oldPos);
                 //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
@@ -78,6 +78,7 @@ namespace PH
                     if (!TryMove(unit))
                     {
                         unit.transform.position = _oldPos;
+                        Setting.effectGridMap.DropUnit(_oldPos);
                     }
                     TrySell(unit);
                 }
@@ -150,7 +151,7 @@ namespace PH
                         unit.CurrentNode = candidateNode;
                         candidateNode.SetOccupied(true);
                         unit.transform.position = candidateNode.WorldPosition;
-
+                        Setting.effectGridMap.DropUnit(candidateNode.WorldPosition);
                         return true;
                     }
                 }

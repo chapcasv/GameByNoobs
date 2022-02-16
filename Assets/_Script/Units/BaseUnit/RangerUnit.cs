@@ -21,6 +21,7 @@ namespace PH
         {
             Atk = GetComponent<RangerUnitAtk>();
             Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.Abitity, SurvivalStat, anim);
+            Atk.Holder = this;
         }
 
         protected override void AttackInRange()

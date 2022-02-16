@@ -8,15 +8,17 @@ namespace PH
     {
         private BaseUnit _currentTarget;
         private UnitAtkSystem _sender;
+        private BaseUnit _holder;
         private DmgType _type;
         private float _moveSpeed = 10f;
         private int _rawDmg;
 
-        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DmgType type)
+        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DmgType type, BaseUnit holder)
         {
             _currentTarget = currentTarget;
             _sender = sender;
             _rawDmg = rawDmg;
+            _holder = holder;
             _type = type;
         }
 
@@ -41,7 +43,7 @@ namespace PH
 
             if (unit != null && unit == _currentTarget)
             {
-                int dmgDeal = unit.TakeDamage(_rawDmg,_type, _sender.IsCrit);
+                int dmgDeal = unit.TakeDamage(_holder, _rawDmg,_type, _sender.IsCrit);
                 _sender.LifeStealByDmg(dmgDeal);
                 Destroy(gameObject);
             }

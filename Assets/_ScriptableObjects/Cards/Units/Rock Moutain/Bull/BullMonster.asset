@@ -19,7 +19,7 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 21300000, guid: 8e1ac966604b186498c30d9234efe701, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-  - stringValue: Beta
+  - stringValue: "B\xF2 Hung T\u1EE3n"
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
@@ -36,7 +36,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
   Faction:
-  - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
   - Ediscription: Spawn Bull
@@ -46,15 +46,15 @@ MonoBehaviour:
   unitID: {fileID: 11400000, guid: d6e0256be1d3ea6429056cdb48d211f3, type: 2}
   abitity: {fileID: 11400000, guid: 8b96eb956cff652479b92c70da44c3b2, type: 2}
   dataTriggerOnBoards: []
-  hp: 750
-  magicResist: 45
-  armor: 45
-  manaMax: 90
-  manaStart: 0
+  hp: 900
+  magicResist: 40
+  armor: 40
+  manaMax: 70
+  manaStart: 40
   manaRegen: 5
-  damage: 55
+  damage: 70
   range: 1
-  atkSpeed: 0.6
-  moveSpeed: 4
+  atkSpeed: 0.7
+  moveSpeed: 6
   dmgLife: 1
   negativeBonusDamage: 0

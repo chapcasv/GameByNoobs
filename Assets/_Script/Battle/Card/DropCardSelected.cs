@@ -26,6 +26,11 @@ namespace PH
             {
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
                 bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
+                if (dropResult)
+                {
+                    Setting.effectGridMap.DropUnit(node.WorldPosition);
+                }
+
                 return dropResult;
             }
             else return false;
@@ -86,6 +91,11 @@ namespace PH
             {
                 radar.transform.position = hit.point;
             }
+        }
+
+        public void MoveTileEffect()
+        {
+            transform.position = radar.transform.position;
         }
     }
 }

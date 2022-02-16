@@ -128,6 +128,9 @@ namespace PH
                 ORCurrentHP = orMaxHP;
             }
             float currentHPPct = (float)ORCurrentHP / orMaxHP;
+
+            DmgPopUpPool.Instance.Create(amount,DmgType.Heal, transform.position,false);
+
             OnTakeDamage?.Invoke(currentHPPct);
         }
 
@@ -174,6 +177,8 @@ namespace PH
                     return CalPostMitigationTrueDmg(rawDmg);
                 case DmgType.DoT:
                     return CalPostMitigationDoT(rawDmg);
+                case DmgType.Heal:
+                    return CalHeal(rawDmg);
                 default:
                     throw new Exception("Cant get damage type");
             }
@@ -199,6 +204,11 @@ namespace PH
         protected virtual int CalPostMitigationDoT(int rawDmg)
         {
             return rawDmg;
+        }
+
+        protected virtual int CalHeal(int healValue)
+        {
+            return healValue;
         }
 
         private int CalculatorByDefenseType(int rawDmg, int defenseType)

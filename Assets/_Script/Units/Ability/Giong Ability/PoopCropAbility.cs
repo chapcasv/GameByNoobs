@@ -18,7 +18,7 @@ namespace PH
 
             float preMitigationDmg = dmg * (caster.GetAtkSystem.ORMagicPower / 100f);
 
-            farUnit.TakeDamage((int)preMitigationDmg, DmgType.Magic);
+            farUnit.TakeDamage(caster, (int)preMitigationDmg, DmgType.Magic);
             farUnit.GetManaSystem.DecreaseMana(manaDecrease);
 
         }

@@ -45,7 +45,7 @@ namespace PH
         public UnitAtkSystem GetAtkSystem => Atk;
         public UnitMove GetMove => Move;
         public UnitStatusEffect GetUnitStatusEffect => unitStatusEffect;
-        
+
         public Faction[] GetFactions => factions;
         public int GetID => baseID;
 
@@ -82,7 +82,7 @@ namespace PH
 
             SetUpFinding(team);
             SetUpAtkLife(unit, team);
-            SetUpSurvivalStatSystem(unit, team); 
+            SetUpSurvivalStatSystem(unit, team);
             SetUpManaSystem(unit);
             SetUpAttack(unit);
             SetUpMove(unit, rb);
@@ -92,7 +92,7 @@ namespace PH
             SetUpStatusEffect();
             AddPlayerCacheUnitData();
 
-            baseID = cardID;  
+            baseID = cardID;
         }
 
         private void SetUpRotationByTeam(UnitTeam team)
@@ -119,7 +119,7 @@ namespace PH
         protected virtual void SetUpSurvivalStatSystem(CardUnit unit, UnitTeam myTeam)
         {
             SurvivalStat = GetComponent<UnitSurvivalStat>();
-            SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist,unit.NegativeBonusDamage, myTeam);
+            SurvivalStat.SetUp(unit.Hp, unit.Armor, unit.MagicResist, unit.NegativeBonusDamage, myTeam);
             SurvivalStat.OnDie += Die;
         }
         protected virtual void SetUpManaSystem(CardUnit unit)
@@ -167,7 +167,7 @@ namespace PH
             if (_myTeam == UnitTeam.Player) PlayerCacheUnitData.Add(this);
         }
         #endregion
-        
+
         public void AddListernerTriggerOnBoard()
         {
             for (int i = 0; i < triggerOnBoards.Length; i++)
@@ -192,11 +192,18 @@ namespace PH
             }
         }
 
-        public virtual int TakeDamage(int rawDmg, DmgType dmgType, bool isCrit = false)
+        public virtual int TakeDamage(BaseUnit sender, int rawDmg, DmgType dmgType, bool isCrit = false)
         {
-            int dmgDeal = SurvivalStat.TakeDmg(rawDmg,dmgType, isCrit);
+            int dmgDeal = SurvivalStat.TakeDmg(rawDmg, dmgType, isCrit);
             Mana.IncreaseManaOnTakeDame();
-           
+
+            //On take dmg
+            //Change current target if current target not in range and sender in range
+            if (!Atk.IsInRange(currentTarget) && Atk.IsInRange(sender))
+            {
+                currentTarget = sender;
+            }
+
             return dmgDeal;
         }
 
@@ -232,7 +239,7 @@ namespace PH
             }
 
             //Unit is moving to next node?
-            Move.IsMoving = !Move.MoveTowards(destination,currentTarget);
+            Move.IsMoving = !Move.MoveTowards(destination, currentTarget);
 
             //When unit stay in next node, free previous node
             if (!Move.IsMoving)

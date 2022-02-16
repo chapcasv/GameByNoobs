@@ -79,7 +79,7 @@ namespace PH
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            int dmgDeal = currentTarget.TakeDamage(preMitigationDmg, DmgType.Physical, IsCrit);
+            int dmgDeal = currentTarget.TakeDamage(holder, preMitigationDmg, DmgType.Physical, IsCrit);
 
             LifeStealByDmg(dmgDeal);
             TriggerBasicAtkAddOn();

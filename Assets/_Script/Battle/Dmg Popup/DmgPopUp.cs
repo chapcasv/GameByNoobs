@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace PH.PopUp
 {   
-
     public class DmgPopUp : MonoBehaviour
     {
         private static int sortingOder;
@@ -80,14 +79,12 @@ namespace PH.PopUp
             SetUpTextColor(amount, type);
             SetUpTextSize(amount);
             SetUpTransform(spawnPos);
+            SetUpVectorMove(type);
 
             disappearTime = DISAPPEAR_MAX;
 
             sortingOder++;
             textMesh.sortingOrder = sortingOder;
-
-            //pop-up to top right
-            moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
 
             gameObject.SetActive(true);
         }
@@ -138,6 +135,30 @@ namespace PH.PopUp
             textColor = textMesh.color;
         }
 
+        private void SetUpVectorMove(DmgType dmgType)
+        {
+            switch (dmgType)
+            {
+                case DmgType.Physical:
+                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+                    break;
+                case DmgType.Magic:
+                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+                    break;
+                case DmgType.TrueDmg:
+                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+                    break;
+                case DmgType.DoT:
+                    moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
+                    break;
+                case DmgType.Heal:
+                    moveVector = new Vector3(0, 10f);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void SetUpCritTextColor(int amount)
         {
             textMesh.color = Color.red;
@@ -152,7 +173,7 @@ namespace PH.PopUp
         }
 
         private void SetUpHealColor(int amount)
-        {
+        {   
             textMesh.color = colorHeal;
             textMesh.SetText("+" + amount.ToString());
         }

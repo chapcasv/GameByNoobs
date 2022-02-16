@@ -29,7 +29,7 @@ namespace PH
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            pm.SetUp(currentTarget, this, preMitigationDmg, DmgType.Physical);
+            pm.SetUp(currentTarget, this, preMitigationDmg, DmgType.Physical, holder);
         }
 
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)

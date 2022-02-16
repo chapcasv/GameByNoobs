@@ -26,7 +26,7 @@ namespace PH
 
             foreach (var target in targets)
             {
-                target.TakeDamage((int)preMitigationDmg, DmgType.Physical);
+                target.TakeDamage(caster, (int)preMitigationDmg, DmgType.Physical);
                 target.GetUnitStatusEffect.ApplyStatusEffect(abilityStatusEffect);
             }
 

@@ -9,13 +9,15 @@ namespace PH
     {
         [SerializeField] GameObject localPlayerZone;
         [SerializeField] ParticleSystem highLight_TileUnder;
-        [SerializeField] ParticleSystem dropUnit;
+        [SerializeField] Transform pfDropUnit;
+        private ParticleSystem particleDropUnit;
         
 
         private void Awake()
         {
             Setting.effectGridMap = this;
-        
+
+            particleDropUnit = pfDropUnit.GetChild(0).GetComponent<ParticleSystem>();
         }
 
         void Start()
@@ -33,10 +35,10 @@ namespace PH
             localPlayerZone.SetActive(false);
         }
 
-        public void EffectDropUnit(Node nodeDrop)
+        public void DropUnit(Vector3 pos)
         {
-            dropUnit.transform.position = nodeDrop.WorldPosition;
-            
+            pfDropUnit.transform.position = pos;
+            particleDropUnit.Play();
         }
 
         public void HighLight_TileUnder(Vector3 pos)

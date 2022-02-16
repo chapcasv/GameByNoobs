@@ -25,8 +25,8 @@ namespace PH
 
             float trueDmgBonus = pctTrueDmgBonusByMaxHp * (maxHpTarget / 100f);
 
-            currentTarget.TakeDamage((int)rawDmg, DmgType.Physical);
-            currentTarget.TakeDamage((int)trueDmgBonus, DmgType.TrueDmg);
+            currentTarget.TakeDamage(caster, (int)rawDmg, DmgType.Physical);
+            currentTarget.TakeDamage(caster, (int)trueDmgBonus, DmgType.TrueDmg);
         }
 
         private float GetRawDmg(int ORPhysicalDmg)

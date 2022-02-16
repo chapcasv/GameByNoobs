@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PH
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Ability/Magic Single Target")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Ability/Magic/Single Target")]
     public class MagicSingleTarget : Ability
     {
         [SerializeField] int magicDmg;
@@ -12,29 +12,34 @@ namespace PH
         {
             if (currentTarget == null) return; //Target dead
 
-            int dmg = magicDmg + caster.GetAtkSystem.ORPhysicalDamage;
-            currentTarget.TakeDamage(dmg, DmgType.Magic);
+            int dmg = GetDmg(caster.GetAtkSystem.ORMagicPower);
+            currentTarget.TakeDamage(caster, dmg, DmgType.Magic);
         }
 
         public override string GetDiscription(CardUnit unit)
         {
-            int dmg = magicDmg + unit.Damage;
+            int dmg = GetDmg(100);
             return GetDiscription(dmg);
         }
 
         public override string GetDiscription(BaseUnit unit)
         {
-            int dmg = magicDmg + unit.GetAtkSystem.ORPhysicalDamage;
+            int dmg = GetDmg(unit.GetAtkSystem.ORMagicPower);
             return GetDiscription(dmg);
         }
 
         protected override string GetDiscription(int value)
         {
-            int dmg = magicDmg + value;
-            string physicalColor = HexColorString.MagicDmg();
-            string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên mục tiêu";
+            string magicDmg = HexColorString.MagicDmg();
+            string discription = "Gây" + "<color=" + magicDmg + "> " + value + "</color>" + " sát thương lên mục tiêu";
 
             return discription;
+        }
+
+        protected int GetDmg(int magicPower)
+        {
+            int dmg = (int)(magicDmg / 100f * magicPower);
+            return dmg;
         }
     }
 }

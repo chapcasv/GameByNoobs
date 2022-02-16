@@ -10,6 +10,7 @@ namespace PH
         protected Ability ability;
 
         protected BaseUnit currentTarget;
+        protected BaseUnit holder;
 
         protected List<CalPreMitigation> baseCalPreMitigations;
         protected List<CalPreMitigation> orCalPreMitigations;
@@ -75,6 +76,8 @@ namespace PH
         public bool IsDisableAtk { get; set; } //only for status effect
 
         public BaseUnit CurrentTarget { set => currentTarget = value; }
+
+        public BaseUnit Holder { set => holder = value; }
         public bool IsCrit { get ; set; }
 
         #endregion

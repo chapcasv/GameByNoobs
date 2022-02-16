@@ -13,7 +13,7 @@ namespace PH
             if (currentTarget == null) return; //Target dead
 
             int dmg = physicalDmg + caster.GetAtkSystem.ORPhysicalDamage;
-            currentTarget.TakeDamage(dmg,DmgType.Physical);
+            currentTarget.TakeDamage(caster, dmg, DmgType.Physical);
         }
 
         public override string GetDiscription(CardUnit unit)
