@@ -14,17 +14,16 @@ namespace PH
         public void SetUp(BaseUnit unitHolder, Node spawnNode, Transform enemyBase)
         {
             _enemyBase = enemyBase;
-            SetUpRotation();
             SetUpPosByNode(unitHolder, spawnNode);
+            SetUpRotation();
         }
 
         private void SetUpRotation()
-        {   
-            if(PhaseSystem.CurrentPhase is BeforeTeamFight)
-            {   
-                //ToWard Enemy
-                Vector3 direction = _enemyBase.position - transform.position;
-                transform.rotation = Quaternion.LookRotation(direction);
+        {
+            if (PhaseSystem.CurrentPhase is BeforeTeamFight)
+            {
+                Quaternion enemyBase = LookToWardEnemyBase();
+                transform.rotation = enemyBase;
             }
             else
             {
@@ -33,11 +32,21 @@ namespace PH
             }
         }
 
+        private Quaternion LookToWardEnemyBase()
+        {
+            Vector3 direction = _enemyBase.position - transform.position;
+            Quaternion enemyBase = Quaternion.LookRotation(direction);
+
+            //Freeze x,z
+            enemyBase = Quaternion.Euler(0, enemyBase.eulerAngles.y, 0);
+            return enemyBase;
+        }
+
         private void SetUpPosByNode(BaseUnit unitHolder, Node spawnNode)
         {
             unitHolder.CurrentNode = spawnNode;
-            transform.position = spawnNode.WorldPosition;
             spawnNode.SetOccupied(true);
+            transform.position = spawnNode.WorldPosition;
         }
 
         public void RotationTowardEnemyBase()
@@ -47,11 +56,7 @@ namespace PH
 
         private IEnumerator RotationToward()
         {
-            Vector3 direction = _enemyBase.position - transform.position;
-
-            Quaternion enemyBase = Quaternion.LookRotation(direction);
-
-            enemyBase = Quaternion.Euler(0, enemyBase.eulerAngles.y, 0);
+            Quaternion enemyBase = LookToWardEnemyBase();
 
             while (PhaseSystem.CurrentPhase is BeforeTeamFight)
             {

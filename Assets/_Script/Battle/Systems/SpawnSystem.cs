@@ -84,10 +84,10 @@ namespace PH
         }
 
         private BaseUnit InstantiateUnit(CardUnit unit, int id, Node node, 
-            UnitTeam team, BaseUnit prefab, Transform parrent, DragLogic dragLogic, Transform teamBase)
+            UnitTeam team, BaseUnit prefab, Transform parrent, DragLogic dragLogic, Transform enemyBase)
         {
             BaseUnit newUnit = Instantiate(prefab, parrent);
-            newUnit.Setup(node, unit, id, team, dragLogic, teamBase);
+            newUnit.Setup(node, unit, id, team, dragLogic, enemyBase);
 
             DictionaryTeamBattle.AddUnit(team, newUnit);
 
