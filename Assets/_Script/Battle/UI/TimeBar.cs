@@ -13,29 +13,21 @@ namespace PH
         [SerializeField] Slider sliderTime;
         [SerializeField] float smooth;
         [SerializeField] private TextMeshProUGUI timeNumbers;
+
+
         private const float smoothOffset = 200;
-
         private int timeRemaining;
-        private UnityAction onTimerBeginAction;
-        private UnityAction<int> onTimerChangeAction;
-        private UnityAction onTimerEndAction;
-
-        private void Awake()
-        {
-            ResetTimer();
-        }
-
+       
         public IEnumerator TimeBarPhaseLoop(float maxTime)
-        {
+        { 
             sliderTime.maxValue = maxTime;
             sliderTime.value = sliderTime.maxValue;
             smooth = sliderTime.maxValue / smoothOffset;
-            
+           
             while (sliderTime.value > sliderTime.minValue && PhaseSystem.UseTimeBar && !PhaseSystem.BattleIsEnd)
             {
-                sliderTime.value -= smooth;
-
                 yield return new WaitForSeconds(smooth);
+                sliderTime.value -= smooth;
             }
 
             //end battle current phase is null
@@ -50,24 +42,15 @@ namespace PH
             sliderTime.maxValue = maxTime;
             sliderTime.value = sliderTime.maxValue;
             smooth = sliderTime.maxValue / smoothOffset;
-
+          
             while (sliderTime.value > sliderTime.minValue && PhaseSystem.UseTimeBar && !PhaseSystem.BattleIsEnd)
             {
                 sliderTime.value -= smooth;
-
+                
                 yield return new WaitForSeconds(smooth);
             }
             //Current phase is start card
             PhaseSystem.CurrentPhase.IsComplete();
-        }
-
-        private void ResetTimer()
-        {
-            timeNumbers.text = "00";
-            timeRemaining = 0;
-            onTimerBeginAction = null;
-            onTimerChangeAction = null;
-            onTimerEndAction = null;
         }
 
         public TimeBar SetDuration(float _time)
@@ -75,26 +58,8 @@ namespace PH
             timeRemaining = (int)_time;
             return this;
         }
-        public TimeBar OnBegin(UnityAction action)
-        {
-            onTimerBeginAction = action;
-            return this;
-        }
-        public TimeBar OnChange(UnityAction<int> action)
-        {
-            onTimerChangeAction = action;
-            return this;
-        }
-        public TimeBar OnEnd(UnityAction action)
-        {
-            onTimerEndAction = action;
-            return this;
-        }
-
         public void Begin()
         {
-            if(onTimerBeginAction != null) 
-                onTimerBeginAction?.Invoke();
             StopAllCoroutines();
             StartCoroutine(UpdateTimer());
         }
@@ -103,15 +68,13 @@ namespace PH
         {
             while(timeRemaining > 0)
             {
-                if (onTimerChangeAction != null)
-                    onTimerChangeAction?.Invoke(timeRemaining);
                 UpdateTimeUI(timeRemaining);
                 timeRemaining--;
+               
                 yield return new WaitForSeconds(1f);
             }
-            End();
+            
         }
-
         private void UpdateTimeUI(int timeRemaining)
         {
             if (timeRemaining >= 10)
@@ -119,14 +82,7 @@ namespace PH
             else
                 timeNumbers.text = "0" + timeRemaining.ToString();
         }
-
-        private void End()
-        {
-            if (onTimerEndAction != null)
-                onTimerEndAction?.Invoke();
-            ResetTimer();
-        }
-
+      
     }
 }
 
