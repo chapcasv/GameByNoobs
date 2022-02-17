@@ -32,7 +32,7 @@ namespace PH
 
                 if (dropResult)
                 {
-                    EffectGridMap.Instance.DropUnit(node.WorldPosition);
+                    VFXManager.Instance.DropUnit(node.WorldPosition);
                 }
                 return dropResult;
             }
