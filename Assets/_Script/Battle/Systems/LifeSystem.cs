@@ -12,7 +12,7 @@ namespace PH
 
         private int _enemyLife;
         private int _playerLife;
-
+        private const int PLAYER_LIFE = 20;
         public int GetEnemyLife() => _enemyLife;
         public int GetPlayerLife() => _playerLife;
 
@@ -74,10 +74,10 @@ namespace PH
             OnPlayerLifeChange?.Invoke();
         }
 
-        public void SetData(PVE_Raid raid)
+        public void SetData(PVP_Enemy enemy)
         {
-            _enemyLife = raid.EnemyLife;
-            _playerLife = raid.PlayerLife;
+            _enemyLife = enemy.Life;
+            _playerLife = PLAYER_LIFE;
         }
     }
 }

@@ -28,13 +28,13 @@ namespace PH.Save
         }
 
         //ONLY call when you want to save ALL player data
-        public static void SavePlayer(PlayerSO playerSO)
+        public static void SavePlayer(PlayerLocalSO playerSO)
         {
             PlayerData data = ConvertPlayerSOToPlayerData(playerSO);
             WriteJSon(data);
         }
 
-        private static PlayerData ConvertPlayerSOToPlayerData(PlayerSO playerSO)
+        private static PlayerData ConvertPlayerSOToPlayerData(PlayerLocalSO playerSO)
         {
             PlayerData playerData = new PlayerData();
             playerData.PlayerName = playerSO.PlayerName;
@@ -70,7 +70,7 @@ namespace PH.Save
         }
 
         //ONLY call when you want to load ALL player data
-        public static void LoadPlayer(PlayerSO playerSO, ALLCard allCards)
+        public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
         {
             PlayerData playerData = new PlayerData();
             if (File.Exists(playerDataPath))
@@ -81,7 +81,7 @@ namespace PH.Save
             else throw new System.Exception("Data Path dont Exists");
         }
 
-        private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerSO playerSO, ALLCard allCards)
+        private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerLocalSO playerSO, ALLCard allCards)
         {
             playerSO.PlayerName = playerData.PlayerName;
             playerSO.Coin = playerData.Coin;
@@ -99,7 +99,7 @@ namespace PH.Save
             return cards;
         }
 
-        public static void SavePlayerCoin(PlayerSO playerSO)
+        public static void SavePlayerCoin(PlayerLocalSO playerSO)
         {
             PlayerData playerData = new PlayerData();
             playerData.Coin = playerSO.Coin;

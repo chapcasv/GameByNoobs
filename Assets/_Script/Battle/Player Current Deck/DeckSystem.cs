@@ -13,7 +13,7 @@ namespace PH
         public event Action OnDropCard;
         public event Action OnAddCardHand;
 
-        [SerializeField] PlayerSO data;
+        [SerializeField] PlayerLocalSO data;
         [SerializeField] Deck deckBeforeShuffle;
         [SerializeField] Deck deckAfterShuffle;
 

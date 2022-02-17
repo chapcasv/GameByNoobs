@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c209ab74a782de049908e2cee87fd223, type: 3}
+  m_Name: Simple Bot
+  m_EditorClassIdentifier: 
+  enemyName: "Ch\u1EA5p C\u1EA3 SV"
+  life: 20
+  enemyAvatar: {fileID: 0}
+  Waves:
+  - {fileID: 11400000, guid: 1fa6ffc9efa33c845990411d35d5d905, type: 2}
+  - {fileID: 11400000, guid: dd49733013319634fbccc23ecd5b3866, type: 2}
+  - {fileID: 11400000, guid: 067d06b4a5591cd4dbcbd9ec0941188c, type: 2}
+  - {fileID: 11400000, guid: e137f0f79469ad8428616fb6692172ca, type: 2}
+  - {fileID: 11400000, guid: 4931be2303208db46b6fc35f3ec99766, type: 2}
+  RaidMode: 1
+  RewardsMoney: 0
+  boardPrefab: {fileID: 4515628165038162039, guid: bfaee9b5f6489564f8c4454e4c9a0ffa, type: 3}

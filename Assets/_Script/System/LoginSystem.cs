@@ -15,7 +15,7 @@ namespace PH
         [SerializeField] GameObject newPlayer_popUp;
         [SerializeField] TextMeshProUGUI input_PlayerName;
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
-        [SerializeField] PlayerSO playerSO;
+        [SerializeField] PlayerLocalSO playerSO;
         [SerializeField] PlayerDefaultData defaultPlayer;
         [SerializeField] ALLCard allCards;
 

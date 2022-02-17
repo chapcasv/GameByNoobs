@@ -12,7 +12,7 @@ namespace PH {
 
     public static class InitializeNewPlayer
     {
-        public static bool CanInitialize(string playerName, PlayerSO player, PlayerDefaultData defaultPlayer, ALLCard allCards)
+        public static bool CanInitialize(string playerName, PlayerLocalSO player, PlayerDefaultData defaultPlayer, ALLCard allCards)
         {
             if (CanUse(playerName))
             {
@@ -22,7 +22,7 @@ namespace PH {
             else return false;
         }
 
-        private static void Initialize(string playerName, PlayerSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
+        private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
         {
             playerSO.PlayerName = playerName;
             playerSO.Coin = defaultPlayer.Coin;

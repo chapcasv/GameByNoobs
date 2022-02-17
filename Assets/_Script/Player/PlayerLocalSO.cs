@@ -5,8 +5,8 @@ using SO;
 
 namespace PH
 {   
-    [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/PlayerSO")]
-    public class PlayerSO : ScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/Player Local SO")]
+    public class PlayerLocalSO : ScriptableObject
     {
         [SerializeField] string playerName;
         [SerializeField] int coin;

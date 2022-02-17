@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 namespace PH
 {
-    public class PVEManager : MonoBehaviour
+    public class PVPManager : MonoBehaviour
     {
 
-        [SerializeField] PVE_Raid currentRaid;
+        [SerializeField] PVP_AI_Bot currentPlayer;
         public static PVE_Mode pveMode;
         //private SoundManager sound;
         //private Player_Database player_data;
@@ -20,15 +20,15 @@ namespace PH
 
         [SerializeField] GameObject B_raidContent;
 
-        [SerializeField] List<PVE_Raid> raid15Wave;
+        [SerializeField] List<PVP_AI_Bot> raid15Wave;
         [SerializeField] Transform content_15Wave;
         private bool raid15Wave_Created = false;
 
-        [SerializeField] List<PVE_Raid> raidStory;
+        [SerializeField] List<PVP_AI_Bot> raidStory;
         [SerializeField] Transform content_raidStory;
         private bool raidStory_Created = false;
 
-        [SerializeField] List<PVE_Raid> raidTutorial;
+        [SerializeField] List<PVP_AI_Bot> raidTutorial;
         [SerializeField] Transform content_Tutorial;
         private bool raidTutorial_Created = false;
 
@@ -95,10 +95,9 @@ namespace PH
 
             if (raid15Wave.Count == 0) return;
 
-            foreach (PVE_Raid raid in raid15Wave)
+            foreach (PVP_AI_Bot raid in raid15Wave)
             {
                 temp = Instantiate(B_raidContent, content_15Wave);
-                temp.transform.GetComponent<Image>().sprite = raid.RaidAvatar;
                 temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
                     Show_InfoStage(raid);
@@ -121,11 +120,10 @@ namespace PH
         private void Create_List_raidStory()
         {
             GameObject temp;
-            foreach (PVE_Raid raid in raidStory)
+            foreach (PVP_AI_Bot raid in raidStory)
             {
 
                 temp = Instantiate(B_raidContent, content_raidStory);
-                temp.transform.GetComponent<Image>().sprite = raid.RaidAvatar;
                 temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
                     Show_InfoStage(raid);
@@ -138,10 +136,9 @@ namespace PH
         private void Create_List_RaidTutorial()
         {
             GameObject temp;
-            foreach (PVE_Raid raid in raidTutorial)
+            foreach (PVP_AI_Bot raid in raidTutorial)
             {
                 temp = Instantiate(B_raidContent, content_Tutorial);
-                temp.transform.GetComponent<Image>().sprite = raid.RaidAvatar;
                 temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
                     Show_InfoStage(raid);
@@ -151,16 +148,14 @@ namespace PH
             Show_List_RTutorial();
         }
 
-        public void Show_InfoStage(PVE_Raid raid)
+        public void Show_InfoStage(PVP_AI_Bot raid)
         {
-            currentRaid = raid;
-            RaidInfomation(currentRaid);
+            currentPlayer = raid;
+            RaidInfomation(currentPlayer);
         }
 
-        private void RaidInfomation(PVE_Raid currentRaid)
+        private void RaidInfomation(PVP_AI_Bot currentRaid)
         {
-            raidDiscription.text = currentRaid.RaidDescription;
-            raidAvatar.sprite = currentRaid.RaidAvatar;
         }
 
         //Need fix magic text

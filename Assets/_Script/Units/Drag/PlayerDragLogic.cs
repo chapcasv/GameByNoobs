@@ -23,7 +23,7 @@ namespace PH
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
                 Cache(unit);
-                Setting.effectGridMap.HighLightMap();
+                EffectGridMap.Instance.HighLightMap();
             }
         }
 
@@ -40,9 +40,9 @@ namespace PH
             }
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
             {   
-                Setting.effectGridMap.StopHighLightMap();
+                EffectGridMap.Instance.StopHighLightMap();
                 unit.transform.position = _oldPos;
-                Setting.effectGridMap.DropUnit(_oldPos);
+                EffectGridMap.Instance.DropUnit(_oldPos);
                 //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
@@ -56,7 +56,7 @@ namespace PH
 
         public override void MouseUp(BaseUnit unit)
         {
-            Setting.effectGridMap.StopHighLightMap();
+            EffectGridMap.Instance.StopHighLightMap();
             startTimeMouseUp = Time.time;
 
             float time = startTimeMouseUp - startTimeMouseDown;
@@ -78,7 +78,7 @@ namespace PH
                     if (!TryMove(unit))
                     {
                         unit.transform.position = _oldPos;
-                        Setting.effectGridMap.DropUnit(_oldPos);
+                        EffectGridMap.Instance.DropUnit(_oldPos);
                     }
                     TrySell(unit);
                 }
@@ -151,7 +151,7 @@ namespace PH
                         unit.CurrentNode = candidateNode;
                         candidateNode.SetOccupied(true);
                         unit.transform.position = candidateNode.WorldPosition;
-                        Setting.effectGridMap.DropUnit(candidateNode.WorldPosition);
+                        EffectGridMap.Instance.DropUnit(candidateNode.WorldPosition);
                         return true;
                     }
                 }

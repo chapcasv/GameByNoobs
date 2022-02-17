@@ -9,23 +9,32 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Coin System")]
     public class CoinSystem : ScriptableObject
     {
-        private int _coin;
+
         public event Action OnCoinValueChange;
-        public int GetCoin() => _coin;
+        private const int START_COIN = 10;
+
+        private int _playerCoin;
+        private int _enemyCoin;
+
+        public int GetCoin() => _playerCoin;
+        public int GetEnemyCoin() => _enemyCoin;
 
         public void Add(int value)
         {
-            _coin += value;
+            _playerCoin += value;
             OnCoinValueChange?.Invoke();
         }
         public void Sub(int value)
         {
-            _coin -= value;
+            _playerCoin -= value;
             OnCoinValueChange?.Invoke();
         }
 
-        public void SetData(PVE_Raid raid) => _coin = raid.PlayerStartCoin;
-
+        public void SetData()
+        {
+            _playerCoin = START_COIN;
+            _enemyCoin = START_COIN;
+        }
     }
 }
 

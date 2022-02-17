@@ -10,7 +10,7 @@ namespace PH
     public class MainMenuSystem : MonoBehaviour
     {
 
-        [SerializeField] PlayerSO player;
+        [SerializeField] PlayerLocalSO player;
 
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
@@ -40,7 +40,7 @@ namespace PH
 
         public void GotoPVE()
         {
-            SceneManager.LoadScene(SceneSelect.PVE.ToString());
+            SceneManager.LoadScene(SceneSelect.PVP.ToString());
         }
 
         public void GoToCollection()

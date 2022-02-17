@@ -7,14 +7,17 @@ namespace PH
     {
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask mask;
+        [SerializeField] GameObject pfTileUnder;
+        private GameObject tileUnder;
         private Camera _cam;
         private CoinSystem _coinSystem;
 
         public CoinSystem CoinSystem {set => _coinSystem = value; }
 
         private void Start()
-        {
+        {   
             _cam = Camera.main;
+            tileUnder = Instantiate(pfTileUnder);
         }
 
         public bool TryDropCard(Card currentCard)
@@ -26,11 +29,11 @@ namespace PH
             {
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
                 bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
+
                 if (dropResult)
                 {
-                    Setting.effectGridMap.DropUnit(node.WorldPosition);
+                    EffectGridMap.Instance.DropUnit(node.WorldPosition);
                 }
-
                 return dropResult;
             }
             else return false;
@@ -63,8 +66,16 @@ namespace PH
         private bool HaveTile()
         {
             Tile t = GetTileUnder();
-            if (t != null) return true;
-            else return false;
+            if (t != null)
+            {
+                return true;
+            }
+            else
+            {
+                Debug.Log("Dont have tile");
+                return false;
+            }
+
         }
 
         public Tile GetTileUnder()
@@ -82,21 +93,29 @@ namespace PH
             return null;
         }
 
+        public void HightLightTileUnder()
+        {
+            Tile t = GetTileUnder();
+
+            if(t != null)
+            {
+                Vector3 pos = t.transform.position;
+                tileUnder.transform.position = new Vector3(pos.x, pos.y + 0.15f, pos.z);
+            }
+        }
+
         // Transform Radar use for GetTileUnder
         public void MoveRadar()
         {
             Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
             if (Physics.Raycast(ray, out hit, mask))
             {
                 radar.transform.position = hit.point;
             }
         }
 
-        public void MoveTileEffect()
-        {
-            transform.position = radar.transform.position;
-        }
     }
 }
 

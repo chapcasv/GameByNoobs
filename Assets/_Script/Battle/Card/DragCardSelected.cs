@@ -41,18 +41,19 @@ namespace PH
             {
                 _transform.position = Input.mousePosition;
                 _drop.MoveRadar();
+                _drop.HightLightTileUnder();
                 if (Input.GetMouseButtonUp(0)) OnEndDrag();
             }
             else
             {
-                Setting.effectGridMap.StopHighLightMap();
+                EffectGridMap.Instance.StopHighLightMap();
                 BackToHand();
             }
         }
 
         public void LoadCard()
         {
-            Setting.effectGridMap.HighLightMap();
+            EffectGridMap.Instance.HighLightMap();
             _transform.position = Input.mousePosition;
             _cardViz.SetCard(currentCard);
             gameObject.SetActive(true);
@@ -62,7 +63,7 @@ namespace PH
 
         private void OnEndDrag()
         {
-            Setting.effectGridMap.StopHighLightMap();
+            EffectGridMap.Instance.StopHighLightMap();
 
             int cost = GetCostCurrentCard();
 

@@ -12,14 +12,12 @@ namespace PH
 
         private LifeSystem _lifeSystem;
 
-
         public void Constructor(LifeSystem LS)
         {
             _lifeSystem = LS;
             AddListerner();
             DisplayEnemyLife();
             DisplayPlayerLife();
-
         }
 
         private void DisplayEnemyLife()

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Lich
   m_EditorClassIdentifier: 
   cardID: 3
-  cardDiscription: 
+  cardDiscription: "Khi ta xu\u1ED1ng s\xE2n, b\u1ED1c m\u1ED9t l\xE1 b\xE0i trang
+    b\u1ECB"
   baseProperties:
   - stringValue: 
     intValue: 0
     sprite: {fileID: 21300000, guid: c6618355218f70f4e96b28068444dbcf, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-  - stringValue: Lich
+  - stringValue: "Th\u1EA7y Ph\xE1p"
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
@@ -33,27 +34,31 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
+    sprite: {fileID: 21300000, guid: 4fc5b2222a222ba4faad343d2ff973f2, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-  Faction: []
+  Faction:
+  - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
   - Ediscription: Spawn Lich
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
+  - Ediscription: Draw 1 card item
+    input: {fileID: 11400000, guid: 0f74a855f18715a4ca066be611bd04d6, type: 2}
+    logic: {fileID: 11400000, guid: d30dd86b3fe504642a737536a748575f, type: 2}
   Unlocked: 0
   unitID: {fileID: 11400000, guid: 3ce719249a97caf4e902f7cc9d6e0bb3, type: 2}
   abitity: {fileID: 11400000, guid: a3d6b1d31c19efa458b71845f5b13686, type: 2}
   dataTriggerOnBoards: []
-  hp: 900
+  hp: 700
   magicResist: 15
   armor: 15
-  manaMax: 40
-  manaStart: 0
+  manaMax: 70
+  manaStart: 20
   manaRegen: 5
   damage: 90
   range: 4
-  atkSpeed: 0.65
+  atkSpeed: 0.6
   moveSpeed: 4
   dmgLife: 1
   negativeBonusDamage: 0

@@ -7,7 +7,7 @@ namespace PH
 {
     public class BoardGeneration : MonoBehaviour
     {
-        [SerializeField] PVE_Raid currentRaid;
+        [SerializeField] PVP_AI_Bot currentRaid;
         [SerializeField] Transform boardParent;
 
         // Start is called before the first frame update

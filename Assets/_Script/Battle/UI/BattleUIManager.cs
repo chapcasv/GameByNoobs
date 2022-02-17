@@ -14,6 +14,7 @@ namespace PH
 
         [SerializeField] ResultBattleUI resultBattleUI;
         [SerializeField] BattleLifeUI lifePointUI;
+        private BattlePlayerInfomation infomation;
 
         [Header("Member player")]
         [SerializeField] TextMeshPro memberAmountText;
@@ -27,6 +28,9 @@ namespace PH
         [SerializeField] SellUnit left;
         [SerializeField] SellUnit right;
 
+        private PVP_Enemy _currentEnemy;
+        private PlayerLocalSO _player;
+
         private LifeSystem _lifeSystem;
         private WaveSystem _wavesSystem;
         private CoinSystem _coinSystem;
@@ -39,16 +43,22 @@ namespace PH
         private int _maxMemberAmount = 9;
         //private int _maxWave;
 
+        private void Awake()
+        {
+            infomation = GetComponent<BattlePlayerInfomation>();
+        }
+
         void Start()
         {
             resultBattleUI.Constructor(_resultBattle);
             lifePointUI.Constructor(_lifeSystem);
+            infomation.Constructor(_currentEnemy, _player);
             ResetMemberAmount();
         }
 
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
-            CardInfoVisual CIV, PlayerDragLogic playerDragLogic)
+            CardInfoVisual CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PVP_Enemy currentEnemy)
         {
             _lifeSystem = LS;
             _wavesSystem = WS;
@@ -56,7 +66,8 @@ namespace PH
             _memberSystem = MS;
             _resultBattle = RS;
             _cardInfoViz = CIV;
-
+            _player = player;
+            _currentEnemy = currentEnemy;
             _playerDragLogic = playerDragLogic;
 
             handZoneUI.Setter(_cardInfoViz, _playerDragLogic);
@@ -80,7 +91,6 @@ namespace PH
 
         private void SetUpBattleInfomation()
         {
-            //_maxWave = _wavesSystem.GetWavesLength();
             DisplayWaves();
             DisplayMemberAmount();
             DisplayerCoin();

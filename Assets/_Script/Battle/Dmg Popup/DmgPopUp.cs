@@ -20,6 +20,7 @@ namespace PH.PopUp
         private const int TEXT_SIZE_SMALL = 14;
         private const int TEXT_SIZE_MEDIUM = 16;
         private const int TEXT_SIZE_LARGE = 17;
+        private const float SPAWN_OFSET_X = 6f;
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
         private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
         private readonly Color colorMagic = new Color32(98, 239, 255, 255);
@@ -39,12 +40,10 @@ namespace PH.PopUp
         private void Update()
         {
             transform.position += moveVector * Time.deltaTime;
-            moveVector -= moveVector * MOVE_DISTANCE * Time.deltaTime;
-
-            ScaleByDisappear();
+            moveVector -= MOVE_DISTANCE * Time.deltaTime * moveVector;
 
             disappearTime -= Time.deltaTime;
-
+            ScaleByDisappear();
             FadeByDisappear();
         }
 
@@ -67,12 +66,12 @@ namespace PH.PopUp
             if (disappearTime > DISAPPEAR_MAX / 2)
             {
                 // First half of the popup lifetime
-                transform.localScale += Vector3.one * INCREASE_SCALE * Time.deltaTime;
+                transform.localScale += INCREASE_SCALE * Time.deltaTime * Vector3.one;
             }
             else
             {
                 //Second half of the popup lifetime
-                transform.localScale -= Vector3.one * DECREASE_SCALE * Time.deltaTime;
+                transform.localScale -= DECREASE_SCALE * Time.deltaTime * Vector3.one;
             }
         }
 
@@ -111,7 +110,7 @@ namespace PH.PopUp
 
         private void SetUpTransform(Vector3 spawnPos)
         {
-            transform.position = new Vector3(spawnPos.x, spawnPos.y + 6f, spawnPos.z);
+            transform.position = new Vector3(spawnPos.x, spawnPos.y + SPAWN_OFSET_X, spawnPos.z);
             transform.localScale = Vector3.one;
             transform.LookAt(transform.position + cam.forward);
         }

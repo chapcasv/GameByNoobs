@@ -6,7 +6,8 @@ namespace PH
     {
         [SerializeField] UnitsDatabaseSO dataSO;
         [SerializeField] ALLCard aLLCard;
-        [SerializeField] PVE_Raid currentRaid;
+        [SerializeField] PVP_Enemy currentEnemy;
+        [SerializeField] PlayerLocalSO player;
         [SerializeField] BattleUIManager battleUIManager;
         [SerializeField] DragCardSelected dragCardSelected;
         [SerializeField] CardInfoVisual cardInfoVisual;
@@ -42,7 +43,7 @@ namespace PH
             SetSystemByCurrentRaid(LS, WS, CS, MS);
 
             cardInfoVisual.Init(aLLCard);
-            battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic);
+            battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic, player, currentEnemy);
 
             _boardSystem = GetComponent<BoardSystem>();
             _boardSystem.Constructor(MS, SS, DS, cardInfoVisual, dataSO);
@@ -77,9 +78,9 @@ namespace PH
 
         private void SetSystemByCurrentRaid(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS)
         {
-            LS.SetData(currentRaid);
-            WS.SetData(currentRaid);
-            CS.SetData(currentRaid);
+            LS.SetData(currentEnemy);
+            WS.SetData(currentEnemy);
+            CS.SetData();
             MS.SetData();
         }
     }

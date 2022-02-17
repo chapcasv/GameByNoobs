@@ -6,7 +6,6 @@ namespace PH
 {
     public static class Setting 
     {
-        public static EffectGridMap effectGridMap;
  
     }
 }

@@ -27,7 +27,7 @@ namespace PH
 
         public Wave GetCurrentWave() => _waves[_index];
 
-        public void SetData(PVE_Raid raid)
+        public void SetData(PVP_Enemy raid)
         {
             _waves = new Wave[raid.Waves.Length];
             raid.Waves.CopyTo(_waves, 0);

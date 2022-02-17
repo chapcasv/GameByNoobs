@@ -5,7 +5,7 @@ using PH.GraphSystem;
 
 namespace PH
 {
-    public class EffectGridMap : MonoBehaviour
+    public class EffectGridMap : MonoSingleton<EffectGridMap>
     {
         [SerializeField] GameObject localPlayerZone;
         [SerializeField] ParticleSystem highLight_TileUnder;
@@ -13,10 +13,9 @@ namespace PH
         private ParticleSystem particleDropUnit;
         
 
-        private void Awake()
+        protected override void Awake()
         {
-            Setting.effectGridMap = this;
-
+            base.Awake();
             particleDropUnit = pfDropUnit.GetChild(0).GetComponent<ParticleSystem>();
         }
 
