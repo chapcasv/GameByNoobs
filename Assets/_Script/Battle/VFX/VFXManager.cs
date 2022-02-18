@@ -8,14 +8,19 @@ namespace PH
     public class VFXManager : MonoSingleton<VFXManager>
     {
         [SerializeField] GameObject localPlayerZone;
+        [SerializeField] GameObject pfTileUnder;
         [SerializeField] GameVFX pfDropUnit;
 
         private Queue<GameVFX> vfxDropUnit = new Queue<GameVFX>();
+        private GameObject tileUnder;
 
         protected override void Awake()
         {
             base.Awake();
             AddToPool(2);
+
+            tileUnder = Instantiate(pfTileUnder, transform);
+            tileUnder.SetActive(false);
         }
 
         void Start()
@@ -43,14 +48,15 @@ namespace PH
             }
         }
 
-        public void HighLight_TileUnder(Vector3 pos)
+        public void HighLightTileUnder(Vector3 pos)
         {
-          
+            tileUnder.transform.position = new Vector3(pos.x, pos.y + 0.1f, pos.z);
+            tileUnder.SetActive(true);
         }
 
-        public void Stop_HighLight_TileUnder()
+        public void HidenTileUnder()
         {
-         
+            tileUnder.SetActive(false);
         }
 
 

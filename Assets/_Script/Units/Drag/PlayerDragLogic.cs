@@ -24,6 +24,7 @@ namespace PH
             {
                 Cache(unit);
                 VFXManager.Instance.HighLightMap();
+
             }
         }
 
@@ -41,8 +42,10 @@ namespace PH
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
             {   
                 VFXManager.Instance.StopHighLightMap();
+
                 unit.transform.position = _oldPos;
                 VFXManager.Instance.DropUnit(_oldPos);
+                VFXManager.Instance.HidenTileUnder();
                 //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
@@ -52,6 +55,18 @@ namespace PH
         private void UnitFollowMouse(BaseUnit unit)
         {
             unit.transform.position = GetMouseWorldPos();
+            HightLightTilerUnder(unit);
+        }
+
+        private void HightLightTilerUnder(BaseUnit unit)
+        {
+            Tile t = GetTileUnder(unit);
+
+            if (t != null)
+            {
+                VFXManager.Instance.HighLightTileUnder(t.transform.position);
+            }
+            else VFXManager.Instance.HidenTileUnder();
         }
 
         public override void MouseUp(BaseUnit unit)
@@ -83,6 +98,8 @@ namespace PH
                     TrySell(unit);
                 }
             }
+
+            VFXManager.Instance.HidenTileUnder();
 
             //Hiden UI Remove - Show Card Hand
             OnEndDrag?.Invoke();
@@ -196,6 +213,8 @@ namespace PH
             }
             return null;
         }
+
+        
     }
 }
 

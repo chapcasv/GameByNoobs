@@ -14,10 +14,11 @@ namespace PH
         private GetBaseProperties _getBaseProperties;
 
         private DropCardSelected _drop;
-        private Transform _transform;
+        private RectTransform _transform;
         private CardSelectedVisual _cardViz;
         private Card currentCard;
         private CardInstance cache;
+        private Camera _cam;
 
         public Card CurrentCard { set => currentCard = value; }
         public CardInstance CardInstanceCache {set => cache = value; }
@@ -29,9 +30,10 @@ namespace PH
             _getBaseProperties = GBP;
 
             _drop = GetComponent<DropCardSelected>();
-            _transform = GetComponent<Transform>();
+            _transform = GetComponent<RectTransform>();
             _cardViz = GetComponent<CardSelectedVisual>();
             _drop.CoinSystem = _coinSystem;
+            _cam = Camera.main;
             gameObject.SetActive(false);
         }
 
@@ -39,9 +41,9 @@ namespace PH
         {
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
-                _transform.position = Input.mousePosition;
+                FollowMouse();
                 _drop.MoveRadar();
-                //_drop.HightLightTileUnder();
+                _drop.HightLightTileUnder();
                 if (Input.GetMouseButtonUp(0)) OnEndDrag();
             }
             else
@@ -49,6 +51,11 @@ namespace PH
                 VFXManager.Instance.StopHighLightMap();
                 BackToHand();
             }
+        }
+
+        private void FollowMouse()
+        {
+            _transform.position = Input.mousePosition;
         }
 
         public void LoadCard()
@@ -83,6 +90,7 @@ namespace PH
 
         private void ReLoadHandZone()
         {
+            VFXManager.Instance.HidenTileUnder();
             cache.Card = currentCard;
             cache.OnDrop(_deckSystem);
             gameObject.SetActive(false);
@@ -90,6 +98,7 @@ namespace PH
 
         private void BackToHand()
         {
+            VFXManager.Instance.HidenTileUnder();
             cache.Card = currentCard;
             cache.gameObject.SetActive(true);
             gameObject.SetActive(false);

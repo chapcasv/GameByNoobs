@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4115026046395573049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -407,7 +407,7 @@ RectTransform:
   m_GameObject: {fileID: 4115026046395573046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4115026046428861341}
   - {fileID: 4115026046255405477}
@@ -448,9 +448,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radar: {fileID: 0}
-  mask:
+  tile:
     serializedVersion: 2
     m_Bits: 2048
+  pfTileUnder: {fileID: 5707356149724169307, guid: 871a83a3d3bee964789b6137aa9b223a, type: 3}
 --- !u!114 &-5029324929768939157
 MonoBehaviour:
   m_ObjectHideFlags: 0
