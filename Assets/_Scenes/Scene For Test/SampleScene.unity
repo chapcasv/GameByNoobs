@@ -828,7 +828,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 2
+  m_RenderMode: 3
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -5700,6 +5700,10 @@ PrefabInstance:
     - target: {fileID: 7697955853243810671, guid: 35ebd71a22840be44b6d681ccc4a63c9, type: 3}
       propertyPath: m_Name
       value: Effect Drop Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697955853243810671, guid: 35ebd71a22840be44b6d681ccc4a63c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ebd71a22840be44b6d681ccc4a63c9, type: 3}
@@ -10848,6 +10852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Big Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 25395074510571907, guid: 08c57d9500880344b9d9b8231b69e949, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08c57d9500880344b9d9b8231b69e949, type: 3}
 --- !u!1001 &1051822562545097629
@@ -10904,6 +10912,10 @@ PrefabInstance:
     - target: {fileID: 1051822561695982711, guid: f8bf966de0b3c0b47996e6e4ef95843c, type: 3}
       propertyPath: m_Name
       value: Solid
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051822561695982711, guid: f8bf966de0b3c0b47996e6e4ef95843c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8bf966de0b3c0b47996e6e4ef95843c, type: 3}
@@ -10962,6 +10974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 1892913576822725624, guid: 27d98aabf0996654a8fface4b7b9aae7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27d98aabf0996654a8fface4b7b9aae7, type: 3}
 --- !u!1001 &1956751307710820223
@@ -10974,6 +10990,10 @@ PrefabInstance:
     - target: {fileID: 4569256331946980532, guid: 3f58a4b89beeda0498eb52a4ea81d670, type: 3}
       propertyPath: m_Name
       value: Lich
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569256331946980532, guid: 3f58a4b89beeda0498eb52a4ea81d670, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8046907420684669120, guid: 3f58a4b89beeda0498eb52a4ea81d670, type: 3}
       propertyPath: m_RootOrder
@@ -11031,6 +11051,10 @@ PrefabInstance:
     - target: {fileID: 2177814080495073556, guid: 3252c968715daa4438369f8b3a1b173d, type: 3}
       propertyPath: m_Name
       value: Giong
+      objectReference: {fileID: 0}
+    - target: {fileID: 2177814080495073556, guid: 3252c968715daa4438369f8b3a1b173d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7395959521096508598, guid: 3252c968715daa4438369f8b3a1b173d, type: 3}
       propertyPath: m_RootOrder
@@ -11132,6 +11156,10 @@ PrefabInstance:
     - target: {fileID: 4450451616242463648, guid: 4b3bf84ab339b3347adaf26058c8fc74, type: 3}
       propertyPath: m_Name
       value: Bull
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450451616242463648, guid: 4b3bf84ab339b3347adaf26058c8fc74, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3bf84ab339b3347adaf26058c8fc74, type: 3}
