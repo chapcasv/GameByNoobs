@@ -1,13 +1,15 @@
 using UnityEngine;
 using System;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-namespace PH 
-{   
+namespace PH
+{
     [RequireComponent(typeof(DropCardSelected))]
     public class DragCardSelected : MonoBehaviour
     {
         public Action OnBeginDrag;
+
+        [SerializeField] Canvas canvas;
 
         private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
@@ -18,10 +20,10 @@ namespace PH
         private CardSelectedVisual _cardViz;
         private Card currentCard;
         private CardInstance cache;
-        private Camera _cam;
+        private float offsetX;
 
         public Card CurrentCard { set => currentCard = value; }
-        public CardInstance CardInstanceCache {set => cache = value; }
+        public CardInstance CardInstanceCache { set => cache = value; }
 
         public void Constructor(CoinSystem CS, DeckSystem DS, GetBaseProperties GBP)
         {
@@ -33,9 +35,10 @@ namespace PH
             _transform = GetComponent<RectTransform>();
             _cardViz = GetComponent<CardSelectedVisual>();
             _drop.CoinSystem = _coinSystem;
-            _cam = Camera.main;
+
             gameObject.SetActive(false);
         }
+
 
         void Update()
         {
@@ -55,7 +58,15 @@ namespace PH
 
         private void FollowMouse()
         {
-            _transform.position = Input.mousePosition;
+            Vector3 pos = Input.mousePosition;
+            _transform.position = new Vector3(pos.x + offsetX, pos.y, pos.z);
+        }
+
+        public void CalculatorOffsetX()
+        {
+            offsetX = _transform.sizeDelta.x * canvas.scaleFactor;
+            Debug.Log(offsetX + " Scale" + canvas.scaleFactor);
+            offsetX /= 2;
         }
 
         public void LoadCard()
@@ -77,7 +88,7 @@ namespace PH
             if (cost == int.MaxValue) throw new System.Exception("Cant get card cost");
 
             if (_drop.CanDrop(cost))
-            {          
+            {
                 if (_drop.TryDropCard(currentCard))
                 {
                     _drop.DecraseCoin(cost);
@@ -109,5 +120,7 @@ namespace PH
             int cost = _getBaseProperties.GetCost(currentCard);
             return cost;
         }
+
+
     }
 }

@@ -17,6 +17,7 @@ namespace PH
         [SerializeField] StartCard startCardPhase;
         [SerializeField] List<Phase> phases;
         [SerializeField] TimeBar timeBar;
+        [SerializeField] DragCardSelected dragCardSelected;
 
         private int _phaseIndex;
         private ResultLastRound resultLastRound;
@@ -106,6 +107,7 @@ namespace PH
         /// </summary>
         public void CompleteStartCard()
         {
+            dragCardSelected.CalculatorOffsetX();
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
         }

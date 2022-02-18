@@ -13,6 +13,7 @@ namespace PH
         public event Action OnBeginDrag;
         public event Action OnEndDrag;
 
+        private const float UPPER = 0.5f;
         [SerializeField] protected LayerMask ground;
         private Vector3 _oldPos;
 
@@ -24,7 +25,6 @@ namespace PH
             {
                 Cache(unit);
                 VFXManager.Instance.HighLightMap();
-
             }
         }
 
@@ -37,6 +37,7 @@ namespace PH
                 OnBeginDrag?.Invoke();
 
                 _cardInfoVisual.gameObject.SetActive(false);
+
                 UnitFollowMouse(unit);
             }
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
@@ -44,8 +45,10 @@ namespace PH
                 VFXManager.Instance.StopHighLightMap();
 
                 unit.transform.position = _oldPos;
+
                 VFXManager.Instance.DropUnit(_oldPos);
                 VFXManager.Instance.HidenTileUnder();
+
                 //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
@@ -76,11 +79,12 @@ namespace PH
 
             float time = startTimeMouseUp - startTimeMouseDown;
 
-            if (time < CLICK_TIME) //Player click unit
+            if (time < CLICK_TIME) 
             {
+                //Player click unit
                 Click(unit);
             }
-            else //player drop unit
+            else 
             {
                 // Disable drop on other phase
                 if (!(PhaseSystem.CurrentPhase as PlayerControl))
@@ -124,12 +128,10 @@ namespace PH
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit raycast;
-
-            if (Physics.Raycast(ray, out raycast, 100f, ground))
+            if (Physics.Raycast(ray, out RaycastHit raycast, 100f, ground))
             {
                 Vector3 pos = raycast.point;
-                pos.y = 0.5f;
+                pos.y = UPPER;
                 return pos;
             }
             else if (Physics.Raycast(ray, out raycast, 100f, tileMask))
