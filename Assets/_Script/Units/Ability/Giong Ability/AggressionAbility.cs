@@ -25,7 +25,7 @@ namespace PH
 
             int heal = healPerTarget * targets.Count;
 
-            caster.GetUnitSurvivalStat.RegenHeal(heal);
+            caster.GetUnitSurvivalStat.RegenHealWithEffect(heal);
         }
 
         public override string GetDiscription(CardUnit unit)

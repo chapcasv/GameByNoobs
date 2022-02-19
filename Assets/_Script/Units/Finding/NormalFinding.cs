@@ -54,6 +54,7 @@ namespace PH
 
             if (path == null) return destination;
             if (path[1].IsOccupied) return destination;
+            if (path.Count == 1) return path[0]; // need fix
 
             //path[0] is current node
             path[1].SetOccupied(true);

@@ -7,6 +7,7 @@ namespace PH
     public class UnitTransform : MonoBehaviour
     {
         private readonly float speed = 3f;
+        private readonly float smooth = 0.05f;
         private Transform _enemyBase;
 
         public void SetUp(BaseUnit unitHolder, Node spawnNode, Transform enemyBase)
@@ -60,9 +61,9 @@ namespace PH
             {
                 Quaternion current = transform.rotation;
                 transform.rotation = Quaternion.Slerp(current, enemyBase, speed * Time.deltaTime);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(smooth * Time.deltaTime);
             }
-        }
+        }        
     }
 }
 

@@ -45,6 +45,8 @@ namespace PH
 
                 OnSlotChange?.Invoke(_slots);
 
+                VFXManager.Instance.PlayVFX(transform.position, KeysVFX.UpStat.ToString());
+
                 return true;
             }
             else return false;

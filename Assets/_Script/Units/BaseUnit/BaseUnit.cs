@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using PH.GraphSystem;
-using System;
+using System.Collections;
+using UnityEngine;
 
 namespace PH
-{   
+{
     [RequireComponent(typeof(UnitTransform))]
     public abstract class BaseUnit : MonoBehaviour
     {
@@ -73,11 +71,11 @@ namespace PH
         }
 
         #region SetUp
-        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, 
+        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team,
             DragLogic dragLogic, Transform enemyBase)
         {
             _myTeam = team;
-            SetUpUnitTransform(spawnNode,enemyBase);
+            SetUpUnitTransform(spawnNode, enemyBase);
             SetUpEquipment();
 
             anim = GetComponent<Animator>();
@@ -104,7 +102,7 @@ namespace PH
             unitTransform = GetComponent<UnitTransform>();
             unitTransform.SetUp(this, spawnNode, enemyBase);
         }
-      
+
         protected virtual void SetUpEquipment()
         {
             Equipment = GetComponent<UnitEquipment>();

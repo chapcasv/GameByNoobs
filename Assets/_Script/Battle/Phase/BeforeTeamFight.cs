@@ -9,6 +9,7 @@ namespace PH
     public class BeforeTeamFight : Phase
     {
         public event Action OnEnterBeforeTeamFight;
+
         private WaveSystem _ws;
         private BoardSystem _bs;
 
@@ -36,19 +37,16 @@ namespace PH
 
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
 
-            SpawnEnemy();
-
             var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
 
             PlayerCacheUnit(allUnits);
-            FlipRotation(allUnits);
-        }
 
-        private void SpawnEnemy()
-        {
+            FlipRotation(allUnits);
+
             var currentWave = _ws.GetCurrentWave();
             _bs.SpawnEnemyInWave(currentWave);
         }
+
 
         private void PlayerCacheUnit(List<BaseUnit> allUnits)
         {
