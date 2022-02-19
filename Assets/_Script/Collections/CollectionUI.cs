@@ -7,22 +7,25 @@ namespace PH
 {
     public class CollectionUI : MonoBehaviour
     {
-        public RectTransform parent;
-        public GameObject cardPrefabs;
-        public ALLCard allcards;
+      
+        public CardVisual cardPrefab;
+        public ALLCard cardCollections;
 
         private void Start()
         {
-            ShowCard(cardPrefabs, parent);
+            ShowAllCard();
         }
-
-        private void ShowCard(GameObject card, RectTransform parent)
+      
+        private void ShowAllCard()
         {
-            for (int i = 0; i < allcards.allCard.Count; i++)
+            var firstCard = cardCollections.allCard[0];
+            cardPrefab.SetCard(cardCollections.allCard[0]);
+
+            for (int i = 1; i < cardCollections.allCard.Count; i++)
             {
-                var cardUI = Instantiate(card,parent);
-                var cardViz = cardUI.GetComponent<CardVisual>();
-                cardViz.SetCard(allcards.allCard[i]);
+                var card = cardCollections.allCard[i];
+                var _cardCollection = Instantiate(cardPrefab, cardPrefab.transform.parent);
+                _cardCollection.SetCard(cardCollections.allCard[i]);
             }
         }
     }
