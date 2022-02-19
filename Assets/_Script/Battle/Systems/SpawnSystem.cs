@@ -55,6 +55,12 @@ namespace PH
 
         public bool SpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
         {
+            VFXManager.Instance.SpawnUnit(spawnNode.WorldPosition, this,unit, spawnNode, team);
+            return true;
+        }
+
+        public bool Spawn(CardUnit unit, Node spawnNode, UnitTeam team)
+        {
             BaseUnit prefab = GetUnit(unit.UnitID, _unitData);
 
             if (prefab == null)
@@ -64,8 +70,8 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, 
-                    _playerZone, _pDragLogic , _team2Base);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab,
+                    _playerZone, _pDragLogic, _team2Base);
 
                 AddDefaultCalDamage(_lastUnitSpawn);
                 _memberSystem.IncreaseMember();
@@ -74,7 +80,7 @@ namespace PH
             }
             else if (team == UnitTeam.Enemy)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, 
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab,
                     _enemyZone, _eDragLogic, _team1Base);
 
                 AddDefaultCalDamage(_lastUnitSpawn);
@@ -91,7 +97,7 @@ namespace PH
 
             DictionaryTeamBattle.AddUnit(team, newUnit);
 
-            VFXManager.Instance.SpawnUnit(newUnit.transform.position, this);
+            
 
             return newUnit;
         }

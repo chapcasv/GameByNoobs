@@ -58,11 +58,10 @@ namespace PH
             }
         }
 
-        public void SpawnUnit(Vector3 pos, SpawnSystem ss)
+        public void SpawnUnit(Vector3 pos, SpawnSystem ss, CardUnit unit, Node node, UnitTeam team)
         {
-
             SpawnVFX spawn = (SpawnVFX)GetSpawnVFX();
-            spawn.SpawnSystem = ss;
+            spawn.SetUp(ss, unit,node, team);
             spawn.transform.position = pos;
             spawn.gameObject.SetActive(true);
         }

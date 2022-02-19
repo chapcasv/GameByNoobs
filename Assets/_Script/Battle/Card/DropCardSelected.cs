@@ -11,10 +11,10 @@ namespace PH
         private Camera _cam;
         private CoinSystem _coinSystem;
 
-        public CoinSystem CoinSystem {set => _coinSystem = value; }
+        public CoinSystem CoinSystem { set => _coinSystem = value; }
 
         private void Start()
-        {   
+        {
             _cam = Camera.main;
         }
 
@@ -28,14 +28,14 @@ namespace PH
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
                 bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
 
-                if (dropResult)
-                {
-                    VFXManager.Instance.DropUnit(node.WorldPosition);
-                }
+                //if (dropResult)
+                //{
+                //    VFXManager.Instance.DropUnit(node.WorldPosition);
+                //}
                 return dropResult;
             }
             else return false;
-  
+
         }
 
         public void DecraseCoin(int cardCost) => _coinSystem.Sub(cardCost);
@@ -95,7 +95,7 @@ namespace PH
         {
             Tile t = GetTileUnder();
 
-            if(t != null)
+            if (t != null)
             {
                 VFXManager.Instance.HighLightTileUnder(t.transform.position);
             }
