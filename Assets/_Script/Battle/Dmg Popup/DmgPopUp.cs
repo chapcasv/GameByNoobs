@@ -22,8 +22,10 @@ namespace PH.PopUp
         private const int TEXT_SIZE_LARGE = 17;
         private const float SPAWN_OFSET_X = 6f;
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
-        private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
+        //private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
+        private readonly Color colorPhysical = new Color32(255, 133, 0, 255);
         private readonly Color colorMagic = new Color32(98, 239, 255, 255);
+
 
         private float disappearTime;
         private Vector3 moveVector;
@@ -153,8 +155,8 @@ namespace PH.PopUp
 
         private void SetUpCritTextColor(int amount)
         {
-            textMesh.color = Color.red;
-            textMesh.SetText(amount.ToString());
+            textMesh.color = colorPhysical;
+            textMesh.SetText("<sprite=" + "\"critIcon\"" + " index=0 >" + amount.ToString());
         }
 
         private void SetUpPhysicalColor(int amount)
