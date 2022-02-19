@@ -11,6 +11,7 @@ namespace PH
         [SerializeField] GameObject pfTileUnder;
         [SerializeField] GameVFX pfDropUnit;
         [SerializeField] SpawnVFX pfSpawnVFX;
+        [SerializeField] GameVFX pfHealVFX;
 
 
         private GameObject tileUnder;
@@ -23,20 +24,44 @@ namespace PH
         private readonly string key_spawn = "Spawn";
         private Queue<GameVFX> vfxSpawn = new Queue<GameVFX>();
 
+        private readonly string key_heal = "Heal";
+        private Queue<GameVFX> vfxHeal = new Queue<GameVFX>();
+
 
         protected override void Awake()
         {
             base.Awake();
-
-            vfxPool.Add(key_drop, vfxDropUnit);
-            AddToPool(2, pfDropUnit, key_drop);
-
-            vfxPool.Add(key_spawn, vfxSpawn);
-            AddToPool(4, pfSpawnVFX, key_spawn);
+            InitVFX();
 
             tileUnder = Instantiate(pfTileUnder, transform);
             tileUnder.SetActive(false);
         }
+
+        private void InitVFX()
+        {
+            InitDropVFX();
+            InitSpawnVFX();
+            InitHealVFX();
+        }
+
+        private void InitSpawnVFX()
+        {
+            vfxPool.Add(key_spawn, vfxSpawn);
+            AddToPool(4, pfSpawnVFX, key_spawn);
+        }
+
+        private void InitDropVFX()
+        {
+            vfxPool.Add(key_drop, vfxDropUnit);
+            AddToPool(2, pfDropUnit, key_drop);
+        }
+
+        private void InitHealVFX()
+        {
+            vfxPool.Add(key_heal, vfxHeal);
+            AddToPool(2, pfHealVFX, key_heal);
+        }
+
 
         public void HighLightMap()
         {
@@ -55,6 +80,18 @@ namespace PH
                 var dropUnit = vfxPool[key_drop].Dequeue();
                 dropUnit.transform.position = pos;
                 dropUnit.gameObject.SetActive(true);
+            }
+        }
+
+        public void PlayVFX(Vector3 pos, string key)
+        {
+            var vfxQueue = vfxPool[key];
+
+            if(vfxQueue.Count > 0)
+            {
+                var gameVFX = vfxQueue.Dequeue();
+                gameVFX.transform.position = pos;
+                gameVFX.gameObject.SetActive(true);
             }
         }
 

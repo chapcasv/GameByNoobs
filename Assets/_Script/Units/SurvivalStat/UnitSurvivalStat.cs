@@ -17,6 +17,7 @@ namespace PH
 
         protected readonly Color32 COLOR_PLAYER_TEAM = new Color32(74, 243, 101, 255); //Green
         protected readonly Color32 COLOR_ENEMY = new Color32(243, 97, 74, 255); //Red
+        protected readonly string key_heal = "Heal";
 
         protected int baseMaxHP;
         protected int orMaxHP;
@@ -119,6 +120,7 @@ namespace PH
         }
         #endregion
         
+        // 0 references 19/2/2022
         public void HealthUp(int amount)
         {
             ORCurrentHP += amount;
@@ -129,7 +131,23 @@ namespace PH
             }
             float currentHPPct = (float)ORCurrentHP / orMaxHP;
 
-            DmgPopUpPool.Instance.Create(amount,DmgType.Heal, transform.position,false);
+            DmgPopUpPool.Instance.Create(amount, DmgType.Heal, transform.position, false);
+
+            OnTakeDamage?.Invoke(currentHPPct);
+        }
+
+        public void RegenHeal(int amount)
+        {
+            ORCurrentHP += amount;
+
+            if (ORCurrentHP > orMaxHP)
+            {
+                ORCurrentHP = orMaxHP;
+            }
+            float currentHPPct = (float)ORCurrentHP / orMaxHP;
+
+            DmgPopUpPool.Instance.Create(amount, DmgType.Heal, transform.position, false);
+            VFXManager.Instance.PlayVFX(transform.position, key_heal);
 
             OnTakeDamage?.Invoke(currentHPPct);
         }

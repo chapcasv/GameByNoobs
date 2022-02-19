@@ -313,7 +313,7 @@ namespace PH
             if (!unitSurvivalStat.CanRegen) return;
 
             var heals = CalHPRegenByDmgDealt(damageDealt);
-            unitSurvivalStat.HealthUp(heals);
+            unitSurvivalStat.RegenHeal(heals);
         }
 
         private int CalHPRegenByDmgDealt(int dmgDealt)

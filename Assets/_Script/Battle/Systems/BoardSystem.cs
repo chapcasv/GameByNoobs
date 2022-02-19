@@ -29,7 +29,7 @@ namespace PH
             _spawnSystem = SS;
             //Set up trigger after spawn
             _deckSystem = DS;
-            _deckSystem.OnDropCard += SetUpTriggerOnBoard;
+            _spawnSystem.OnSpawn += SetUpTriggerOnBoard;
             _spawnSystem.Constructor(data, playerZone, enemyZone, MS, team2Base,team1Base);
         }
 

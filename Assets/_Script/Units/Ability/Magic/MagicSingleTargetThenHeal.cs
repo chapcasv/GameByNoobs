@@ -12,7 +12,7 @@ namespace PH
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             base.CastSkill(currentTarget, caster);
-            caster.GetUnitSurvivalStat.HealthUp(heal);
+            caster.GetUnitSurvivalStat.RegenHeal(heal);
         }
 
         public override string GetDiscription(BaseUnit unit)
