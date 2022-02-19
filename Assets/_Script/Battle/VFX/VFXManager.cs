@@ -10,22 +10,32 @@ namespace PH
         [SerializeField] GameObject localPlayerZone;
         [SerializeField] GameObject pfTileUnder;
         [SerializeField] GameVFX pfDropUnit;
+        [SerializeField] SpawnVFX pfSpawnVFX;
 
-        private Queue<GameVFX> vfxDropUnit = new Queue<GameVFX>();
+
         private GameObject tileUnder;
+
+        private Dictionary<string, Queue<GameVFX>> vfxPool = new Dictionary<string, Queue<GameVFX>>();
+
+        private readonly string key_drop = "Drop Unit";
+        private Queue<GameVFX> vfxDropUnit = new Queue<GameVFX>();
+
+        private readonly string key_spawn = "Spawn";
+        private Queue<GameVFX> vfxSpawn = new Queue<GameVFX>();
+
 
         protected override void Awake()
         {
             base.Awake();
-            AddToPool(2);
+
+            vfxPool.Add(key_drop, vfxDropUnit);
+            AddToPool(2, pfDropUnit, key_drop);
+
+            vfxPool.Add(key_spawn, vfxSpawn);
+            AddToPool(4, pfSpawnVFX, key_spawn);
 
             tileUnder = Instantiate(pfTileUnder, transform);
             tileUnder.SetActive(false);
-        }
-
-        void Start()
-        {
-           
         }
 
         public void HighLightMap()
@@ -39,13 +49,32 @@ namespace PH
         }
 
         public void DropUnit(Vector3 pos)
-        {   
-            if(vfxDropUnit.Count > 0)
+        {
+            if (vfxDropUnit.Count > 0)
             {
-                var dropUnit = vfxDropUnit.Dequeue();
+                var dropUnit = vfxPool[key_drop].Dequeue();
                 dropUnit.transform.position = pos;
                 dropUnit.gameObject.SetActive(true);
             }
+        }
+
+        public void SpawnUnit(Vector3 pos, SpawnSystem ss)
+        {
+
+            SpawnVFX spawn = (SpawnVFX)GetSpawnVFX();
+            spawn.SpawnSystem = ss;
+            spawn.transform.position = pos;
+            spawn.gameObject.SetActive(true);
+        }
+
+        protected GameVFX GetSpawnVFX()
+        {
+            if (vfxSpawn.Count == 0)
+            {
+                AddToPool(1, pfSpawnVFX, key_spawn);
+            }
+
+            return vfxPool[key_spawn].Dequeue();
         }
 
         public void HighLightTileUnder(Vector3 pos)
@@ -64,20 +93,23 @@ namespace PH
        
 
 
-        private void AddToPool(int count)
+        private void AddToPool(int count, GameVFX pf, string key)
         {
             for (int i = 0; i < count; i++)
             {
-                GameVFX DropUnit = Instantiate(pfDropUnit, transform);
-                DropUnit.gameObject.SetActive(false);
-                vfxDropUnit.Enqueue(DropUnit);
+                GameVFX vfxInstantiate = Instantiate(pf, transform);
+                vfxInstantiate.Key_VFX = key;
+                vfxInstantiate.gameObject.SetActive(false);
+
+                vfxPool[key].Enqueue(vfxInstantiate);
+                vfxDropUnit.Enqueue(vfxInstantiate);
             }
         }
 
-        public void ReturnPool(GameVFX gameVFX)
+        public void ReturnPool(GameVFX gameVFX, string key)
         {
             gameVFX.gameObject.SetActive(false);
-            vfxDropUnit.Enqueue(gameVFX);
+            vfxPool[key].Enqueue(gameVFX);
         }
     }
 }

@@ -6,7 +6,10 @@ namespace PH
 {
     public class GameVFX : MonoBehaviour
     {
-        private List<ParticleSystem> particles;
+        protected List<ParticleSystem> particles;
+        private string key_VFX;
+
+        public string Key_VFX { private get => key_VFX; set => key_VFX = value; }
 
         void Awake()
         {
@@ -22,18 +25,17 @@ namespace PH
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
             bool isPlaying = ParticleIsPlay();
 
             if (!isPlaying)
             {
-                VFXManager.Instance.ReturnPool(this);
+                VFXManager.Instance.ReturnPool(this, key_VFX);
             }
         }
 
-        private bool ParticleIsPlay()
+        protected bool ParticleIsPlay()
         {
             bool isPlaying = true;
 
@@ -46,7 +48,6 @@ namespace PH
                     break;
                 }
             }
-
             return isPlaying;
         }
     }

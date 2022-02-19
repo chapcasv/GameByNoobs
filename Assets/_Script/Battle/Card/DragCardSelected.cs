@@ -65,7 +65,6 @@ namespace PH
         public void CalculatorOffsetX()
         {
             offsetX = _transform.sizeDelta.x * canvas.scaleFactor;
-            Debug.Log(offsetX + " Scale" + canvas.scaleFactor);
             offsetX /= 2;
         }
 
@@ -120,7 +119,5 @@ namespace PH
             int cost = _getBaseProperties.GetCost(currentCard);
             return cost;
         }
-
-
     }
 }
