@@ -91,6 +91,8 @@ namespace PH
 
             DictionaryTeamBattle.AddUnit(team, newUnit);
 
+            VFXManager.Instance.SpawnUnit(newUnit.transform.position, this);
+
             return newUnit;
         }
 
