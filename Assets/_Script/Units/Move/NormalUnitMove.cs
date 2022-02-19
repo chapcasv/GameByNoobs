@@ -18,19 +18,22 @@ namespace PH
 
             Vector3 direction = (nextNode.WorldPosition - myTransform.position);
 
-            //Unit stay in next Node => return true
             if (direction.sqrMagnitude <= 0.05f)
             {
+                //Unit stay in next Node => return true
+
                 myTransform.position = nextNode.WorldPosition;
                 animator.SetBool(AnimEnum.IsMoving.ToString(), true);
                 return true;
             }
-            else //Unit moving to next Node => return false
+            else 
             {
+                //Unit moving to next Node => return false
+
                 RotationFollow(nextNode, currentTarget);
 
                 animator.SetBool(AnimEnum.IsMoving.ToString(), true);
-                myTransform.position += direction.normalized * moveSpeed * Time.deltaTime;
+                myTransform.position += moveSpeed * Time.deltaTime * direction.normalized;
 
                 return false;
             }

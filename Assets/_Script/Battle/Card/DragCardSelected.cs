@@ -1,26 +1,29 @@
 using UnityEngine;
 using System;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-namespace PH 
-{   
+namespace PH
+{
     [RequireComponent(typeof(DropCardSelected))]
     public class DragCardSelected : MonoBehaviour
     {
         public Action OnBeginDrag;
+
+        [SerializeField] Canvas canvas;
 
         private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
         private GetBaseProperties _getBaseProperties;
 
         private DropCardSelected _drop;
-        private Transform _transform;
+        private RectTransform _transform;
         private CardSelectedVisual _cardViz;
         private Card currentCard;
         private CardInstance cache;
+        private float offsetX;
 
         public Card CurrentCard { set => currentCard = value; }
-        public CardInstance CardInstanceCache {set => cache = value; }
+        public CardInstance CardInstanceCache { set => cache = value; }
 
         public void Constructor(CoinSystem CS, DeckSystem DS, GetBaseProperties GBP)
         {
@@ -29,31 +32,46 @@ namespace PH
             _getBaseProperties = GBP;
 
             _drop = GetComponent<DropCardSelected>();
-            _transform = GetComponent<Transform>();
+            _transform = GetComponent<RectTransform>();
             _cardViz = GetComponent<CardSelectedVisual>();
             _drop.CoinSystem = _coinSystem;
+
             gameObject.SetActive(false);
         }
+
 
         void Update()
         {
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
-                _transform.position = Input.mousePosition;
+                FollowMouse();
                 _drop.MoveRadar();
                 _drop.HightLightTileUnder();
                 if (Input.GetMouseButtonUp(0)) OnEndDrag();
             }
             else
             {
-                EffectGridMap.Instance.StopHighLightMap();
+                VFXManager.Instance.StopHighLightMap();
                 BackToHand();
             }
         }
 
+        private void FollowMouse()
+        {
+            Vector3 pos = Input.mousePosition;
+            _transform.position = new Vector3(pos.x + offsetX, pos.y, pos.z);
+        }
+
+        public void CalculatorOffsetX()
+        {
+            offsetX = _transform.sizeDelta.x * canvas.scaleFactor;
+            Debug.Log(offsetX + " Scale" + canvas.scaleFactor);
+            offsetX /= 2;
+        }
+
         public void LoadCard()
         {
-            EffectGridMap.Instance.HighLightMap();
+            VFXManager.Instance.HighLightMap();
             _transform.position = Input.mousePosition;
             _cardViz.SetCard(currentCard);
             gameObject.SetActive(true);
@@ -63,14 +81,14 @@ namespace PH
 
         private void OnEndDrag()
         {
-            EffectGridMap.Instance.StopHighLightMap();
+            VFXManager.Instance.StopHighLightMap();
 
             int cost = GetCostCurrentCard();
 
             if (cost == int.MaxValue) throw new System.Exception("Cant get card cost");
 
             if (_drop.CanDrop(cost))
-            {          
+            {
                 if (_drop.TryDropCard(currentCard))
                 {
                     _drop.DecraseCoin(cost);
@@ -83,6 +101,7 @@ namespace PH
 
         private void ReLoadHandZone()
         {
+            VFXManager.Instance.HidenTileUnder();
             cache.Card = currentCard;
             cache.OnDrop(_deckSystem);
             gameObject.SetActive(false);
@@ -90,6 +109,7 @@ namespace PH
 
         private void BackToHand()
         {
+            VFXManager.Instance.HidenTileUnder();
             cache.Card = currentCard;
             cache.gameObject.SetActive(true);
             gameObject.SetActive(false);
@@ -100,5 +120,7 @@ namespace PH
             int cost = _getBaseProperties.GetCost(currentCard);
             return cost;
         }
+
+
     }
 }

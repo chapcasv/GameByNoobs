@@ -13,19 +13,24 @@ namespace PH
     {
         [Header("GridBoard")]
         [SerializeField] Transform tilesHolder;
+        [Header("Base")]
+        [SerializeField] Transform team2Base;
+        [SerializeField] Transform team1Base;
         [Header("Parent")]
         [SerializeField] Transform playerZone;
         [SerializeField] Transform enemyZone;
 
         private SpawnSystem _spawnSystem;
         private DeckSystem _deckSystem;
+
+        //Dont need parameter CIV
         public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS, CardInfoVisual CIV, UnitsDatabaseSO data)
         {  
             _spawnSystem = SS;
             //Set up trigger after spawn
             _deckSystem = DS;
             _deckSystem.OnDropCard += SetUpTriggerOnBoard;
-            _spawnSystem.Constructor(data, playerZone, enemyZone, MS, CIV);
+            _spawnSystem.Constructor(data, playerZone, enemyZone, MS, team2Base,team1Base);
         }
 
         private void Awake()

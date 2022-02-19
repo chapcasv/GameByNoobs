@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 2471786673693649243}
   - component: {fileID: 2471786673693649240}
   - component: {fileID: 2471786673693649241}
+  - component: {fileID: 8675232291327528655}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -67,9 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6e0cd0f426674d92ed6300454a6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  releaseMask:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!114 &2471786673693649233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +191,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBar: {fileID: 5825887455049546659}
+--- !u!114 &8675232291327528655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471786673693649223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec590788b49363b4182dca2f54371eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2471786672847096606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,7 +232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aca31ceed63bdac45bddb403f8dd44ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aca31ceed63bdac45bddb403f8dd44ff, type: 3}
       propertyPath: m_LocalPosition.z

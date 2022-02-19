@@ -34,11 +34,14 @@ namespace PH
         {
             OnEnterBeforeTeamFight?.Invoke(); //UI
 
-            SpawnEnemy();
-
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
 
-            PlayerCacheUnit();
+            SpawnEnemy();
+
+            var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
+
+            PlayerCacheUnit(allUnits);
+            FlipRotation(allUnits);
         }
 
         private void SpawnEnemy()
@@ -47,12 +50,19 @@ namespace PH
             _bs.SpawnEnemyInWave(currentWave);
         }
 
-        private void PlayerCacheUnit()
+        private void PlayerCacheUnit(List<BaseUnit> allUnits)
         {
-            var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
             foreach (var unit in allUnits)
             {
                 PlayerCacheUnitData.CacheUnitData(unit);
+            }
+        }
+
+        private void FlipRotation(List<BaseUnit> allUnits)
+        {
+            foreach (var unit in allUnits)
+            {
+                unit.GetUnitTransform.RotationTowardEnemyBase();
             }
         }
     }

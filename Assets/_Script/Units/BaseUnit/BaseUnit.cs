@@ -5,12 +5,14 @@ using PH.GraphSystem;
 using System;
 
 namespace PH
-{
+{   
+    [RequireComponent(typeof(UnitTransform))]
     public abstract class BaseUnit : MonoBehaviour
     {
         #region Properties
         protected UnitFinding Find;
         protected UnitMove Move;
+        protected UnitTransform unitTransform;
 
         protected UnitAtkSystem Atk;
 
@@ -45,6 +47,7 @@ namespace PH
         public UnitAtkSystem GetAtkSystem => Atk;
         public UnitMove GetMove => Move;
         public UnitStatusEffect GetUnitStatusEffect => unitStatusEffect;
+        public UnitTransform GetUnitTransform => unitTransform;
 
         public Faction[] GetFactions => factions;
         public int GetID => baseID;
@@ -70,10 +73,11 @@ namespace PH
         }
 
         #region SetUp
-        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, DragLogic dragLogic)
+        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, 
+            DragLogic dragLogic, Transform enemyBase)
         {
-            SetUpRotationByTeam(team);
-            SetUpPosByNode(spawnNode);
+            _myTeam = team;
+            SetUpUnitTransform(spawnNode,enemyBase);
             SetUpEquipment();
 
             anim = GetComponent<Animator>();
@@ -95,20 +99,12 @@ namespace PH
             baseID = cardID;
         }
 
-        private void SetUpRotationByTeam(UnitTeam team)
+        private void SetUpUnitTransform(Node spawnNode, Transform enemyBase)
         {
-            _myTeam = team;
-            if (_myTeam == UnitTeam.Enemy)
-            {   //Flip
-                transform.rotation = new Quaternion(0f, 180f, 0f, 0);
-            }
+            unitTransform = GetComponent<UnitTransform>();
+            unitTransform.SetUp(this, spawnNode, enemyBase);
         }
-        protected void SetUpPosByNode(Node spawnNode)
-        {
-            CurrentNode = spawnNode;
-            transform.position = spawnNode.WorldPosition;
-            spawnNode.SetOccupied(true);
-        }
+      
         protected virtual void SetUpEquipment()
         {
             Equipment = GetComponent<UnitEquipment>();

@@ -6,9 +6,8 @@ namespace PH
     public class DropCardSelected : MonoBehaviour
     {
         [SerializeField] GameObject radar;
-        [SerializeField] LayerMask mask;
+        [SerializeField] LayerMask tile;
         [SerializeField] GameObject pfTileUnder;
-        private GameObject tileUnder;
         private Camera _cam;
         private CoinSystem _coinSystem;
 
@@ -17,7 +16,6 @@ namespace PH
         private void Start()
         {   
             _cam = Camera.main;
-            tileUnder = Instantiate(pfTileUnder);
         }
 
         public bool TryDropCard(Card currentCard)
@@ -32,7 +30,7 @@ namespace PH
 
                 if (dropResult)
                 {
-                    EffectGridMap.Instance.DropUnit(node.WorldPosition);
+                    VFXManager.Instance.DropUnit(node.WorldPosition);
                 }
                 return dropResult;
             }
@@ -82,7 +80,7 @@ namespace PH
         {
             Ray ray = new Ray(radar.transform.position, Vector3.down);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, mask))
+            if (Physics.Raycast(ray, out hit, tile))
             {
                 if (hit.collider != null)
                 {
@@ -99,8 +97,11 @@ namespace PH
 
             if(t != null)
             {
-                Vector3 pos = t.transform.position;
-                tileUnder.transform.position = new Vector3(pos.x, pos.y + 0.15f, pos.z);
+                VFXManager.Instance.HighLightTileUnder(t.transform.position);
+            }
+            else
+            {
+                VFXManager.Instance.HidenTileUnder();
             }
         }
 
@@ -110,7 +111,7 @@ namespace PH
             Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, mask))
+            if (Physics.Raycast(ray, out hit, tile))
             {
                 radar.transform.position = hit.point;
             }

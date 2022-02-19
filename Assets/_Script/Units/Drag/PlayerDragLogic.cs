@@ -13,6 +13,7 @@ namespace PH
         public event Action OnBeginDrag;
         public event Action OnEndDrag;
 
+        private const float UPPER = 0.5f;
         [SerializeField] protected LayerMask ground;
         private Vector3 _oldPos;
 
@@ -23,7 +24,7 @@ namespace PH
             if (PhaseSystem.CurrentPhase as PlayerControl)
             {
                 Cache(unit);
-                EffectGridMap.Instance.HighLightMap();
+                VFXManager.Instance.HighLightMap();
             }
         }
 
@@ -36,13 +37,18 @@ namespace PH
                 OnBeginDrag?.Invoke();
 
                 _cardInfoVisual.gameObject.SetActive(false);
+
                 UnitFollowMouse(unit);
             }
             else if (PhaseSystem.CurrentPhase as BeforeTeamFight)
             {   
-                EffectGridMap.Instance.StopHighLightMap();
+                VFXManager.Instance.StopHighLightMap();
+
                 unit.transform.position = _oldPos;
-                EffectGridMap.Instance.DropUnit(_oldPos);
+
+                VFXManager.Instance.DropUnit(_oldPos);
+                VFXManager.Instance.HidenTileUnder();
+
                 //Hiden UI Remove - Show Card Hand
                 OnEndDrag?.Invoke();
             }
@@ -52,20 +58,33 @@ namespace PH
         private void UnitFollowMouse(BaseUnit unit)
         {
             unit.transform.position = GetMouseWorldPos();
+            HightLightTilerUnder(unit);
+        }
+
+        private void HightLightTilerUnder(BaseUnit unit)
+        {
+            Tile t = GetTileUnder(unit);
+
+            if (t != null)
+            {
+                VFXManager.Instance.HighLightTileUnder(t.transform.position);
+            }
+            else VFXManager.Instance.HidenTileUnder();
         }
 
         public override void MouseUp(BaseUnit unit)
         {
-            EffectGridMap.Instance.StopHighLightMap();
+            VFXManager.Instance.StopHighLightMap();
             startTimeMouseUp = Time.time;
 
             float time = startTimeMouseUp - startTimeMouseDown;
 
-            if (time < CLICK_TIME) //Player click unit
+            if (time < CLICK_TIME) 
             {
+                //Player click unit
                 Click(unit);
             }
-            else //player drop unit
+            else 
             {
                 // Disable drop on other phase
                 if (!(PhaseSystem.CurrentPhase as PlayerControl))
@@ -78,11 +97,13 @@ namespace PH
                     if (!TryMove(unit))
                     {
                         unit.transform.position = _oldPos;
-                        EffectGridMap.Instance.DropUnit(_oldPos);
+                        VFXManager.Instance.DropUnit(_oldPos);
                     }
                     TrySell(unit);
                 }
             }
+
+            VFXManager.Instance.HidenTileUnder();
 
             //Hiden UI Remove - Show Card Hand
             OnEndDrag?.Invoke();
@@ -107,12 +128,10 @@ namespace PH
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit raycast;
-
-            if (Physics.Raycast(ray, out raycast, 100f, ground))
+            if (Physics.Raycast(ray, out RaycastHit raycast, 100f, ground))
             {
                 Vector3 pos = raycast.point;
-                pos.y = 0.5f;
+                pos.y = UPPER;
                 return pos;
             }
             else if (Physics.Raycast(ray, out raycast, 100f, tileMask))
@@ -151,7 +170,7 @@ namespace PH
                         unit.CurrentNode = candidateNode;
                         candidateNode.SetOccupied(true);
                         unit.transform.position = candidateNode.WorldPosition;
-                        EffectGridMap.Instance.DropUnit(candidateNode.WorldPosition);
+                        VFXManager.Instance.DropUnit(candidateNode.WorldPosition);
                         return true;
                     }
                 }
@@ -196,6 +215,8 @@ namespace PH
             }
             return null;
         }
+
+        
     }
 }
 
