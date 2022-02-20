@@ -19,6 +19,8 @@ namespace PH
 
         private void OnEnable()
         {
+            Reload();
+
             health.OnTakeDamage += ChangeOnTakeDamage;
             health.OnHealthUp += ChangeOnHealthUp;
         }
@@ -45,6 +47,14 @@ namespace PH
             }
 
             HpShrink.fillAmount = pct;
+        }
+
+        private void Reload()
+        {
+            if (health.ORMaxHP == 0) return;
+
+            float pct = health.ORCurrentHP / health.ORMaxHP;
+            HpBar.fillAmount = pct;
         }
 
         private void OnDisable()

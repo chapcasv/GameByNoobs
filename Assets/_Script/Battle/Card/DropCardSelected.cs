@@ -27,11 +27,6 @@ namespace PH
             {
                 BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
                 bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
-
-                //if (dropResult)
-                //{
-                //    VFXManager.Instance.DropUnit(node.WorldPosition);
-                //}
                 return dropResult;
             }
             else return false;
