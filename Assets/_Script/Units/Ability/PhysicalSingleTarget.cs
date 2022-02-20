@@ -7,13 +7,14 @@ namespace PH
     public class PhysicalSingleTarget : Ability
     {
         [SerializeField] int physicalDmg;
+        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             if (currentTarget == null) return; //Target dead
 
             int dmg = physicalDmg + caster.GetAtkSystem.ORPhysicalDamage;
-            currentTarget.TakeDamage(caster, dmg, DmgType.Physical);
+            currentTarget.TakeDamage(caster, dmg, damageType);
         }
 
         public override string GetDiscription(CardUnit unit)
@@ -31,8 +32,8 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = physicalDmg + value;
-            string physicalColor = HexColorString.PhysicalDmg();
-            string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên mục tiêu";
+            string color = damageType.HexColor();
+            string discription = "Gây" + "<color=" + color + "> " + dmg + "</color>" + " sát thương lên mục tiêu";
 
             return discription;
         }

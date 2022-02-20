@@ -69,6 +69,7 @@ namespace PH
 
         }
 
+        //Draw first card in list
         private bool DrawFormList(List<Card> listCard)
         {
             if (listCard.Count > 0)
@@ -96,6 +97,10 @@ namespace PH
             if (input.UseDrawByType)
             {
                 FilterByType(input.TypeWantDraw, newList);
+            }
+            else
+            {
+                FilterByType(TypeMode.ALL, newList);
             }
         }
 

@@ -15,8 +15,19 @@ namespace PH
             mana = GetComponentInParent<ManaSystem>();
         }
 
-        private void OnEnable() => mana.OnManaValueChange += OnManaChange;
+        private void OnEnable()
+        {
+            Reload();
+            mana.OnManaValueChange += OnManaChange;
+        }
 
+        private void Reload()
+        {
+            if (mana.ORMaxMana == 0) return;
+
+            float pct = mana.ORManaCurrent / mana.ORMaxMana;
+            manaBar.fillAmount = pct;
+        }
 
         private void OnManaChange(float pct) => manaBar.fillAmount = pct;
 

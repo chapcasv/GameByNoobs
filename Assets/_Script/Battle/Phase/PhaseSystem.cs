@@ -108,6 +108,9 @@ namespace PH
         public void CompleteStartCard()
         {
             dragCardSelected.CalculatorOffsetX();
+
+            //index 0 is start round
+            //after start card -> draw card
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
         }
@@ -146,7 +149,7 @@ namespace PH
         public void RunTimeBarStartCard(float maxTime)
         {
             UseTimeBar = true;
-            timeBar.StopAllCoroutines();
+            //timeBar.StopAllCoroutines();
             StartCoroutine(timeBar.TimeBarStartCardPhase(maxTime));
             timeBar.SetDuration(maxTime).Begin();
         }

@@ -21,18 +21,17 @@ namespace PH
 
             private void OnClickCallBack()
             {
-                selectImg.gameObject.SetActive(true);
-                Screen.gameObject.SetActive(true);
+                selectImg.SetActive(true);
+                Screen.SetActive(true);
                 OnSelect?.Invoke();
             }
             public void DeSelect()
             {
-                selectImg.gameObject.SetActive(false);
-                Screen.gameObject.SetActive(false);
+                selectImg.SetActive(false);
+                Screen.SetActive(false);
             }
         }
         [SerializeField] private GameObject main;
-        [SerializeField] private GameObject Overlay;
         [Header("Bot Button")]
         [SerializeField] private Button closeButton;
         [SerializeField] private Button supportButton, exitGameButton, surdererButton;
@@ -61,8 +60,6 @@ namespace PH
             musicButtonTab.OnSelect = OnMusicSetting;
             videoButtonTab.OnSelect = OnAudioSetting;
             keyBindingButtonTab.OnSelect = OnKeyBindingSetting;
-
-            
         }
 
        
@@ -93,7 +90,6 @@ namespace PH
             keyBindingButtonTab.DeSelect();
         }
 
-
         private void OnAudioSetting()
         {
             generalButtonTab.DeSelect();
@@ -107,7 +103,6 @@ namespace PH
             generalButtonTab.DeSelect();
         }
 
-
         private void OnCloseSettingCallBack()
         {
             this.Hide();
@@ -119,6 +114,7 @@ namespace PH
             main.transform.localScale = Vector3.zero;
             main.transform.DOScale(1.0f, 0.3f);
         }
+
         public override void Hide()
         {
 
@@ -130,12 +126,10 @@ namespace PH
                 }
                 );
         }
+
         private void OnExitgameCallBack()
         {
             Application.Quit();
         }
-
-
     }
-
 }

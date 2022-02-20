@@ -7,13 +7,14 @@ namespace PH
     public class MagicSingleTarget : Ability
     {
         [SerializeField] int magicDmg;
+        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             if (currentTarget == null) return; //Target dead
 
             int dmg = GetDmg(caster.GetAtkSystem.ORMagicPower);
-            currentTarget.TakeDamage(caster, dmg, DmgType.Magic);
+            currentTarget.TakeDamage(caster, dmg, damageType);
         }
 
         public override string GetDiscription(CardUnit unit)
@@ -30,8 +31,8 @@ namespace PH
 
         protected override string GetDiscription(int value)
         {
-            string magicDmg = HexColorString.MagicDmg();
-            string discription = "Gây" + "<color=" + magicDmg + "> " + value + "</color>" + " sát thương lên mục tiêu";
+            string color = damageType.HexColor();
+            string discription = "Gây" + "<color=" + color + "> " + value + "</color>" + " sát thương lên mục tiêu";
 
             return discription;
         }

@@ -8,7 +8,8 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/Before Team Fight")]
     public class BeforeTeamFight : Phase
     {
-        public event Action OnEnterBeforeTeamFight;
+        public event Action OnEnterPhase;
+
         private WaveSystem _ws;
         private BoardSystem _bs;
 
@@ -32,23 +33,20 @@ namespace PH
 
         public override void OnStartPhase()
         {
-            OnEnterBeforeTeamFight?.Invoke(); //UI
+            OnEnterPhase?.Invoke(); //UI
 
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
-
-            SpawnEnemy();
 
             var allUnits = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
 
             PlayerCacheUnit(allUnits);
-            FlipRotation(allUnits);
-        }
 
-        private void SpawnEnemy()
-        {
+            FlipRotation(allUnits);
+
             var currentWave = _ws.GetCurrentWave();
             _bs.SpawnEnemyInWave(currentWave);
         }
+
 
         private void PlayerCacheUnit(List<BaseUnit> allUnits)
         {

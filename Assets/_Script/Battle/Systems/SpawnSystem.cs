@@ -9,6 +9,8 @@ namespace PH
     {
         [SerializeField] private CalPreMitigation[] defaultCalDamage;
 
+        public event Action OnSpawn;
+
         private UnitsDatabaseSO _unitData;
         private Transform _playerZone;
         private Transform _enemyZone;
@@ -29,7 +31,6 @@ namespace PH
             _memberSystem = MS;
             _team2Base = team2Base;
             _team1Base = team1Base;
-            //_cardInfoVisual = infoVisual;
 
             _lastUnitSpawn = null;
         }
@@ -54,6 +55,22 @@ namespace PH
         }
 
         public bool SpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
+        {   
+            if(PhaseSystem.CurrentPhase is BeforeTeamFight)
+            {
+                VFXManager.Instance.SpawnUnit(spawnNode.WorldPosition, this, unit, spawnNode, team);
+                return true;
+            }
+            else
+            {   
+                bool result = Spawn(unit, spawnNode, team);
+                VFXManager.Instance.DropUnit(spawnNode.WorldPosition);
+
+                return result;
+            }
+        }
+
+        public bool Spawn(CardUnit unit, Node spawnNode, UnitTeam team)
         {
             BaseUnit prefab = GetUnit(unit.UnitID, _unitData);
 
@@ -64,20 +81,26 @@ namespace PH
 
             if (team == UnitTeam.Player)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, 
-                    _playerZone, _pDragLogic , _team2Base);
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab,
+                    _playerZone, _pDragLogic, _team2Base);
 
                 AddDefaultCalDamage(_lastUnitSpawn);
                 _memberSystem.IncreaseMember();
 
+                //Add TriggerOnBoard after spawn
+                OnSpawn?.Invoke();
                 return true;
             }
             else if (team == UnitTeam.Enemy)
             {
-                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab, 
+                _lastUnitSpawn = InstantiateUnit(unit, unit.CardID, spawnNode, team, prefab,
                     _enemyZone, _eDragLogic, _team1Base);
 
                 AddDefaultCalDamage(_lastUnitSpawn);
+
+                //Add TriggerOnBoard after spawn
+                OnSpawn?.Invoke();
+
                 return true;
             }
             else return false;
@@ -88,11 +111,7 @@ namespace PH
         {
             BaseUnit newUnit = Instantiate(prefab, parrent);
             newUnit.Setup(node, unit, id, team, dragLogic, enemyBase);
-
             DictionaryTeamBattle.AddUnit(team, newUnit);
-
-            VFXManager.Instance.SpawnUnit(newUnit.transform.position, this);
-
             return newUnit;
         }
 

@@ -21,8 +21,10 @@ namespace PH.PopUp
         private const int TEXT_SIZE_MEDIUM = 16;
         private const int TEXT_SIZE_LARGE = 17;
         private const float SPAWN_OFSET_X = 6f;
+        private const string format_CRIT = "<sprite=" + "\"critIcon\"" + " index=0 >";
         private readonly Color colorHeal = new Color32(83, 255, 98, 255);
-        private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
+        //private readonly Color colorPhysical = new Color32(255, 111, 52, 255);
+        private readonly Color colorPhysical = new Color32(255, 133, 0, 255);
         private readonly Color colorMagic = new Color32(98, 239, 255, 255);
 
         private float disappearTime;
@@ -76,7 +78,7 @@ namespace PH.PopUp
         }
 
 
-        public void SetUp(int amount, DmgType type, Vector3 spawnPos)
+        public void SetUp(int amount, DamageType type, Vector3 spawnPos)
         {
             SetUpTextColor(amount, type);
             SetUpTextSize(amount);
@@ -115,31 +117,25 @@ namespace PH.PopUp
             transform.LookAt(transform.position + cam.forward);
         }
 
-        private void SetUpTextColor(int amount, DmgType type)
+        private void SetUpTextColor(int amount, DamageType damageType)
         {
-            switch (type)
+            textMesh.color = damageType.GetColor();
+
+            if(damageType is HealDmg)
             {
-                case DmgType.Physical:
-                    SetUpPhysicalColor(amount);
-                    break;
-                case DmgType.Magic:
-                    SetUpMagicColor(amount);
-                    break;
-                case DmgType.TrueDmg:
-                    break;
-                case DmgType.DoT:
-                    break;
-                case DmgType.Heal:
-                    SetUpHealColor(amount);
-                    break;
+                textMesh.SetText("+" + amount.ToString());
+            }
+            else
+            {
+                textMesh.SetText(amount.ToString());
             }
 
             textColor = textMesh.color;
         }
 
-        private void SetUpVectorMove(DmgType dmgType)
+        private void SetUpVectorMove(DamageType dmgType)
         {
-            if (dmgType != DmgType.Heal)
+            if (! (dmgType as HealDmg))
             {   
                 //top right
                 moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
@@ -153,26 +149,8 @@ namespace PH.PopUp
 
         private void SetUpCritTextColor(int amount)
         {
-            textMesh.color = Color.red;
-            textMesh.SetText(amount.ToString());
-        }
-
-        private void SetUpPhysicalColor(int amount)
-        {
             textMesh.color = colorPhysical;
-            textMesh.SetText(amount.ToString());
-        }
-
-        private void SetUpHealColor(int amount)
-        {
-            textMesh.color = colorHeal;
-            textMesh.SetText("+" + amount.ToString());
-        }
-
-        private void SetUpMagicColor(int amount)
-        {
-            textMesh.color = colorMagic;
-            textMesh.SetText(amount.ToString());
+            textMesh.SetText(format_CRIT + amount.ToString());
         }
 
         private void SetUpTextSize(int amount)

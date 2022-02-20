@@ -9,28 +9,28 @@ namespace PH
     public class AggressionAbility : Ability
     {
         [SerializeField] int pctDmg;
-
+        [SerializeField] DamageType damageType;
         [SerializeField] int healPerTarget = 50;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             List<BaseUnit> targets = GetTarget(caster);
 
-            float preMitigationDmg = GetPreMitigationDmg(caster.GetAtkSystem.ORPhysicalDamage);
+            float preMitigationDmg = GetPreMitigationDmg(caster.GetAtkSystem.ORMagicPower);
 
             foreach (var target in targets)
             {
-                target.TakeDamage(caster, (int) preMitigationDmg, DmgType.Physical);
+                target.TakeDamage(caster, (int) preMitigationDmg, damageType);
             }
 
             int heal = healPerTarget * targets.Count;
 
-            caster.GetUnitSurvivalStat.HealthUp(heal);
+            caster.GetUnitSurvivalStat.RegenHealWithEffect(heal);
         }
 
         public override string GetDiscription(CardUnit unit)
         {
-            float preMitigationDmg = GetPreMitigationDmg(unit.Damage);
+            float preMitigationDmg = GetPreMitigationDmg(100);
             return GetDiscription((int)preMitigationDmg);
         }
 
@@ -43,9 +43,9 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string physicalColor = HexColorString.PhysicalDmg();
-            string healColor = HexColorString.Heal();
-            string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên các mục tiêu xung quanh." +
+            string dmgColor = damageType.HexColor();
+            string healColor = HexColorString.Heal;
+            string discription = "Gây" + "<color=" + dmgColor + "> " + dmg + "</color>" + " sát thương lên các mục tiêu xung quanh." +
                 "Hồi phục" + "<color=" + healColor + "> " + healPerTarget + "</color>" + " mỗi mục tiêu trúng chiêu";
 
             return discription;

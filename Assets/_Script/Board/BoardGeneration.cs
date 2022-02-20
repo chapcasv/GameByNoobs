@@ -7,7 +7,7 @@ namespace PH
 {
     public class BoardGeneration : MonoBehaviour
     {
-        [SerializeField] PVP_AI_Bot currentRaid;
+        [SerializeField] PVP_AI_Bot currentEnemy;
         [SerializeField] Transform boardParent;
 
         // Start is called before the first frame update
@@ -18,7 +18,7 @@ namespace PH
 
         private void IniBoard()
         {
-            Instantiate(currentRaid.boardPrefab, boardParent);
+            Instantiate(currentEnemy.boardPrefab, boardParent);
         }
 
         

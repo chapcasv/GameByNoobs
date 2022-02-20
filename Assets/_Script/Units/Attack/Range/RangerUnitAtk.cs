@@ -8,6 +8,7 @@ namespace PH
     {
         [SerializeField] protected ProjectileMove pfProjectile;
         [SerializeField] protected Transform firePoint;
+        [SerializeField] protected DamageType normalAtkType;
 
         public override void BasicAtk()
         {
@@ -29,7 +30,7 @@ namespace PH
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            pm.SetUp(currentTarget, this, preMitigationDmg, DmgType.Physical, holder);
+            pm.SetUp(currentTarget, this, preMitigationDmg, normalAtkType, holder);
         }
 
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)

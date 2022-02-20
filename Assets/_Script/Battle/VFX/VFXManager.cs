@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PH.GraphSystem;
+using System;
 
 namespace PH
 {
@@ -10,33 +11,97 @@ namespace PH
         [SerializeField] GameObject localPlayerZone;
         [SerializeField] GameObject pfTileUnder;
         [SerializeField] GameVFX pfDropUnit;
-        [SerializeField] SpawnVFX pfSpawnVFX;
+        [SerializeField] SpawnVFX pfSpawn;
+        [SerializeField] GameVFX pfHeal;
+        [SerializeField] GameVFX pfUpStat;
+        [SerializeField] GameVFX pfReuse;
+        [SerializeField] GameVFX pfRecall;
 
 
         private GameObject tileUnder;
 
-        private Dictionary<string, Queue<GameVFX>> vfxPool = new Dictionary<string, Queue<GameVFX>>();
+        private Dictionary<string, Queue<GameVFX>> vfxPool;
 
-        private readonly string key_drop = "Drop Unit";
-        private Queue<GameVFX> vfxDropUnit = new Queue<GameVFX>();
-
-        private readonly string key_spawn = "Spawn";
-        private Queue<GameVFX> vfxSpawn = new Queue<GameVFX>();
+        private Queue<GameVFX> vfxDropUnit;
+        private Queue<GameVFX> vfxSpawn;
+        private Queue<GameVFX> vfxHeal;
+        private Queue<GameVFX> vfxUpStat;
+        private Queue<GameVFX> vfxReuse;
+        private Queue<GameVFX> vfxRecall;
 
 
         protected override void Awake()
         {
             base.Awake();
 
-            vfxPool.Add(key_drop, vfxDropUnit);
-            AddToPool(2, pfDropUnit, key_drop);
+            vfxPool = new Dictionary<string, Queue<GameVFX>>();
 
-            vfxPool.Add(key_spawn, vfxSpawn);
-            AddToPool(4, pfSpawnVFX, key_spawn);
+            InitVFX();
 
             tileUnder = Instantiate(pfTileUnder, transform);
             tileUnder.SetActive(false);
         }
+
+        private void InitVFX()
+        {
+            InitDrop();
+            InitSpawn();
+            InitHeal();
+            InitUpStat();
+            InitReuse();
+            InitRecall();
+        }
+
+        private void InitRecall()
+        {
+            vfxRecall = new Queue<GameVFX>();
+
+            string key = KeysVFX.Recall.ToString();
+            vfxPool.Add(key, vfxRecall);
+            AddToPool(4, pfRecall, key);
+        }
+
+        private void InitReuse()
+        {
+            vfxReuse = new Queue<GameVFX>();
+
+            string key = KeysVFX.Reuse.ToString();
+            vfxPool.Add(key, vfxReuse);
+            AddToPool(4, pfReuse, key);
+        }
+
+        private void InitUpStat()
+        {
+            vfxUpStat = new Queue<GameVFX>();
+
+            string key = KeysVFX.UpStat.ToString();
+            vfxPool.Add(key, vfxUpStat);
+            AddToPool(1, pfUpStat, key);
+        }
+
+        private void InitSpawn()
+        {
+            vfxSpawn = new Queue<GameVFX>();
+
+            string key = KeysVFX.Spawn.ToString();
+            vfxPool.Add(key, vfxSpawn);
+            AddToPool(4, pfSpawn, key);
+        }
+
+        private void InitDrop()
+        {
+            vfxDropUnit = new Queue<GameVFX>();
+            vfxPool.Add(KeysVFX.Drop.ToString(), vfxDropUnit);
+            AddToPool(2, pfDropUnit, KeysVFX.Drop.ToString());
+        }
+
+        private void InitHeal()
+        {
+            vfxHeal = new Queue<GameVFX>();
+            vfxPool.Add(KeysVFX.Heal.ToString(), vfxHeal);
+            AddToPool(2, pfHeal, KeysVFX.Heal.ToString());
+        }
+
 
         public void HighLightMap()
         {
@@ -50,31 +115,69 @@ namespace PH
 
         public void DropUnit(Vector3 pos)
         {
-            if (vfxDropUnit.Count > 0)
+            PlayVFX(pos, KeysVFX.Drop.ToString());
+        }
+
+        public void PlayVFX(Vector3 pos, string key)
+        {
+            var vfxQueue = vfxPool[key];
+
+            if(vfxQueue.Count > 0)
             {
-                var dropUnit = vfxPool[key_drop].Dequeue();
-                dropUnit.transform.position = pos;
-                dropUnit.gameObject.SetActive(true);
+                var gameVFX = vfxQueue.Dequeue();
+                gameVFX.transform.position = pos;
+                gameVFX.gameObject.SetActive(true);
             }
         }
 
-        public void SpawnUnit(Vector3 pos, SpawnSystem ss)
+        public void SpawnUnit(Vector3 pos, SpawnSystem ss, CardUnit unit, Node node, UnitTeam team)
         {
-
             SpawnVFX spawn = (SpawnVFX)GetSpawnVFX();
-            spawn.SpawnSystem = ss;
+            spawn.SetUp(ss, unit,node, team);
             spawn.transform.position = pos;
             spawn.gameObject.SetActive(true);
+        }
+
+        public void ReuseUnit(BaseUnit unit)
+        {
+            ReuseVFX reuseVFX = (ReuseVFX)GetReuseVFX();
+            reuseVFX.SetUp(unit);
+        }
+
+        public void RecallUnit(BaseUnit unit, RecallTrigger recall)
+        {
+            RecallVFX recallVFX = (RecallVFX)GetRecallVFX();
+            recallVFX.SetUp(unit,recall);
         }
 
         protected GameVFX GetSpawnVFX()
         {
             if (vfxSpawn.Count == 0)
             {
-                AddToPool(1, pfSpawnVFX, key_spawn);
+                AddToPool(1, pfSpawn, KeysVFX.Spawn.ToString());
             }
 
-            return vfxPool[key_spawn].Dequeue();
+            return vfxPool[KeysVFX.Spawn.ToString()].Dequeue();
+        }
+
+        protected GameVFX GetReuseVFX()
+        {
+            if (vfxReuse.Count == 0)
+            {
+                AddToPool(1, pfReuse, KeysVFX.Reuse.ToString());
+            }
+
+            return vfxPool[KeysVFX.Reuse.ToString()].Dequeue();
+        }
+
+        protected GameVFX GetRecallVFX()
+        {
+            if (vfxRecall.Count == 0)
+            {
+                AddToPool(1, pfRecall, KeysVFX.Recall.ToString());
+            }
+
+            return vfxPool[KeysVFX.Recall.ToString()].Dequeue();
         }
 
         public void HighLightTileUnder(Vector3 pos)
@@ -87,9 +190,6 @@ namespace PH
         {
             tileUnder.SetActive(false);
         }
-
-
-
        
 
 
@@ -102,7 +202,6 @@ namespace PH
                 vfxInstantiate.gameObject.SetActive(false);
 
                 vfxPool[key].Enqueue(vfxInstantiate);
-                vfxDropUnit.Enqueue(vfxInstantiate);
             }
         }
 

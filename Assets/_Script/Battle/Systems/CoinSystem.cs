@@ -9,9 +9,8 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Coin System")]
     public class CoinSystem : ScriptableObject
     {
-
         public event Action OnCoinValueChange;
-        private const int START_COIN = 10;
+        private const int START_COIN = 10; //Only for test
 
         private int _playerCoin;
         private int _enemyCoin;
@@ -34,6 +33,12 @@ namespace PH
         {
             _playerCoin = START_COIN;
             _enemyCoin = START_COIN;
+        }
+
+        public void IncreaseCoinByRound(int roundIndex)
+        {
+            _playerCoin += roundIndex;
+            _enemyCoin += roundIndex;
         }
     }
 }

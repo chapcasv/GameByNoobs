@@ -9,7 +9,6 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/Draw Card")]
     public class DrawCard : Phase
     {
-        public event Action OnEnterDrawCard;
         private DeckSystem _deckSystem;
 
         public override void Init(PhaseSystem phaseSystem)
@@ -30,11 +29,9 @@ namespace PH
         
         public override void OnStartPhase()
         {   
-            OnEnterDrawCard?.Invoke(); //UI Obj
             _deckSystem.DrawCard();
             PhaseSystem.RunTimeBar(maxTime); //Anim draw Card
         }
-  
     }
 }
 

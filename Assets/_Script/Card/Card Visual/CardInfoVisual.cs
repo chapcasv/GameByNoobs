@@ -79,11 +79,11 @@ namespace PH
             {
                 LoadInfoUnit(card);
             }
-            else LoadInfo(card);
+            else LoadInfo();
         }
 
         //spell item
-        private void LoadInfo(Card c)
+        private void LoadInfo()
         {
             barHolder.SetActive(false);
             unitInfomation.SetActive(false);

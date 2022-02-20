@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using PH.GraphSystem;
-using System;
+using System.Collections;
+using UnityEngine;
 
 namespace PH
-{   
+{
     [RequireComponent(typeof(UnitTransform))]
     public abstract class BaseUnit : MonoBehaviour
     {
@@ -41,7 +39,7 @@ namespace PH
         public bool IsLive { get => SurvivalStat.IsLive; }
         public bool InTeamFight { set => inTeamFight = value; }
         public UnitTeam GetTeam() => _myTeam;
-        public int GetDamageLife => Life.GetDamageLife();
+        public int GetDmgLife => Life.GetDamageLife();
         public ManaSystem GetManaSystem => Mana;
         public UnitSurvivalStat GetUnitSurvivalStat => SurvivalStat;
         public UnitAtkSystem GetAtkSystem => Atk;
@@ -73,11 +71,11 @@ namespace PH
         }
 
         #region SetUp
-        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team, 
+        public virtual void Setup(Node spawnNode, CardUnit unit, int cardID, UnitTeam team,
             DragLogic dragLogic, Transform enemyBase)
         {
             _myTeam = team;
-            SetUpUnitTransform(spawnNode,enemyBase);
+            SetUpUnitTransform(spawnNode, enemyBase);
             SetUpEquipment();
 
             anim = GetComponent<Animator>();
@@ -104,7 +102,7 @@ namespace PH
             unitTransform = GetComponent<UnitTransform>();
             unitTransform.SetUp(this, spawnNode, enemyBase);
         }
-      
+
         protected virtual void SetUpEquipment()
         {
             Equipment = GetComponent<UnitEquipment>();
@@ -188,7 +186,7 @@ namespace PH
             }
         }
 
-        public virtual int TakeDamage(BaseUnit sender, int rawDmg, DmgType dmgType, bool isCrit = false)
+        public virtual int TakeDamage(BaseUnit sender, int rawDmg, DamageType dmgType, bool isCrit = false)
         {
             int dmgDeal = SurvivalStat.TakeDmg(rawDmg, dmgType, isCrit);
             Mana.IncreaseManaOnTakeDame();
@@ -226,7 +224,7 @@ namespace PH
 
         protected void GetInRange()
         {
-            if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove)
+            if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove || !Atk.CanAtk)
                 return;
 
             if (!Move.IsMoving)

@@ -11,6 +11,7 @@ namespace PH
         [SerializeField] int dmg;
 
         [SerializeField] int manaDecrease;
+        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
@@ -18,15 +19,13 @@ namespace PH
 
             float preMitigationDmg = dmg * (caster.GetAtkSystem.ORMagicPower / 100f);
 
-            farUnit.TakeDamage(caster, (int)preMitigationDmg, DmgType.Magic);
+            farUnit.TakeDamage(caster, (int)preMitigationDmg, damageType);
             farUnit.GetManaSystem.DecreaseMana(manaDecrease);
-
         }
 
         public override string GetDiscription(CardUnit unit)
         {
             float preMitigationDmg = GetPreMitigationDmg(100); //default magic power;
-
             return GetDiscription((int)preMitigationDmg);
         }
 
@@ -46,8 +45,8 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string magicColor = HexColorString.MagicDmg();
-            string discription = "Gây" + "<color=" + magicColor + "> " + dmg + "</color>" + " sát thương lên mục tiêu xa nhất." +
+            string color = damageType.HexColor();
+            string discription = "Gây" + "<color=" + color + "> " + dmg + "</color>" + " sát thương lên mục tiêu xa nhất." +
                 " Đồng thời triệt tiêu " + manaDecrease + " mana";
 
             return discription;

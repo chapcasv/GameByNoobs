@@ -119,7 +119,8 @@ namespace PH
         }
         #endregion
         
-        public void HealthUp(int amount)
+        // 0 references 19/2/2022
+        public void RegenHeal(int amount)
         {
             ORCurrentHP += amount;
 
@@ -129,13 +130,29 @@ namespace PH
             }
             float currentHPPct = (float)ORCurrentHP / orMaxHP;
 
-            DmgPopUpPool.Instance.Create(amount,DmgType.Heal, transform.position,false);
+            DmgPopUpPool.Instance.CreateHeal(amount, transform.position);
+
+            OnTakeDamage?.Invoke(currentHPPct);
+        }
+
+        public void RegenHealWithEffect(int amount)
+        {
+            ORCurrentHP += amount;
+
+            if (ORCurrentHP > orMaxHP)
+            {
+                ORCurrentHP = orMaxHP;
+            }
+            float currentHPPct = (float)ORCurrentHP / orMaxHP;
+
+            DmgPopUpPool.Instance.CreateHeal(amount, transform.position);
+            VFXManager.Instance.PlayVFX(transform.position, KeysVFX.Heal.ToString());
 
             OnTakeDamage?.Invoke(currentHPPct);
         }
 
 
-        public virtual int TakeDmg(int rawDmg, DmgType dmgType, bool isCrit = false)
+        public virtual int TakeDmg(int rawDmg, DamageType dmgType, bool isCrit = false)
         {
             int postMitigationDmg = CalculatorByDmgType(rawDmg, dmgType);
 
@@ -165,60 +182,12 @@ namespace PH
             }
         }
 
-        protected virtual int CalculatorByDmgType(int rawDmg, DmgType type)
+        protected virtual int CalculatorByDmgType(int rawDmg, DamageType type)
         {
-            switch (type)
-            {
-                case DmgType.Physical:
-                    return CalPostMitigationPhysical(rawDmg);
-                case DmgType.Magic:
-                    return CalPostMitigationMagic(rawDmg);
-                case DmgType.TrueDmg:
-                    return CalPostMitigationTrueDmg(rawDmg);
-                case DmgType.DoT:
-                    return CalPostMitigationDoT(rawDmg);
-                case DmgType.Heal:
-                    return CalHeal(rawDmg);
-                default:
-                    throw new Exception("Cant get damage type");
-            }
+            return type.CalDmg(rawDmg, ORArmor, ORMagicResist);
         }
 
-        protected virtual int CalPostMitigationPhysical(int rawDmg)
-        {
-            int postMitigationDmg = CalculatorByDefenseType(rawDmg, orArmor);
-            return postMitigationDmg;
-        }
-
-        protected virtual int CalPostMitigationMagic(int rawDmg)
-        {
-            int postMitigationDmg = CalculatorByDefenseType(rawDmg, orMagicResist);
-            return postMitigationDmg;
-        }
-
-        protected virtual int CalPostMitigationTrueDmg(int rawDmg)
-        {
-            return rawDmg;
-        }
-
-        protected virtual int CalPostMitigationDoT(int rawDmg)
-        {
-            return rawDmg;
-        }
-
-        protected virtual int CalHeal(int healValue)
-        {
-            return healValue;
-        }
-
-        private int CalculatorByDefenseType(int rawDmg, int defenseType)
-        {
-            float pct = 100f;
-
-            float postMitigationDmg = rawDmg * (pct / (pct + defenseType));
-
-            return (int)postMitigationDmg;
-        }
+        
 
         protected virtual void TriggerOnDie() => OnDie?.Invoke();
 

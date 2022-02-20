@@ -25,7 +25,16 @@ namespace PH
             }
         }
 
-        public abstract bool IsComplete();
+        public virtual bool IsComplete()
+        {
+            if (forceExit)
+            {
+                forceExit = false;
+                return true;
+            }
+            return false;
+        }
+
         public abstract void OnStartPhase();
     }
 }
