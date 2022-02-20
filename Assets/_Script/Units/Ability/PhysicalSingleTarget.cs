@@ -31,7 +31,7 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = physicalDmg + value;
-            string physicalColor = HexColorString.PhysicalDmg();
+            string physicalColor = HexColorString.PhysicalDmg;
             string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên mục tiêu";
 
             return discription;

@@ -49,7 +49,7 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string physicalColor = HexColorString.PhysicalDmg();
+            string physicalColor = HexColorString.PhysicalDmg;
             string status = abilityStatusEffect.Discription;
             string lifeTime = abilityStatusEffect.LifeTime.ToString();
 

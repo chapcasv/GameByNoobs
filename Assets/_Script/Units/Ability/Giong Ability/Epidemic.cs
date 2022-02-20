@@ -53,7 +53,7 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string physicalColor = HexColorString.PhysicalDmg();
+            string physicalColor = HexColorString.PhysicalDmg;
             string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương, " +
                 "đồng thời gây thêm sát thương chuẩn dựa trên " + pctTrueDmgBonusByMaxHp + "% máu tối đa của mục tiêu";
 

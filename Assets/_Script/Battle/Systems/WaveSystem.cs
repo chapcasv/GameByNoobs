@@ -25,6 +25,12 @@ namespace PH
 
         public int GetCurrentIndex() => _index;
 
+        public string GetCurrentIndexString()
+        {
+            int index = _index + 1;
+            return index.ToString();
+        }
+
         public Wave GetCurrentWave() => _waves[_index];
 
         public void SetData(PVP_Enemy raid)

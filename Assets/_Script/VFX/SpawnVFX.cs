@@ -11,8 +11,8 @@ namespace PH
         private CardUnit _unitSpawn;
         private UnitTeam _team;
         private Node _node;
-        private float _time = 1.2f;
-        private const float MAX_TIME = 1.2f;
+        private float _time;
+        private const float MAX_TIME = 0.75f;
         private bool isSpawn;
 
         public void SetUp(SpawnSystem ss, CardUnit unit, Node node, UnitTeam team)

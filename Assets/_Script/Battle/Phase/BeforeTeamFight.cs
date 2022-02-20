@@ -8,7 +8,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/Before Team Fight")]
     public class BeforeTeamFight : Phase
     {
-        public event Action OnEnterBeforeTeamFight;
+        public event Action OnEnterPhase;
 
         private WaveSystem _ws;
         private BoardSystem _bs;
@@ -33,7 +33,7 @@ namespace PH
 
         public override void OnStartPhase()
         {
-            OnEnterBeforeTeamFight?.Invoke(); //UI
+            OnEnterPhase?.Invoke(); //UI
 
             PhaseSystem.RunTimeBar(maxTime); //Anim Spawn
 

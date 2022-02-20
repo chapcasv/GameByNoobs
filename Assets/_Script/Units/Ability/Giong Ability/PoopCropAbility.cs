@@ -46,7 +46,7 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string magicColor = HexColorString.MagicDmg();
+            string magicColor = HexColorString.MagicDmg;
             string discription = "Gây" + "<color=" + magicColor + "> " + dmg + "</color>" + " sát thương lên mục tiêu xa nhất." +
                 " Đồng thời triệt tiêu " + manaDecrease + " mana";
 

@@ -116,15 +116,16 @@ namespace PH
             if (dictionaryNodeCache.ContainsKey(unit))
             {
                 var cacheUnit = dictionaryNodeCache[unit];
-                unit.gameObject.SetActive(true);
-
-                ReuseManaStat(cacheUnit, unit);
-                ReuseSurvialStat(cacheUnit, unit);
+                //unit.gameObject.SetActive(true);
+               
                 ReuseAtkStat(cacheUnit, unit);
                 ReuseRoration(cacheUnit, unit);
                 ReuseNode(cacheUnit, unit);
                 DictionaryTeamBattle.AddUnit(unit.GetTeam(), unit);
 
+                VFXManager.Instance.ReuseUnit(unit);
+                ReuseManaStat(cacheUnit, unit);
+                ReuseSurvialStat(cacheUnit, unit);
             }
             else throw new Exception("Dont have key: unit in dictionary");
         }

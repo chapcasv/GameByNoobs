@@ -43,8 +43,8 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string physicalColor = HexColorString.PhysicalDmg();
-            string healColor = HexColorString.Heal();
+            string physicalColor = HexColorString.PhysicalDmg;
+            string healColor = HexColorString.Heal;
             string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên các mục tiêu xung quanh." +
                 "Hồi phục" + "<color=" + healColor + "> " + healPerTarget + "</color>" + " mỗi mục tiêu trúng chiêu";
 

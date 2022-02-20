@@ -14,6 +14,8 @@ namespace PH
         [SerializeField] SpawnVFX pfSpawn;
         [SerializeField] GameVFX pfHeal;
         [SerializeField] GameVFX pfUpStat;
+        [SerializeField] GameVFX pfReuse;
+        [SerializeField] GameVFX pfRecall;
 
 
         private GameObject tileUnder;
@@ -24,6 +26,8 @@ namespace PH
         private Queue<GameVFX> vfxSpawn;
         private Queue<GameVFX> vfxHeal;
         private Queue<GameVFX> vfxUpStat;
+        private Queue<GameVFX> vfxReuse;
+        private Queue<GameVFX> vfxRecall;
 
 
         protected override void Awake()
@@ -44,6 +48,26 @@ namespace PH
             InitSpawn();
             InitHeal();
             InitUpStat();
+            InitReuse();
+            InitRecall();
+        }
+
+        private void InitRecall()
+        {
+            vfxRecall = new Queue<GameVFX>();
+
+            string key = KeysVFX.Recall.ToString();
+            vfxPool.Add(key, vfxRecall);
+            AddToPool(4, pfRecall, key);
+        }
+
+        private void InitReuse()
+        {
+            vfxReuse = new Queue<GameVFX>();
+
+            string key = KeysVFX.Reuse.ToString();
+            vfxPool.Add(key, vfxReuse);
+            AddToPool(4, pfReuse, key);
         }
 
         private void InitUpStat()
@@ -114,6 +138,18 @@ namespace PH
             spawn.gameObject.SetActive(true);
         }
 
+        public void ReuseUnit(BaseUnit unit)
+        {
+            ReuseVFX reuseVFX = (ReuseVFX)GetReuseVFX();
+            reuseVFX.SetUp(unit);
+        }
+
+        public void RecallUnit(BaseUnit unit)
+        {
+            RecallVFX recallVFX = (RecallVFX)GetRecallVFX();
+            recallVFX.SetUp(unit);
+        }
+
         protected GameVFX GetSpawnVFX()
         {
             if (vfxSpawn.Count == 0)
@@ -122,6 +158,26 @@ namespace PH
             }
 
             return vfxPool[KeysVFX.Spawn.ToString()].Dequeue();
+        }
+
+        protected GameVFX GetReuseVFX()
+        {
+            if (vfxReuse.Count == 0)
+            {
+                AddToPool(1, pfReuse, KeysVFX.Reuse.ToString());
+            }
+
+            return vfxPool[KeysVFX.Reuse.ToString()].Dequeue();
+        }
+
+        protected GameVFX GetRecallVFX()
+        {
+            if (vfxRecall.Count == 0)
+            {
+                AddToPool(1, pfRecall, KeysVFX.Recall.ToString());
+            }
+
+            return vfxPool[KeysVFX.Recall.ToString()].Dequeue();
         }
 
         public void HighLightTileUnder(Vector3 pos)

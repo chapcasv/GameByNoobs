@@ -9,7 +9,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
-        public event Action<BaseUnit> OnReLoadUnit;
+
         private LifeSystem _ls;
         private WaveSystem _ws;
         private ResultSystem _rs;
@@ -55,11 +55,10 @@ namespace PH
             {
                 //Continue phase
                 DestroyEnemy();
-                ReLoadPlayerUnit();
+                RecallPlayerUnit();
                 PhaseSystem.RewardClearWave();
                 _ws.IncreaseIndex();
             }
-
         }
 
         private void PlayerDefeat()
@@ -88,20 +87,15 @@ namespace PH
             DictionaryTeamBattle.Clear(UnitTeam.Enemy);
         }
 
-        private void ReLoadPlayerUnit()
+        private void RecallPlayerUnit()
         {
-            var allUnitPlayer = PlayerCacheUnitData.GetAllUnit();
+            var units = DictionaryTeamBattle.GetAllUnits(UnitTeam.Player);
 
-            foreach (var unit in allUnitPlayer)
+            foreach (var unit in units)
             {
-                PlayerCacheUnitData.ReuseUnit(unit);
-                SetInTeamFight(unit);
-                unit.RemoveOneRoundAddOn();
-                OnReLoadUnit?.Invoke(unit);
+                VFXManager.Instance.RecallUnit(unit);
             }
         }
-       
-        private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }
 

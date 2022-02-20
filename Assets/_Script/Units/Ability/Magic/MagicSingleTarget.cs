@@ -30,7 +30,7 @@ namespace PH
 
         protected override string GetDiscription(int value)
         {
-            string magicDmg = HexColorString.MagicDmg();
+            string magicDmg = HexColorString.MagicDmg;
             string discription = "Gây" + "<color=" + magicDmg + "> " + value + "</color>" + " sát thương lên mục tiêu";
 
             return discription;

@@ -9,7 +9,7 @@ namespace PH
         protected List<ParticleSystem> particles;
         private string key_VFX;
 
-        public string Key_VFX { private get => key_VFX; set => key_VFX = value; }
+        public string Key_VFX {set => key_VFX = value; }
 
         void Awake()
         {

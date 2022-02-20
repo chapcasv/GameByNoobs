@@ -14,6 +14,7 @@ namespace PH
         [SerializeField] TeamFightState teamFightState;
 
         [Header("Phase")]
+        [SerializeField] StartRoundPhase startRound;
         [SerializeField] BeforeTeamFight beforeTeamFight;
 
         [SerializeField] GameObject[] cardHand;
@@ -25,6 +26,7 @@ namespace PH
         private PlayerDragLogic _playerDragLogic;
         private Animator anim;
         private GridLayoutGroup gridLayout;
+
         private const int SPACING_X_DEFAULT = 100;
         private const int SPACING_Y_DEFAULT = 0;
         private const int SPACING_X_OFFSET = 30;
@@ -50,12 +52,13 @@ namespace PH
 
         private void AddListerner()
         {
+            startRound.OnEnterPhase += LoadHandZone;
             deckSystem.OnDrawCard += LoadHandZone;
             deckSystem.OnDropCard += LoadHandZone;
             deckSystem.OnAddCardHand += LoadHandZone;
             controlState.OnLeftClick += DisplayHandZone;
             teamFightState.OnLeftClick += DisplayHandZone;
-            beforeTeamFight.OnEnterBeforeTeamFight += HidenHandZone;
+            beforeTeamFight.OnEnterPhase += HidenHandZone;
             dragCardSelected.OnBeginDrag += HidenHandZone;
         }
 
@@ -136,6 +139,12 @@ namespace PH
             anim.SetBool("IsShow", isShowHandZone);
         }
 
+        public void ShowHandZone()
+        {
+            isShowHandZone = true;
+            anim.SetBool("IsShow", isShowHandZone);
+        }
+
         public void HidenHandZone()
         {   
             isShowHandZone = false;
@@ -157,12 +166,13 @@ namespace PH
 
         private void RemoveListerner()
         {
+            startRound.OnEnterPhase -= LoadHandZone;
             deckSystem.OnDrawCard -= LoadHandZone;
             deckSystem.OnDropCard -= LoadHandZone;
             deckSystem.OnAddCardHand -= LoadHandZone;
             controlState.OnLeftClick -= DisplayHandZone;
             teamFightState.OnLeftClick -= DisplayHandZone;
-            beforeTeamFight.OnEnterBeforeTeamFight -= HidenHandZone;
+            beforeTeamFight.OnEnterPhase -= HidenHandZone;
             dragCardSelected.OnBeginDrag -= HidenHandZone;
 
             //Add by setter

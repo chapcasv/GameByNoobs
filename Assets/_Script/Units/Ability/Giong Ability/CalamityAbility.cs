@@ -44,7 +44,7 @@ namespace PH
 
         protected override string GetDiscription(int value)
         {
-            string physicalColor = HexColorString.PhysicalDmg();
+            string physicalColor = HexColorString.PhysicalDmg;
             string status = effect.Discription;
             string timeDuring = effect.LifeTime.ToString();
             string discription = "Gây" + "<color=" + physicalColor + "> " + value + "</color>" + 

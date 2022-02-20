@@ -14,14 +14,13 @@ namespace PH
 
         [SerializeField] ResultBattleUI resultBattleUI;
         [SerializeField] BattleLifeUI lifePointUI;
-        private BattlePlayerInfomation infomation;
 
         [Header("Member player")]
         [SerializeField] TextMeshPro memberAmountText;
         [SerializeField] GameObject memberObj;
 
         [Header("Phase")]
-        [SerializeField] DrawCard drawCard;
+        [SerializeField] StartRoundPhase startRound;
         [SerializeField] BeforeTeamFight beforeTeamFight;
 
         [Header("Sell Button")]
@@ -40,7 +39,10 @@ namespace PH
         private CardInfoVisual _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
 
-        private int _maxMemberAmount = 9;
+        private BattlePlayerInfomation infomation;
+        [SerializeField] private BattleNotifyUI notifyPhase;
+
+        private const int MAX_MEMBER = 9;
         //private int _maxWave;
 
         private void Awake()
@@ -54,8 +56,9 @@ namespace PH
             lifePointUI.Constructor(_lifeSystem);
             infomation.Constructor(_currentEnemy, _player);
             ResetMemberAmount();
-        }
 
+            startRound.notifyPhase = notifyPhase;
+        }
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
             CardInfoVisual CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PVP_Enemy currentEnemy)
@@ -82,8 +85,9 @@ namespace PH
             _wavesSystem.OnWaveIndexChange += DisplayWaves;
             _coinSystem.OnCoinValueChange += DisplayerCoin;
 
-            drawCard.OnEnterDrawCard += ShowMemberOBJ;
-            beforeTeamFight.OnEnterBeforeTeamFight += HidenMemberOBJ;
+            startRound.OnEnterPhase += ShowMemberOBJ;
+            beforeTeamFight.OnEnterPhase += HidenMemberOBJ;
+            beforeTeamFight.OnEnterPhase += notifyPhase.SetNotifyBeforeBattle;
 
             _playerDragLogic.OnBeginDrag += ShowRemoveButton;
             _playerDragLogic.OnEndDrag += HidenRemoveButton;
@@ -99,8 +103,7 @@ namespace PH
         private void DisplayWaves()
         {
             //Index start is 0 
-            int currentWaveIndex = _wavesSystem.GetCurrentIndex() + 1;
-            waveText.text = currentWaveIndex.ToString();
+            waveText.text = _wavesSystem.GetCurrentIndexString();
             //waveText.text = $"{currentWaveIndex + 1} / {_maxWave}";
         }
 
@@ -108,14 +111,14 @@ namespace PH
         private void DisplayMemberAmount()
         {
             int amount = _memberSystem.GetMemberAmount;
-            memberAmountText.text = amount + $"/{_maxMemberAmount}";
+            memberAmountText.text = amount + $"/{MAX_MEMBER}";
         }
 
         /// <summary>
         /// When start new battle,
         /// reset current member amount to zero
         /// </summary>
-        private void ResetMemberAmount() => memberAmountText.text = 0 + $"/{_maxMemberAmount}";
+        private void ResetMemberAmount() => memberAmountText.text = 0 + $"/{MAX_MEMBER}";
 
         private void ShowMemberOBJ() => memberObj.SetActive(true);
 
@@ -137,7 +140,6 @@ namespace PH
             right.gameObject.SetActive(false);
         }
 
-
         private void OnDisable() => RemoveListerner();
 
         private void RemoveListerner()
@@ -146,13 +148,13 @@ namespace PH
             _wavesSystem.OnWaveIndexChange -= DisplayWaves;
             _coinSystem.OnCoinValueChange -= DisplayerCoin;
 
-            drawCard.OnEnterDrawCard -= ShowMemberOBJ;
-            beforeTeamFight.OnEnterBeforeTeamFight -= HidenMemberOBJ;
+            startRound.OnEnterPhase -= ShowMemberOBJ;
+            beforeTeamFight.OnEnterPhase -= HidenMemberOBJ;
+            beforeTeamFight.OnEnterPhase -= notifyPhase.SetNotifyBeforeBattle;
 
             _playerDragLogic.OnBeginDrag -= ShowRemoveButton;
             _playerDragLogic.OnEndDrag -= HidenRemoveButton;
-        }
-       
+        }   
     }
 }
 

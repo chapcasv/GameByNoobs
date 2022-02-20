@@ -9,7 +9,9 @@ namespace PH
         Drop,
         Spawn,
         Heal,
-        UpStat
+        UpStat,
+        Reuse,
+        Recall
     }
 }
 

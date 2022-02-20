@@ -4872,9 +4872,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735414603961364317}
-  - component: {fileID: -5743176779085111591}
+  - component: {fileID: 8973652514056614105}
   m_Layer: 0
-  m_Name: SpawnFireVFX
+  m_Name: ReuseVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4900,7 +4900,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5743176779085111591
+--- !u!114 &8973652514056614105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4909,7 +4909,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1735414603961364314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d35bd7ec685e1540b436ba1796eb810, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c3280aaa5fc3a9459aaccec3b7df72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1735414604110991409
