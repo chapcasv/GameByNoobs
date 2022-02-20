@@ -8,6 +8,10 @@ namespace PH.PopUp
     public class DmgPopUpPool : MonoSingleton<DmgPopUpPool>
     {
         [SerializeField] DmgPopUp pfDmgPopUp;
+        [SerializeField] DamageType heal;
+        [SerializeField] DamageType magic;
+        [SerializeField] DamageType physical;
+
         private Queue<DmgPopUp> pfsDmgPopUp = new Queue<DmgPopUp>();
 
         private bool isInit = false;
@@ -23,20 +27,46 @@ namespace PH.PopUp
             }
         }
 
-        public void Create(int dmg, DmgType type, Vector3 spawnPos, bool isCrit)
+        public void Create(int dmg, DamageType type, Vector3 pos, bool isCrit)
         {
             var DmgPopUp = Get();
 
             if (isCrit)
             {
-                DmgPopUp.SetUpCrit(dmg, spawnPos);
+                DmgPopUp.SetUpCrit(dmg, pos);
             }
             else
             {
-                DmgPopUp.SetUp(dmg, type, spawnPos);
+                DmgPopUp.SetUp(dmg, type, pos);
             }
         }
         
+        public void CreateMagicDmg(int dmg, Vector3 pos, bool isCrit)
+        {
+            var DmgPopUp = Get();
+            DmgPopUp.SetUp(dmg, magic, pos);
+        }
+
+        public void CreatePhysical(int dmg, Vector3 pos, bool isCrit)
+        {
+            var DmgPopUp = Get();
+
+            if (isCrit)
+            {
+                DmgPopUp.SetUpCrit(dmg, pos);
+            }
+            else
+            {
+                DmgPopUp.SetUp(dmg, physical, pos);
+            }
+        }
+
+        public void CreateHeal(int value, Vector3 pos)
+        {
+            var DmgPopUp = Get();
+            DmgPopUp.SetUp(value, heal, pos);
+        }
+
         private DmgPopUp Get()
         {
             if(pfsDmgPopUp.Count == 0)

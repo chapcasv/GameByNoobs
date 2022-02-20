@@ -11,9 +11,9 @@ namespace PH
     public class Epidemic : Ability
     {
         [SerializeField] int pctPhysicalDMG = 170;
-
         [SerializeField] int pctTrueDmgBonusByMaxHp = 12;
-
+        [SerializeField] DamageType damageType;
+        [SerializeField] DamageType needTrueDmg;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
@@ -25,8 +25,8 @@ namespace PH
 
             float trueDmgBonus = pctTrueDmgBonusByMaxHp * (maxHpTarget / 100f);
 
-            currentTarget.TakeDamage(caster, (int)rawDmg, DmgType.Physical);
-            currentTarget.TakeDamage(caster, (int)trueDmgBonus, DmgType.TrueDmg);
+            currentTarget.TakeDamage(caster, (int)rawDmg, damageType);
+            currentTarget.TakeDamage(caster, (int)trueDmgBonus, damageType);
         }
 
         private float GetRawDmg(int ORPhysicalDmg)

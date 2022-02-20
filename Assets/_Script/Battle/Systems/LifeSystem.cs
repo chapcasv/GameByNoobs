@@ -48,7 +48,6 @@ namespace PH
             }
         }
 
-
         public bool PlayerLifeIsZero()
         {
             if (_playerLife <= 0) return true;

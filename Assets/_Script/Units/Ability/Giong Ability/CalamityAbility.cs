@@ -12,6 +12,7 @@ namespace PH
         [SerializeField] int pct;
         [SerializeField] int critDmgBonus;
         [SerializeField] StatusEffect effect;
+        [SerializeField] DamageType damageType;
         
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
@@ -19,7 +20,7 @@ namespace PH
             var Atk = caster.GetAtkSystem;
             Atk.UpOneRoundCritDmg(critDmgBonus);
             float dmg = GetPreMitigationDmg(Atk.ORPhysicalDamage);
-            currentTarget.TakeDamage(caster, (int)dmg, DmgType.Physical);
+            currentTarget.TakeDamage(caster, (int)dmg, damageType);
             currentTarget.GetUnitStatusEffect.ApplyStatusEffect(effect);
         }
 
@@ -44,10 +45,10 @@ namespace PH
 
         protected override string GetDiscription(int value)
         {
-            string physicalColor = HexColorString.PhysicalDmg;
+            string color = damageType.HexColor();
             string status = effect.Discription;
             string timeDuring = effect.LifeTime.ToString();
-            string discription = "Gây" + "<color=" + physicalColor + "> " + value + "</color>" + 
+            string discription = "Gây" + "<color=" + color + "> " + value + "</color>" + 
                 " sát thương lên mục tiêu." +
                 status + " trong " + timeDuring + " giây." + " Gia tăng " + critDmgBonus +" Sát thương chí mạng";
 

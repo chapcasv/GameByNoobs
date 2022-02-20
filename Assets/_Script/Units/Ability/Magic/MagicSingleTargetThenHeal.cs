@@ -8,6 +8,7 @@ namespace PH
     public class MagicSingleTargetThenHeal : MagicSingleTarget
     {
         [SerializeField] int heal;
+        
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {

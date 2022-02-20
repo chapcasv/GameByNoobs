@@ -6,14 +6,14 @@ namespace PH
 {
     public class ProjectileMove : MonoBehaviour
     {
+        private DamageType _type;
         private BaseUnit _currentTarget;
         private UnitAtkSystem _sender;
         private BaseUnit _holder;
-        private DmgType _type;
         private float _moveSpeed = 10f;
         private int _rawDmg;
 
-        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DmgType type, BaseUnit holder)
+        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DamageType type, BaseUnit holder)
         {
             _currentTarget = currentTarget;
             _sender = sender;

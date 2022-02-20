@@ -78,7 +78,7 @@ namespace PH.PopUp
         }
 
 
-        public void SetUp(int amount, DmgType type, Vector3 spawnPos)
+        public void SetUp(int amount, DamageType type, Vector3 spawnPos)
         {
             SetUpTextColor(amount, type);
             SetUpTextSize(amount);
@@ -117,31 +117,25 @@ namespace PH.PopUp
             transform.LookAt(transform.position + cam.forward);
         }
 
-        private void SetUpTextColor(int amount, DmgType type)
+        private void SetUpTextColor(int amount, DamageType damageType)
         {
-            switch (type)
+            textMesh.color = damageType.GetColor();
+
+            if(damageType is HealDmg)
             {
-                case DmgType.Physical:
-                    SetUpPhysicalColor(amount);
-                    break;
-                case DmgType.Magic:
-                    SetUpMagicColor(amount);
-                    break;
-                case DmgType.TrueDmg:
-                    break;
-                case DmgType.DoT:
-                    break;
-                case DmgType.Heal:
-                    SetUpHealColor(amount);
-                    break;
+                textMesh.SetText("+" + amount.ToString());
+            }
+            else
+            {
+                textMesh.SetText(amount.ToString());
             }
 
             textColor = textMesh.color;
         }
 
-        private void SetUpVectorMove(DmgType dmgType)
+        private void SetUpVectorMove(DamageType dmgType)
         {
-            if (dmgType != DmgType.Heal)
+            if (! (dmgType as HealDmg))
             {   
                 //top right
                 moveVector = new Vector3(MOVE_VECTOR_X, MOVE_VECTOR_Y) * MOVE_VECTOR_OFFSET;
@@ -157,24 +151,6 @@ namespace PH.PopUp
         {
             textMesh.color = colorPhysical;
             textMesh.SetText(format_CRIT + amount.ToString());
-        }
-
-        private void SetUpPhysicalColor(int amount)
-        {
-            textMesh.color = colorPhysical;
-            textMesh.SetText(amount.ToString());
-        }
-
-        private void SetUpHealColor(int amount)
-        {
-            textMesh.color = colorHeal;
-            textMesh.SetText("+" + amount.ToString());
-        }
-
-        private void SetUpMagicColor(int amount)
-        {
-            textMesh.color = colorMagic;
-            textMesh.SetText(amount.ToString());
         }
 
         private void SetUpTextSize(int amount)

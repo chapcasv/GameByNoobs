@@ -7,6 +7,8 @@ namespace PH
 
     public class MeleeUnitAtk : UnitAtkSystem
     {
+        [SerializeField] protected DamageType normalAtkType;
+
         public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive)
@@ -79,7 +81,7 @@ namespace PH
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            int dmgDeal = currentTarget.TakeDamage(holder, preMitigationDmg, DmgType.Physical, IsCrit);
+            int dmgDeal = currentTarget.TakeDamage(holder, preMitigationDmg, normalAtkType, IsCrit);
 
             LifeStealByDmg(dmgDeal);
             TriggerBasicAtkAddOn();

@@ -13,7 +13,7 @@ namespace PH
     public class PhysicalAOEStatusByMrAndArmor : Ability
     {
         [SerializeField] StatusEffect abilityStatusEffect;
-
+        [SerializeField] PhysicalDmg physicalDmg;
         [SerializeField] int pctDmg;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
@@ -26,10 +26,9 @@ namespace PH
 
             foreach (var target in targets)
             {
-                target.TakeDamage(caster, (int)preMitigationDmg, DmgType.Physical);
+                target.TakeDamage(caster, (int)preMitigationDmg, physicalDmg);
                 target.GetUnitStatusEffect.ApplyStatusEffect(abilityStatusEffect);
             }
-
         }
 
         public override string GetDiscription(CardUnit unit)
