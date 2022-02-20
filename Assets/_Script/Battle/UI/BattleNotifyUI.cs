@@ -9,17 +9,20 @@ namespace PH
 {
     public class BattleNotifyUI : MonoBehaviour
     {
-        [SerializeField] GameObject notifyPhaseUI;
         [SerializeField] TextMeshProUGUI notify;
-        [SerializeField] Image panelBG;
+        private Animator anim;
 
+        private void Awake()
+        {
+            anim = GetComponent<Animator>();
+            gameObject.SetActive(false);
+        }
 
         public void SetNotifyRound(string text)
         {
             notify.text = "Vòng " + text;
-            //panelBG.color = HexColorString.Blue32;
-            panelBG.color = Color.green;
-            notifyPhaseUI.SetActive(true);
+            gameObject.SetActive(true);
+            anim.SetTrigger("Display Blue");
 
             StartCoroutine(Hiden());
         }
@@ -27,17 +30,16 @@ namespace PH
         public void SetNotifyBeforeBattle()
         {
             notify.text = "Chiến Đấu";
-            panelBG.color = Color.yellow;
-            notifyPhaseUI.SetActive(true);
+            gameObject.SetActive(true);
+            anim.SetTrigger("Display Red");
 
             StartCoroutine(Hiden());
-
         }
 
         private IEnumerator Hiden()
         {
             yield return new WaitForSeconds(1.5f);
-            notifyPhaseUI.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -144,10 +144,10 @@ namespace PH
             reuseVFX.SetUp(unit);
         }
 
-        public void RecallUnit(BaseUnit unit)
+        public void RecallUnit(BaseUnit unit, RecallTrigger recall)
         {
             RecallVFX recallVFX = (RecallVFX)GetRecallVFX();
-            recallVFX.SetUp(unit);
+            recallVFX.SetUp(unit,recall);
         }
 
         protected GameVFX GetSpawnVFX()

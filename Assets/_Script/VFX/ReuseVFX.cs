@@ -28,6 +28,7 @@ namespace PH
             if (_time <= 0 && !isReuse)
             {
                 _unit.gameObject.SetActive(true);
+                _unit.RemoveOneRoundAddOn();
                 isReuse = true;
             }
         }

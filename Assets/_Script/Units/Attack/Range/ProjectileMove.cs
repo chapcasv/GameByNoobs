@@ -31,7 +31,7 @@ namespace PH
             else
             {
                 Vector3 moveDir = (_currentTarget.transform.position - transform.position).normalized;
-                transform.position += moveDir * _moveSpeed * Time.deltaTime;
+                transform.position += _moveSpeed * Time.deltaTime * moveDir;
                 Quaternion rotation = Quaternion.LookRotation(moveDir);
                 transform.rotation = rotation;
             }

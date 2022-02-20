@@ -24,9 +24,10 @@ namespace PH
 
             OnEnterPhase?.Invoke();
 
+            //Notify
             string round = _ws.GetCurrentIndexString();
             notifyPhase.SetNotifyRound(round);
-            //Notify
+
             ReLoadPlayerUnit();
         }
 
@@ -38,7 +39,6 @@ namespace PH
             {
                 PlayerCacheUnitData.ReuseUnit(unit);
                 SetInTeamFight(unit);
-                unit.RemoveOneRoundAddOn();
             }
         }
 

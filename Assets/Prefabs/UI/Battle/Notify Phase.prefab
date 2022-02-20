@@ -219,6 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2322480957016447766}
   - component: {fileID: 6602705356735686712}
+  - component: {fileID: 1096276900463752117}
   m_Layer: 0
   m_Name: Notify Phase
   m_TagString: Untagged
@@ -266,3 +267,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1096276900463752117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287744886307843856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9570fd222e7ef4e96b31fb96e37d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notifyPhaseUI: {fileID: 8287744886307843856}
+  notify: {fileID: 5365835400159926876}

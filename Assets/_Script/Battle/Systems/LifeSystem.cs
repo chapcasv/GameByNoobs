@@ -6,7 +6,6 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Life System")]
     public class LifeSystem : ScriptableObject
     {
-
         public event Action OnEnemyLifeChange;
         public event Action OnPlayerLifeChange;
 
@@ -39,7 +38,7 @@ namespace PH
 
             foreach (BaseUnit unit in allUnit)
             {
-                int dmg = unit.GetDamageLife;
+                int dmg = unit.GetDmgLife;
 
                 if(team == UnitTeam.Player)
                 {

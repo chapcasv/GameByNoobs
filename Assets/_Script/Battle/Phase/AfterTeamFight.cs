@@ -9,6 +9,8 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Phase/After Team Fight")]
     public class AfterTeamFight : Phase
     {
+        [SerializeField] RecallTrigger playerRecall;
+        [SerializeField] RecallTrigger enemyRecall;
 
         private LifeSystem _ls;
         private WaveSystem _ws;
@@ -81,8 +83,7 @@ namespace PH
 
             foreach (var e in enemies)
             {
-                e.CurrentNode.SetOccupied(false);
-                Destroy(e.gameObject);
+                VFXManager.Instance.RecallUnit(e, enemyRecall);
             }
             DictionaryTeamBattle.Clear(UnitTeam.Enemy);
         }
@@ -93,7 +94,7 @@ namespace PH
 
             foreach (var unit in units)
             {
-                VFXManager.Instance.RecallUnit(unit);
+                VFXManager.Instance.RecallUnit(unit, playerRecall);
             }
         }
     }

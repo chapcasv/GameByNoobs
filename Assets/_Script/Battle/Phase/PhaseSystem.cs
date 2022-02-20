@@ -149,7 +149,7 @@ namespace PH
         public void RunTimeBarStartCard(float maxTime)
         {
             UseTimeBar = true;
-            timeBar.StopAllCoroutines();
+            //timeBar.StopAllCoroutines();
             StartCoroutine(timeBar.TimeBarStartCardPhase(maxTime));
             timeBar.SetDuration(maxTime).Begin();
         }

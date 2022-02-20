@@ -39,7 +39,7 @@ namespace PH
         public bool IsLive { get => SurvivalStat.IsLive; }
         public bool InTeamFight { set => inTeamFight = value; }
         public UnitTeam GetTeam() => _myTeam;
-        public int GetDamageLife => Life.GetDamageLife();
+        public int GetDmgLife => Life.GetDamageLife();
         public ManaSystem GetManaSystem => Mana;
         public UnitSurvivalStat GetUnitSurvivalStat => SurvivalStat;
         public UnitAtkSystem GetAtkSystem => Atk;
@@ -224,7 +224,7 @@ namespace PH
 
         protected void GetInRange()
         {
-            if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove)
+            if (currentTarget == null || !currentTarget.IsLive || !Move.CanMove || !Atk.CanAtk)
                 return;
 
             if (!Move.IsMoving)
