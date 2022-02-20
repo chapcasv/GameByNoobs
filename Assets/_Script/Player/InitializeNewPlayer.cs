@@ -41,13 +41,15 @@ namespace PH {
             }
             return defaultDecks;
         }
-
+        
         private static List<Card> AddCards(PlayerDefaultData playerDefault)
         {
+            
             List<Card> defaultCards = new List<Card>();
             foreach (var card in playerDefault.Cards)
             {
                 defaultCards.Add(card);
+                //card.Unlocked = true;
             }
             return defaultCards;
         }

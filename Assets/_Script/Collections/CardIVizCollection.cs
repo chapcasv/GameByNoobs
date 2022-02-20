@@ -13,6 +13,10 @@ namespace PH
         [SerializeField] TextMeshProUGUI hpValue;
         [SerializeField] TextMeshProUGUI manaValue;
 
+        [Header("Stat Unit")]
+        [SerializeField] private GameObject surStat;
+        [SerializeField] private GameObject unitInfor;
+        [SerializeField] private GameObject unitSkill;
         [SerializeField] TextMeshProUGUI orPhysicalDmg;
         [SerializeField] TextMeshProUGUI orMagicPower;
         [SerializeField] TextMeshProUGUI orArmor;
@@ -23,23 +27,22 @@ namespace PH
         [SerializeField] TextMeshProUGUI orCritRate;
         [SerializeField] TextMeshProUGUI orCritDmg;
 
+        [Header("Ability")]
+        [SerializeField] Image abilityIcon;
         [SerializeField] TextMeshProUGUI abilityName;
         [SerializeField] TextMeshProUGUI abilityDiscription;
+       
 
         [SerializeField] private ALLCard _allCards;
-        private Image[] _iconFactions;
+     
         private const int MAGIC_POWER_DEFAULT = 100;
         private const int CRIT_RATE_DEFAULT = 25;
         private const int CRIT_DMG_DEFAULT = 130;
         private const int LIFE_STEAL_DEFAULT = 0;
-        public void LoadUnit(BaseUnit unit)
-        {
-            int baseID = unit.GetID;
-            Card card = _allCards.GetCard(baseID);
 
+        public void LoadCardInformation(Card card)
+        {
             LoadCard(card);
-            LoadInfoUnit(unit);
-            
         }
         protected override void LoadCard(Card card)
         {
@@ -48,12 +51,6 @@ namespace PH
             LoadInfoByType(card);
         }
 
-        private void LoadInfoUnit(BaseUnit unit)
-        {
-            LoadInfoBar(unit);
-            LoadUnitInfoStat(unit);
-            LoadUnitAbility(unit);
-        }
         private void LoadCardDiscription(Card card)
         {
             discription.text = card.GetDiscription;
@@ -69,45 +66,12 @@ namespace PH
             }
             else LoadInfo(card);
         }
-        private void LoadUnitAbility(BaseUnit unit)
-        {
-            Ability a = unit.GetAtkSystem.GetAbility;
-
-            abilityName.text = a.GetAbilityName;
-            abilityDiscription.text = a.GetDiscription(unit);
-
-        }
-
-        private void LoadUnitInfoStat(BaseUnit unit)
-        {
-            var Atk = unit.GetAtkSystem;
-            var USS = unit.GetUnitSurvivalStat;
-
-            orPhysicalDmg.text = Atk.ORPhysicalDamage.ToString();
-            orMagicPower.text = Atk.ORMagicPower.ToString() + "%";
-            orArmor.text = USS.ORArmor.ToString();
-            orMagicResist.text = USS.ORMagicResist.ToString();
-            orAtkSpeed.text = Atk.ORAtkSpd.ToString();
-
-            orLifeSteal.text = Atk.ORLifeSteal.ToString() + "%";
-            orCritRate.text = Atk.ORCritRate.ToString() + "%";
-            orCritDmg.text = Atk.ORCritDmg.ToString() + "%";
-            
-        }
-
-        private void LoadInfoBar(BaseUnit unit)
-        {
-            var USS = unit.GetUnitSurvivalStat;
-            var mana = unit.GetManaSystem;
-
-            hpValue.text = USS.BaseMaxHP.ToString();
-            manaValue.text = mana.BaseMaxMana.ToString();
-
-        }
-
+     
         private void LoadInfo(Card card)
         {
-            throw new NotImplementedException();
+            unitInfor.SetActive(false);
+            unitSkill.SetActive(false);
+            surStat.SetActive(false);
         }
 
         private void LoadCardInfoUnit(Card card)
@@ -125,6 +89,8 @@ namespace PH
 
             abilityName.text = a.GetAbilityName;
             abilityDiscription.text = a.GetDiscription(unit);
+            abilityIcon.sprite = a.GetIcon;
+            unitSkill.SetActive(true);
         }
 
         private void LoadCardUnitInfoStat(CardUnit unit)
@@ -138,12 +104,14 @@ namespace PH
             orLifeSteal.text = LIFE_STEAL_DEFAULT.ToString() + "%";
             orCritRate.text = CRIT_RATE_DEFAULT.ToString() + "%";
             orCritDmg.text = CRIT_DMG_DEFAULT.ToString() + "%";
+            unitInfor.SetActive(true);
         }
 
         private void LoadInfoBar(CardUnit unit)
         {
-            hpValue.text = unit.Hp.ToString();
-            manaValue.text = unit.ManaMax.ToString();
+            hpValue.text = "HP: " + unit.Hp.ToString();
+            manaValue.text = "Mana: " + unit.ManaMax.ToString();
+            surStat.SetActive(true);
         }
 
      
