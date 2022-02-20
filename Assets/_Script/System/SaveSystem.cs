@@ -72,14 +72,13 @@ namespace PH.Save
         //ONLY call when you want to load ALL player data
         public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
         {
-            PlayerData playerData = new PlayerData();
-
+            PlayerData playerData ;
             if (File.Exists(playerDataPath))
             {
                 playerData = ReadJSon();
                 LoadPlayerDataToPlayerSO(playerData, playerSO, allCards);
             }
-            else throw new Exception("Data Path dont Exists");
+            else throw new System.Exception("Data Path dont Exists");
         }
 
         private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerLocalSO playerSO, ALLCard allCards)
