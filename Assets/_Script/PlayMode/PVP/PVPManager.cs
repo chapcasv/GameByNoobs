@@ -16,159 +16,22 @@ namespace PH
         //private Player_Database player_data;
 
 
-        [Header("Raid Mode")]
-
-        [SerializeField] GameObject B_raidContent;
-
-        [SerializeField] List<PVP_AI_Bot> raid15Wave;
-        [SerializeField] Transform content_15Wave;
-        private bool raid15Wave_Created = false;
-
-        [SerializeField] List<PVP_AI_Bot> raidStory;
-        [SerializeField] Transform content_raidStory;
-        private bool raidStory_Created = false;
-
-        [SerializeField] List<PVP_AI_Bot> raidTutorial;
-        [SerializeField] Transform content_Tutorial;
-        private bool raidTutorial_Created = false;
-
-
-        [Header("Raid Infomation")]
-
-        [SerializeField] TextMeshProUGUI raidDiscription;
-        [SerializeField] TextMeshProUGUI raidName;
-        [SerializeField] Image raidAvatar;
 
 
         private void Awake()
         {
-            Selected_15Wave();
+            
         }
 
-        public void Selected_15Wave()
-        {
-            pveMode = PVE_Mode.M15Wave;
-            if (raid15Wave_Created)
-            {
-                Show_List_R15Wave();
-            }
-            else Create_List_R15Wave();
-        }
-
-        public void Selected_Tutorial()
-        {
-            pveMode = PVE_Mode.Tutorial;
-            if (raidTutorial_Created)
-            {
-                Show_List_RTutorial();
-            }
-            else Create_List_RaidTutorial();
-        }
-
-        private void Show_List_RTutorial()
-        {
-            content_Tutorial.gameObject.SetActive(true);
-            content_15Wave.gameObject.SetActive(false);
-            content_raidStory.gameObject.SetActive(false);
-        }
-
-        public void Selected_raidStory()
-        {
-            pveMode = PVE_Mode.Story;
-            if (raidStory_Created)
-            {
-                Show_List_raidStory();
-            }
-            else Create_List_raidStory();
-        }
-
-        private void Show_List_raidStory()
-        {
-            content_raidStory.gameObject.SetActive(true);
-            content_Tutorial.gameObject.SetActive(false);
-            content_15Wave.gameObject.SetActive(false);
-        }
-
-        private void Create_List_R15Wave()
-        {
-            GameObject temp;
-
-            if (raid15Wave.Count == 0) return;
-
-            foreach (PVP_AI_Bot raid in raid15Wave)
-            {
-                temp = Instantiate(B_raidContent, content_15Wave);
-                temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
-                {
-                    Show_InfoStage(raid);
-                });
-            }
-            raid15Wave_Created = true;
-            Show_List_R15Wave();
-            Show_InfoStage(raid15Wave[0]);
-        }
-
-        private void Show_List_R15Wave()
-        {
-            //content_15Wave.gameObject.SetActive(true);
-            //content_50Wave.gameObject.SetActive(false);
-            //content_Tutorial.gameObject.SetActive(false);
-        }
-
-
-
-        private void Create_List_raidStory()
-        {
-            GameObject temp;
-            foreach (PVP_AI_Bot raid in raidStory)
-            {
-
-                temp = Instantiate(B_raidContent, content_raidStory);
-                temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
-                {
-                    Show_InfoStage(raid);
-                });
-            }
-            raidStory_Created = true;
-            Show_List_raidStory();
-        }
-
-        private void Create_List_RaidTutorial()
-        {
-            GameObject temp;
-            foreach (PVP_AI_Bot raid in raidTutorial)
-            {
-                temp = Instantiate(B_raidContent, content_Tutorial);
-                temp.transform.GetComponent<Button>().onClick.AddListener(delegate ()
-                {
-                    Show_InfoStage(raid);
-                });
-            }
-            raidTutorial_Created = true;
-            Show_List_RTutorial();
-        }
-
-        public void Show_InfoStage(PVP_AI_Bot raid)
-        {
-            currentPlayer = raid;
-            RaidInfomation(currentPlayer);
-        }
-
-        private void RaidInfomation(PVP_AI_Bot currentRaid)
-        {
-        }
-
-        //Need fix magic text
-        public void Go_to_Battle()
-        {
-            //sound = GameObject.FindGameObjectWithTag("sound").GetComponent<SoundManager>();
-            //sound.PlaySound("fight");
-            SceneManager.LoadScene(SceneSelect.Battle.ToString());
-        }
 
         public void Back_to_mainMenu()
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
+        }
+
+        public void GoToBattle()
+        {
+            SceneManager.LoadScene(SceneSelect.Battle.ToString());
         }
     }
 

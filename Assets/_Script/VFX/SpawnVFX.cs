@@ -7,20 +7,14 @@ namespace PH
 {
     public class SpawnVFX : GameVFX
     {
-        private SpawnSystem _spawnSystem;
-        private CardUnit _unitSpawn;
-        private UnitTeam _team;
-        private Node _node;
+        private BaseUnit _unitSpawn;
         private float _time;
-        private const float MAX_TIME = 0.75f;
+        private const float MAX_TIME = 0.65f;
         private bool isSpawn;
 
-        public void SetUp(SpawnSystem ss, CardUnit unit, Node node, UnitTeam team)
+        public void SetUp(BaseUnit unit)
         {
-            _spawnSystem = ss;
             _unitSpawn = unit;
-            _team = team;
-            _node = node;
             isSpawn = false;
             _time = MAX_TIME;
         }
@@ -33,7 +27,7 @@ namespace PH
 
             if(_time <= 0 && !isSpawn)
             {
-                _spawnSystem.Spawn(_unitSpawn, _node, _team);
+                _unitSpawn.gameObject.SetActive(true);
                 isSpawn = true;
             }
         }

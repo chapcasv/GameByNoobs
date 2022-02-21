@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace PH
 {
     public static class MatchInput
@@ -8,17 +5,13 @@ namespace PH
         public static bool CardCostMatchInputCost(int cost, int inputCost, CostMode costMode)
         {
 
-            switch (costMode)
+            return costMode switch
             {
-                case CostMode.EQUAL:
-                    return IsMatchCostModeEqual(cost, inputCost);
-                case CostMode.LOWER:
-                    return IsMatchCostModeLower(cost, inputCost);
-                case CostMode.UPPER:
-                    return IsMatchCostModeUpper(cost, inputCost);
-                default:
-                    throw new System.Exception("Cant get cost Mode");
-            }
+                CostMode.EQUAL => IsMatchCostModeEqual(cost, inputCost),
+                CostMode.LOWER => IsMatchCostModeLower(cost, inputCost),
+                CostMode.UPPER => IsMatchCostModeUpper(cost, inputCost),
+                _ => throw new System.Exception("Cant get cost Mode"),
+            };
         }
 
         private static bool IsMatchCostModeUpper(int cost, int inputCost)

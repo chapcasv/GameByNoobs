@@ -19,7 +19,7 @@ namespace PH
             _player = player;
 
             enemyName.text = _currentEnemy.EnemyName;
-            playerName.text = _player.PlayerName;
+            playerName.text = _player.GetPlayerName();
         }
     }
 }

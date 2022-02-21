@@ -33,7 +33,7 @@ namespace PH
 
         }
 
-        public void DecraseCoin(int cardCost) => _coinSystem.Sub(cardCost);
+        public void DecraseCoin(int cardCost) => _coinSystem.DecreasePlayer(cardCost);
 
         public bool CanDrop(int cardCost)
         {

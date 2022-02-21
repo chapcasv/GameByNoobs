@@ -10,6 +10,7 @@ namespace PH
     public class CoinSystem : ScriptableObject
     {
         public event Action OnCoinValueChange;
+        public event Action OnEnemyCoinChange;
         private const int START_COIN = 10; //Only for test
 
         private int _playerCoin;
@@ -18,15 +19,29 @@ namespace PH
         public int GetCoin() => _playerCoin;
         public int GetEnemyCoin() => _enemyCoin;
 
-        public void Add(int value)
+        public void IncreasePlayer(int value)
         {
             _playerCoin += value;
             OnCoinValueChange?.Invoke();
         }
-        public void Sub(int value)
+
+        public void DecreasePlayer(int value)
         {
             _playerCoin -= value;
             OnCoinValueChange?.Invoke();
+        }
+
+        public void IncreaseEnemy(int value)
+        {
+            _enemyCoin += value;
+            OnEnemyCoinChange?.Invoke();
+        }
+
+        // 0 references 21/02/2022
+        public void DecreaseEnemy(int value)
+        {
+            _enemyCoin -= value;
+            OnEnemyCoinChange?.Invoke();
         }
 
         public void SetData()
@@ -36,9 +51,13 @@ namespace PH
         }
 
         public void IncreaseCoinByRound(int roundIndex)
-        {
-            _playerCoin += roundIndex;
-            _enemyCoin += roundIndex;
+        {   
+            //round 1 index = 0
+            roundIndex += 1;
+
+            IncreasePlayer(roundIndex);
+            IncreaseEnemy(roundIndex);
+
         }
     }
 }

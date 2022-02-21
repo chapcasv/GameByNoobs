@@ -33,6 +33,7 @@ namespace PH
         public BoardSystem GetBoardSystem { get => _boardSystem; }
         public LifeSystem GetLifeSystem { get => _lifeSystem; }
         public ResultSystem GetResultSystem { get => _resultSystem; }
+        public CoinSystem GetCoinSystem { get => _coinSystem; }
 
         public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
@@ -110,7 +111,6 @@ namespace PH
             dragCardSelected.CalculatorOffsetX();
 
             //index 0 is start round
-            //after start card -> draw card
             _phaseIndex = 0;
             SetPhase(phases[_phaseIndex]);
         }
@@ -127,12 +127,6 @@ namespace PH
                     resultLastRound = ResultLastRound.PlayerWin;
                     break;
             }
-        }
-
-        public void RewardClearWave()
-        {
-            int coin = _waveSystem.GetRewardClearWave();
-            _coinSystem.Add(coin);
         }
 
         //Time bar

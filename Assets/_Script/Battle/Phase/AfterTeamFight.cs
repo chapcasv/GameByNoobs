@@ -58,7 +58,6 @@ namespace PH
                 //Continue phase
                 DestroyEnemy();
                 RecallPlayerUnit();
-                PhaseSystem.RewardClearWave();
                 _ws.IncreaseIndex();
             }
         }

@@ -24,12 +24,20 @@ namespace PH {
 
         private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
         {
-            playerSO.PlayerName = playerName;
+            playerSO.SetPlayerName(playerName);
             playerSO.Coin = defaultPlayer.Coin;
             playerSO.Cards = AddCards(defaultPlayer);
             playerSO.Decks = AddDecks(defaultPlayer);
             playerSO.CurrentDeck = playerSO.Decks[0];
-            SaveSystem.SavePlayer(playerSO);
+            playerSO.Rank = InitRank();
+
+            SaveSystem.InitPlayer(playerSO);
+        }
+
+        private static Rank InitRank()
+        {
+            Rank rank = new Rank();
+            return rank;
         }
 
         private static List<Deck> AddDecks(PlayerDefaultData playerDefault)

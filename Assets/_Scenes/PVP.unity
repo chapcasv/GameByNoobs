@@ -462,8 +462,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 420680184}
-        m_TargetAssemblyTypeName: PH.PVEManager, Assembly-CSharp
-        m_MethodName: Go_to_Battle
+        m_TargetAssemblyTypeName: PH.PVPManager, Assembly-CSharp
+        m_MethodName: GoToBattle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -752,16 +752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: {fileID: 11400000, guid: a0df7229e797e8044be69d4eefdded7c, type: 2}
-  B_raidContent: {fileID: 0}
-  raid15Wave: []
-  content_15Wave: {fileID: 0}
-  raidStory: []
-  content_raidStory: {fileID: 0}
-  raidTutorial: []
-  content_Tutorial: {fileID: 0}
-  raidDiscription: {fileID: 0}
-  raidName: {fileID: 0}
-  raidAvatar: {fileID: 0}
 --- !u!1 &482113158
 GameObject:
   m_ObjectHideFlags: 0

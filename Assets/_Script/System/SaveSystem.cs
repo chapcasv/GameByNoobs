@@ -9,6 +9,7 @@ namespace PH.Save
 
     public static class SaveSystem
     {
+        private const string MESS_ERROR = "Data Path dont Exists";
         private readonly static string playerDataPath = Application.dataPath + "playerData.json";
 
         public static bool IsHavePlayerData()
@@ -27,20 +28,28 @@ namespace PH.Save
             else return false;
         }
 
+        public static void InitPlayer(PlayerLocalSO playerSO)
+        {
+            PlayerData playerData = new PlayerData();
+            playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
+            WriteJSon(playerData);
+        }
+
         //ONLY call when you want to save ALL player data
         public static void SavePlayer(PlayerLocalSO playerSO)
         {
-            PlayerData data = ConvertPlayerSOToPlayerData(playerSO);
-            WriteJSon(data);
+            PlayerData playerData = ReadJSon();
+            playerData = ConvertPlayerSOToPlayerData(playerSO,playerData);
+            WriteJSon(playerData);
         }
 
-        private static PlayerData ConvertPlayerSOToPlayerData(PlayerLocalSO playerSO)
+        private static PlayerData ConvertPlayerSOToPlayerData(PlayerLocalSO playerSO, PlayerData playerData)
         {
-            PlayerData playerData = new PlayerData();
-            playerData.PlayerName = playerSO.PlayerName;
+            playerData.PlayerName = playerSO.GetPlayerName();
             playerData.Coin = playerSO.Coin;
             playerData.Cards = ConvertCardsToPlayerCards(playerSO.Cards);
             playerData.Decks = ConvertDecksToPlayerDecks(playerSO.Decks);
+            playerData.Rank = ConvertRank.ToPlayerRank(playerSO.Rank);
             return playerData;
         }
 
@@ -72,18 +81,19 @@ namespace PH.Save
         //ONLY call when you want to load ALL player data
         public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
         {
-            PlayerData playerData ;
+            PlayerData playerData;
+
             if (File.Exists(playerDataPath))
             {
                 playerData = ReadJSon();
                 LoadPlayerDataToPlayerSO(playerData, playerSO, allCards);
             }
-            else throw new System.Exception("Data Path dont Exists");
+            else throw new Exception(MESS_ERROR);
         }
 
         private static void LoadPlayerDataToPlayerSO(PlayerData playerData, PlayerLocalSO playerSO, ALLCard allCards)
         {
-            playerSO.PlayerName = playerData.PlayerName;
+            playerSO.SetPlayerName(playerData.PlayerName);
             playerSO.Coin = playerData.Coin;
             playerSO.Cards = ConverPlayerCardsToCards(playerData.Cards, allCards);
         }
@@ -99,11 +109,77 @@ namespace PH.Save
             return cards;
         }
 
-        public static void SavePlayerCoin(PlayerLocalSO playerSO)
+
+        public static int LoadCoin()
         {
-            PlayerData playerData = new PlayerData();
-            playerData.Coin = playerSO.Coin;
-            WriteJSon(playerData);
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.Coin;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static bool SaveCoin(PlayerLocalSO playerSO, int increaseValue)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+
+                int playerCoin = playerData.Coin + increaseValue;
+
+                if (playerCoin == playerSO.Coin)
+                {
+                    playerData.Coin = playerCoin;
+                    WriteJSon(playerData);
+                    return true;
+                }
+                else throw new Exception("Local data dont match with sever data");
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static string LoadName()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.PlayerName;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        //0 references 21/02/2022
+        public static void SaveName(PlayerLocalSO playerLocalSO)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                playerData.PlayerName = playerLocalSO.GetPlayerName();
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static PlayerRank LoadRank()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.Rank;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static void SaveRank(PlayerLocalSO playerLocalSO)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                playerData.Rank = ConvertRank.ToPlayerRank(playerLocalSO.Rank);
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
         }
 
         private static void WriteJSon(PlayerData playerData)

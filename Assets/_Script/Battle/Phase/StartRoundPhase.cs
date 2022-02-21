@@ -9,13 +9,17 @@ namespace PH
     public class StartRoundPhase : Phase
     {
         public event Action OnEnterPhase;
+
         [HideInInspector] public BattleNotifyUI notifyPhase;
+
         private WaveSystem _ws;
+        private CoinSystem _cs;
 
         public override void Init(PhaseSystem phaseSystem)
         {
             base.Init(phaseSystem);
             _ws = phaseSystem.GetWaveSystem;
+            _cs = phaseSystem.GetCoinSystem;
         }
 
         public override void OnStartPhase()
@@ -24,11 +28,22 @@ namespace PH
 
             OnEnterPhase?.Invoke();
 
-            //Notify
-            string round = _ws.GetCurrentIndexString();
-            notifyPhase.SetNotifyRound(round);
+            ActiveNotify();
+            IncreaseCoin();
 
             ReLoadPlayerUnit();
+        }
+
+        private void IncreaseCoin()
+        {
+            int roundIndex = _ws.GetCurrentIndex();
+            _cs.IncreaseCoinByRound(roundIndex);
+        }
+
+        private void ActiveNotify()
+        {
+            string round = _ws.GetCurrentIndexString();
+            notifyPhase.SetNotifyRound(round);
         }
 
         private void ReLoadPlayerUnit()

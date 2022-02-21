@@ -42,7 +42,7 @@ namespace PH
 
         public bool TrySpawnUnit(CardUnit unit, Node spawnNode, UnitTeam team = UnitTeam.Player)
         {
-            bool canSpawn = _spawnSystem.SpawnUnit(unit, spawnNode);
+            bool canSpawn = _spawnSystem.SpawnUnit(unit, spawnNode, team);
             return canSpawn;
         }
 
@@ -54,7 +54,8 @@ namespace PH
             {
                 lastUnitSpawn.AddListernerTriggerOnBoard();
 
-                _spawnSystem.SetLastUnitSpawn();
+                //21/02/2022
+                //_spawnSystem.SetLastUnitSpawn(); need check
             }
         }
     }

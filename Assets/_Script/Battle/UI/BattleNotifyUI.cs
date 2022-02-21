@@ -1,14 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using HexColor;
+using UnityEngine;
 
 namespace PH
 {
     public class BattleNotifyUI : MonoBehaviour
     {
+        private const string TEAM_FIGHT = "Chiến Đấu";
+        private const string ROUND = "Vòng ";
         [SerializeField] TextMeshProUGUI notify;
         private Animator anim;
 
@@ -20,7 +19,7 @@ namespace PH
 
         public void SetNotifyRound(string text)
         {
-            notify.text = "Vòng " + text;
+            notify.text = ROUND + text;
             gameObject.SetActive(true);
             anim.SetTrigger("Display Blue");
 
@@ -29,7 +28,7 @@ namespace PH
 
         public void SetNotifyBeforeBattle()
         {
-            notify.text = "Chiến Đấu";
+            notify.text = TEAM_FIGHT;
             gameObject.SetActive(true);
             anim.SetTrigger("Display Red");
 
@@ -37,7 +36,8 @@ namespace PH
         }
 
         private IEnumerator Hiden()
-        {
+        {   
+            //Fade time
             yield return new WaitForSeconds(1.5f);
             gameObject.SetActive(false);
         }

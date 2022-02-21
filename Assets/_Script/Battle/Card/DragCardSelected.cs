@@ -1,6 +1,5 @@
-using UnityEngine;
 using System;
-using UnityEngine.EventSystems;
+using UnityEngine;
 
 namespace PH
 {
@@ -62,6 +61,9 @@ namespace PH
             _transform.position = new Vector3(pos.x + offsetX, pos.y, pos.z);
         }
 
+        /// <summary>
+        /// Change offset by screen size
+        /// </summary>
         public void CalculatorOffsetX()
         {
             offsetX = _transform.sizeDelta.x * canvas.scaleFactor;
@@ -84,7 +86,7 @@ namespace PH
 
             int cost = GetCostCurrentCard();
 
-            if (cost == int.MaxValue) throw new System.Exception("Cant get card cost");
+            if (cost == int.MaxValue) throw new Exception("Cant get card cost");
 
             if (_drop.CanDrop(cost))
             {

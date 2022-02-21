@@ -6,12 +6,9 @@ namespace PH
 {
     public class BattleUIManager : MonoBehaviour
     {
+        [SerializeField] BattleNotifyUI notifyPhase;
         [SerializeField] HandZoneUI handZoneUI;
-
-        [SerializeField] TextMeshProUGUI coinText;
-
         [SerializeField] TextMeshProUGUI waveText;
-
         [SerializeField] ResultBattleUI resultBattleUI;
         [SerializeField] BattleLifeUI lifePointUI;
 
@@ -40,7 +37,7 @@ namespace PH
         private PlayerDragLogic _playerDragLogic;
 
         private BattlePlayerInfomation infomation;
-        [SerializeField] private BattleNotifyUI notifyPhase;
+        private BattleCoinUI battleCoinUI;
 
         private const int MAX_MEMBER = 9;
         //private int _maxWave;
@@ -48,6 +45,7 @@ namespace PH
         private void Awake()
         {
             infomation = GetComponent<BattlePlayerInfomation>();
+            battleCoinUI = GetComponent<BattleCoinUI>();
         }
 
         void Start()
@@ -55,6 +53,7 @@ namespace PH
             resultBattleUI.Constructor(_resultBattle);
             lifePointUI.Constructor(_lifeSystem);
             infomation.Constructor(_currentEnemy, _player);
+            battleCoinUI.Constructor(_coinSystem);
             ResetMemberAmount();
 
             startRound.notifyPhase = notifyPhase;
@@ -83,7 +82,6 @@ namespace PH
         {
             _memberSystem.OnMemberAmountChange += DisplayMemberAmount;
             _wavesSystem.OnWaveIndexChange += DisplayWaves;
-            _coinSystem.OnCoinValueChange += DisplayerCoin;
 
             startRound.OnEnterPhase += ShowMemberOBJ;
             beforeTeamFight.OnEnterPhase += HidenMemberOBJ;
@@ -97,7 +95,6 @@ namespace PH
         {
             DisplayWaves();
             DisplayMemberAmount();
-            DisplayerCoin();
         }
 
         private void DisplayWaves()
@@ -126,7 +123,7 @@ namespace PH
 
         #endregion
 
-        private void DisplayerCoin() => coinText.text = _coinSystem.GetCoin().ToString();
+
 
         private void ShowRemoveButton()
         {
@@ -146,7 +143,6 @@ namespace PH
         {
             _memberSystem.OnMemberAmountChange -= DisplayMemberAmount;
             _wavesSystem.OnWaveIndexChange -= DisplayWaves;
-            _coinSystem.OnCoinValueChange -= DisplayerCoin;
 
             startRound.OnEnterPhase -= ShowMemberOBJ;
             beforeTeamFight.OnEnterPhase -= HidenMemberOBJ;
