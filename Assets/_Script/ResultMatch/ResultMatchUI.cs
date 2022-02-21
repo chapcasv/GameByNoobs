@@ -10,7 +10,6 @@ namespace PH
 {
     public class ResultMatchUI : MonoBehaviour
     {
-
         [SerializeField] TextMeshProUGUI coinRewardText;
         [SerializeField] TextMeshProUGUI rankReward;
         [SerializeField] Image rankIcon;
