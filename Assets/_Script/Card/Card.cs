@@ -39,7 +39,7 @@ namespace PH
 
         public void OnSetUnlocked(CardVisual cardViz)
         {
-
+            cardViz.lockImg.gameObject.SetActive(!Unlocked);
         }
     
 
