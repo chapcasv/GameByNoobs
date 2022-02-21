@@ -11,7 +11,7 @@ namespace PH
         [SerializeField] private CardCollectionUI cardPrefab;
         [SerializeField] private ALLCard cardCollections;
         [SerializeField] private Button backButton;
-        [SerializeField] private Toggle OnUnlockedButton;
+        [SerializeField] private Button OnUnlockedButton;
         [SerializeField] private GetBaseProperties getBaseProperties;
 
         [Header("CheckBox")]
@@ -20,13 +20,14 @@ namespace PH
 
         [SerializeField] private List<CardCollectionUI> listCard;
 
-
+        
+        
         private void Start()
         {
             backButton.onClick.AddListener(OnBackMainMenuCallBack);
 
             checkbox.onValueChanged.AddListener(OpenCheckBox);
-            OnUnlockedButton.onValueChanged.AddListener(ShowLockCardCallBack);
+            OnUnlockedButton.onClick.AddListener(ShowLockCardCallBack);
             PopUpCardCollection();
             ShowUnlockedCard();
             ArrangeListCard();
@@ -39,14 +40,13 @@ namespace PH
         }
 
 
-        private void ShowLockCardCallBack(bool show)
+        private void ShowLockCardCallBack()
         {
+            
             for (int i = 0; i < listCard.Count; i++)
             {
-                if(listCard[i].IsUnlocked == false)
-                {
-                    listCard[i].OnRefreshCard(!show);
-                }
+                bool unlocked = listCard[i].IsUnlocked;
+                listCard[i].gameObject.SetActive(!unlocked);
             }
             LoadInformation();
         }
@@ -79,26 +79,31 @@ namespace PH
         }
         private void ArrangeListCard()
         {
+            SortByCost();
+            foreach (var item in listCard)
+            {
+                item.gameObject.transform.SetParent(cardPrefab.transform.parent);
+            }
+        }
+
+        private void SortByCost()
+        {
             CardCollectionUI temp = null;
             for (int i = 0; i < listCard.Count; i++)
             {
-                for (int j = i+1; j < listCard.Count; j++)
+                for (int j = i + 1; j < listCard.Count; j++)
                 {
-                    if(listCard[j].Cost < listCard[i].Cost)
+                    if (listCard[j].Cost < listCard[i].Cost)
                     {
                         temp = listCard[i];
                         listCard[i] = listCard[j];
                         listCard[j] = temp;
                     }
                 }
-                
-            }
-            foreach (var item in listCard)
-            {
-                item.gameObject.transform.SetParent(cardPrefab.transform.parent);
+
             }
         }
-      
+
         private void PopUpCardCollection()
         {
             var firstCard = cardCollections.allCard[0];
