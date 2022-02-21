@@ -7,188 +7,37 @@ namespace PH
 {
     public class CollectionUI : MonoBehaviour
     {
-        [System.Serializable]
-        public class ButtonCollectionState
-        {
-            public enum StateOnCollection
-            {
-                DEFAULT, ONSELECTED
-            }
-
-            public Button main;
-            public System.Action<bool> SwitchState;
-            [SerializeField] private StateOnCollection currentState;
-            public void Init()
-            {
-                main.onClick.AddListener(OnShowState);
-                currentState = StateOnCollection.DEFAULT;
-            }
-            private void OnShowState()
-            {
-                if (currentState == StateOnCollection.DEFAULT)
-                {
-                    SwitchState?.Invoke(true);
-                    currentState = StateOnCollection.ONSELECTED;
-                }
-                else
-                {
-                    SwitchState?.Invoke(false);
-                    currentState = StateOnCollection.DEFAULT;
-                }
-            }
-
-        }
-       
+        [SerializeField] private CardIVizCollection cardInformation;
         [SerializeField] private CardCollectionUI cardPrefab;
         [SerializeField] private ALLCard cardCollections;
         [SerializeField] private Button backButton;
+        [SerializeField] private Toggle OnUnlockedButton;
+        [SerializeField] private GetBaseProperties getBaseProperties;
 
-        [SerializeField] private ButtonCollectionState OnUnlockedButton;
+        [Header("CheckBox")]
+        [SerializeField] private GameObject checkBoxScreen;
+        [SerializeField] private Toggle checkbox;
 
         [SerializeField] private List<CardCollectionUI> listCard;
-        [SerializeField] private GetBaseProperties getBaseProperties;
-        [Header("CheckBox")]
-        [SerializeField] private ButtonCollectionState CkeckBoxButton;
-        [SerializeField] private GameObject checkBoxScreen;
-
-        [SerializeField] private Toggle cardunit;
-        public void ShowUnit()
-        {
-            Debug.LogError(cardunit.isOn);
-        }
-        [Header("Check Type Card")]
-        [SerializeField] private ButtonCollectionState unitType;
-        [SerializeField] private ButtonCollectionState itemType;
-        [SerializeField] private ButtonCollectionState spellType;
-
-        [Header("Check Rate Card")]
-        [SerializeField] private ButtonCollectionState summonRank;
-        [SerializeField] private ButtonCollectionState rateRank;
-        [SerializeField] private ButtonCollectionState epicRank;
-        [SerializeField] private ButtonCollectionState legendRank;
-        
-        [Header("Check Energy Card")]
-        [SerializeField] private ButtonCollectionState oneCost;
-        [SerializeField] private ButtonCollectionState twoCost;
-        [SerializeField] private ButtonCollectionState threeCost;
-        [SerializeField] private ButtonCollectionState fourCost;
-        [SerializeField] private ButtonCollectionState fiveCost;
-        [SerializeField] private ButtonCollectionState sixCost;
-        [SerializeField] private ButtonCollectionState sevenCost;
-        [SerializeField] private ButtonCollectionState plusEightCost;
-
-        [Header("Check Region Card")]
-        [SerializeField] private ButtonCollectionState rockMountainRegion;
-
-        [SerializeField] private ButtonCollectionState clearAllSelection;
-
 
 
         private void Start()
         {
             backButton.onClick.AddListener(OnBackMainMenuCallBack);
 
-            CkeckBoxButton.Init();
-            OnUnlockedButton.Init();
-
-
-            unitType.Init();
-            itemType.Init();
-            spellType.Init();
-
-
-
-            CkeckBoxButton.SwitchState = OnShowCheckBoxCallBack;
-            OnUnlockedButton.SwitchState = ShowLockCardCallBack;
-
-            unitType.SwitchState = OnShowUnitTypeCallBack;
-            itemType.SwitchState = OnShowItemTypeCallBack;
-            spellType.SwitchState = OnShowSpellTypeCallBack;
-
-
-
-
+            checkbox.onValueChanged.AddListener(OpenCheckBox);
+            OnUnlockedButton.onValueChanged.AddListener(ShowLockCardCallBack);
             PopUpCardCollection();
             ShowUnlockedCard();
             ArrangeListCard();
         }
 
-        private void OnShowSpellTypeCallBack(bool show)
+        private void OpenCheckBox(bool show)
         {
-            if(show == true)
-            {
-                for (int i = 0; i < listCard.Count; i++)
-                {
-                    if (listCard[i].GetTypeCardOnCollection() != TypeMode.SPELL)
-                    {
-                        listCard[i].OnRefreshCard(!show);
-                    }
-                    else
-                    {
-                        listCard[i].OnRefreshCard(show);
-                    }
-                }
-
-            }
-            else
-            {
-                //xoa lua chon
-            }
-
-
+            
+            checkBoxScreen.SetActive(!show);
         }
 
-        private void OnShowItemTypeCallBack(bool show)
-        {
-            if (show == true)
-            {
-                for (int i = 0; i < listCard.Count; i++)
-                {
-                    if (listCard[i].GetTypeCardOnCollection() != TypeMode.ITEM)
-                    {
-                        listCard[i].OnRefreshCard(!show);
-                    }
-                    else
-                    {
-                        listCard[i].OnRefreshCard(show);
-                    }
-                }
-            }
-            else
-            {
-                //xoa lua chon
-            }
-           
-        }
-
-        private void OnShowUnitTypeCallBack(bool show)
-        {
-            if(show == true)
-            {
-                for (int i = 0; i < listCard.Count; i++)
-                {
-                    if (listCard[i].GetTypeCardOnCollection() == TypeMode.UNIT)
-                    {
-                        listCard[i].OnRefreshCard(show);
-                    }
-                    else
-                    {
-                        listCard[i].OnRefreshCard(!show);
-                    }
-
-                }
-            }
-            else
-            {
-                //xoa lua chon
-            }
-          
-        }
-
-        private void OnShowCheckBoxCallBack(bool show)
-        {
-            checkBoxScreen.SetActive(show);
-        }
 
         private void ShowLockCardCallBack(bool show)
         {
@@ -196,7 +45,7 @@ namespace PH
             {
                 if(listCard[i].IsUnlocked == false)
                 {
-                    listCard[i].OnRefreshCard(show);
+                    listCard[i].OnRefreshCard(!show);
                 }
             }
             LoadInformation();
@@ -254,15 +103,15 @@ namespace PH
         {
             var firstCard = cardCollections.allCard[0];
             cardPrefab.SetCard(firstCard);
-            cardPrefab.Init(firstCard, getBaseProperties);
-            //cardPrefab.OnClick?.Invoke();
+            cardPrefab.Init(firstCard, getBaseProperties, cardInformation);
+            
             listCard.Add(cardPrefab);
             for (int i = 1; i < cardCollections.allCard.Count; i++)
             {
                 var card = cardCollections.allCard[i];
                 var _cardCollection = Instantiate(cardPrefab);
                 _cardCollection.SetCard(card);
-                _cardCollection.Init(card, getBaseProperties);
+                _cardCollection.Init(card, getBaseProperties, cardInformation);
                 listCard.Add(_cardCollection);
 
             }
