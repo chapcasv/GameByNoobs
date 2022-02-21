@@ -33,6 +33,7 @@ namespace PH
         public BoardSystem GetBoardSystem { get => _boardSystem; }
         public LifeSystem GetLifeSystem { get => _lifeSystem; }
         public ResultSystem GetResultSystem { get => _resultSystem; }
+        public CoinSystem GetCoinSystem { get => _coinSystem; }
 
         public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
@@ -127,12 +128,6 @@ namespace PH
                     resultLastRound = ResultLastRound.PlayerWin;
                     break;
             }
-        }
-
-        public void RewardClearWave()
-        {
-            int coin = _waveSystem.GetRewardClearWave();
-            _coinSystem.Add(coin);
         }
 
         //Time bar
