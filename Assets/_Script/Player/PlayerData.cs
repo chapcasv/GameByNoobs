@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 namespace PH
@@ -9,6 +8,8 @@ namespace PH
     {
         public string PlayerName;
         public int Coin;
+        public PlayerRank Rank;
+        public int Diamond;
         public List<PlayerCard> Cards;
         public List<PlayerDeck> Decks;
     }

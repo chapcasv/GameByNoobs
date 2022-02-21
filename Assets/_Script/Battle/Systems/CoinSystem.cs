@@ -58,7 +58,6 @@ namespace PH
             IncreasePlayer(roundIndex);
             IncreaseEnemy(roundIndex);
 
-            Debug.Log(roundIndex);
         }
     }
 }

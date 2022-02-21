@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using PH.Save;
+using System;
 
 namespace PH
 {
@@ -11,11 +13,14 @@ namespace PH
     {
 
         [SerializeField] PlayerLocalSO player;
-
+        [SerializeField] RankSystem rankSystem;
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
         [SerializeField] TextMeshProUGUI playerName;
         [SerializeField] GameObject selectPlayMode;
+        [Header("Rank")]
+        [SerializeField] Image rankIcon;
+        [SerializeField] TextMeshProUGUI rankTierLevel;
 
         void Start()
         {
@@ -24,8 +29,23 @@ namespace PH
 
         private void LoadPlayer()
         {
-            coin.text = player.Coin.ToString();
-            playerName.text = player.PlayerName;
+            coin.text = SaveSystem.LoadCoin().ToString();
+            playerName.text = SaveSystem.LoadName();
+
+            LoadRank();
+        }
+
+        private void LoadRank()
+        {
+            Rank rank = ConvertRank.Form(SaveSystem.LoadRank());
+
+            RankInstance rankInstance = rankSystem.GetRank(rank.GetRankTier);
+
+            string tier = rankInstance.RankName;
+            string level = rank.GetRankLevelString();
+
+            rankTierLevel.text = tier + " " + level;
+            rankIcon.sprite = rankInstance.Icon;
         }
 
         public void ShowPlayMode()

@@ -10,7 +10,8 @@ namespace PH
         MainMenu,
         Collection,
         PVP,
-        Battle
+        Battle,
+        ResultMatch
     }
 }
 

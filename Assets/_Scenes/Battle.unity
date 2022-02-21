@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c02884c982432d4a93ff418b2c347af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notifyPhase: {fileID: 1249779214}
   handZoneUI: {fileID: 188022661}
   waveText: {fileID: 135255207}
   resultBattleUI: {fileID: 624716735}
@@ -339,7 +340,6 @@ MonoBehaviour:
   beforeTeamFight: {fileID: 11400000, guid: a9ff57c69ead9b240af203d4918b25bd, type: 2}
   left: {fileID: 335907990}
   right: {fileID: 1431720981}
-  notifyPhase: {fileID: 1249779214}
 --- !u!114 &39500440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2989,11 +2989,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataSO: {fileID: 11400000, guid: 87ef1ec663c03444d9d784279682a692, type: 2}
   aLLCard: {fileID: 11400000, guid: e4b0ee94beca7b344bc45d30c412d7ff, type: 2}
-  currentEnemy: {fileID: 11400000, guid: a0df7229e797e8044be69d4eefdded7c, type: 2}
   player: {fileID: 11400000, guid: bd05483b45339b54b98717fdb863360d, type: 2}
   battleUIManager: {fileID: 39500439}
   dragCardSelected: {fileID: 445382097}
   cardInfoVisual: {fileID: 779647057}
+  playModeRewards: {fileID: 11400000, guid: b097c93ae0e534b41b373710234ac01f, type: 2}
+  currentEnemy: {fileID: 11400000, guid: a0df7229e797e8044be69d4eefdded7c, type: 2}
   systemContainer: {fileID: 11400000, guid: c99767d0c17ee3b4a8509c9e62dda413, type: 2}
   factionContainer: {fileID: 11400000, guid: b5a77f38555ff0b4b99ba28a22a5cce3, type: 2}
   GBP: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}

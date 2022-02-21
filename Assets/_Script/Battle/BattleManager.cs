@@ -6,11 +6,15 @@ namespace PH
     {
         [SerializeField] UnitsDatabaseSO dataSO;
         [SerializeField] ALLCard aLLCard;
-        [SerializeField] PVP_Enemy currentEnemy;
+
         [SerializeField] PlayerLocalSO player;
         [SerializeField] BattleUIManager battleUIManager;
         [SerializeField] DragCardSelected dragCardSelected;
         [SerializeField] CardInfoVisual cardInfoVisual;
+
+        [Header("Play Mode Infomation")]
+        [SerializeField] PlayModeRewards playModeRewards;
+        [SerializeField] PVP_Enemy currentEnemy;
 
         [Header("Container")]
         [SerializeField] SystemContainer systemContainer;
@@ -29,6 +33,7 @@ namespace PH
         /// Constructor Injection
         private void Awake()
         {
+
             var LS = systemContainer.GetLifeSystem();
             var WS = systemContainer.GetWaveSystem();
             var CS = systemContainer.GetCoinSystem();
@@ -40,7 +45,7 @@ namespace PH
             SS.SetEnemyDragLogic = enemyDragLogic;
             SS.SetPlayerDragLogic = playerDragLogic;
 
-            SetSystemByCurrentRaid(LS, WS, CS, MS);
+            SetSystemByCurrentPlayMode(LS, WS, CS, MS, RS);
 
             cardInfoVisual.Init(aLLCard);
             battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic, player, currentEnemy);
@@ -76,12 +81,13 @@ namespace PH
             DS.GetBaseProperties = GBP;
         }
 
-        private void SetSystemByCurrentRaid(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS)
+        private void SetSystemByCurrentPlayMode(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS)
         {
             LS.SetData(currentEnemy);
             WS.SetData(currentEnemy);
             CS.SetData();
             MS.SetData();
+            RS.PlayModeRewards = playModeRewards;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PH
 {
@@ -15,17 +16,26 @@ namespace PH
     {
         public event Action OnPlayerVictory;
         public event Action OnPlayerDefeated;
- 
+
+        [SerializeField] ResultLastMatch resultWin;
+
+        private PlayModeRewards _playModeRewards;
+
+        public PlayModeRewards PlayModeRewards { set => _playModeRewards = value; }
+
         public void PlayerVictory()
         {
-            AddRewardPassRaid();
+            ResultMatch.Result = resultWin;
+            ResultMatch.Result.CoinReward = _playModeRewards.GetCoinWinReward;
+
             OnPlayerVictory?.Invoke();
         }
 
-        private void AddRewardPassRaid() { }
-
         public void PlayerDefeated()
         {
+            ResultMatch.Result = resultWin;
+            ResultMatch.Result.CoinReward = _playModeRewards.GetCoinLoseReward;
+
             OnPlayerDefeated?.Invoke();
         }
     }

@@ -6,10 +6,9 @@ namespace PH
 {
     public class BattleUIManager : MonoBehaviour
     {
+        [SerializeField] BattleNotifyUI notifyPhase;
         [SerializeField] HandZoneUI handZoneUI;
-
         [SerializeField] TextMeshProUGUI waveText;
-
         [SerializeField] ResultBattleUI resultBattleUI;
         [SerializeField] BattleLifeUI lifePointUI;
 
@@ -39,7 +38,6 @@ namespace PH
 
         private BattlePlayerInfomation infomation;
         private BattleCoinUI battleCoinUI;
-        [SerializeField] private BattleNotifyUI notifyPhase;
 
         private const int MAX_MEMBER = 9;
         //private int _maxWave;
