@@ -10559,6 +10559,7 @@ MonoBehaviour:
     img: {fileID: 1152177013}
     text: {fileID: 2016859247}
   factionIcon: {fileID: 959356496}
+  lockImg: {fileID: 0}
   discription: {fileID: 1961801563}
   barHolder: {fileID: 719853021}
   hpValue: {fileID: 284486454}
@@ -11601,8 +11602,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1365886684}
     m_Modifications:
     - target: {fileID: 1117080303342531153, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe354a4856df34f418e6318dd117891b, type: 3}
+    - target: {fileID: 1117080303342531153, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_Color.a
-      value: 0.8235294
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_Pivot.x
@@ -11638,7 +11643,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 69.6358
+      value: 47.3203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11674,7 +11683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 218.1772
+      value: 229.33498
       objectReference: {fileID: 0}
     - target: {fileID: 2322480957016447766, guid: 928c01bb5f1b49a4384f8fee8f91d0a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

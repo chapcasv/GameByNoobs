@@ -6,7 +6,6 @@ namespace PH
 {
     public class CardCollectionUI : CardVisual
     {
-        private Card _card;
         private bool isUnlock;
         private int _cost;
         
@@ -17,9 +16,9 @@ namespace PH
         public System.Action OnClick;
         public void Init(Card card, GetBaseProperties getBaseProperties)
         {
-            this._card = card;
-            this.isUnlock = card.Unlocked;
-            this._cost = getBaseProperties.GetCost(card);
+            _card = card;
+            isUnlock = card.Unlocked;
+            _cost = getBaseProperties.GetCost(card);
             OnClick = OnClickCallBack;
             main.onClick.AddListener(() => OnClick?.Invoke());
         }
