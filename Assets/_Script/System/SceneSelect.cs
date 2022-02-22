@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace PH
 {
     public enum SceneSelect 
@@ -9,7 +5,7 @@ namespace PH
         Login,
         MainMenu,
         Collection,
-        PVP,
+        FindMatch,
         Battle,
         ResultMatch
     }

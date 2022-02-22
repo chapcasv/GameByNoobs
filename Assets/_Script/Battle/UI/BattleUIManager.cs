@@ -24,7 +24,7 @@ namespace PH
         [SerializeField] SellUnit left;
         [SerializeField] SellUnit right;
 
-        private PVP_Enemy _currentEnemy;
+        private PlayModeEnemy _currentEnemy;
         private PlayerLocalSO _player;
 
         private LifeSystem _lifeSystem;
@@ -60,7 +60,7 @@ namespace PH
         }
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
-            CardInfoVisual CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PVP_Enemy currentEnemy)
+            CardInfoVisual CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PlayModeEnemy currentEnemy)
         {
             _lifeSystem = LS;
             _wavesSystem = WS;

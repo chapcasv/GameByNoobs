@@ -53,7 +53,7 @@ namespace PH
         private void AddListerner()
         {
             b_back.onClick.AddListener(() => SceneManager.LoadScene(SceneSelect.MainMenu.ToString()));
-            b_againt.onClick.AddListener(() => SceneManager.LoadScene(SceneSelect.PVP.ToString()));
+            b_againt.onClick.AddListener(() => SceneManager.LoadScene(SceneSelect.FindMatch.ToString()));
         }
 
         private void OnDisable()

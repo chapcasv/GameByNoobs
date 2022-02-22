@@ -10,10 +10,10 @@ namespace PH
         [SerializeField] TextMeshProUGUI enemyName;
         [SerializeField] TextMeshProUGUI playerName;
 
-        private PVP_Enemy _currentEnemy;
+        private PlayModeEnemy _currentEnemy;
         private PlayerLocalSO _player;
 
-        public void Constructor(PVP_Enemy enemy, PlayerLocalSO player)
+        public void Constructor(PlayModeEnemy enemy, PlayerLocalSO player)
         {
             _currentEnemy = enemy;
             _player = player;

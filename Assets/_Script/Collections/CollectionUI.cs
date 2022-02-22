@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 namespace PH
 {
     public class CollectionUI : MonoBehaviour
@@ -19,12 +20,10 @@ namespace PH
         [SerializeField] private Toggle checkbox;
 
         [SerializeField] private List<CardCollectionUI> listCard;
-
-        
         
         private void Start()
         {
-            backButton.onClick.AddListener(OnBackMainMenuCallBack);
+            backButton.onClick.AddListener(BackMainMenu);
 
             checkbox.onValueChanged.AddListener(OpenCheckBox);
             OnUnlockedButton.onClick.AddListener(ShowLockCardCallBack);
@@ -35,7 +34,6 @@ namespace PH
 
         private void OpenCheckBox(bool show)
         {
-            
             checkBoxScreen.SetActive(!show);
         }
 
@@ -66,6 +64,7 @@ namespace PH
             }
             LoadInformation();
         }
+
         private void LoadInformation()
         {
             foreach (var item in listCard)
@@ -77,6 +76,7 @@ namespace PH
                 }
             }
         }
+
         private void ArrangeListCard()
         {
             SortByCost();
@@ -88,7 +88,8 @@ namespace PH
 
         private void SortByCost()
         {
-            CardCollectionUI temp = null;
+            CardCollectionUI temp;
+
             for (int i = 0; i < listCard.Count; i++)
             {
                 for (int j = i + 1; j < listCard.Count; j++)
@@ -100,7 +101,6 @@ namespace PH
                         listCard[j] = temp;
                     }
                 }
-
             }
         }
 
@@ -118,10 +118,10 @@ namespace PH
                 _cardCollection.SetCard(card);
                 _cardCollection.Init(card, getBaseProperties, cardInformation);
                 listCard.Add(_cardCollection);
-
             }
         }
-        private void OnBackMainMenuCallBack()
+
+        private void BackMainMenu()
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }

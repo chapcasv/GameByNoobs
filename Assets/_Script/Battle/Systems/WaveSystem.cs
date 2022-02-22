@@ -17,10 +17,6 @@ namespace PH
             OnWaveIndexChange?.Invoke();
         }
 
-        public int GetRewardClearWave() => _waves[_index].GoldBonus;
-
-        public int GetWavesLength() => _waves.Length;
-
         public int GetCurrentIndex() => _index;
 
         public string GetCurrentIndexString()
@@ -31,7 +27,7 @@ namespace PH
 
         public Wave GetCurrentWave() => _waves[_index];
 
-        public void SetData(PVP_Enemy raid)
+        public void SetData(PlayModeEnemy raid)
         {
             _waves = new Wave[raid.Waves.Length];
             raid.Waves.CopyTo(_waves, 0);

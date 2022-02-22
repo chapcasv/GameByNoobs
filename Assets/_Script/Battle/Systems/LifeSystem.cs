@@ -72,7 +72,7 @@ namespace PH
             OnPlayerLifeChange?.Invoke();
         }
 
-        public void SetData(PVP_Enemy enemy)
+        public void SetData(PlayModeEnemy enemy)
         {
             _enemyLife = enemy.Life;
             _playerLife = PLAYER_LIFE;

@@ -7,6 +7,7 @@ namespace PH
         [SerializeField] UnitsDatabaseSO dataSO;
         [SerializeField] ALLCard aLLCard;
 
+        [SerializeField] BoardGeneration board;
         [SerializeField] PlayerLocalSO player;
         [SerializeField] BattleUIManager battleUIManager;
         [SerializeField] DragCardSelected dragCardSelected;
@@ -14,7 +15,11 @@ namespace PH
 
         [Header("Play Mode Infomation")]
         [SerializeField] PlayModeRewards playModeRewards;
-        [SerializeField] PVP_Enemy currentEnemy;
+        [SerializeField] PlayModeEnemy currentEnemy;
+
+        [Header("Use for Test")]
+        [SerializeField] PVPMode defaultMode;
+        [SerializeField] ModeSubAI defaultSub;
 
         [Header("Container")]
         [SerializeField] SystemContainer systemContainer;
@@ -33,6 +38,7 @@ namespace PH
         /// Constructor Injection
         private void Awake()
         {
+            LoadEnemy();
 
             var LS = systemContainer.GetLifeSystem();
             var WS = systemContainer.GetWaveSystem();
@@ -50,11 +56,12 @@ namespace PH
             cardInfoVisual.Init(aLLCard);
             battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic, player, currentEnemy);
 
+            board.Constructor(currentEnemy);
+
             _boardSystem = GetComponent<BoardSystem>();
             _boardSystem.Constructor(MS, SS, DS, cardInfoVisual, dataSO);
 
             _phaseSystem = GetComponent<PhaseSystem>();
-
             _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
 
             SetExtensionMethods(DS);
@@ -65,6 +72,19 @@ namespace PH
             dragCardSelected.Constructor(CS, DS, GBP);
 
             SetterDragLogic();
+        }
+
+        private void LoadEnemy()
+        {
+            if (PlayModeData.CurrentMode == null)
+            {
+#if UNITY_EDITOR
+                PlayModeData.CurrentMode = defaultMode;
+                PlayModeData.CurrentMode.ModeSub = defaultSub;
+                Debug.LogWarning("Current Mode is null !!!");
+#endif
+            }
+            currentEnemy = PlayModeData.CurrentMode.ModeSub.GetEnemy();
         }
 
         private void SetterDragLogic()
