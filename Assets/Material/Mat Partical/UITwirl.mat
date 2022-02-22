@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: UITwirl
-  m_Shader: {fileID: -6465566751694194690, guid: 341adacdf30770c449f7927be6587664, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e811769c542180d45a2d2e05f4e35c96, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,16 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_56e1600eeb964d3db761a74b6550bc8f:
+        m_Texture: {fileID: 2800000, guid: a87e42302685533498ebe1c08dede7c0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 30c2f058b458a694391eb48c27efe19e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex_1:
-        m_Texture: {fileID: 2800000, guid: 7f98adb23f384d64f8eb5ca27d94031a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_31c39edf69ac43728676523185bd30f4_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 7aa41477d37f40147bf5d9d0808f5836, type: 3}
+        m_Texture: {fileID: 2800000, guid: c397e7ecd5f574d4298e4e1cca82a389, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,10 +39,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_9c0043476ffb4217800775bde011a383: 10
+    m_Floats: []
     m_Colors:
-    - Color_0fcf9f407e964596bda6f074f6b84e00: {r: 4, g: 0.627451, b: 0.0627451, a: 0}
-    - _Offset: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _OffsetTwirl: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - Color_15a6638f5cf8423bbe37b988d43c900e: {r: 1.1421796, g: 0.27346712, b: 0.059264038, a: 0}
+    - Color_1b8a81dfb6064025866b473c7b2167c2: {r: 1, g: 1, b: 1, a: 0}
+    - Color_5476610a1fc049449ed60e2ffe940618: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_2a2995630605472889c535c06c46ed4f: {r: 1.05, g: 1.18, b: 0, a: 0}
+    - Vector2_7d69a3eaa43b4eba90525a2c9582c154: {r: 0.07, g: 0, b: 0, a: 0}
+    - Vector2_7d7a216486ca41bbb281df7038181e2e: {r: -0.02, g: -0.09, b: 0, a: 0}
   m_BuildTextureStacks: []
