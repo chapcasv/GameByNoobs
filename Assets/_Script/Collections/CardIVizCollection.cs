@@ -109,12 +109,11 @@ namespace PH
 
         private void LoadInfoBar(CardUnit unit)
         {
-            hpValue.text = "HP: " + unit.Hp.ToString();
-            manaValue.text = "Mana: " + unit.ManaMax.ToString();
+            hpValue.text = unit.Hp.ToString() + "/" + unit.Hp.ToString();
+            manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
             surStat.SetActive(true);
         }
 
-     
     }
 
 }
