@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,49 @@ namespace PH
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected DamageType normalAtkType;
 
+        protected Queue<ProjectileMove> projectiles;
+
+        public override void Constructor(float ats, float range, int dmg, Ability ability, UnitSurvivalStat uss, Animator anim)
+        {
+            base.Constructor(ats, range, dmg, ability, uss, anim);
+            InitProjectilePool(2);
+        }
+
+        protected void InitProjectilePool(int amount)
+        {
+            projectiles = new Queue<ProjectileMove>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                Create();
+            }
+        }
+
+        private void Create()
+        {
+            ProjectileMove pm = Instantiate(pfProjectile, firePoint.position, Quaternion.identity, transform);
+            pm.Constructor(this, holder,normalAtkType);
+            pm.gameObject.SetActive(false);
+            projectiles.Enqueue(pm);
+        }
+
+        protected ProjectileMove GetProjectile()
+        {
+            if(projectiles.Count == 0)
+            {
+                Create();
+            }
+            return projectiles.Dequeue();
+        }
+
+        public void ReturnToPool(ProjectileMove pm)
+        {
+            pm.transform.position = firePoint.position;
+            pm.gameObject.SetActive(false);
+            projectiles.Enqueue(pm);
+        }
+
+
         public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive )
@@ -17,20 +61,16 @@ namespace PH
 
             //Number atk in one second
             waitBetweenAttack = 1 / baseAttackSpeed;
-            CreateProjectile(currentTarget);
-            RotationFollowTarget(currentTarget);
-            StartCoroutine(WaitCoroutine());
-        }
-
-        private void CreateProjectile(BaseUnit currentTarget)
-        {
-            ProjectileMove pm = Instantiate(pfProjectile, firePoint.position, Quaternion.identity,this.transform);
+            var projectile = GetProjectile();
 
             int preMitigationDmg = orPhysicalDmg;
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            pm.SetUp(currentTarget, this, preMitigationDmg, normalAtkType, holder);
+            projectile.SetUp(currentTarget, preMitigationDmg);
+
+            RotationFollowTarget(currentTarget);
+            StartCoroutine(WaitCoroutine());
         }
 
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
@@ -68,11 +108,10 @@ namespace PH
         IEnumerator WaitCoroutine()
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
-            canAttack = false;
+            canAttack = false; //?
 
             if (!IsDisableAtk)
             {
-                yield return null;
                 animator.SetTrigger(AnimEnum.IsAtk.ToString());
                 yield return new WaitForSeconds(waitBetweenAttack);
                 canAttack = true;

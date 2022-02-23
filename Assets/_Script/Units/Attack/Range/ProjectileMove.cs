@@ -8,25 +8,32 @@ namespace PH
     {
         private DamageType _type;
         private BaseUnit _currentTarget;
-        private UnitAtkSystem _sender;
+        private RangerUnitAtk _sender;
         private BaseUnit _holder;
-        private float _moveSpeed = 10f;
+        private float _moveSpeed = 14f;
         private int _rawDmg;
 
-        public void SetUp(BaseUnit currentTarget, UnitAtkSystem sender, int rawDmg, DamageType type, BaseUnit holder)
+        public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
         {
-            _currentTarget = currentTarget;
             _sender = sender;
-            _rawDmg = rawDmg;
             _holder = holder;
             _type = type;
+           
+        }
+
+        public void SetUp(BaseUnit currentTarget, int rawDmg)
+        {
+            _currentTarget = currentTarget;
+            _rawDmg = rawDmg;
+
+            gameObject.SetActive(true);
         }
 
         private void Update()
         {
             if (_currentTarget == null || !_currentTarget.IsLive || _currentTarget.enabled == false)
             {
-                Destroy(gameObject);
+                _sender.ReturnToPool(this);
             }
             else
             {
@@ -45,7 +52,7 @@ namespace PH
             {
                 int dmgDeal = unit.TakeDamage(_holder, _rawDmg,_type, _sender.IsCrit);
                 _sender.LifeStealByDmg(dmgDeal);
-                Destroy(gameObject);
+                _sender.ReturnToPool(this);
             }
         }
     }
