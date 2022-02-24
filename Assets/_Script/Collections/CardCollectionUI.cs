@@ -8,24 +8,27 @@ namespace PH
     {
         private bool isUnlock;
         private int _cost;
-        
+
+        public System.Action<CardCollectionUI> OnClickCardCollection;
         private CardIVizCollection _cardInformation;
         [SerializeField] private Button main;
         public bool IsUnlocked { get => isUnlock; }
         public int Cost { get => _cost;  }
-        public System.Action OnClick;
+   
         public void Init(Card card, GetBaseProperties getBaseProperties, CardIVizCollection cardInformation)
         {
             this._card = card;
             this.isUnlock = card.Unlocked;
             this._cardInformation = cardInformation;
             this._cost = getBaseProperties.GetCost(card);
-            OnClick = OnClickCallBack;
-            main.onClick.AddListener(() => OnClick?.Invoke());
+            
+            main.onClick.AddListener(OnClickCallBack);
         }
         private void OnClickCallBack()
         {
-            _cardInformation.LoadCardInformation(_card);
+            //_cardInformation.LoadCardInformation(_card);
+            OnClickCardCollection?.Invoke(this);
+
         }
         public TypeMode GetTypeCardOnCollection()
         {
