@@ -9,12 +9,13 @@ namespace PH
     {
         public override bool MoveTowards(Node nextNode,BaseUnit currentTarget)
         {
-            if (nextNode == null ) return true;
-            if(currentTarget == null)
-            {
-                animator.SetBool(AnimEnum.IsMoving.ToString(), false);
-                return true;
-            }
+            //if (nextNode == null ) return true;
+
+            //if(currentTarget == null)
+            //{
+            //    animator.SetBool(AnimEnum.IsMoving.ToString(), false);
+            //    return true;
+            //}
 
             Vector3 direction = (nextNode.WorldPosition - myTransform.position);
 
@@ -23,7 +24,7 @@ namespace PH
                 //Unit stay in next Node => return true
 
                 myTransform.position = nextNode.WorldPosition;
-                animator.SetBool(AnimEnum.IsMoving.ToString(), true);
+                animator.SetBool(AnimEnum.IsMoving.ToString(), false);
                 return true;
             }
             else 
@@ -42,14 +43,8 @@ namespace PH
         protected virtual void RotationFollow(Node nextNode, BaseUnit currentTarget )
         {
             Vector3 directionNode = nextNode.WorldPosition - myTransform.position;
-
-            Vector3 directionTarget = currentTarget.transform.position - myTransform.position;
-
             Quaternion node = Quaternion.LookRotation(directionNode);
-
-            Quaternion target = Quaternion.LookRotation(directionTarget);
-
-            _rigidbody.rotation = Quaternion.Lerp(target, node, Time.deltaTime);
+            _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, node, CHANGE_ROTATE_SPEED* Time.deltaTime);
         }
     }
 }

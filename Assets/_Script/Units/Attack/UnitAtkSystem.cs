@@ -55,6 +55,7 @@ namespace PH
 
         protected UnitSurvivalStat unitSurvivalStat;
         protected Animator animator;
+        protected Rigidbody rig;
 
         public float BaseAttackSpeed { get => baseAttackSpeed; }
         public float ORAtkSpd => orAttackSpeed;
@@ -126,6 +127,7 @@ namespace PH
             this.ability = ability;
 
             animator = anim;
+            rig = GetComponent<Rigidbody>();
         }
 
         #region Reuse Methods - Use for PlayerCacheUnitData
@@ -325,8 +327,8 @@ namespace PH
         protected void RotationFollowTarget(BaseUnit currentTarget)
         {
             Vector3 moveDir = (currentTarget.transform.position - transform.position).normalized;
-            Quaternion rotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = rotation;
+            Quaternion target = Quaternion.LookRotation(moveDir);
+            rig.rotation = Quaternion.Lerp(target, transform.rotation, Time.deltaTime * 10f);
         }
 
         private float CaculatorRangeAtk(float range)

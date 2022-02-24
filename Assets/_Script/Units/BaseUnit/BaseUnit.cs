@@ -230,6 +230,12 @@ namespace PH
             if (!Move.IsMoving)
             {
                 destination = Find.Destination(currentNode);
+
+                if(destination == null)
+                {
+                    Debug.Log(gameObject.name + "Destination is null!!!");
+                    return;
+                }
             }
 
             //Unit is moving to next node?

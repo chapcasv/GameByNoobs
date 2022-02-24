@@ -7,6 +7,7 @@ namespace PH
 {
     public abstract class UnitMove : MonoBehaviour
     {
+        protected const float CHANGE_ROTATE_SPEED = 10F;
         protected float moveSpeed;
         protected Transform myTransform;
         protected Animator animator;
