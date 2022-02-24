@@ -48,6 +48,7 @@ namespace PH
         {
             LoadCard(card);
             LoadPrice(cardUI);
+            RefreshRankColor(card);
         }
         protected override void LoadCard(Card card)
         {
@@ -122,9 +123,11 @@ namespace PH
             manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
             surStat.SetActive(true);
         }
-        private void RefreshRankColor()
+        private void RefreshRankColor(Card card)
         {
-
+            var rank = card.GetRank;
+            backgroundAvt.color = rank.BaseColor;
+            backgroundName.color = rank.BackGroundColor;
         }
         
 
