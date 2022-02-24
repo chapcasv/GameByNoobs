@@ -126,8 +126,8 @@ namespace PH
         private void RefreshRankColor(Card card)
         {
             var rank = card.GetRank;
-            backgroundAvt.color = rank.BaseColor;
-            backgroundName.color = rank.BackGroundColor;
+            backgroundAvt.color = rank.BackGroundColor;
+            backgroundName.color = rank.BaseColor;
         }
         
 
