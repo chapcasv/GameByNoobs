@@ -8,13 +8,16 @@ namespace PH
 {
     public class CollectionUI : MonoBehaviour
     {
-        [SerializeField] private CardIVizCollection cardInformation;
+        [SerializeField] private CardVizInfoCollection cardInformation;
+        
+
         [SerializeField] private CardCollectionUI cardPrefab;
         [SerializeField] private ALLCard cardCollections;
         [SerializeField] private Button backButton;
         [SerializeField] private Button OnUnlockedButton;
         [SerializeField] private GetBaseProperties getBaseProperties;
-
+        [SerializeField] private Button UnlockButton;
+        [SerializeField] private Button BuyButton;
         [Header("CheckBox")]
         [SerializeField] private GameObject checkBoxScreen;
         [SerializeField] private Toggle checkbox;
@@ -27,9 +30,22 @@ namespace PH
 
             checkbox.onValueChanged.AddListener(OpenCheckBox);
             OnUnlockedButton.onClick.AddListener(ShowLockCardCallBack);
+            UnlockButton.onClick.AddListener(UnlockButtoncallBack);
+            BuyButton.onClick.AddListener(BuyButtonCallBack);
             PopUpCardCollection();
-            ShowUnlockedCard();
             ArrangeListCard();
+            ShowUnlockedCard();
+            
+        }
+
+        private void BuyButtonCallBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UnlockButtoncallBack()
+        {
+            
         }
 
         private void OpenCheckBox(bool show)
@@ -72,6 +88,7 @@ namespace PH
                 if (item.gameObject.activeInHierarchy)
                 {
                     item.OnClick?.Invoke();
+
                     break;
                 }
             }
@@ -83,6 +100,7 @@ namespace PH
             foreach (var item in listCard)
             {
                 item.gameObject.transform.SetParent(cardPrefab.transform.parent);
+                item.OnClickCardCollection = SelectCardCollectionUI;
             }
         }
 
@@ -125,6 +143,12 @@ namespace PH
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
+        private void SelectCardCollectionUI(CardCollectionUI card)
+        {
+            UnlockButton.interactable = !card.IsUnlocked;
+            BuyButton.interactable = card.IsUnlocked;
+        }
+
     }
 }
 
