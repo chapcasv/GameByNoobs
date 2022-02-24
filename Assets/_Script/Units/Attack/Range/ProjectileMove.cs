@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace PH
 {
     public class ProjectileMove : MonoBehaviour
@@ -10,7 +11,7 @@ namespace PH
         private BaseUnit _currentTarget;
         private RangerUnitAtk _sender;
         private BaseUnit _holder;
-        private float _moveSpeed = 14f;
+        private float _moveSpeed = 18f;
         private int _rawDmg;
 
         public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
@@ -18,7 +19,8 @@ namespace PH
             _sender = sender;
             _holder = holder;
             _type = type;
-           
+
+
         }
 
         public void SetUp(BaseUnit currentTarget, int rawDmg)
@@ -26,11 +28,15 @@ namespace PH
             _currentTarget = currentTarget;
             _rawDmg = rawDmg;
 
+            Vector3 rad = new Vector3(-1, 1, 0);
+            iTween.PunchPosition(gameObject, rad, 0.5f);
+
             gameObject.SetActive(true);
         }
 
         private void Update()
         {
+
             if (_currentTarget == null || !_currentTarget.IsLive || _currentTarget.enabled == false)
             {
                 _sender.ReturnToPool(this);
