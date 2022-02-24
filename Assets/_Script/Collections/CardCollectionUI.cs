@@ -6,27 +6,31 @@ namespace PH
 {
     public class CardCollectionUI : CardVisual
     {
+        [SerializeField] private Button main;
+        private CardVizInfoCollection _cardInformation;
         private bool isUnlock;
         private int _cost;
-
+        private int price;
         public System.Action<CardCollectionUI> OnClickCardCollection;
-        private CardIVizCollection _cardInformation;
-        [SerializeField] private Button main;
+        public System.Action OnClick;
+       
         public bool IsUnlocked { get => isUnlock; }
         public int Cost { get => _cost;  }
+        public int Price { get => price; }
    
-        public void Init(Card card, GetBaseProperties getBaseProperties, CardIVizCollection cardInformation)
+        public void Init(Card card, GetBaseProperties getBaseProperties, CardVizInfoCollection cardInformation)
         {
             this._card = card;
             this.isUnlock = card.Unlocked;
             this._cardInformation = cardInformation;
             this._cost = getBaseProperties.GetCost(card);
-            
-            main.onClick.AddListener(OnClickCallBack);
+            this.price = getBaseProperties.GetPrice(card);
+            OnClick = OnClickCallBack;
+            main.onClick.AddListener(() => OnClick?.Invoke());
         }
         private void OnClickCallBack()
         {
-            //_cardInformation.LoadCardInformation(_card);
+            _cardInformation.LoadCardInformation(_card, this);
             OnClickCardCollection?.Invoke(this);
 
         }
@@ -45,6 +49,7 @@ namespace PH
             c.OnSetUnlocked(this);
 
         }
+
 
     }
 

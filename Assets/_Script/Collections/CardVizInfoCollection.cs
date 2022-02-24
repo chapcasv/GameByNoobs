@@ -7,14 +7,18 @@ using System;
 
 namespace PH
 {
-    public class CardIVizCollection : CardVisual
+    public class CardVizInfoCollection : CardVisual
     {
+        [SerializeField] Image backgroundAvt;
+        [SerializeField] Image backgroundName;
+
         [SerializeField] TextMeshProUGUI discription;
         [SerializeField] TextMeshProUGUI hpValue;
         [SerializeField] TextMeshProUGUI manaValue;
-
+        [SerializeField] TextMeshProUGUI priceValue;
         [Header("Stat Unit")]
         [SerializeField] private GameObject surStat;
+        [SerializeField] private GameObject cardDescription;
         [SerializeField] private GameObject unitInfor;
         [SerializeField] private GameObject unitSkill;
         [SerializeField] TextMeshProUGUI orPhysicalDmg;
@@ -40,9 +44,10 @@ namespace PH
         private const int CRIT_DMG_DEFAULT = 130;
         private const int LIFE_STEAL_DEFAULT = 0;
 
-        public void LoadCardInformation(Card card)
+        public void LoadCardInformation(Card card, CardCollectionUI cardUI)
         {
             LoadCard(card);
+            LoadPrice(cardUI);
         }
         protected override void LoadCard(Card card)
         {
@@ -50,9 +55,13 @@ namespace PH
             LoadCardDiscription(card);
             LoadInfoByType(card);
         }
-
+        private void LoadPrice(CardCollectionUI card)
+        {
+            priceValue.text = card.Price.ToString(); 
+        }
         private void LoadCardDiscription(Card card)
         {
+           
             discription.text = card.GetDiscription;
         }
 
@@ -69,8 +78,8 @@ namespace PH
      
         private void LoadInfo(Card card)
         {
-            unitInfor.SetActive(false);
-            unitSkill.SetActive(false);
+            //unitInfor.SetActive(false);
+            //unitSkill.SetActive(false);
             surStat.SetActive(false);
         }
 
@@ -79,8 +88,8 @@ namespace PH
             CardUnit unit = (CardUnit)card;
 
             LoadInfoBar(unit);
-            LoadCardUnitInfoStat(unit);
-            LoadUnitAbility(unit);
+            //LoadCardUnitInfoStat(unit);
+            //LoadUnitAbility(unit);
         }
 
         private void LoadUnitAbility(CardUnit unit)
@@ -113,6 +122,11 @@ namespace PH
             manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
             surStat.SetActive(true);
         }
+        private void RefreshRankColor()
+        {
+
+        }
+        
 
     }
 

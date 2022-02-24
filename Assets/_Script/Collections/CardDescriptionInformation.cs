@@ -2,31 +2,36 @@ using UnityEngine;
 
 namespace PH
 {
-    public class NonUnitScroll : MonoBehaviour
+    public class CardDescriptionInformation : MonoBehaviour
     {
         [SerializeField] private RectTransform content;
         private RectTransform nonUnitSize;
         private UnityEngine.UI.ScrollRect scrollrect;
-        private float maxSize = 452f; //size on display
+        private float maxSize = 396f; //size on display
+        private float minSize = 200f;
         private float currentSize;
         private void Start()
         {
             nonUnitSize = GetComponent<RectTransform>();
             scrollrect = this.GetComponent<UnityEngine.UI.ScrollRect>();
-            currentSize = content.rect.height;
+            currentSize = minSize;
         }
         private void Update()
         {
-            currentSize = content.rect.height;
+            
+            if(content.rect.height >= minSize)
+            {
+                currentSize = content.rect.height;
+            }
             if (currentSize >= maxSize)
             {
                 currentSize = maxSize;
-                scrollrect.enabled = true;
+                //scrollrect.enabled = true;
             }
-            else
-            {
-                scrollrect.enabled = false;
-            }
+            //else
+            //{
+            //    scrollrect.enabled = false;
+            //}
             nonUnitSize.sizeDelta = new Vector2(nonUnitSize.rect.width, currentSize);
         }
 

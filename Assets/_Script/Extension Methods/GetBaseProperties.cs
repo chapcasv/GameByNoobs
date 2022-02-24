@@ -10,6 +10,18 @@ namespace PH
         [SerializeField] ElementInt price;
         [SerializeField] ElementText cardName;
 
+        public int GetPrice(Card card)
+        {
+            var BaseProperties = card.baseProperties;
+            for (int i = 0; i < BaseProperties.Length; i++)
+            {
+                if (BaseProperties[i].element == price)
+                {
+                    return BaseProperties[i].intValue;
+                }
+            }
+            return int.MaxValue;
+        }
         public int GetCost(Card card)
         {
             var BaseProperties = card.baseProperties;
