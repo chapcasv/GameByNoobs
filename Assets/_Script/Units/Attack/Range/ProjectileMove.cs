@@ -19,8 +19,6 @@ namespace PH
             _sender = sender;
             _holder = holder;
             _type = type;
-
-
         }
 
         public void SetUp(BaseUnit currentTarget, int rawDmg)
