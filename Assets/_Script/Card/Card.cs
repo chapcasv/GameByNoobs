@@ -11,6 +11,7 @@ namespace PH
         [SerializeField] int cardID;
         [Multiline]
         [SerializeField] string cardDiscription;
+        [SerializeField] protected CardRank rank;
         public BaseProperties[] baseProperties;
         [SerializeField] protected Faction[] Faction;
         [SerializeField] protected CardDropPlaceLogic dropPlace;
@@ -20,6 +21,7 @@ namespace PH
         //Use for ConvertCard
         public int CardID { get => cardID; }
         public string GetDiscription => cardDiscription;
+        public CardRank GetRank => rank;
 
         public abstract TypeMode GetCardType();
 
