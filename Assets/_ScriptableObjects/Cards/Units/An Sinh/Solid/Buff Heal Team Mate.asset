@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d801b8fea8010438fce74663590bde, type: 3}
-  m_Name: SolidSkill
+  m_Script: {fileID: 11500000, guid: e6256724af32bd24aa1ab7df8524680e, type: 3}
+  m_Name: Buff Heal Team Mate
   m_EditorClassIdentifier: 
-  abilityName: Chem
+  abilityName: "S\u0129 Kh\xED"
   icon: {fileID: 21300000, guid: eb29ae77c0cadc345b8ea35e2f45b6d5, type: 3}
-  range: 1
-  physicalDmg: 900
-  damageType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
+  deplay: 0.5
+  range: 32
+  heal: 120

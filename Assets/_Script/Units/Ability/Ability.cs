@@ -8,17 +8,23 @@ namespace PH
     {   
         [SerializeField] string abilityName;
         [SerializeField] Sprite icon;
-
+        [SerializeField] float deplay;
         [Range(1, 32)]
         [SerializeField] float range = 1;
         public string GetAbilityName => abilityName;
-      
+
+        public virtual float GetGetDeplay(UnitAtkSystem caster)
+        {
+            return deplay;
+        }
+
         public Sprite GetIcon => icon;
 
         public virtual float GetRange()
         {
             return range * 6 + 2.5f;//Cel Size
         }
+
 
         public abstract string GetDiscription(CardUnit unit);
         public abstract string GetDiscription(BaseUnit unit);

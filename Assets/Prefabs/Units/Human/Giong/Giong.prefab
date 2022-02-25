@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7395959521096508598}
+  - component: {fileID: 8449395811727363353}
   - component: {fileID: 4198868305596067016}
   - component: {fileID: 8650799828972894042}
   - component: {fileID: 6712483365231929870}
@@ -17,7 +18,6 @@ GameObject:
   - component: {fileID: 8578917598689141054}
   - component: {fileID: -7217649033805761315}
   - component: {fileID: 7063147757146676651}
-  - component: {fileID: 8449395811727363353}
   - component: {fileID: 2840048816109807183}
   - component: {fileID: 4296146975767277190}
   - component: {fileID: 8210475371143015350}
@@ -44,6 +44,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8449395811727363353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177814080495073556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d6ca7dffefcb441b81c56541d68134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pfAbilityVFX: {fileID: 7291093654426189277, guid: 925116b4ec89cbd458148fcae97a018a, type: 3}
+  normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
 --- !u!114 &4198868305596067016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,20 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3615f6547720a824e92222a4e3a82a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8449395811727363353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2177814080495073556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d6ca7dffefcb441b81c56541d68134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pfAbilityVFX: {fileID: 7291093654426189277, guid: 925116b4ec89cbd458148fcae97a018a, type: 3}
-  normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
 --- !u!114 &2840048816109807183
 MonoBehaviour:
   m_ObjectHideFlags: 0

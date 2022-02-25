@@ -12,6 +12,7 @@ namespace PH
         [SerializeField] List<CalPreMitigation> calPreMitigations;
 
         [SerializeField] Ability abilityAddOn;
+        [SerializeField] string abilityAnimName;
 
         [Header("Giong")]
         [SerializeField] int damageBonusG;
@@ -61,7 +62,7 @@ namespace PH
         {
             GiongAtkSystem atkSystem = (GiongAtkSystem)giong.GetAtkSystem;
 
-            atkSystem.ChangeAbility(abilityAddOn);
+            atkSystem.ChangeAbility(abilityAddOn,abilityAnimName);
 
             atkSystem.UpOneRoundAtkSPD(atkSpeedBonusG);
             atkSystem.UpOneRoundCritRate(critRateBonusG);

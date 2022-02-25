@@ -8,7 +8,6 @@ namespace PH
     {
         [SerializeField] protected DamageType normalAtkType;
 
-
         public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive)
@@ -74,23 +73,22 @@ namespace PH
             }
         }
 
-        protected IEnumerator WaitAbility()
+        protected virtual IEnumerator WaitAbility()
         {
             animator.SetBool(AnimEnum.IsMoving.ToString(), false);
 
-            canAttack = false;
-            canCastAbility = false;
-
             if (!IsDisableAtk)
             {
+                canAttack = false;
+                canCastAbility = false;
+
                 animator.SetTrigger(AnimEnum.IsCastAbility.ToString());
                 PlayAbilityVFX();
 
-                yield return new WaitForSeconds(waitBetweenAttack);
+                yield return new WaitForSeconds(ability.GetGetDeplay(this));
                 canAttack = true;
                 canCastAbility = true;
             }
-
         }
 
         //animation event

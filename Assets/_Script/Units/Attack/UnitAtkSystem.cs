@@ -136,7 +136,7 @@ namespace PH
         private void InitAbilityVFX()
         {
             abilityVFXes = new Queue<AbilityVFX>();
-            var vfx = Instantiate(pfAbilityVFX, transform);
+            var vfx = Instantiate(pfAbilityVFX, transform.position, Quaternion.identity, transform);
             vfx.Constructor(this);
             abilityVFXes.Enqueue(vfx);
         }

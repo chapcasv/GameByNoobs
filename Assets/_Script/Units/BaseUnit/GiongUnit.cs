@@ -21,6 +21,7 @@ namespace PH
         {
             Atk = gameObject.GetComponent<GiongAtkSystem>();
             Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.Abitity, SurvivalStat, anim);
+            Atk.Holder = this;
         }
 
         public void IncreaseGiongWPcount()
