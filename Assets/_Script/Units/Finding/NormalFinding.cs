@@ -52,6 +52,12 @@ namespace PH
 
             var path = GridBoard.GetPath(currentNode, destination);
 
+            if(path.Count == 1)
+            {
+                Debug.Log("path count is zero");
+                return null;
+            }
+
             if (path == null) return destination;
             if (path[1].IsOccupied) return destination;
 

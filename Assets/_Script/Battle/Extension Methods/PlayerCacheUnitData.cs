@@ -123,6 +123,10 @@ namespace PH
                 ReuseManaStat(cacheUnit, unit);
                 ReuseSurvialStat(cacheUnit, unit);
 
+                unit.InTeamFight = false;
+                unit.RemoveCurrentTarget();
+                unit.ResetMove();
+
                 VFXManager.Instance.ReuseUnit(unit);
 
                 DictionaryTeamBattle.AddUnit(unit.GetTeam(), unit);

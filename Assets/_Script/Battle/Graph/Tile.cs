@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IDropHandler
+namespace PH
 {
-    public void OnDrop(PointerEventData eventData)
+    public class Tile : MonoBehaviour
     {
-        Debug.Log("drop");
+        
     }
 }
+

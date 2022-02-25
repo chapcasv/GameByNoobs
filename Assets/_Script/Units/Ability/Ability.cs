@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PH
 {   
@@ -16,7 +15,7 @@ namespace PH
       
         public Sprite GetIcon => icon;
 
-        public float GetRange()
+        public virtual float GetRange()
         {
             return range * 6 + 2.5f;//Cel Size
         }

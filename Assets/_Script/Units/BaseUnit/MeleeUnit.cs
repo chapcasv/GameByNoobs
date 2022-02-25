@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PH
 {   
-    [RequireComponent(typeof(MeleeUnitAtk))]
+    //[RequireComponent(typeof(MeleeUnitAtk))]
     [RequireComponent(typeof(DragUnit))]
     [RequireComponent(typeof(UnitEquipment))]
     [RequireComponent(typeof(UnitStatusEffect))]
@@ -17,7 +17,7 @@ namespace PH
     {
         protected override void SetUpAttack(CardUnit unit)
         {
-            Atk = gameObject.GetComponent<MeleeUnitAtk>();
+            Atk = gameObject.GetComponent<UnitAtkSystem>();
             Atk.Constructor(unit.AtkSpeed, unit.Range, unit.Damage, unit.Abitity, SurvivalStat, anim);
             Atk.Holder = this;
         }

@@ -84,7 +84,6 @@ namespace PH.GraphSystem
 
             while (openlist.Count > 0)
             {
-
                 //Get the node with smaller distance
                 openlist = openlist.OrderBy(x => distances[x]).ToList();
                 Node current = openlist[0];
@@ -102,6 +101,7 @@ namespace PH.GraphSystem
                     path.Insert(0, current);
                     break;
                 }
+
                 foreach (Node neighbor in Neighbors(current))
                 {
                     float distance = Distance(current, neighbor);
