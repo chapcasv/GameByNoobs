@@ -8,7 +8,7 @@ namespace PH
     {   
         [SerializeField] string abilityName;
         [SerializeField] Sprite icon;
-        [SerializeField] float deplay;
+        [SerializeField] float deplay = 0.7f;
         [Range(1, 32)]
         [SerializeField] float range = 1;
         public string GetAbilityName => abilityName;
