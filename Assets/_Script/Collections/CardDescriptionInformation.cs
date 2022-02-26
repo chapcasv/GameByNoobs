@@ -7,7 +7,7 @@ namespace PH
         [SerializeField] private RectTransform content;
         private RectTransform nonUnitSize;
         private UnityEngine.UI.ScrollRect scrollrect;
-        private float maxSize = 396f; //size on display
+        private float maxSize = 343f; //size on display
         private float minSize = 200f;
         private float currentSize;
         private void Start()

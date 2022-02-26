@@ -9,18 +9,47 @@ namespace PH
 {
     public class CardVizInfoCollection : CardVisual
     {
+        [System.Serializable]
+        public class InforTab
+        {
+            public Button main;
+            public Image selected;
+            public Action Onselected;
+            public void Init()
+            {
+                Onselected += OnClickCallBack;
+                main.onClick.AddListener(() => Onselected?.Invoke());
+            }
+
+            private void OnClickCallBack()
+            {
+                selected.gameObject.SetActive(true);
+                
+            }
+            public void DeSelect()
+            {
+                selected.gameObject.SetActive(false);
+            }
+            public void Setactive(bool active)
+            {
+                main.interactable = active;
+            }
+        }
         [SerializeField] Image backgroundAvt;
         [SerializeField] Image backgroundName;
-
-        [SerializeField] TextMeshProUGUI discription;
+        [Header("ButtonTab")]
+        [SerializeField] private InforTab descriptionTab;
+        [SerializeField] private InforTab detailButtonTab;
+        [Header("Survival Stat")]
+        
         [SerializeField] TextMeshProUGUI hpValue;
         [SerializeField] TextMeshProUGUI manaValue;
-        [SerializeField] TextMeshProUGUI priceValue;
+       
         [Header("Stat Unit")]
-        [SerializeField] private GameObject surStat;
+        [SerializeField] private GameObject borderBar;
         [SerializeField] private GameObject cardDescription;
-        [SerializeField] private GameObject unitInfor;
-        [SerializeField] private GameObject unitSkill;
+        [SerializeField] private GameObject unitDetails;
+
         [SerializeField] TextMeshProUGUI orPhysicalDmg;
         [SerializeField] TextMeshProUGUI orMagicPower;
         [SerializeField] TextMeshProUGUI orArmor;
@@ -36,9 +65,10 @@ namespace PH
         [SerializeField] TextMeshProUGUI abilityName;
         [SerializeField] TextMeshProUGUI abilityDiscription;
        
-
+        [Header("Other Information")]
+        [SerializeField] TextMeshProUGUI discription;
         [SerializeField] private ALLCard _allCards;
-     
+        [SerializeField] TextMeshProUGUI priceValue;
         private const int MAGIC_POWER_DEFAULT = 100;
         private const int CRIT_RATE_DEFAULT = 25;
         private const int CRIT_DMG_DEFAULT = 130;
@@ -49,6 +79,27 @@ namespace PH
             LoadCard(card);
             LoadPrice(cardUI);
             RefreshRankColor(card);
+        }
+        private void Start()
+        {
+            detailButtonTab.Init();
+            descriptionTab.Init();
+
+            descriptionTab.Onselected += OnDescriptionSelect;
+            detailButtonTab.Onselected += OnDetailSelect;
+        }
+        private void OnDescriptionSelect()
+        {
+            detailButtonTab.DeSelect();
+            cardDescription.SetActive(true);
+            unitDetails.SetActive(false);
+        }
+        private void OnDetailSelect()
+        {
+            descriptionTab.DeSelect();
+            cardDescription.SetActive(false);
+            unitDetails.SetActive(true);
+            
         }
         protected override void LoadCard(Card card)
         {
@@ -79,9 +130,18 @@ namespace PH
      
         private void LoadInfo(Card card)
         {
-            //unitInfor.SetActive(false);
-            //unitSkill.SetActive(false);
-            surStat.SetActive(false);
+            cardDescription.SetActive(true);
+            NonUnitLoad();
+        }
+
+        private void NonUnitLoad()
+        {
+            unitDetails.SetActive(false);
+            borderBar.SetActive(false);
+            detailButtonTab.Setactive(false);
+            descriptionTab.Setactive(false);
+            detailButtonTab.DeSelect();
+            descriptionTab.DeSelect();
         }
 
         private void LoadCardInfoUnit(Card card)
@@ -89,8 +149,12 @@ namespace PH
             CardUnit unit = (CardUnit)card;
 
             LoadInfoBar(unit);
-            //LoadCardUnitInfoStat(unit);
-            //LoadUnitAbility(unit);
+            LoadCardUnitInfoStat(unit);
+            LoadUnitAbility(unit);
+            detailButtonTab.Setactive(true);
+            descriptionTab.Setactive(true);
+            descriptionTab.Onselected?.Invoke();
+            
         }
 
         private void LoadUnitAbility(CardUnit unit)
@@ -100,7 +164,7 @@ namespace PH
             abilityName.text = a.GetAbilityName;
             abilityDiscription.text = a.GetDiscription(unit);
             abilityIcon.sprite = a.GetIcon;
-            unitSkill.SetActive(true);
+           
         }
 
         private void LoadCardUnitInfoStat(CardUnit unit)
@@ -114,14 +178,14 @@ namespace PH
             orLifeSteal.text = LIFE_STEAL_DEFAULT.ToString() + "%";
             orCritRate.text = CRIT_RATE_DEFAULT.ToString() + "%";
             orCritDmg.text = CRIT_DMG_DEFAULT.ToString() + "%";
-            unitInfor.SetActive(true);
+            
         }
 
         private void LoadInfoBar(CardUnit unit)
         {
             hpValue.text = unit.Hp.ToString() + "/" + unit.Hp.ToString();
             manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
-            surStat.SetActive(true);
+            borderBar.SetActive(true);
         }
         private void RefreshRankColor(Card card)
         {
@@ -130,7 +194,6 @@ namespace PH
             backgroundName.color = rank.BaseColor;
         }
         
-
     }
 
 }

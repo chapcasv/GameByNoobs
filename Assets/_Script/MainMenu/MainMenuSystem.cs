@@ -16,6 +16,7 @@ namespace PH
 
         [SerializeField] Button B_Play;
         [SerializeField] Button B_Collection;
+        [SerializeField] Button B_Playerdeck;
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
         [SerializeField] TextMeshProUGUI playerName;
@@ -28,7 +29,10 @@ namespace PH
         {
             B_Play.onClick.AddListener(() => ShowPlayMode());
             B_Collection.onClick.AddListener(() => GoToCollection());
+            B_Playerdeck.onClick.AddListener(GoToDeck);
         }
+
+       
 
         void Start()
         {
@@ -65,7 +69,10 @@ namespace PH
         {
             SceneManager.LoadScene(SceneSelect.Collection.ToString());
         }
-
+        private void GoToDeck()
+        {
+            SceneManager.LoadScene(SceneSelect.PlayerDeck.ToString());
+        }
         private void OnDisable()
         {
             B_Collection.onClick.RemoveAllListeners();
