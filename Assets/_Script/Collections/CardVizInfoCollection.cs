@@ -78,7 +78,7 @@ namespace PH
         {
             LoadCard(card);
             LoadPrice(cardUI);
-            RefreshRankColor(card);
+            LoadRankColor(card);
         }
         private void Start()
         {
@@ -187,7 +187,7 @@ namespace PH
             manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
             borderBar.SetActive(true);
         }
-        private void RefreshRankColor(Card card)
+        private void LoadRankColor(Card card)
         {
             var rank = card.GetRank;
             backgroundAvt.color = rank.BackGroundColor;

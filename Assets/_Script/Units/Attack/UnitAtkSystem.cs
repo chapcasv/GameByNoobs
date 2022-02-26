@@ -7,7 +7,9 @@ namespace PH
     public abstract class UnitAtkSystem : MonoBehaviour
     {
         #region Properties
+        [SerializeField] protected AbilityVFX pfAbilityVFX;
         protected Ability ability;
+        protected Queue<AbilityVFX> abilityVFXes;
 
         protected BaseUnit currentTarget;
         protected BaseUnit holder;
@@ -128,6 +130,33 @@ namespace PH
 
             animator = anim;
             rig = GetComponent<Rigidbody>();
+            InitAbilityVFX();
+        }
+
+        private void InitAbilityVFX()
+        {
+            abilityVFXes = new Queue<AbilityVFX>();
+            var vfx = Instantiate(pfAbilityVFX, transform.position, Quaternion.identity, transform);
+            vfx.Constructor(this);
+            abilityVFXes.Enqueue(vfx);
+        }
+
+        protected void PlayAbilityVFX()
+        {
+            if(abilityVFXes.Count > 0)
+            {
+                var vfx = abilityVFXes.Dequeue();
+                vfx.Play();
+            }
+            else
+            {
+                Debug.LogWarning(holder.gameObject.name + " Ability VFX pool is empty");
+            }
+        }
+
+        public void AbilityVFXReturn(AbilityVFX abilityVFX)
+        {
+            abilityVFXes.Enqueue(abilityVFX);
         }
 
         #region Reuse Methods - Use for PlayerCacheUnitData
@@ -327,8 +356,7 @@ namespace PH
         protected void RotationFollowTarget(BaseUnit currentTarget)
         {
             Vector3 moveDir = (currentTarget.transform.position - transform.position).normalized;
-            Quaternion target = Quaternion.LookRotation(moveDir);
-            rig.rotation = Quaternion.Lerp(target, transform.rotation, Time.deltaTime * 10f);
+            rig.rotation = Quaternion.LookRotation(moveDir);
         }
 
         private float CaculatorRangeAtk(float range)

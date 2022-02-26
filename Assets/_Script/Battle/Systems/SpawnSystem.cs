@@ -83,6 +83,7 @@ namespace PH
                                 _enemyZone, _eDragLogic, _team1Base);
 
             AddDefaultCalDamage(_lastUnitSpawn);
+
             VFXManager.Instance.SpawnUnit(spawnNode.WorldPosition, _lastUnitSpawn);
             //Add TriggerOnBoard after spawn
             OnSpawn?.Invoke();
@@ -96,7 +97,6 @@ namespace PH
             AddDefaultCalDamage(_lastUnitSpawn);
             _memberSystem.IncreaseMember();
 
-            //_lastUnitSpawn.gameObject.SetActive(false);
             VFXManager.Instance.DropUnit(spawnNode.WorldPosition);
 
             //Add TriggerOnBoard after spawn

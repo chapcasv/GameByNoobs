@@ -207,6 +207,9 @@ namespace PH
             return canEquip;
         }
 
+        public void RemoveCurrentTarget() => currentTarget = null;
+        public void ResetMove() => Move.IsMoving = false;
+
         protected virtual void AttackInRange()
         {
             Atk.CurrentTarget = currentTarget;

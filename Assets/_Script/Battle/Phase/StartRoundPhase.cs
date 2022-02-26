@@ -53,11 +53,8 @@ namespace PH
             foreach (var unit in allUnitPlayer)
             {
                 PlayerCacheUnitData.ReuseUnit(unit);
-                SetInTeamFight(unit);
             }
         }
-
-        private void SetInTeamFight(BaseUnit unit) => unit.InTeamFight = false;
     }
 }
 

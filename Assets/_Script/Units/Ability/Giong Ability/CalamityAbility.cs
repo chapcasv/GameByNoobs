@@ -8,7 +8,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Ability/Giong/Calamity")]
     public class CalamityAbility : Ability
     {
-        [SerializeField] int physicalDmg;
+        [SerializeField] int dmgAbilityBonus;
         [SerializeField] int pct;
         [SerializeField] int critDmgBonus;
         [SerializeField] StatusEffect effect;
@@ -19,27 +19,30 @@ namespace PH
         {
             var Atk = caster.GetAtkSystem;
             Atk.UpOneRoundCritDmg(critDmgBonus);
-            float dmg = GetPreMitigationDmg(Atk.ORPhysicalDamage);
+
+            float dmg = GetPreMitigationDmg(Atk.ORMagicPower);
+
             currentTarget.TakeDamage(caster, (int)dmg, damageType);
+
             currentTarget.GetUnitStatusEffect.ApplyStatusEffect(effect);
         }
 
         public override string GetDiscription(CardUnit unit)
         {
-            float preMitigationDmg = GetPreMitigationDmg(unit.Damage);
+            float preMitigationDmg = GetPreMitigationDmg(100); //magic PCT
             return GetDiscription((int)preMitigationDmg);
         }
 
         public override string GetDiscription(BaseUnit unit)
         {
-            int dmg = unit.GetAtkSystem.ORPhysicalDamage;
+            int dmg = unit.GetAtkSystem.ORMagicPower;
             float preMitigationDmg = GetPreMitigationDmg(dmg);
             return GetDiscription((int)preMitigationDmg);
         }
 
-        private float GetPreMitigationDmg(int orPhysicalDmg)
+        private float GetPreMitigationDmg(int orDmg)
         {
-            float preMitigationDmg = physicalDmg + pct * (orPhysicalDmg / 100f);
+            float preMitigationDmg = dmgAbilityBonus + pct * (orDmg / 100f);
             return preMitigationDmg;
         }
 

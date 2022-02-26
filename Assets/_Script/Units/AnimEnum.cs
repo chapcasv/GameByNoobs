@@ -8,7 +8,8 @@ namespace PH
     {
         IsAtk,
         IsMoving,
-        IsDie
+        IsDie,
+        IsCastAbility
     }
 }
 

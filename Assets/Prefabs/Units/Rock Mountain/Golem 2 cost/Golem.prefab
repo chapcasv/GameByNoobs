@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c250ad0d891bb0448abdf10ebc35d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pfAbilityVFX: {fileID: 7291093654426189277, guid: 925116b4ec89cbd458148fcae97a018a, type: 3}
   normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
 --- !u!114 &1892913576822725617
 MonoBehaviour:
@@ -262,6 +263,10 @@ PrefabInstance:
     - target: {fileID: 6725962000407842082, guid: 199995e4c6a1dbc45b91a89650325150, type: 3}
       propertyPath: m_Name
       value: Canvas Unit Infomation
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804489957068481884, guid: 199995e4c6a1dbc45b91a89650325150, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 199995e4c6a1dbc45b91a89650325150, type: 3}

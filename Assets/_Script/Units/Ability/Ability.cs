@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PH
 {   
@@ -9,17 +8,23 @@ namespace PH
     {   
         [SerializeField] string abilityName;
         [SerializeField] Sprite icon;
-
+        [SerializeField] float deplay = 0.7f;
         [Range(1, 32)]
         [SerializeField] float range = 1;
         public string GetAbilityName => abilityName;
-      
+
+        public virtual float GetGetDeplay(UnitAtkSystem caster)
+        {
+            return deplay;
+        }
+
         public Sprite GetIcon => icon;
 
-        public float GetRange()
+        public virtual float GetRange()
         {
             return range * 6 + 2.5f;//Cel Size
         }
+
 
         public abstract string GetDiscription(CardUnit unit);
         public abstract string GetDiscription(BaseUnit unit);
