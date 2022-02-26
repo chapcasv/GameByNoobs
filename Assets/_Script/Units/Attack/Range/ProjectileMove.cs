@@ -27,7 +27,7 @@ namespace PH
             _rawDmg = rawDmg;
 
             Vector3 rad = new Vector3(-1, 1, 0);
-            iTween.PunchPosition(gameObject, rad, 0.5f);
+            iTween.PunchPosition(gameObject, rad, 2f);
 
             gameObject.SetActive(true);
         }
