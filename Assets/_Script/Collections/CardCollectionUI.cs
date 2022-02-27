@@ -2,32 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace PH
 {
     public class CardCollectionUI : CardVisual
     {
-        [SerializeField] private Button main;
+        private Button main;
         private CardVizInfoCollection _cardInformation;
-        private bool isUnlock;
+        private bool _isUnlock;
         private int _cost;
-        private int price;
+        private int _price;
         public System.Action<CardCollectionUI> OnClickCardCollection;
         public System.Action OnClick;
        
-        public bool IsUnlocked { get => isUnlock; }
+        public bool IsUnlocked { get => _isUnlock; }
         public int Cost { get => _cost;  }
-        public int Price { get => price; }
+        public int Price { get => _price; }
    
-        public void Init(Card card, GetBaseProperties getBaseProperties, CardVizInfoCollection cardInformation)
+        public void Init(Card card, int price, CardVizInfoCollection cardInformation)
         {
-            this._card = card;
-            this.isUnlock = card.Unlocked;
-            this._cardInformation = cardInformation;
-            this._cost = getBaseProperties.GetCost(card);
-            this.price = getBaseProperties.GetPrice(card);
+            _card = card;
+            _isUnlock = card.Unlocked;
+            _cardInformation = cardInformation;
+            _cost = card.Cost;
+            _price = price;
+
             OnClick = OnClickCallBack;
-            main.onClick.AddListener(() => OnClick?.Invoke());
+            main = GetComponent<Button>();
+            
+            if(main != null)
+            {
+                main.onClick.AddListener(() => OnClick?.Invoke());
+            }
         }
+
         private void OnClickCallBack()
         {
             _cardInformation.LoadCardInformation(_card, this);
