@@ -130,8 +130,9 @@ namespace PH
 
         private void LoadInfoFirstCardActive()
         {
-            var card = listCardUI.Where(c => c.gameObject.activeInHierarchy).FirstOrDefault();
-            card.OnClick?.Invoke();
+            var cardUI = listCardUI.Where(c => c.gameObject.activeInHierarchy).FirstOrDefault();
+            cardUI.OnClick?.Invoke();
+            SelectCardCollectionUI(cardUI);
         }
 
         private void DisplayFilter(bool show)

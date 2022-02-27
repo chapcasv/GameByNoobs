@@ -52,6 +52,7 @@ namespace PH
         private bool EnoughCoin(Card card)
         {
             var coin = SaveSystem.LoadCoin();
+            Debug.Log(card);
             var price = get.GetPrice(card);
             return coin >= price;
         }
