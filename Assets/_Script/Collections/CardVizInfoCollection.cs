@@ -64,6 +64,7 @@ namespace PH
             LoadCardDiscription(card);
             LoadInfoByType(card);
         }
+
         private void AddListenerDetail()
         {
             B_descriptionDetail.onClick.AddListener(OnDescriptionDetailCallBack);
