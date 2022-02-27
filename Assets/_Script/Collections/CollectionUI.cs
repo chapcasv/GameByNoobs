@@ -3,40 +3,97 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
+using TMPro;
+using PH.Save;
 
 namespace PH
 {
     public class CollectionUI : MonoBehaviour
     {
-        [SerializeField] private CardVizInfoCollection cardInformation;
-        
+        [SerializeField] CardVizInfoCollection cardInformation;
+        [SerializeField] RectTransform content;
+        [SerializeField] CardCollectionUI cardPrefab;
+        [SerializeField] ALLCard cardCollections;
 
-        [SerializeField] private CardCollectionUI cardPrefab;
-        [SerializeField] private ALLCard allCards;
-        [SerializeField] private Button backButton;
-        [SerializeField] private Button OnUnlockedButton;
-        [SerializeField] private GetBaseProperties getBaseProperties;
-        [SerializeField] private Button UnlockButton;
-        [SerializeField] private Button BuyButton;
+        [SerializeField] GetBaseProperties getBaseProperties;
+
+        [Header("Currency")]
+        [SerializeField] TextMeshProUGUI coin;
+        [SerializeField] TextMeshProUGUI diamond;
+
+
+        [Header("Button")]
+        [SerializeField] Button backButton;
+        [SerializeField] Button OnUnlockedButton;
+        [SerializeField] Button UnlockButton;
+        [SerializeField] Button BuyButton;
+
         [Header("CheckBox")]
-        [SerializeField] private GameObject checkBoxScreen;
-        [SerializeField] private Button checkbox;
+        [SerializeField] GameObject checkBoxScreen;
+        [SerializeField] Toggle checkbox;
 
-        [SerializeField] private List<CardCollectionUI> listCard;
-        [SerializeField]private List<CardCollectionUI> LockCards;
-        
+        [SerializeField] List<CardCollectionUI> listCard;
+        private List<Card> clone;
+
         private void Start()
+        {
+            AddListener();
+            DisplayCurrency();
+            SortByCost();
+            InstantiateCardCollectionUI();
+            ShowUnlockedCard();
+        }
+
+        private void AddListener()
         {
             backButton.onClick.AddListener(BackMainMenu);
 
-            checkbox.onClick.AddListener(OpenCheckBox);
+            checkbox.onValueChanged.AddListener(OpenCheckBox);
             OnUnlockedButton.onClick.AddListener(ShowLockCardCallBack);
             UnlockButton.onClick.AddListener(UnlockButtoncallBack);
             BuyButton.onClick.AddListener(BuyButtonCallBack);
-            PopUpCardCollection();
-            ArrangeListCard();
-            ShowUnlockedCard();
-            
+        }
+
+        #region Currency
+
+        private void DisplayCurrency()
+        {
+            int coin = SaveSystem.LoadCoin();
+            this.coin.text = coin.ToString();
+        }
+
+        #endregion
+
+        private void SortByCost()
+        {
+            clone = new List<Card>(cardCollections.allCard);
+            clone = clone.OrderBy(x => x.Cost).ToList();
+        }
+
+        private void InstantiateCardCollectionUI()
+        {
+            for (int i = 0; i < clone.Count; i++)
+            {
+                var c = clone[i];
+
+                var card = Instantiate(cardPrefab, content);
+                card.SetCard(c);
+                int price = getBaseProperties.GetPrice(c);
+                card.Init(c, price, cardInformation);
+                card.OnClickCardCollection = SelectCardCollectionUI;
+                listCard.Add(card);
+            }
+        }
+
+        private void ShowLockCardCallBack()
+        {
+            for (int i = 0; i < listCard.Count; i++)
+            {
+                bool unlocked = listCard[i].IsUnlocked;
+                listCard[i].gameObject.SetActive(!unlocked);
+            }
+            LoadInformation();
         }
 
         private void BuyButtonCallBack()
@@ -46,32 +103,27 @@ namespace PH
 
         private void UnlockButtoncallBack()
         {
-            throw new NotImplementedException();
+
         }
 
-        private void OpenCheckBox()
+        private void OpenCheckBox(bool show)
         {
-            bool active = checkBoxScreen.activeInHierarchy;
-            checkBoxScreen.SetActive(!active);
+            checkBoxScreen.SetActive(!show);
         }
 
-
-        private void ShowLockCardCallBack()
-        {
-            bool active = LockCards[0].gameObject.activeInHierarchy;
-            for (int i = 0; i < LockCards.Count; i++)
-            {
-                LockCards[i].gameObject.SetActive(!active);
-            }
-            LoadInformation();
-        }
 
         private void ShowUnlockedCard()
         {
             for (int i = 0; i < listCard.Count; i++)
             {
-                var unlock = listCard[i].IsUnlocked;
-                listCard[i].OnRefreshCard(unlock);
+                if (listCard[i].IsUnlocked == true)
+                {
+                    listCard[i].OnRefreshCard(true);
+                }
+                else
+                {
+                    listCard[i].OnRefreshCard(false);
+                }
             }
             LoadInformation();
         }
@@ -83,77 +135,29 @@ namespace PH
                 if (item.gameObject.activeInHierarchy)
                 {
                     item.OnClick?.Invoke();
+
                     break;
                 }
             }
         }
 
-        private void ArrangeListCard()
-        {
-            SortByCost();
-            foreach (var item in listCard)
-            {
-                item.gameObject.transform.SetParent(cardPrefab.transform.parent);
-                item.OnClickCardCollection = SelectCardCollectionUI;
-            }
-        }
-
-        private void SortByCost()
-        {
-            CardCollectionUI temp;
-
-            for (int i = 0; i < listCard.Count; i++)
-            {
-                for (int j = i + 1; j < listCard.Count; j++)
-                {
-                    if (listCard[j].Cost < listCard[i].Cost)
-                    {
-                        temp = listCard[i];
-                        listCard[i] = listCard[j];
-                        listCard[j] = temp;
-                    }
-                }
-            }
-        }
-     
-        private void PopUpCardCollection()
-        {
-            var firstCard = allCards.allCard[0];
-            cardPrefab.SetCard(firstCard);
-            cardPrefab.Init(firstCard, getBaseProperties, cardInformation);
-            if (!cardPrefab.IsUnlocked)
-            {
-                LockCards.Add(cardPrefab);
-            }
-            listCard.Add(cardPrefab);
-            for (int i = 1; i < allCards.allCard.Count; i++)
-            {
-                var card = allCards.allCard[i];
-                var _cardCollection = Instantiate(cardPrefab);
-                _cardCollection.SetCard(card);
-                
-                _cardCollection.Init(card, getBaseProperties, cardInformation);
-                if (!_cardCollection.IsUnlocked)
-                {
-                    LockCards.Add(_cardCollection);
-                }
-                listCard.Add(_cardCollection);
-            }
-        }
 
         private void BackMainMenu()
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
+
         private void SelectCardCollectionUI(CardCollectionUI card)
         {
             UnlockButton.interactable = !card.IsUnlocked;
             BuyButton.interactable = card.IsUnlocked;
         }
-        private void OnDisable()
+
+        private void OnDestroy()
         {
             backButton.onClick.RemoveAllListeners();
-            checkbox.onClick.RemoveAllListeners();
+
+            checkbox.onValueChanged.RemoveAllListeners();
             OnUnlockedButton.onClick.RemoveAllListeners();
             UnlockButton.onClick.RemoveAllListeners();
             BuyButton.onClick.RemoveAllListeners();
