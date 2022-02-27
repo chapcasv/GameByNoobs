@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PH.Save;
 
 namespace PH
 {   
@@ -18,6 +19,25 @@ namespace PH
             }
 
             throw new System.Exception("Dont have id in data");
+        }
+
+        /// <summary>
+        /// Set properties unlock by data
+        /// </summary>
+        public void ReloadUnlock()
+        {
+            foreach (var card in allCard)
+            {
+                card.Unlocked = false;
+            }
+
+            var playerCards = SaveSystem.LoadCards();
+            foreach (var playerCard in playerCards)
+            {
+                Card c = GetCard(playerCard.ID);
+                c.Unlocked = true;
+            }
+           
         }
     }
 }

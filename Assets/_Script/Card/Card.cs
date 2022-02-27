@@ -24,7 +24,6 @@ namespace PH
         public string GetDiscription => cardDiscription;
         public int Cost => cost;
         public CardRank GetRank => rank;
-
         public abstract TypeMode GetCardType();
 
         public virtual void OnSetFactionViz(CardVisual cardViz) {
@@ -41,11 +40,10 @@ namespace PH
             return Faction;
         }
 
-        public void OnSetUnlocked(CardVisual cardViz)
+        public void OnSetUnlocked(CardCollectionUI cardViz)
         {
             cardViz.lockImg.gameObject.SetActive(!Unlocked);
         }
-    
 
         public bool CanDropBoard(Node node)
         {

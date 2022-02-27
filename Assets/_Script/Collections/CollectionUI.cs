@@ -14,46 +14,46 @@ namespace PH
         [SerializeField] CardVizInfoCollection cardInformation;
         [SerializeField] RectTransform content;
         [SerializeField] CardCollectionUI cardPrefab;
-        [SerializeField] ALLCard cardCollections;
-
         [SerializeField] GetBaseProperties getBaseProperties;
 
         [Header("Currency")]
         [SerializeField] TextMeshProUGUI coin;
         [SerializeField] TextMeshProUGUI diamond;
 
-
         [Header("Button")]
-        [SerializeField] Button backButton;
-        [SerializeField] Button OnUnlockedButton;
-        [SerializeField] Button UnlockButton;
-        [SerializeField] Button BuyButton;
+        [SerializeField] Button B_Back;
+        [SerializeField] Button B_DisplayCardLocked;
+        [SerializeField] Button B_Unlock;
+        [SerializeField] Button B_Buy;
 
         [Header("CheckBox")]
-        [SerializeField] GameObject checkBoxScreen;
+        [SerializeField] GameObject filterPopUp;
         [SerializeField] Toggle checkbox;
+        [SerializeField] List<CardCollectionUI> listCardUI;
 
-        [SerializeField] List<CardCollectionUI> listCard;
-       
-        private List<Card> clone;
+        private ALLCard cardCollections;
+        private Dictionary<bool, List<CardCollectionUI>> dictLocked;
+        private CardCollectionUI cardUIselect;
+
+        public void Constructor(ALLCard all)
+        {
+            cardCollections = all;
+        }
 
         private void Start()
         {
             AddListener();
             DisplayCurrency();
-            SortByCost();
-            InstantiateCardCollectionUI();
-            ShowUnlockedCard();
+            InitAllCard();
+            LoadInfoFirstCardActive();
         }
 
         private void AddListener()
         {
-            backButton.onClick.AddListener(BackMainMenu);
+            B_Back.onClick.AddListener(BackMainMenu);
 
-            checkbox.onValueChanged.AddListener(OpenCheckBox);
-            OnUnlockedButton.onClick.AddListener(ShowLockCardCallBack);
-            UnlockButton.onClick.AddListener(UnlockButtoncallBack);
-            BuyButton.onClick.AddListener(BuyButtonCallBack);
+            checkbox.onValueChanged.AddListener(DisplayFilter);
+            B_DisplayCardLocked.onClick.AddListener(DisplayCardLocked);
         }
 
         #region Currency
@@ -66,102 +66,129 @@ namespace PH
 
         #endregion
 
-        private void SortByCost()
+        #region Init all cards in collection
+        private void InitAllCard()
+        {   
+            cardCollections.ReloadUnlock();
+
+            List<Card> sortedList = SortByCost();
+            InstantiateCardUI(sortedList);
+            InitDictLocked(listCardUI);
+        }
+
+        private List<Card> SortByCost()
         {
-            clone = new List<Card>(cardCollections.allCard);
+            List<Card> clone = new List<Card>(cardCollections.allCard);
             clone = clone.OrderBy(x => x.Cost).ToList();
+            return clone;
         }
 
-        private void InstantiateCardCollectionUI()
+        private void InstantiateCardUI(List<Card> sortedList)
         {
-            for (int i = 0; i < clone.Count; i++)
+            for (int i = 0; i < sortedList.Count; i++)
             {
-                var c = clone[i];
+                var c = sortedList[i];
 
-                var card = Instantiate(cardPrefab, content);
-                card.SetCard(c);
-                int price = getBaseProperties.GetPrice(c);
-                card.Init(c, price, cardInformation);
-                card.OnClickCardCollection = SelectCardCollectionUI;
-                listCard.Add(card);
+                var cardUI = Instantiate(cardPrefab, content);
+                cardUI.Init(getBaseProperties, cardInformation);;
+                cardUI.OnClickCardCollection += SelectCardCollectionUI;
+                cardUI.SetCard(c);
+                listCardUI.Add(cardUI);
             }
         }
 
-        private void ShowLockCardCallBack()
+        private void InitDictLocked(List<CardCollectionUI> listCardUI)
         {
-            for (int i = 0; i < listCard.Count; i++)
+            dictLocked = new Dictionary<bool, List<CardCollectionUI>>
             {
-                bool unlocked = listCard[i].IsUnlocked;
-                listCard[i].gameObject.SetActive(!unlocked);
-            }
-            LoadInformation();
-        }
+                [true] = new List<CardCollectionUI>(),
+                [false] = new List<CardCollectionUI>()
+            };
 
-        private void BuyButtonCallBack()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void UnlockButtoncallBack()
-        {
-
-        }
-
-        private void OpenCheckBox(bool show)
-        {
-            checkBoxScreen.SetActive(!show);
-        }
-
-
-        private void ShowUnlockedCard()
-        {
-            for (int i = 0; i < listCard.Count; i++)
+            foreach (var card in listCardUI)
             {
-                if (listCard[i].IsUnlocked == true)
-                {
-                    listCard[i].OnRefreshCard(true);
-                }
-                else
-                {
-                    listCard[i].OnRefreshCard(false);
-                }
-            }
-            LoadInformation();
-        }
-
-        private void LoadInformation()
-        {
-            foreach (var item in listCard)
-            {
-                if (item.gameObject.activeInHierarchy)
-                {
-                    item.OnClick?.Invoke();
-
-                    break;
-                }
+                bool isUnlock = card.IsUnlocked;
+                dictLocked[isUnlock].Add(card);
             }
         }
+        #endregion
 
+        private void DisplayCardLocked()
+        {
+            var listCardLocked = dictLocked[false];
+
+            foreach (var cardUI in listCardLocked)
+            {
+                bool isActive = cardUI.gameObject.activeInHierarchy;
+                cardUI.gameObject.SetActive(!isActive);
+            }
+
+            //After change display mode,
+            //load infomation first card avtive in list card UI
+            LoadInfoFirstCardActive();
+        }
+
+        private void LoadInfoFirstCardActive()
+        {
+            var card = listCardUI.Where(c => c.gameObject.activeInHierarchy).FirstOrDefault();
+            card.OnClick?.Invoke();
+        }
+
+        private void DisplayFilter(bool show)
+        {
+            filterPopUp.SetActive(!show);
+        }
 
         private void BackMainMenu()
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
 
-        private void SelectCardCollectionUI(CardCollectionUI card)
+        private void SelectCardCollectionUI(CardCollectionUI cardUI)
         {
-            UnlockButton.interactable = !card.IsUnlocked;
-            BuyButton.interactable = card.IsUnlocked;
+            CollectionManager.CardSelected = cardUI.GetCard;
+            cardUIselect = cardUI;
+            SetInteractableButton(cardUI);
         }
+
+        private void SetInteractableButton(CardCollectionUI cardUI)
+        {
+            B_Unlock.interactable = !cardUI.IsUnlocked;
+            B_Buy.interactable = cardUI.IsUnlocked;
+        }
+
+        public void Unlock(bool successful)
+        {
+            if (successful)
+            {
+                dictLocked[false].Remove(cardUIselect);
+                dictLocked[true].Add(cardUIselect);
+
+                //Reload visual after unlock
+                cardUIselect.SetCard(CollectionManager.CardSelected);
+
+                //Interactable unlock
+                SetInteractableButton(cardUIselect);
+                DisplayCurrency();
+            }
+        }
+
+        public void Buy(bool successful)
+        {
+            if (successful)
+            {
+                cardUIselect.SetCard(CollectionManager.CardSelected);
+                DisplayCurrency();
+            }
+        }
+     
 
         private void OnDestroy()
         {
-            backButton.onClick.RemoveAllListeners();
+            B_Back.onClick.RemoveAllListeners();
 
             checkbox.onValueChanged.RemoveAllListeners();
-            OnUnlockedButton.onClick.RemoveAllListeners();
-            UnlockButton.onClick.RemoveAllListeners();
-            BuyButton.onClick.RemoveAllListeners();
+            B_DisplayCardLocked.onClick.RemoveAllListeners();
         }
 
     }

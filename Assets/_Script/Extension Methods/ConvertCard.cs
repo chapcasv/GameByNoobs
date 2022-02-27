@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 namespace PH
 {
     public static class ConvertCard 
     {
-        public static PlayerCard CardToPlayerCard(Card card)
+        public static PlayerCard ToPlayerCard(Card card)
         {
-            PlayerCard cardData = new PlayerCard();
-            cardData.ID = card.CardID;
+            PlayerCard cardData = new PlayerCard
+            {
+                ID = card.CardID
+            };
             return cardData;
         }
 
@@ -20,7 +22,20 @@ namespace PH
             {
                 if (c.CardID == cardData.ID) return c;
             }
-            return null;
+            throw new Exception("Cant convert player card to Card !!!");
+        }
+
+        public static List<Card> PlayerCardsToCards(List<PlayerCard> cards, ALLCard allCards)
+        {
+            List<Card> listCard = new List<Card>();
+
+            foreach (var card in cards)
+            {
+                Card c = PlayerCardToCard(card, allCards);
+                listCard.Add(c);
+            }
+
+            return listCard;
         }
     }
 }

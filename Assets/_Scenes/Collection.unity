@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -836,6 +836,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25.215
       objectReference: {fileID: 0}
+    - target: {fileID: 2543284345024162092, guid: 87731b3312f87d34fbf96d8ed2e19b40, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2910677045496497764, guid: 87731b3312f87d34fbf96d8ed2e19b40, type: 3}
       propertyPath: m_SizeDelta.y
       value: 40.43
@@ -1556,6 +1560,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1939722282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939722284}
+  - component: {fileID: 1939722283}
+  m_Layer: 0
+  m_Name: Collection Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1939722283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939722282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ad2337d9c3d2344a730eaa9963aca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectionUI: {fileID: 5994963084054177057}
+  aLLCard: {fileID: 11400000, guid: e4b0ee94beca7b344bc45d30c412d7ff, type: 2}
+  playerLocalSO: {fileID: 11400000, guid: bd05483b45339b54b98717fdb863360d, type: 2}
+  unlockCard: {fileID: 11400000, guid: 52c4d68f870d6be4fb470b94259836da, type: 2}
+  B_Unlock: {fileID: 5994963085295764472}
+--- !u!4 &1939722284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939722282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1025.5773, y: 501.2536, z: -141.30072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3378591061867808418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1565,7 +1617,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9066108348422323490, guid: 80c49a208fc8d6b4aa906c8f6d77b3a2, type: 3}
       propertyPath: m_Name
-      value: CheckBox
+      value: FilterPopUp
       objectReference: {fileID: 0}
     - target: {fileID: 9066108348422323491, guid: 80c49a208fc8d6b4aa906c8f6d77b3a2, type: 3}
       propertyPath: m_Pivot.x
@@ -1826,17 +1878,16 @@ MonoBehaviour:
   cardInformation: {fileID: 1751791227}
   content: {fileID: 5994963084531108834}
   cardPrefab: {fileID: 4012006628350883103, guid: aec5da93e370bbc459ba13989e24c1f0, type: 3}
-  cardCollections: {fileID: 11400000, guid: e4b0ee94beca7b344bc45d30c412d7ff, type: 2}
   getBaseProperties: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
   coin: {fileID: 275931851}
   diamond: {fileID: 1770164407}
-  backButton: {fileID: 5994963085580179464}
-  OnUnlockedButton: {fileID: 5994963084579117324}
-  UnlockButton: {fileID: 5994963085295764472}
-  BuyButton: {fileID: 5994963084086409934}
-  checkBoxScreen: {fileID: 5994963084431244160}
+  B_Back: {fileID: 5994963085580179464}
+  B_DisplayCardLocked: {fileID: 5994963084579117324}
+  B_Unlock: {fileID: 5994963085295764472}
+  B_Buy: {fileID: 5994963084086409934}
+  filterPopUp: {fileID: 5994963084431244160}
   checkbox: {fileID: 5994963085165613505}
-  listCard: []
+  listCardUI: []
 --- !u!1 &5994963084054177071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2060,7 @@ GameObject:
   - component: {fileID: 5994963084086409935}
   - component: {fileID: 5994963084086409934}
   m_Layer: 0
-  m_Name: Buy
+  m_Name: B_Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2575,7 +2626,7 @@ GameObject:
   - component: {fileID: 5994963084579117322}
   - component: {fileID: 5994963084579117324}
   m_Layer: 0
-  m_Name: LockButton
+  m_Name: B_DisplayCardLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3300,7 +3351,7 @@ GameObject:
   - component: {fileID: 5994963085295764473}
   - component: {fileID: 5994963085295764472}
   m_Layer: 0
-  m_Name: Unlock
+  m_Name: B_Unlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

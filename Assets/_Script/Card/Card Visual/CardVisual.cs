@@ -11,14 +11,14 @@ namespace PH
         
         [SerializeField] protected PropertiesUI[] basePropertiesViz;
         [SerializeField] protected Image factionIcon;
-        public Image lockImg;
-        protected Card _card;
 
-        public void SetCard(Card card)
+        protected Card _card;
+        public Card GetCard => _card;
+
+        public virtual void SetCard(Card card)
         {
             _card = card;
             LoadCard(_card);
-
         }
 
         protected virtual void LoadCard(Card c)
@@ -26,7 +26,7 @@ namespace PH
             if (c == null) return;
 
             c.OnSetFactionViz(this);
-            //c.OnSetUnlocked(this);
+
             for (int i = 0; i < c.baseProperties.Length; i++)
             {
                 BaseProperties bp = c.baseProperties[i];
@@ -56,7 +56,6 @@ namespace PH
 
             factionIcon.sprite = factions[0].Icon;
         }
-
 
         protected PropertiesUI GetBaseProperty(Element e)
         {

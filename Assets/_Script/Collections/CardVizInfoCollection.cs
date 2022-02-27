@@ -56,7 +56,6 @@ namespace PH
             LoadCard(card);
             LoadPrice(cardUI);
             LoadRankColor(card);
-
         }
        
         protected override void LoadCard(Card card)
@@ -90,7 +89,6 @@ namespace PH
         }
         private void LoadCardDiscription(Card card)
         {
-           
             discription.text = card.GetDiscription;
         }
 

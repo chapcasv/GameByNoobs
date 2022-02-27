@@ -72,7 +72,7 @@ namespace PH.Save
 
             foreach (var c in Cards)
             {
-                PlayerCard cardData = ConvertCard.CardToPlayerCard(c);
+                PlayerCard cardData = ConvertCard.ToPlayerCard(c);
                 playerCards.Add(cardData);
             }
             return playerCards;
@@ -81,11 +81,9 @@ namespace PH.Save
         //ONLY call when you want to load ALL player data
         public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
         {
-            PlayerData playerData;
-
             if (File.Exists(playerDataPath))
             {
-                playerData = ReadJSon();
+                PlayerData playerData = ReadJSon();
                 LoadPlayerDataToPlayerSO(playerData, playerSO, allCards);
             }
             else throw new Exception(MESS_ERROR);
@@ -107,6 +105,27 @@ namespace PH.Save
                 cards.Add(ConvertCard.PlayerCardToCard(c, allCards));
             }
             return cards;
+        }
+
+        public static List<PlayerCard> LoadCards()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.Cards;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static void SaveCards(List<PlayerCard> cards)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                playerData.Cards = cards;
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
         }
 
 
