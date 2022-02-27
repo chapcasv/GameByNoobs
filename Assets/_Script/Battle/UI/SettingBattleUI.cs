@@ -16,14 +16,15 @@ namespace PH
             public GameObject Screen;
             public void Initialize()
             {
-                main.onClick.AddListener(OnClickCallBack);
+                OnSelect += OnClickCallBack;
+                main.onClick.AddListener(()=> OnSelect?.Invoke());
             }
 
             private void OnClickCallBack()
             {
                 selectImg.SetActive(true);
                 Screen.SetActive(true);
-                OnSelect?.Invoke();
+                
             }
             public void DeSelect()
             {
@@ -33,36 +34,38 @@ namespace PH
         }
         [SerializeField] private GameObject main;
         [Header("Bot Button")]
-        [SerializeField] private Button closeButton;
-        [SerializeField] private Button supportButton, exitGameButton, surdererButton;
+        [SerializeField] private Button B_accept;
+        [SerializeField] private Button B_close;
+        [SerializeField] private Button B_support, B_exit, B_surderer;
         
 
         [Header("Top Button Tab")]
-        [SerializeField] private TopButtonTap generalButtonTab;
-        [SerializeField] private TopButtonTap musicButtonTab;
-        [SerializeField] private TopButtonTap videoButtonTab;
-        [SerializeField] private TopButtonTap keyBindingButtonTab;
+        [SerializeField] private TopButtonTap B_generalTab;
+        [SerializeField] private TopButtonTap B_keybindingTab;
+        [SerializeField] private TopButtonTap B_videoTab;
+        [SerializeField] private TopButtonTap B_musicTab;
+       
+       
         
         public override void Initialize()
         {
             base.Initialize();
-            closeButton.onClick.AddListener(OnCloseSettingCallBack);
-            supportButton.onClick.AddListener(OnSupportButtonCallBack);
-            exitGameButton.onClick.AddListener(OnExitgameCallBack);
-            surdererButton.onClick.AddListener(OnSurdererCallBack);
-
-            keyBindingButtonTab.Initialize();
-            generalButtonTab.Initialize();
-            videoButtonTab.Initialize();
-            musicButtonTab.Initialize();
+            B_accept.onClick.AddListener(OnCloseSettingCallBack);
+            B_support.onClick.AddListener(OnSupportButtonCallBack);
+            B_exit.onClick.AddListener(OnExitgameCallBack);
+            B_surderer.onClick.AddListener(OnSurdererCallBack);
+            B_close.onClick.AddListener(OnCloseSettingCallBack);
+            B_keybindingTab.Initialize();
+            B_generalTab.Initialize();
+            B_videoTab.Initialize();
+            B_musicTab.Initialize();
             
-            generalButtonTab.OnSelect = OnGeneralSetting;
-            musicButtonTab.OnSelect = OnMusicSetting;
-            videoButtonTab.OnSelect = OnAudioSetting;
-            keyBindingButtonTab.OnSelect = OnKeyBindingSetting;
+            B_generalTab.OnSelect += OnGeneralSetting;
+            B_musicTab.OnSelect += OnMusicSetting;
+            B_videoTab.OnSelect += OnAudioSetting;
+            B_keybindingTab.OnSelect += OnKeyBindingSetting;
+            B_generalTab.OnSelect?.Invoke();
         }
-
-       
 
         private void OnSurdererCallBack()
         {
@@ -78,29 +81,29 @@ namespace PH
 
         private void OnGeneralSetting()
         {
-            musicButtonTab.DeSelect();
-            videoButtonTab.DeSelect();
-            keyBindingButtonTab.DeSelect();
+            B_musicTab.DeSelect();
+            B_videoTab.DeSelect();
+            B_keybindingTab.DeSelect();
 
         }
         private void OnMusicSetting()
         {
-            generalButtonTab.DeSelect();
-            videoButtonTab.DeSelect();
-            keyBindingButtonTab.DeSelect();
+            B_generalTab.DeSelect();
+            B_videoTab.DeSelect();
+            B_keybindingTab.DeSelect();
         }
 
         private void OnAudioSetting()
         {
-            generalButtonTab.DeSelect();
-            musicButtonTab.DeSelect();
-            keyBindingButtonTab.DeSelect();
+            B_generalTab.DeSelect();
+            B_musicTab.DeSelect();
+            B_keybindingTab.DeSelect();
         }
         private void OnKeyBindingSetting()
         {
-            musicButtonTab.DeSelect();
-            videoButtonTab.DeSelect();
-            generalButtonTab.DeSelect();
+            B_musicTab.DeSelect();
+            B_videoTab.DeSelect();
+            B_generalTab.DeSelect();
         }
 
         private void OnCloseSettingCallBack()
