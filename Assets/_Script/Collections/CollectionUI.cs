@@ -34,6 +34,7 @@ namespace PH
         [SerializeField] Toggle checkbox;
 
         [SerializeField] List<CardCollectionUI> listCard;
+       
         private List<Card> clone;
 
         private void Start()
