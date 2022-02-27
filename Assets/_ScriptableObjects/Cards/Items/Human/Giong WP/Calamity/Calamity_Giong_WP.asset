@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b94bc6beec68646aeb067d57c694cf, type: 3}
   m_Name: Calamity_Giong_WP
   m_EditorClassIdentifier: 
-  cardID: 11
+  cardID: 18
   cardDiscription: 
   rank: {fileID: 11400000, guid: 4d4b314504506cd47965f7c820a56813, type: 2}
   baseProperties:
@@ -29,7 +29,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
   - stringValue: 
-    intValue: 0
+    intValue: 1
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
@@ -43,5 +43,5 @@ MonoBehaviour:
   - Ediscription: + crit dmg + crit rate
     input: {fileID: 11400000, guid: 869e762b4a5e47d46a57bd60cf5b3b8f, type: 2}
     logic: {fileID: 11400000, guid: 20f5173419ae4cd438d603f0f375eeda, type: 2}
-  Unlocked: 0
+  Unlocked: 1
   isOnRound: 1
