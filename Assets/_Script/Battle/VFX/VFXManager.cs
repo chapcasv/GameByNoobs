@@ -17,11 +17,13 @@ namespace PH
         [SerializeField] GameVFX pfReuse;
         [SerializeField] GameVFX pfRecall;
         [SerializeField] GameVFX pfHit;
+        [SerializeField] StatusVFX pfStun;
 
 
         private GameObject tileUnder;
 
         private Dictionary<string, Queue<GameVFX>> vfxPool;
+        private Dictionary<string, Queue<StatusVFX>> vfxStatusPool;
 
         private Queue<GameVFX> vfxDropUnit;
         private Queue<GameVFX> vfxSpawn;
@@ -30,6 +32,7 @@ namespace PH
         private Queue<GameVFX> vfxReuse;
         private Queue<GameVFX> vfxRecall;
         private Queue<GameVFX> vfxHit;
+        private Queue<StatusVFX> vfxStun;
 
 
         protected override void Awake()
@@ -37,13 +40,16 @@ namespace PH
             base.Awake();
 
             vfxPool = new Dictionary<string, Queue<GameVFX>>();
+            vfxStatusPool = new Dictionary<string, Queue<StatusVFX>>();
 
             InitVFX();
+            InitStutusVFX();
 
             tileUnder = Instantiate(pfTileUnder, transform);
             tileUnder.SetActive(false);
         }
 
+        #region Init VFX
         private void InitVFX()
         {
             InitDrop();
@@ -113,7 +119,25 @@ namespace PH
             vfxPool.Add(KeysVFX.Heal.ToString(), vfxHeal);
             AddToPool(2, pfHeal, KeysVFX.Heal.ToString());
         }
+        #endregion
 
+        #region Init StatusVFX
+
+        private void InitStutusVFX()
+        {
+            InitStun();
+        }
+
+        private void InitStun()
+        {
+            vfxStun = new Queue<StatusVFX>();
+
+            string key = KeysVFX.Stun.ToString();
+            vfxStatusPool.Add(key, vfxStun);
+            AddToPool(4, pfStun, key);
+        }
+
+        #endregion
 
         public void HighLightMap()
         {
@@ -141,6 +165,8 @@ namespace PH
                 gameVFX.gameObject.SetActive(true);
             }
         }
+
+        #region GetVFX
 
         public void SpawnUnit(Vector3 pos, BaseUnit unit)
         {
@@ -202,8 +228,34 @@ namespace PH
         {
             tileUnder.SetActive(false);
         }
-       
 
+        #endregion
+
+        #region PlayStatusVFX
+
+        public void PlayStatusVFX(Vector3 pos, string key, float duringEffect)
+        {
+            var vfxQueue = vfxStatusPool[key];
+
+            if(vfxQueue.Count > 0)
+            {
+                var statusVFX = vfxQueue.Dequeue();
+                statusVFX.Play(duringEffect,pos);
+            }
+        }
+
+        #endregion
+        private void AddToPool(int count, StatusVFX pf, string key)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                StatusVFX vfxInstantiate = Instantiate(pf, transform);
+                vfxInstantiate.Key_VFX = key;
+                vfxInstantiate.gameObject.SetActive(false);
+
+                vfxStatusPool[key].Enqueue(vfxInstantiate);
+            }
+        }
 
         private void AddToPool(int count, GameVFX pf, string key)
         {
@@ -221,6 +273,12 @@ namespace PH
         {
             gameVFX.gameObject.SetActive(false);
             vfxPool[key].Enqueue(gameVFX);
+        }
+
+        public void ReturnPool(StatusVFX statusVFX, string key)
+        {
+            statusVFX.gameObject.SetActive(false);
+            vfxStatusPool[key].Enqueue(statusVFX);
         }
     }
 }

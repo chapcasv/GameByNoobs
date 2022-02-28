@@ -28,7 +28,16 @@ namespace PH
             {
                 target.TakeDamage(caster, (int)preMitigationDmg, physicalDmg);
                 target.GetUnitStatusEffect.ApplyStatusEffect(abilityStatusEffect);
+                VFX(target);
             }
+        }
+
+        private void VFX(BaseUnit target)
+        {
+            var box = target.Col;
+            Vector3 pos = new Vector3(target.transform.position.x, box.size.y, target.transform.position.z);
+            float durringEffect = abilityStatusEffect.LifeTime;
+            VFXManager.Instance.PlayStatusVFX(pos, KeysVFX.Stun.ToString(), durringEffect);
         }
 
         public override string GetDiscription(CardUnit unit)

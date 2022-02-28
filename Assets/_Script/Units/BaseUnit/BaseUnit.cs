@@ -46,7 +46,7 @@ namespace PH
         public UnitMove GetMove => Move;
         public UnitStatusEffect GetUnitStatusEffect => unitStatusEffect;
         public UnitTransform GetUnitTransform => unitTransform;
-
+        public BoxCollider Col { get; set; }
         public Faction[] GetFactions => factions;
         public int GetID => baseID;
 
@@ -80,7 +80,7 @@ namespace PH
 
             anim = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
-
+            Col = GetComponent<BoxCollider>();
 
             SetUpFinding(team);
             SetUpAtkLife(unit, team);

@@ -114,8 +114,6 @@ namespace PH
         //animation event
         public void CastAbilityByAnim()
         {
-            Debug.Log(gameObject.name + " Cast");
-
             if (currentTarget == null) return;
 
             ability.CastSkill(currentTarget, holder);

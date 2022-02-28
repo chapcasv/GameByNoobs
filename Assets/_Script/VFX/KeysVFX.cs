@@ -12,7 +12,8 @@ namespace PH
         UpStat,
         Reuse,
         Recall,
-        Hit
+        Hit,
+        Stun
     }
 }
 

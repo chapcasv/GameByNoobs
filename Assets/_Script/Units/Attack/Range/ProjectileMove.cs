@@ -7,12 +7,13 @@ namespace PH
 {
     public class ProjectileMove : MonoBehaviour
     {
+        private const float offsetVFX = 4f;
         [SerializeField] GameObject pfImpact;
         private DamageType _type;
         private BaseUnit _currentTarget;
         private RangerUnitAtk _sender;
         private BaseUnit _holder;
-        private float _moveSpeed = 18f;
+        private readonly float moveSpeed = 20f;
         private int _rawDmg;
         private bool isEnterTarget;
         private GameObject impact;
@@ -74,10 +75,10 @@ namespace PH
                 else
                 {
                     Vector3 target = new Vector3(_currentTarget.transform.transform.position.x,
-                        0.4f, _currentTarget.transform.position.z);
+                        offsetVFX, _currentTarget.transform.position.z);
 
                     Vector3 moveDir = (target - transform.position).normalized;
-                    transform.position += _moveSpeed * Time.deltaTime * moveDir;
+                    transform.position += moveSpeed * Time.deltaTime * moveDir;
                     Quaternion rotation = Quaternion.LookRotation(moveDir);
                     transform.rotation = rotation;
                 }
@@ -101,7 +102,7 @@ namespace PH
         private void ActiveImpact()
         {   
             Vector3 target = _currentTarget.transform.position;
-            Vector3 pos = new Vector3(target.x, 4f, target.z);
+            Vector3 pos = new Vector3(target.x, offsetVFX, target.z);
 
             impact.transform.position = pos;
             impact.SetActive(true);
