@@ -101,9 +101,14 @@ namespace PH
             Caculator(ref preMitigationDmg, currentTarget);
 
             int dmgDeal = currentTarget.TakeDamage(holder, preMitigationDmg, normalAtkType, IsCrit);
-
+            DisplayVFXHit();
             LifeStealByDmg(dmgDeal);
             TriggerBasicAtkAddOn();
+        }
+
+        private void DisplayVFXHit()
+        {
+            VFXManager.Instance.PlayVFX(currentTarget.transform.position, KeysVFX.Hit.ToString());
         }
 
         //animation event

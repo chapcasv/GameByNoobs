@@ -11,7 +11,8 @@ namespace PH
         Heal,
         UpStat,
         Reuse,
-        Recall
+        Recall,
+        Hit
     }
 }
 

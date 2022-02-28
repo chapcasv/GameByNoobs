@@ -2034,7 +2034,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -10415,7 +10415,6 @@ MonoBehaviour:
     img: {fileID: 1152177013}
     text: {fileID: 2016859247}
   factionIcon: {fileID: 959356496}
-  lockImg: {fileID: 0}
   discription: {fileID: 1961801563}
   barHolder: {fileID: 719853021}
   hpValue: {fileID: 284486454}
@@ -20576,6 +20575,7 @@ MonoBehaviour:
   pfUpStat: {fileID: 9161309877616316573, guid: 57274b756ac72894e88e28e929f1ada2, type: 3}
   pfReuse: {fileID: 8973652514056614105, guid: fbd1a967e55ca7b469a33f3d90a94114, type: 3}
   pfRecall: {fileID: 7084091647551309340, guid: 3b3d7543d797e444cbddece23aba37eb, type: 3}
+  pfHit: {fileID: 3740150502022500590, guid: 6fbf13509f228644cad10c48f42049f7, type: 3}
 --- !u!4 &1554171055
 Transform:
   m_ObjectHideFlags: 0

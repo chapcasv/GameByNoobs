@@ -16,6 +16,7 @@ namespace PH
         [SerializeField] GameVFX pfUpStat;
         [SerializeField] GameVFX pfReuse;
         [SerializeField] GameVFX pfRecall;
+        [SerializeField] GameVFX pfHit;
 
 
         private GameObject tileUnder;
@@ -28,6 +29,7 @@ namespace PH
         private Queue<GameVFX> vfxUpStat;
         private Queue<GameVFX> vfxReuse;
         private Queue<GameVFX> vfxRecall;
+        private Queue<GameVFX> vfxHit;
 
 
         protected override void Awake()
@@ -50,6 +52,16 @@ namespace PH
             InitUpStat();
             InitReuse();
             InitRecall();
+            InitHit();
+        }
+
+        private void InitHit()
+        {
+            vfxHit = new Queue<GameVFX>();
+
+            string key = KeysVFX.Hit.ToString();
+            vfxPool.Add(key, vfxHit);
+            AddToPool(8, pfHit, key);
         }
 
         private void InitRecall()
