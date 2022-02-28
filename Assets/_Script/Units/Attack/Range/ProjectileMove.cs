@@ -13,7 +13,7 @@ namespace PH
         private BaseUnit _currentTarget;
         private RangerUnitAtk _sender;
         private BaseUnit _holder;
-        private readonly float moveSpeed = 20f;
+        private readonly float moveSpeed = 22f;
         private int _rawDmg;
         private bool isEnterTarget;
         private GameObject impact;
@@ -73,15 +73,23 @@ namespace PH
                 }
                 else
                 {
-                    Vector3 target = new Vector3(_currentTarget.transform.transform.position.x,
-                        offsetVFX, _currentTarget.transform.position.z);
-
-                    Vector3 moveDir = (target - transform.position).normalized;
+                    Vector3 moveDir = GetMoveDir();
                     transform.position += moveSpeed * Time.deltaTime * moveDir;
                     Quaternion rotation = Quaternion.LookRotation(moveDir);
                     transform.rotation = rotation;
                 }
             }
+        }
+
+        private Vector3 GetMoveDir()
+        {
+            Vector3 target = _currentTarget.transform.position;
+            float OffsetY = _currentTarget.Col.size.y / 2;
+
+            target = new Vector3(target.x, OffsetY, target.z);
+
+            Vector3 moveDir = (target - transform.position).normalized;
+            return moveDir;
         }
 
         private void OnTriggerEnter(Collider other)
