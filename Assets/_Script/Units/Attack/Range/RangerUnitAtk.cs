@@ -13,6 +13,8 @@ namespace PH
 
         protected Queue<ProjectileMove> projectiles;
 
+        #region Init & Projectile Pool
+
         public override void Constructor(float ats, float range, int dmg, Ability ability, UnitSurvivalStat uss, Animator anim)
         {
             base.Constructor(ats, range, dmg, ability, uss, anim);
@@ -53,30 +55,42 @@ namespace PH
             projectiles.Enqueue(pm);
         }
 
+        #endregion
 
         public override void BasicAtk()
         {
-            if (!canAttack || !currentTarget.IsLive )
+            if (!canAttack || !currentTarget.IsLive)
                 return;
 
             //Number atk in one second
             waitBetweenAttack = 1 / baseAttackSpeed;
+
+            RotationFollowTarget(currentTarget);
+            StartCoroutine(WaitCoroutine());
+        }
+
+        protected IEnumerator WaitCoroutine()
+        {
+            animator.SetBool(AnimEnum.IsMoving.ToString(), false);
+
+            if (!IsDisableAtk)
+            {
+                canAttack = false;
+                animator.SetTrigger(AnimEnum.IsAtk.ToString());
+                yield return new WaitForSeconds(waitBetweenAttack);
+                canAttack = true;
+            }
+        }
+
+        public void SpawnProjectile()
+        {
             var projectile = GetProjectile();
 
             int preMitigationDmg = orPhysicalDmg;
 
             Caculator(ref preMitigationDmg, currentTarget);
 
-            projectile.SetUp(currentTarget, preMitigationDmg);
-
-            RotationFollowTarget(currentTarget);
-            StartCoroutine(WaitCoroutine());
-        }
-
-        public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
-        {
-            ability.CastSkill(currentTarget, caster);
-            TriggerAfterCastSkill(caster);
+            projectile.SetUp(currentTarget, preMitigationDmg, firePoint);
         }
 
         public override bool IsInRange(BaseUnit currentTarget)
@@ -92,6 +106,14 @@ namespace PH
             else return false;
         }
 
+
+        public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
+        {
+            ability.CastSkill(currentTarget, caster);
+            TriggerAfterCastSkill(caster);
+        }
+
+
         public override bool IsInRangeAbility(BaseUnit currentTarget)
         {
             if (currentTarget == null) return false; //Target Dead
@@ -105,18 +127,7 @@ namespace PH
             else return false;
         }
 
-        IEnumerator WaitCoroutine()
-        {
-            animator.SetBool(AnimEnum.IsMoving.ToString(), false);
-            canAttack = false; //?
-
-            if (!IsDisableAtk)
-            {
-                animator.SetTrigger(AnimEnum.IsAtk.ToString());
-                yield return new WaitForSeconds(waitBetweenAttack);
-                canAttack = true;
-            }
-        }
+        
     }
 }
 

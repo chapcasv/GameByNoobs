@@ -356,7 +356,7 @@ namespace PH
         protected void RotationFollowTarget(BaseUnit currentTarget)
         {
             Vector3 moveDir = (currentTarget.transform.position - transform.position).normalized;
-            rig.rotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.LookRotation(moveDir);
         }
 
         private float CaculatorRangeAtk(float range)

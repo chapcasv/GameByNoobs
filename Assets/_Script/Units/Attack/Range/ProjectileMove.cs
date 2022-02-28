@@ -45,13 +45,12 @@ namespace PH
             impact.SetActive(false);
         }
 
-        public void SetUp(BaseUnit currentTarget, int rawDmg)
+        public void SetUp(BaseUnit currentTarget, int rawDmg, Transform firePoint)
         {
             _currentTarget = currentTarget;
             _rawDmg = rawDmg;
             isEnterTarget = false;
-            //Vector3 rad = new Vector3(-1, 1, 0);
-            //iTween.PunchPosition(gameObject, rad, 2f);
+            transform.position = firePoint.position;
 
             gameObject.SetActive(true);
         }

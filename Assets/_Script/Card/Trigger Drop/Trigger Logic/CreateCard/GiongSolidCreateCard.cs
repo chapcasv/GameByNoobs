@@ -9,7 +9,7 @@ namespace PH
     public class GiongSolidCreateCard : CardDropTriggerLogic
     {
         [SerializeField] DeckSystem deckSystem;
-        private int giongID = 8;
+        [SerializeField] int giongID = 8;
 
         public override bool CanTrigger(Node dropNode, BoardSystem boardSystem, Card card, TriggerInput input, UnitTeam team = UnitTeam.Player)
         {
