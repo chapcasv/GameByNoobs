@@ -8,6 +8,7 @@ namespace PH
     public class Deck : ScriptableObject
     {
         public string deckName;
+
         [SerializeField] private List<Card> cardsInDeck;
 
         public List<Card> CardsInDeck { get => cardsInDeck; }
@@ -26,6 +27,7 @@ namespace PH
         {
             CardsInDeck.Add(card);
         }
+
         public void Remove(Card card)
         {
             CardsInDeck.Remove(card);

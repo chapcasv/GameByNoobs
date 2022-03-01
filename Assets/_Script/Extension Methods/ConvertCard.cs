@@ -19,10 +19,9 @@ namespace PH
             return cardData;
         }
 
-        public static List<PlayerCard> ToPlayerCards(List<Card> cards)
+        //01/03/2022 0 references
+        public static List<PlayerCard> ToPlayerCards(List<Card> cards, List<PlayerCard> playerCards)
         {
-            List<PlayerCard> playerCards = new List<PlayerCard>();
-
             foreach (var card in cards)
             {
                 PlayerCard newCard = ToPlayerCard(card);
@@ -61,6 +60,25 @@ namespace PH
 
         #endregion
 
+        #region Add Card
+
+        public static void AddPlayerCardInDeck(ref PlayerDeck deck, PlayerCard newCard)
+        {
+            foreach (var playerCard in deck.cardsInDeck)
+            {
+                if(playerCard.ID == newCard.ID)
+                {
+                    if(playerCard.Amount < MAX_AMOUNT)
+                    {
+                        playerCard.Amount++;
+                        return;
+                    }
+                }
+            }
+            newCard.Amount = 1;
+            deck.cardsInDeck.Add(newCard);
+        }
+
         public static bool AddPlayerCard(ref List<PlayerCard> playerCards, PlayerCard newCard) 
         {
             foreach (var playerCard in playerCards)
@@ -77,6 +95,8 @@ namespace PH
             }
             throw new Exception("Data cards unlocked dont have new card");
         }
+
+        #endregion
 
         public static List<PlayerCard> DefaultCardToPlayerCards(List<Card> cards)
         {

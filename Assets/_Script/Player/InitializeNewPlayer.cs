@@ -28,23 +28,12 @@ namespace PH {
 
             playerSO.Coin = defaultPlayer.Coin;
             playerSO.Cards = new List<Card>(defaultPlayer.Cards);
-            playerSO.Decks = AddDecks(defaultPlayer);
+            playerSO.Decks = new List<Deck>(defaultPlayer.Decks);
             playerSO.CurrentDeck = playerSO.Decks[0];
             playerSO.Rank = new Rank();
 
             SaveSystem.InitPlayer(playerSO);
         }
-
-        private static List<Deck> AddDecks(PlayerDefaultData playerDefault)
-        {
-            List<Deck> defaultDecks = new List<Deck>();
-            foreach (var deck in playerDefault.Decks)
-            {
-                defaultDecks.Add(deck);
-            }
-            return defaultDecks;
-        }
-
 
         private static bool CanUse(string player_name)
         {

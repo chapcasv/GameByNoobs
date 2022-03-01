@@ -10,7 +10,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/DefaultData")]
     public class PlayerDefaultData : ScriptableObject
     {
-
+        public int Diamont;
         public int Coin;
         public List<Deck> Decks;
         public List<Card> Cards;

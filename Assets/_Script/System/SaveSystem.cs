@@ -11,6 +11,7 @@ namespace PH.Save
         private const string MESS_ERROR = "Data Path dont Exists";
         private readonly static string playerDataPath = Application.dataPath + "playerData.json";
 
+        #region Init Player
         public static bool IsHavePlayerData()
         {
             return File.Exists(playerDataPath);
@@ -33,45 +34,33 @@ namespace PH.Save
                 PlayerName = playerSO.GetPlayerName(),
                 Coin = playerSO.Coin,
                 Cards = ConvertCard.DefaultCardToPlayerCards(playerSO.Cards),
-                Rank = ConvertRank.ToPlayerRank(playerSO.Rank),
-                Decks = ConvertDecksToPlayerDecks(playerSO.Decks)
+                Rank = ConvertRank.ToPlayerRank(playerSO.Rank)
             };
 
             WriteJSon(playerData);
+
+            //Call after init Cards
+            InitDeck(playerSO.Decks);
         }
 
-
-        //ONLY call when you want to save ALL player data
-        public static void SavePlayer(PlayerLocalSO playerSO)
+        private static void InitDeck(List<Deck> decks)
         {
             PlayerData playerData = ReadJSon();
-            playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
+            playerData.Decks = ConvertDeck.ToPlayerDecks(decks);
             WriteJSon(playerData);
         }
 
-        private static PlayerData ConvertPlayerSOToPlayerData(PlayerLocalSO playerSO, PlayerData playerData)
+        #endregion
+
+        //ONLY call when you want to save ALL player data
+        //01/03/2022 0 references
+        public static void SavePlayer(PlayerLocalSO playerSO)
         {
-            playerData.PlayerName = playerSO.GetPlayerName();
-            playerData.Coin = playerSO.Coin;
-            playerData.Cards = ConvertCard.ToPlayerCards(playerSO.Cards);
-            playerData.Decks = ConvertDecksToPlayerDecks(playerSO.Decks);
-            playerData.Rank = ConvertRank.ToPlayerRank(playerSO.Rank);
-
-            return playerData;
+            PlayerData playerData = ReadJSon();
+            //playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
+            WriteJSon(playerData);
         }
-
-        private static List<PlayerDeck> ConvertDecksToPlayerDecks(List<Deck> decks)
-        {
-            List<PlayerDeck> playerDecks = new List<PlayerDeck>();
-
-            foreach (var deck in decks)
-            {
-                PlayerDeck playerDeck = new PlayerDeck();
-
-            }
-
-            return playerDecks;
-        }
+     
 
         //ONLY call when you want to load ALL player data
         public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
@@ -90,6 +79,8 @@ namespace PH.Save
             playerSO.Coin = playerData.Coin;
             playerSO.Cards = ConvertCard.PlayerCardsToCards(playerData.Cards, allCards); 
         }
+
+        #region Card
 
         public static List<PlayerCard> LoadCards()
         {
@@ -112,7 +103,9 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        #endregion
 
+        #region Coin
         public static int LoadCoin()
         {
             if (File.Exists(playerDataPath))
@@ -142,6 +135,8 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        #endregion
+
         public static string LoadName()
         {
             if (File.Exists(playerDataPath))
@@ -164,6 +159,8 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        #region Rank
+
         public static PlayerRank LoadRank()
         {
             if (File.Exists(playerDataPath))
@@ -185,6 +182,10 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        #endregion
+
+        #region Json
+
         private static void WriteJSon(PlayerData playerData)
         {
             string jsonData = JsonUtility.ToJson(playerData);
@@ -196,6 +197,8 @@ namespace PH.Save
             string jsonData = File.ReadAllText(playerDataPath);
             return JsonUtility.FromJson<PlayerData>(jsonData);
         }
+
+        #endregion
     }
 }
 
