@@ -7,7 +7,8 @@ namespace PH
         Collection,
         FindMatch,
         Battle,
-        ResultMatch
+        ResultMatch,
+        PlayerDeck
     }
 }
 

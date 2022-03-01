@@ -44,6 +44,10 @@ namespace PH
         {
             cardViz.lockImg.gameObject.SetActive(!Unlocked);
         }
+        public void SetUnlocked(CardDeckUI cardViz)
+        {
+            cardViz.lockImg.gameObject.SetActive(!Unlocked);
+        }
 
         public bool CanDropBoard(Node node)
         {
