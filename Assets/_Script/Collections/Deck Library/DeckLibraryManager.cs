@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using PH.Save;
+
 namespace PH
 {
     public class DeckLibraryManager : MonoBehaviour
@@ -12,12 +14,23 @@ namespace PH
         [SerializeField] DeckLibraryUI deckLibraryUI;
         [SerializeField] DeckLibraryLogic logic;
         [SerializeField] GetBaseProperties get;
-        [SerializeField] GameObject showChildCard;
+        [SerializeField] PlayerLocalSO playerLocalSO;
 
         private void Awake()
         {
             deckLibraryUI.Init(allcard, get);
-            showChildCard.SetActive(true);
+            deckLibraryUI.Constructor(logic);
+        }
+
+        private void Start()
+        {
+            LoadPlayerDeck();
+        }
+
+        private void LoadPlayerDeck()
+        {
+            playerLocalSO.ReloadDecks();
+            deckLibraryUI.InitDeck(playerLocalSO.Decks);
         }
 
     }

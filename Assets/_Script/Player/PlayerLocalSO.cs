@@ -12,8 +12,9 @@ namespace PH
         [SerializeField] string playerName;
         [SerializeField] int coin;
         [SerializeField] Deck currentDeck;
-        [SerializeField] List<Deck> decks;
+        List<Deck> decks;
         [SerializeField] List<Card> cards;
+        [SerializeField] ALLCard allCard;
 
         private Rank rank;
 
@@ -46,6 +47,13 @@ namespace PH
         public List<Deck> Decks { get => decks; set => decks = value; }
         public List<Card> Cards { get => cards; set => cards = value; }
         public Rank Rank { get => rank; set => rank = value; }
+
+        public void ReloadDecks()
+        {
+            var playerDecks = SaveSystem.LoadDecks();
+
+            decks = ConvertDeck.FormPlayerDecks(playerDecks, allCard);
+        }
     }
 }
 

@@ -137,6 +137,20 @@ namespace PH.Save
 
         #endregion
 
+        #region Deck
+
+        public static List<PlayerDeck> LoadDecks()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.Decks;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        #endregion
+
         public static string LoadName()
         {
             if (File.Exists(playerDataPath))

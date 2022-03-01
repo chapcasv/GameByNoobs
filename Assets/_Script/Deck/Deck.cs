@@ -11,7 +11,13 @@ namespace PH
 
         [SerializeField] private List<Card> cardsInDeck;
 
-        public List<Card> CardsInDeck { get => cardsInDeck; }
+        public List<Card> CardsInDeck { get => cardsInDeck;}
+
+        public void NewDeck(string deckName)
+        {
+            cardsInDeck = new List<Card>();
+            this.deckName = deckName;
+        }
 
         public void Clear()
         {
