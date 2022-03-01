@@ -120,8 +120,8 @@ namespace PH
             LoadInfoBar(unit);
             
             B_descriptionDetail.Select();
-            //LoadCardUnitInfoStat(unit);
-            //LoadUnitAbility(unit);
+            LoadCardUnitInfoStat(unit);
+            LoadUnitAbility(unit);
         }
         private void DeInteractive(bool active)
         {

@@ -16,6 +16,7 @@ namespace PH
 
         [SerializeField] Button B_Play;
         [SerializeField] Button B_Collection;
+        [SerializeField] Button B_Deck;
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
         [SerializeField] TextMeshProUGUI playerName;
@@ -28,6 +29,12 @@ namespace PH
         {
             B_Play.onClick.AddListener(() => ShowPlayMode());
             B_Collection.onClick.AddListener(() => GoToCollection());
+            B_Deck.onClick.AddListener(GoToDeck);
+        }
+
+        private void GoToDeck()
+        {
+            SceneManager.LoadScene(SceneSelect.PlayerDeck.ToString());
         }
 
         void Start()

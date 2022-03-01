@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1051,6 +1051,7 @@ MonoBehaviour:
   rankSystem: {fileID: 11400000, guid: ebe5af6263843f44b8d088335f4a2cdd, type: 2}
   B_Play: {fileID: 1783367059}
   B_Collection: {fileID: 1774335940}
+  B_Deck: {fileID: 560398822}
   coin: {fileID: 928628836}
   playerName: {fileID: 404560903}
   selectPlayMode: {fileID: 902646053}
@@ -2379,6 +2380,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2

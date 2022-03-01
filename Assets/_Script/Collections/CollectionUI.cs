@@ -28,7 +28,7 @@ namespace PH
 
         [Header("CheckBox")]
         [SerializeField] GameObject filterPopUp;
-        [SerializeField] Toggle checkbox;
+        [SerializeField] Button checkbox;
         [SerializeField] List<CardCollectionUI> listCardUI;
 
         private ALLCard cardCollections;
@@ -52,7 +52,7 @@ namespace PH
         {
             B_Back.onClick.AddListener(BackMainMenu);
 
-            checkbox.onValueChanged.AddListener(DisplayFilter);
+            checkbox.onClick.AddListener(DisplayFilter);
             B_DisplayCardLocked.onClick.AddListener(DisplayCardLocked);
         }
 
@@ -135,9 +135,10 @@ namespace PH
             SelectCardCollectionUI(cardUI);
         }
 
-        private void DisplayFilter(bool show)
+        private void DisplayFilter()
         {
-            filterPopUp.SetActive(!show);
+            bool active = filterPopUp.activeInHierarchy;
+            filterPopUp.SetActive(!active);
         }
 
         private void BackMainMenu()
@@ -188,7 +189,7 @@ namespace PH
         {
             B_Back.onClick.RemoveAllListeners();
 
-            checkbox.onValueChanged.RemoveAllListeners();
+            checkbox.onClick.RemoveAllListeners();
             B_DisplayCardLocked.onClick.RemoveAllListeners();
         }
 
