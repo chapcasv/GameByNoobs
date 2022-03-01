@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,9 @@ using UnityEngine.UI;
 
 namespace PH
 {
-    public class CollectionUI : MonoBehaviour
+    public abstract class CollectionUI : MonoBehaviour
     {   
-        [Header("=== Base Class Properties ===")]
+        [Header("=== BASE CLASS Properties ===")]
         [SerializeField] protected CardVizCollection cardPrefab;
         [SerializeField] protected RectTransform content;
 
@@ -37,7 +38,21 @@ namespace PH
         protected virtual void Start()
         {
             AddListener();
+            InitAllCard();
         }
+
+        protected void InitAllCard()
+        {
+            allCards.ReloadUnlock();
+
+            var allCard = allCards.allCard;
+
+            List<Card> sortedList = CollectionExtension.SortByCost(allCard);
+            InstantiateCardUI(sortedList);
+            InitDictLocked(listCardUI);
+        }
+
+        protected abstract void InstantiateCardUI(List<Card> sortedList);
 
         protected virtual void AddListener()
         {
@@ -80,12 +95,16 @@ namespace PH
 
         protected virtual void OnDestroy()
         {
+            RemoveListener();
+        }
+
+        protected virtual void RemoveListener()
+        {
             B_Back.onClick.RemoveAllListeners();
             B_DisplayFilterPopUp.onClick.RemoveAllListeners();
             B_DisplayCardLocked.onClick.RemoveAllListeners();
         }
 
-      
     }
 }
 

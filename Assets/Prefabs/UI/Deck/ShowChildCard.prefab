@@ -8178,7 +8178,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8898810601026014735}
-  - component: {fileID: 8553881429621311667}
   m_Layer: 0
   m_Name: ShowChildCard
   m_TagString: Untagged
@@ -8209,23 +8208,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8553881429621311667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8553881429621311666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c5af0e5734bdfb4f90d189b8237c10c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 4012006628350883103, guid: aec5da93e370bbc459ba13989e24c1f0, type: 3}
-  content: {fileID: 3455382716932740835}
-  listCardUI: []
-  B_Back: {fileID: 0}
-  B_DisplayCardLocked: {fileID: 3455382716809551442}
-  filterPopUp: {fileID: 2772283212546729893}
-  B_DisplayFilterPopUp: {fileID: 3455382716950566831}
-  logic: {fileID: 11400000, guid: 0fda8d554f6d8214cac7da6211a1edab, type: 2}

@@ -12,10 +12,12 @@ namespace PH
         [SerializeField] DeckLibraryUI deckLibraryUI;
         [SerializeField] DeckLibraryLogic logic;
         [SerializeField] GetBaseProperties get;
+        [SerializeField] GameObject showChildCard;
 
         private void Awake()
         {
             deckLibraryUI.Init(allcard, get);
+            showChildCard.SetActive(true);
         }
 
     }

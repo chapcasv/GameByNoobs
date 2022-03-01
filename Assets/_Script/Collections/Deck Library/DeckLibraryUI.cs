@@ -7,27 +7,29 @@ using UnityEngine.UI;
 namespace PH
 {
     public class DeckLibraryUI : CollectionUI
-    {   
-        [Header("=== Derived Class Properties ===")]
+    {
+        [Header("=== DERIVED CLASS Properties ===")]
         [SerializeField] DeckLibraryLogic logic;
+        [SerializeField] Button B_Setup;
+        [SerializeField] GameObject deck;
 
         protected override void Start()
         {
             base.Start();
-            InitAllCard();
         }
 
-
-        private void InitAllCard()
+        protected override void AddListener()
         {
-            allCards.ReloadUnlock();
-            var allCard = allCards.allCard;
-            List<Card> sortedList = CollectionExtension.SortByCost(allCard);
-            InstantiateCardUI(sortedList);
-            InitDictLocked(listCardUI);
+            base.AddListener();
+            B_Setup.onClick.AddListener(SetUpDeckCallBack);
         }
 
-        private void InstantiateCardUI(List<Card> sortedList)
+        private void SetUpDeckCallBack()
+        {
+            deck.SetActive(false);
+        }
+
+        protected override void InstantiateCardUI(List<Card> sortedList)
         {
             for (int i = 0; i < sortedList.Count; i++)
             {
@@ -41,7 +43,11 @@ namespace PH
             }
         }
 
-
+        protected override void RemoveListener()
+        {
+            base.RemoveListener();
+            B_Setup.onClick.RemoveAllListeners();
+        }
     }
 
 }

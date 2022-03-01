@@ -9,8 +9,8 @@ using PH.Save;
 namespace PH
 {
     public class CardLibraryUI : CollectionUI
-    {   
-        [Header("=== Child ===")]
+    {
+        [Header("=== DERIVED CLASS Properties ===")]
         [SerializeField] CardVizInfoCollection cardInformation;
 
         [Header("Currency")]
@@ -34,12 +34,8 @@ namespace PH
         {
             base.Start();
             DisplayCurrency();
-            InitAllCard();
             LoadInfoFirstCardActive();
         }
-
-
-        #region Currency
 
         private void DisplayCurrency()
         {
@@ -47,21 +43,7 @@ namespace PH
             this.coin.text = coin.ToString();
         }
 
-        #endregion
-
-        #region Init all cards in collection
-        private void InitAllCard()
-        {   
-            allCards.ReloadUnlock();
-
-            var allCard = allCards.allCard;
-
-            List<Card> sortedList = CollectionExtension.SortByCost(allCard);
-            InstantiateCardUI(sortedList);
-            InitDictLocked(listCardUI);
-        }
-
-        private void InstantiateCardUI(List<Card> sortedList)
+        protected override void InstantiateCardUI(List<Card> sortedList)
         {
             for (int i = 0; i < sortedList.Count; i++)
             {
@@ -73,8 +55,6 @@ namespace PH
                 listCardUI.Add(cardUI);
             }
         }
-       
-        #endregion
 
         protected override void DisplayCardLocked()
         {
