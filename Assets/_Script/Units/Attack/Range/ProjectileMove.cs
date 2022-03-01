@@ -31,17 +31,7 @@ namespace PH
         private void InitImpact()
         {
             impact = Instantiate(pfImpact, transform);
-            particlesImpact = new List<ParticleSystem>();
-
-            for (int i = 0; i < impact.transform.childCount; i++)
-            {
-                var pI = impact.transform.GetChild(i).GetComponent<ParticleSystem>();
-                if (pI != null)
-                {
-                    particlesImpact.Add(pI);
-                }
-            }
-
+            particlesImpact = VfxExtention.GetParticlesChild(impact.transform);
             impact.SetActive(false);
         }
 
@@ -59,7 +49,7 @@ namespace PH
         {
             if (isEnterTarget)
             {
-                if (!ParticleIsPlay())
+                if (!VfxExtention.ParticleIsPlay(particlesImpact))
                 {
                     impact.SetActive(false);
                     _sender.ReturnToPool(this);
@@ -113,22 +103,6 @@ namespace PH
 
             impact.transform.position = pos;
             impact.SetActive(true);
-        }
-
-        protected bool ParticleIsPlay()
-        {
-            bool isPlaying = true;
-
-            foreach (var particle in particlesImpact)
-            {
-                isPlaying = particle.isPlaying;
-
-                if (isPlaying)
-                {
-                    break;
-                }
-            }
-            return isPlaying;
         }
     }
 }
