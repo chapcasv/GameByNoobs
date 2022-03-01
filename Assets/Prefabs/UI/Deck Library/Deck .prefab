@@ -544,8 +544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 248.06, y: 0}
-  m_SizeDelta: {x: 296.08728, y: 60.1145}
+  m_AnchoredPosition: {x: 214.31082, y: -0.50004}
+  m_SizeDelta: {x: 228.589, y: 99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7318283096175848604
 CanvasRenderer:
@@ -602,14 +602,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -923,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 2932886438659669826, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 2100000, guid: f3c906d977a8f8a4388ac077e6af7815, type: 2}
+      objectReference: {fileID: 2100000, guid: ea86fd908be9a864ca7e05d0c084fe18, type: 2}
     - target: {fileID: 2932886438659669826, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
@@ -1058,15 +1058,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932886439179280578, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_fontColor.b
-      value: 0.40899786
+      value: 0.2272161
       objectReference: {fileID: 0}
     - target: {fileID: 2932886439179280578, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_fontColor.g
-      value: 0.6237997
+      value: 0.32609472
       objectReference: {fileID: 0}
     - target: {fileID: 2932886439179280578, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_fontColor.r
-      value: 0.8584906
+      value: 0.4339623
       objectReference: {fileID: 0}
     - target: {fileID: 2932886439179280578, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_fontSizeBase
@@ -1078,7 +1078,7 @@ PrefabInstance:
       objectReference: {fileID: -1972698791390830137, guid: 0265504f9eba55e4b8ec19d222b60825, type: 2}
     - target: {fileID: 2932886439179280578, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4285046747
+      value: 4282012527
       objectReference: {fileID: 0}
     - target: {fileID: 2932886439186108396, guid: 4cd716bdbf82fa44ebbfc0f9c41aedde, type: 3}
       propertyPath: m_Name
