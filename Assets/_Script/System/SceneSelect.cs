@@ -4,11 +4,11 @@ namespace PH
     {
         Login,
         MainMenu,
-        Collection,
+        CardLibrary,
         FindMatch,
         Battle,
         ResultMatch,
-        PlayerDeck
+        DeckLibrary
     }
 }
 

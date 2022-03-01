@@ -51,7 +51,7 @@ namespace PH
         {
             AddListenerDetail();
         }
-        public void LoadCardInformation(Card card, CardCollectionUI cardUI)
+        public void LoadCardInformation(Card card, CardVizCollection cardUI)
         {
             LoadCard(card);
             LoadPrice(cardUI);
@@ -84,7 +84,7 @@ namespace PH
             cardDescription.SetActive(true);
         }
 
-        private void LoadPrice(CardCollectionUI card)
+        private void LoadPrice(CardVizCollection card)
         {
             priceValue.text = card.Price.ToString(); 
         }

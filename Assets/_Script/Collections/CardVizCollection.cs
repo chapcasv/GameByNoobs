@@ -7,28 +7,28 @@ using PH.Save;
 
 namespace PH
 {
-    public class CardCollectionUI : CardVisual
+    public class CardVizCollection : CardVisual
     {
         [SerializeField] Image[] iconAmount;
-        public event Action<CardCollectionUI> OnClickCardCollection;
+  
         public Action OnClick;
         public Image lockImg;
 
         private Button main;
-        private CardVizInfoCollection _cardInformation;
         private bool isUnlock;
         private int cost;
         private int price;
         private GetBaseProperties _get;
+        private CollectionLogic _logic;
 
         public bool IsUnlocked { get => isUnlock; }
         public int Cost { get => cost; }
         public int Price { get => price; }
    
-        public void Init(GetBaseProperties get, CardVizInfoCollection cardInformation)
+        public void Init(GetBaseProperties get, CollectionLogic logic)
         {
-            _cardInformation = cardInformation;
             _get = get;
+            _logic = logic;
 
             OnClick = OnClickCallBack;
             main = GetComponent<Button>();
@@ -104,11 +104,7 @@ namespace PH
             }
         }
 
-        private void OnClickCallBack()
-        {
-            _cardInformation.LoadCardInformation(_card, this);
-            OnClickCardCollection?.Invoke(this);
-        }
+        private void OnClickCallBack() => _logic.OnClick(_card, this);
 
         //27/02/2022 0 reference
         public TypeMode GetTypeCardOnCollection()

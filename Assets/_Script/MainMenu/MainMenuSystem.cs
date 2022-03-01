@@ -34,7 +34,7 @@ namespace PH
 
         private void GoToDeck()
         {
-            SceneManager.LoadScene(SceneSelect.PlayerDeck.ToString());
+            SceneManager.LoadScene(SceneSelect.DeckLibrary.ToString());
         }
 
         void Start()
@@ -70,7 +70,7 @@ namespace PH
 
         public void GoToCollection()
         {
-            SceneManager.LoadScene(SceneSelect.Collection.ToString());
+            SceneManager.LoadScene(SceneSelect.CardLibrary.ToString());
         }
 
         private void OnDisable()

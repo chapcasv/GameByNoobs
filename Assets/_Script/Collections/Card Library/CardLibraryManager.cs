@@ -6,14 +6,16 @@ using System;
 
 namespace PH
 {
-    public class CollectionManager : MonoBehaviour
+    public class CardLibraryManager : MonoBehaviour
     {
-        [SerializeField] CollectionUI collectionUI;
+        [SerializeField] CardLibraryUI cardLibraryUI;
         [SerializeField] ALLCard aLLCard;
         [SerializeField] PlayerLocalSO playerLocalSO;
+        [SerializeField] GetBaseProperties get;
         [Header("System")]
         [SerializeField] UnlockCard unlockCard;
         [SerializeField] BuyCard buyCard;
+        [SerializeField] CardLibraryLogic logic;
 
         [Header("Button")]
         [SerializeField] Button B_Unlock;
@@ -25,16 +27,16 @@ namespace PH
 
         private void Awake()
         {
-            collectionUI.Constructor(aLLCard);
-            OnUnlock += collectionUI.Unlock;
-            OnBuy += collectionUI.Buy;
+            cardLibraryUI.Init(aLLCard, get);
+            cardLibraryUI.Constructor(logic);
+            OnUnlock += cardLibraryUI.Unlock;
+            OnBuy += cardLibraryUI.Buy;
         }
 
         private void Start()
         {
             B_Unlock.onClick.AddListener(Unlock);
             B_Buy.onClick.AddListener(BuyCard);
-
         }
 
         private void Unlock()
@@ -49,12 +51,11 @@ namespace PH
             OnBuy?.Invoke(isSuccessful);
         }
 
-
         private void OnDestroy()
         {
             B_Unlock.onClick.RemoveAllListeners();
-            OnUnlock -= collectionUI.Unlock;
-            OnBuy -= collectionUI.Buy;
+            OnUnlock -= cardLibraryUI.Unlock;
+            OnBuy -= cardLibraryUI.Buy;
         }
     }
 }

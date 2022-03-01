@@ -4,7 +4,7 @@ using UnityEngine;
 using PH.GraphSystem;
 
 namespace PH
-{   
+{
     public abstract class Card : ScriptableObject
     {
         [Range(0, 9999)]
@@ -26,13 +26,14 @@ namespace PH
         public CardRank GetRank => rank;
         public abstract TypeMode GetCardType();
 
-        public virtual void OnSetFactionViz(CardVisual cardViz) {
+        public virtual void OnSetFactionViz(CardVisual cardViz)
+        {
 
             if (Faction.Length == 0)
             {
                 return;
             }
-            else { cardViz.LoadFaction(Faction); } 
+            else { cardViz.LoadFaction(Faction); }
         }
 
         public Faction[] GetFaction()
@@ -40,11 +41,7 @@ namespace PH
             return Faction;
         }
 
-        public void OnSetUnlocked(CardCollectionUI cardViz)
-        {
-            cardViz.lockImg.gameObject.SetActive(!Unlocked);
-        }
-        public void SetUnlocked(CardDeckUI cardViz)
+        public void OnSetUnlocked(CardVizCollection cardViz)
         {
             cardViz.lockImg.gameObject.SetActive(!Unlocked);
         }

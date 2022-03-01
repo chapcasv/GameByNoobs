@@ -1,144 +1,61 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Linq;
-using TMPro;
-using PH.Save;
 
 namespace PH
 {
     public class CollectionUI : MonoBehaviour
-    {
-        [SerializeField] CardVizInfoCollection cardInformation;
-        [SerializeField] RectTransform content;
-        [SerializeField] CardCollectionUI cardPrefab;
-        [SerializeField] GetBaseProperties getBaseProperties;
+    {   
+        [Header("=== Base Class Properties ===")]
+        [SerializeField] protected CardVizCollection cardPrefab;
+        [SerializeField] protected RectTransform content;
 
-        [Header("Currency")]
-        [SerializeField] TextMeshProUGUI coin;
-        [SerializeField] TextMeshProUGUI diamond;
+        [SerializeField] protected List<CardVizCollection> listCardUI;
 
         [Header("Button")]
-        [SerializeField] Button B_Back;
-        [SerializeField] Button B_DisplayCardLocked;
-        [SerializeField] Button B_Unlock;
-        [SerializeField] Button B_Buy;
+        [SerializeField] protected Button B_Back;
+        [SerializeField] protected Button B_DisplayCardLocked;
 
-        [Header("CheckBox")]
-        [SerializeField] GameObject filterPopUp;
-        [SerializeField] Button checkbox;
-        [SerializeField] List<CardCollectionUI> listCardUI;
+        [Header("Filter Mode")]
+        [SerializeField] protected GameObject filterPopUp;
+        [SerializeField] protected Button B_DisplayFilterPopUp;
 
-        private ALLCard cardCollections;
-        private Dictionary<bool, List<CardCollectionUI>> dictLocked;
-        private CardCollectionUI cardUIselect;
+        protected Dictionary<bool, List<CardVizCollection>> dictLocked;
+        protected GetBaseProperties _get;
 
-        public void Constructor(ALLCard all)
+        protected ALLCard allCards;
+
+
+        public void Init(ALLCard all, GetBaseProperties get)
         {
-            cardCollections = all;
+            allCards = all;
+            _get = get;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             AddListener();
-            DisplayCurrency();
-            InitAllCard();
-            LoadInfoFirstCardActive();
         }
 
-        private void AddListener()
+        protected virtual void AddListener()
         {
             B_Back.onClick.AddListener(BackMainMenu);
-
-            checkbox.onClick.AddListener(DisplayFilter);
+            B_DisplayFilterPopUp.onClick.AddListener(DisplayFilter);
             B_DisplayCardLocked.onClick.AddListener(DisplayCardLocked);
         }
 
-        #region Currency
-
-        private void DisplayCurrency()
-        {
-            int coin = SaveSystem.LoadCoin();
-            this.coin.text = coin.ToString();
-        }
-
-        #endregion
-
-        #region Init all cards in collection
-        private void InitAllCard()
-        {   
-            cardCollections.ReloadUnlock();
-
-            List<Card> sortedList = SortByCost();
-            InstantiateCardUI(sortedList);
-            InitDictLocked(listCardUI);
-        }
-
-        private List<Card> SortByCost()
-        {
-            List<Card> clone = new List<Card>(cardCollections.allCard);
-            clone = clone.OrderBy(x => x.Cost).ToList();
-            return clone;
-        }
-
-        private void InstantiateCardUI(List<Card> sortedList)
-        {
-            for (int i = 0; i < sortedList.Count; i++)
-            {
-                var c = sortedList[i];
-
-                var cardUI = Instantiate(cardPrefab, content);
-                cardUI.Init(getBaseProperties, cardInformation);;
-                cardUI.OnClickCardCollection += SelectCardCollectionUI;
-                cardUI.SetCard(c);
-                listCardUI.Add(cardUI);
-            }
-        }
-
-        private void InitDictLocked(List<CardCollectionUI> listCardUI)
-        {
-            dictLocked = new Dictionary<bool, List<CardCollectionUI>>
-            {
-                [true] = new List<CardCollectionUI>(),
-                [false] = new List<CardCollectionUI>()
-            };
-
-            foreach (var card in listCardUI)
-            {
-                bool isUnlock = card.IsUnlocked;
-                dictLocked[isUnlock].Add(card);
-            }
-        }
-        #endregion
-
-        private void DisplayCardLocked()
-        {
-            var listCardLocked = dictLocked[false];
-
-            foreach (var cardUI in listCardLocked)
-            {
-                bool isActive = cardUI.gameObject.activeInHierarchy;
-                cardUI.gameObject.SetActive(!isActive);
-            }
-
-            //After change display mode,
-            //load infomation first card avtive in list card UI
-            LoadInfoFirstCardActive();
-        }
-
-        private void LoadInfoFirstCardActive()
-        {
-            var cardUI = listCardUI.Where(c => c.gameObject.activeInHierarchy).FirstOrDefault();
-            cardUI.OnClick?.Invoke();
-            SelectCardCollectionUI(cardUI);
-        }
-
-        private void DisplayFilter()
+        protected void DisplayFilter()
         {
             bool active = filterPopUp.activeInHierarchy;
             filterPopUp.SetActive(!active);
+        }
+
+        protected virtual void DisplayCardLocked()
+        {
+            var listCardLocked = dictLocked[false];
+            CollectionExtension.DisplayCardLocked(listCardLocked);
         }
 
         private void BackMainMenu()
@@ -146,53 +63,14 @@ namespace PH
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
         }
 
-        private void SelectCardCollectionUI(CardCollectionUI cardUI)
-        {
-            CollectionManager.CardSelected = cardUI.GetCard;
-            cardUIselect = cardUI;
-            SetInteractableButton(cardUI);
-        }
-
-        private void SetInteractableButton(CardCollectionUI cardUI)
-        {
-            B_Unlock.interactable = !cardUI.IsUnlocked;
-            B_Buy.interactable = cardUI.IsUnlocked;
-        }
-
-        public void Unlock(bool successful)
-        {
-            if (successful)
-            {
-                dictLocked[false].Remove(cardUIselect);
-                dictLocked[true].Add(cardUIselect);
-
-                //Reload visual after unlock
-                cardUIselect.SetCard(CollectionManager.CardSelected);
-
-                //Interactable unlock
-                SetInteractableButton(cardUIselect);
-                DisplayCurrency();
-            }
-        }
-
-        public void Buy(bool successful)
-        {
-            if (successful)
-            {
-                cardUIselect.SetCard(CollectionManager.CardSelected);
-                DisplayCurrency();
-            }
-        }
-     
-
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             B_Back.onClick.RemoveAllListeners();
-
-            checkbox.onClick.RemoveAllListeners();
+            B_DisplayFilterPopUp.onClick.RemoveAllListeners();
             B_DisplayCardLocked.onClick.RemoveAllListeners();
         }
 
+      
     }
 }
 

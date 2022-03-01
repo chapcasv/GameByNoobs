@@ -16,6 +16,7 @@ namespace PH
             scrollrect = this.GetComponent<UnityEngine.UI.ScrollRect>();
             currentSize = minSize;
         }
+
         private void Update()
         {
             
