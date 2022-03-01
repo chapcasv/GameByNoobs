@@ -11,7 +11,7 @@ namespace PH
         [SerializeField] Button B_Setup;
         [SerializeField] GameObject deck;
         [SerializeField] GameObject showChildCard;
-        [SerializeField] GameObject pfDeckVisual;
+        [SerializeField] DeckVisual pfDeckVisual;
         [SerializeField] Transform contentDeck;
 
         private DeckLibraryLogic _logic;
@@ -30,8 +30,9 @@ namespace PH
         {
             foreach (var deck in decks)
             {
-                Instantiate(pfDeckVisual, contentDeck);
-                Debug.Log(deck.deckName);
+                var deckVisual = Instantiate(pfDeckVisual, contentDeck);
+                deckVisual.Init(_get);
+                deckVisual.SetDeck(deck);
             }
         }
 

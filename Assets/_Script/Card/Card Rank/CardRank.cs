@@ -9,6 +9,9 @@ namespace PH
         [SerializeField] protected Sprite icon;
         [SerializeField] protected Color baseColor;
         [SerializeField] protected Color bgColor;
+        [SerializeField] int rankTier;
+
+        public int RankTier => rankTier;
 
         public Color BaseColor => baseColor;
 
