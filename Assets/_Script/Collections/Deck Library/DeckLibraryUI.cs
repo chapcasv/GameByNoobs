@@ -11,7 +11,6 @@ namespace PH
         [Header("=== Derived Class Properties ===")]
         [SerializeField] DeckLibraryLogic logic;
 
-
         protected override void Start()
         {
             base.Start();
@@ -26,21 +25,6 @@ namespace PH
             List<Card> sortedList = CollectionExtension.SortByCost(allCard);
             InstantiateCardUI(sortedList);
             InitDictLocked(listCardUI);
-        }
-
-        private void InitDictLocked(List<CardVizCollection> listCardUI)
-        {
-            dictLocked = new Dictionary<bool, List<CardVizCollection>>
-            {
-                [true] = new List<CardVizCollection>(),
-                [false] = new List<CardVizCollection>()
-            };
-
-            foreach (var card in listCardUI)
-            {
-                bool isUnlock = card.IsUnlocked;
-                dictLocked[isUnlock].Add(card);
-            }
         }
 
         private void InstantiateCardUI(List<Card> sortedList)

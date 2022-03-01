@@ -22,7 +22,7 @@ namespace PH
         }
 
         /// <summary>
-        /// Set properties unlock by data
+        /// Set propertie unlock by data
         /// </summary>
         public void ReloadUnlock()
         {

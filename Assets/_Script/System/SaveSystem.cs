@@ -6,7 +6,6 @@ using System;
 
 namespace PH.Save
 {
-
     public static class SaveSystem
     {
         private const string MESS_ERROR = "Data Path dont Exists";
@@ -14,8 +13,7 @@ namespace PH.Save
 
         public static bool IsHavePlayerData()
         {
-            if (File.Exists(playerDataPath)) return true;
-            else return false;
+            return File.Exists(playerDataPath);
         }
 
         public static bool RemovePlayerData()
@@ -30,16 +28,24 @@ namespace PH.Save
 
         public static void InitPlayer(PlayerLocalSO playerSO)
         {
-            PlayerData playerData = new PlayerData();
-            playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
+            PlayerData playerData = new PlayerData
+            {
+                PlayerName = playerSO.GetPlayerName(),
+                Coin = playerSO.Coin,
+                Cards = ConvertCard.DefaultCardToPlayerCards(playerSO.Cards),
+                Rank = ConvertRank.ToPlayerRank(playerSO.Rank),
+                Decks = ConvertDecksToPlayerDecks(playerSO.Decks)
+            };
+
             WriteJSon(playerData);
         }
+
 
         //ONLY call when you want to save ALL player data
         public static void SavePlayer(PlayerLocalSO playerSO)
         {
             PlayerData playerData = ReadJSon();
-            playerData = ConvertPlayerSOToPlayerData(playerSO,playerData);
+            playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
             WriteJSon(playerData);
         }
 
@@ -47,9 +53,10 @@ namespace PH.Save
         {
             playerData.PlayerName = playerSO.GetPlayerName();
             playerData.Coin = playerSO.Coin;
-            playerData.Cards = ConvertCardsToPlayerCards(playerSO.Cards);
+            playerData.Cards = ConvertCard.ToPlayerCards(playerSO.Cards);
             playerData.Decks = ConvertDecksToPlayerDecks(playerSO.Decks);
             playerData.Rank = ConvertRank.ToPlayerRank(playerSO.Rank);
+
             return playerData;
         }
 
@@ -64,18 +71,6 @@ namespace PH.Save
             }
 
             return playerDecks;
-        }
-
-        private static List<PlayerCard> ConvertCardsToPlayerCards(List<Card> Cards)
-        {
-            List<PlayerCard> playerCards = new List<PlayerCard>();
-
-            foreach (var c in Cards)
-            {
-                PlayerCard cardData = ConvertCard.ToPlayerCard(c);
-                playerCards.Add(cardData);
-            }
-            return playerCards;
         }
 
         //ONLY call when you want to load ALL player data
@@ -93,18 +88,7 @@ namespace PH.Save
         {
             playerSO.SetPlayerName(playerData.PlayerName);
             playerSO.Coin = playerData.Coin;
-            playerSO.Cards = ConverPlayerCardsToCards(playerData.Cards, allCards);
-        }
-
-        private static List<Card> ConverPlayerCardsToCards(List<PlayerCard> playerCards, ALLCard allCards)
-        {
-            List<Card> cards = new List<Card>();
-
-            foreach (var c in playerCards)
-            {
-                cards.Add(ConvertCard.PlayerCardToCard(c, allCards));
-            }
-            return cards;
+            playerSO.Cards = ConvertCard.PlayerCardsToCards(playerData.Cards, allCards); 
         }
 
         public static List<PlayerCard> LoadCards()

@@ -38,7 +38,6 @@ namespace PH
 
         [SerializeField] Button B_descriptionDetail;
         [SerializeField] Button B_UnitDetail;
-     
        
         [SerializeField] private ALLCard _allCards;
      
@@ -51,6 +50,7 @@ namespace PH
         {
             AddListenerDetail();
         }
+
         public void LoadCardInformation(Card card, CardVizCollection cardUI)
         {
             LoadCard(card);
@@ -75,7 +75,6 @@ namespace PH
         {
             unitDetail.SetActive(true);
             cardDescription.SetActive(false);
-
         }
 
         private void OnDescriptionDetailCallBack()
@@ -88,6 +87,7 @@ namespace PH
         {
             priceValue.text = card.Price.ToString(); 
         }
+
         private void LoadCardDiscription(Card card)
         {
             discription.text = card.GetDiscription;
@@ -114,7 +114,6 @@ namespace PH
 
         private void LoadCardInfoUnit(Card card)
         {
-            
             CardUnit unit = (CardUnit)card;
             DeInteractive(true);
             LoadInfoBar(unit);
@@ -123,11 +122,13 @@ namespace PH
             LoadCardUnitInfoStat(unit);
             LoadUnitAbility(unit);
         }
+
         private void DeInteractive(bool active)
         {
             B_descriptionDetail.interactable = active;
             B_UnitDetail.interactable = active;
         }
+
         private void LoadUnitAbility(CardUnit unit)
         {
             Ability a = unit.Abitity;
@@ -158,14 +159,13 @@ namespace PH
             manaValue.text = unit.ManaStart.ToString() + "/" + unit.ManaMax.ToString();
             unitSurStat.SetActive(true);
         }
+
         private void LoadRankColor(Card card)
         {
             var rank = card.GetRank;
             backgroundAvt.color = rank.BackGroundColor;
             backgroundName.color = rank.BaseColor;
         }
-        
-
     }
 
 }

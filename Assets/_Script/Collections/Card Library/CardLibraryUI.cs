@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
@@ -10,7 +9,8 @@ using PH.Save;
 namespace PH
 {
     public class CardLibraryUI : CollectionUI
-    {
+    {   
+        [Header("=== Child ===")]
         [SerializeField] CardVizInfoCollection cardInformation;
 
         [Header("Currency")]
@@ -73,21 +73,7 @@ namespace PH
                 listCardUI.Add(cardUI);
             }
         }
-
-        private void InitDictLocked(List<CardVizCollection> listCardUI)
-        {
-            dictLocked = new Dictionary<bool, List<CardVizCollection>>
-            {
-                [true] = new List<CardVizCollection>(),
-                [false] = new List<CardVizCollection>()
-            };
-
-            foreach (var card in listCardUI)
-            {
-                bool isUnlock = card.IsUnlocked;
-                dictLocked[isUnlock].Add(card);
-            }
-        }
+       
         #endregion
 
         protected override void DisplayCardLocked()
@@ -101,10 +87,9 @@ namespace PH
         private void LoadInfoFirstCardActive()
         {
             var cardUI = listCardUI.Where(c => c.gameObject.activeInHierarchy).FirstOrDefault();
-            cardUI.OnClick?.Invoke();
+            cardUI.OnClickCallBack();
             SelectCardCollectionUI(cardUI);
         }
-
 
         public void SelectCardCollectionUI(CardVizCollection cardUI)
         {

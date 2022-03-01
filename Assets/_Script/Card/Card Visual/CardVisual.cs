@@ -8,7 +8,6 @@ namespace PH
 {
     public class CardVisual : MonoBehaviour
     {
-        
         [SerializeField] protected PropertiesUI[] basePropertiesViz;
         [SerializeField] protected Image factionIcon;
 
@@ -71,7 +70,6 @@ namespace PH
             }
             return result;
         }
-        
 
     }
 }

@@ -34,16 +34,16 @@ namespace PH
 
             if (Subtract(card, playerLocalSO))
             {
-                foreach (var playerCard in playerCards)
+                var newCard = ConvertCard.ToPlayerCard(card);
+                bool canAdd = ConvertCard.AddPlayerCard(ref playerCards, newCard);
+
+                if (canAdd)
                 {
-                    if(playerCard.ID == currentPlayerCard.ID)
-                    {
-                        playerCard.Amount++;
-                        SaveSystem.SaveCards(playerCards);
-                        return true;
-                    }
+                    SaveSystem.SaveCards(playerCards);
+                    playerLocalSO.Cards = ConvertCard.PlayerCardsToCards(playerCards, aLLCard);
+
+                    return true;
                 }
-                Debug.Log("error");
                 return false;
             }
             else return false;
@@ -52,7 +52,6 @@ namespace PH
         private bool EnoughCoin(Card card)
         {
             var coin = SaveSystem.LoadCoin();
-            Debug.Log(card);
             var price = get.GetPrice(card);
             return coin >= price;
         }

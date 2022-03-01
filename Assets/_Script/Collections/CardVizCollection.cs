@@ -10,8 +10,7 @@ namespace PH
     public class CardVizCollection : CardVisual
     {
         [SerializeField] Image[] iconAmount;
-  
-        public Action OnClick;
+ 
         public Image lockImg;
 
         private Button main;
@@ -30,12 +29,11 @@ namespace PH
             _get = get;
             _logic = logic;
 
-            OnClick = OnClickCallBack;
             main = GetComponent<Button>();
             
             if(main != null)
             {
-                main.onClick.AddListener(() => OnClick?.Invoke());
+                main.onClick.AddListener(() => OnClickCallBack());
             }
         }
 
@@ -104,7 +102,7 @@ namespace PH
             }
         }
 
-        private void OnClickCallBack() => _logic.OnClick(_card, this);
+        public void OnClickCallBack() => _logic.OnClick(_card, this);
 
         //27/02/2022 0 reference
         public TypeMode GetTypeCardOnCollection()

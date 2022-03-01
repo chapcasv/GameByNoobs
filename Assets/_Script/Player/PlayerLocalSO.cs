@@ -14,8 +14,8 @@ namespace PH
         [SerializeField] Deck currentDeck;
         [SerializeField] List<Deck> decks;
         [SerializeField] List<Card> cards;
-        private Rank rank;
 
+        private Rank rank;
 
         public string GetPlayerName()
         {

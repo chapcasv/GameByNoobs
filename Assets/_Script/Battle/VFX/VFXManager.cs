@@ -19,9 +19,7 @@ namespace PH
         [SerializeField] GameVFX pfHit;
         [SerializeField] StatusVFX pfStun;
 
-
         private GameObject tileUnder;
-
         private Dictionary<string, Queue<GameVFX>> vfxPool;
         private Dictionary<string, Queue<StatusVFX>> vfxStatusPool;
 
@@ -33,7 +31,6 @@ namespace PH
         private Queue<GameVFX> vfxRecall;
         private Queue<GameVFX> vfxHit;
         private Queue<StatusVFX> vfxStun;
-
 
         protected override void Awake()
         {

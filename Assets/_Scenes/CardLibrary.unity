@@ -947,6 +947,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4500287699421152141, guid: 33ed5b70d6eaf5442a115cf7cdbc2e88, type: 3}
+      propertyPath: get
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
+    - target: {fileID: 4500287699421152141, guid: 33ed5b70d6eaf5442a115cf7cdbc2e88, type: 3}
       propertyPath: B_Buy
       value: 
       objectReference: {fileID: 5994963084086409934}
@@ -1465,19 +1469,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f20b5061b11c5945b1c43f86f3ecf92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInformation: {fileID: 842065666}
-  content: {fileID: 5994963084531108834}
   cardPrefab: {fileID: 4012006628350883103, guid: aec5da93e370bbc459ba13989e24c1f0, type: 3}
-  getBaseProperties: {fileID: 11400000, guid: c7e16ed64c95f6342972adef28cc97b8, type: 2}
-  coin: {fileID: 275931851}
-  diamond: {fileID: 1770164407}
+  content: {fileID: 5994963084531108834}
+  listCardUI: []
   B_Back: {fileID: 5994963085580179464}
   B_DisplayCardLocked: {fileID: 5994963084579117324}
+  filterPopUp: {fileID: 5994963084431244160}
+  B_DisplayFilterPopUp: {fileID: 5994963085165613505}
+  cardInformation: {fileID: 842065666}
+  coin: {fileID: 275931851}
+  diamond: {fileID: 1770164407}
   B_Unlock: {fileID: 5994963085295764472}
   B_Buy: {fileID: 5994963084086409934}
-  filterPopUp: {fileID: 5994963084431244160}
-  checkbox: {fileID: 5994963085165613505}
-  listCardUI: []
 --- !u!1 &5994963084080818549
 GameObject:
   m_ObjectHideFlags: 0

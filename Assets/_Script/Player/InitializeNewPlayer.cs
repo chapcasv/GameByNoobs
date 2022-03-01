@@ -25,19 +25,14 @@ namespace PH {
         private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
         {
             playerSO.SetPlayerName(playerName);
+
             playerSO.Coin = defaultPlayer.Coin;
-            playerSO.Cards = AddCards(defaultPlayer);
+            playerSO.Cards = new List<Card>(defaultPlayer.Cards);
             playerSO.Decks = AddDecks(defaultPlayer);
             playerSO.CurrentDeck = playerSO.Decks[0];
-            playerSO.Rank = InitRank();
+            playerSO.Rank = new Rank();
 
             SaveSystem.InitPlayer(playerSO);
-        }
-
-        private static Rank InitRank()
-        {
-            Rank rank = new Rank();
-            return rank;
         }
 
         private static List<Deck> AddDecks(PlayerDefaultData playerDefault)
@@ -48,18 +43,6 @@ namespace PH {
                 defaultDecks.Add(deck);
             }
             return defaultDecks;
-        }
-        
-        private static List<Card> AddCards(PlayerDefaultData playerDefault)
-        {
-            
-            List<Card> defaultCards = new List<Card>();
-            foreach (var card in playerDefault.Cards)
-            {
-                defaultCards.Add(card);
-                //card.Unlocked = true;
-            }
-            return defaultCards;
         }
 
 

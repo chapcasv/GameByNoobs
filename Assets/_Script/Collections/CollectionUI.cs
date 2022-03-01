@@ -58,6 +58,21 @@ namespace PH
             CollectionExtension.DisplayCardLocked(listCardLocked);
         }
 
+        protected void InitDictLocked(List<CardVizCollection> listCardUI)
+        {
+            dictLocked = new Dictionary<bool, List<CardVizCollection>>
+            {
+                [true] = new List<CardVizCollection>(),
+                [false] = new List<CardVizCollection>()
+            };
+
+            foreach (var card in listCardUI)
+            {
+                bool isUnlock = card.IsUnlocked;
+                dictLocked[isUnlock].Add(card);
+            }
+        }
+
         private void BackMainMenu()
         {
             SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
