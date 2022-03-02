@@ -29,7 +29,7 @@ namespace PH {
             playerSO.Coin = defaultPlayer.Coin;
             playerSO.Cards = new List<Card>(defaultPlayer.Cards);
             playerSO.Decks = new List<Deck>(defaultPlayer.Decks);
-            playerSO.CurrentDeck = playerSO.Decks[0];
+            playerSO.SetCurrentDeck(playerSO.Decks[0]);
             playerSO.Rank = new Rank();
 
             SaveSystem.InitPlayer(playerSO);

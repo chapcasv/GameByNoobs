@@ -5,12 +5,11 @@ using System;
 
 namespace PH
 {
-    public static class ConvertCard 
+    public static class ConvertCard
     {
-        private static readonly int MAX_AMOUNT = 3;
+        #region Card
 
-        #region Card => Player Card
-        public static PlayerCard ToPlayerCard(Card card)
+        public static PlayerCard CardToPlayerCard(Card card)
         {
             PlayerCard cardData = new PlayerCard
             {
@@ -19,20 +18,6 @@ namespace PH
             return cardData;
         }
 
-        //01/03/2022 0 references
-        public static List<PlayerCard> ToPlayerCards(List<Card> cards, List<PlayerCard> playerCards)
-        {
-            foreach (var card in cards)
-            {
-                PlayerCard newCard = ToPlayerCard(card);
-                AddPlayerCard(ref playerCards, newCard);
-            }
-            return playerCards;
-        }
-
-        #endregion
-
-        #region Player Card => Card
         public static Card PlayerCardToCard(PlayerCard cardData, ALLCard allCards)
         {
             foreach (Card c in allCards.allCard)
@@ -46,11 +31,11 @@ namespace PH
         {
             List<Card> listCard = new List<Card>();
 
-            foreach (var playerCard in playerCards)
+            foreach (var card in playerCards)
             {
-                Card c = PlayerCardToCard(playerCard, allCards);
+                Card c = PlayerCardToCard(card, allCards);
 
-                for (int i = 0; i < playerCard.Amount; i++)
+                for (int i = 0; i < card.Amount; i++)
                 {
                     listCard.Add(c);
                 }
@@ -60,43 +45,28 @@ namespace PH
 
         #endregion
 
-        #region Add Card
+        #region CardInDeck
 
-        public static void AddPlayerCardInDeck(ref PlayerDeck deck, PlayerCard newCard)
+        public static PlayerCard CardInDeckToPlayerCard(CardInDeck c)
         {
-            foreach (var playerCard in deck.cardsInDeck)
+            PlayerCard playerCard = new PlayerCard()
             {
-                if(playerCard.ID == newCard.ID)
-                {
-                    if(playerCard.Amount < MAX_AMOUNT)
-                    {
-                        playerCard.Amount++;
-                        return;
-                    }
-                }
-            }
-            newCard.Amount = 1;
-            deck.cardsInDeck.Add(newCard);
+                Amount = c.Amount,
+                ID = c.Card.CardID
+            };
+            return playerCard;
         }
 
-        public static bool AddPlayerCard(ref List<PlayerCard> playerCards, PlayerCard newCard) 
+
+        public static CardInDeck PlayerCardToCardInDeck(PlayerCard playerCard, ALLCard all)
         {
-            foreach (var playerCard in playerCards)
-            {
-                if(playerCard.ID == newCard.ID)
-                {
-                    if (playerCard.Amount < MAX_AMOUNT)
-                    {
-                        playerCard.Amount++;
-                        return true;
-                    }
-                    else return false;
-                }
-            }
-            throw new Exception("Data cards unlocked dont have new card");
+            Card c = PlayerCardToCard(playerCard, all);
+            CardInDeck cardInDeck = new CardInDeck(c, playerCard.Amount);
+            return cardInDeck;
         }
 
         #endregion
+
 
         public static List<PlayerCard> DefaultCardToPlayerCards(List<Card> cards)
         {
@@ -105,19 +75,19 @@ namespace PH
             //Set unlock
             foreach (var card in cards)
             {
-                var newCard = ToPlayerCard(card);
+                var newCard = CardToPlayerCard(card);
                 playerCards.Add(newCard);
             }
 
             //Set amount after unlocked
             foreach (var card in cards)
             {
-                PlayerCard newCard = ToPlayerCard(card);
-                AddPlayerCard(ref playerCards, newCard);
+                PlayerCard newCard = CardToPlayerCard(card);
+                CollectionMethods.AddPlayerCard(ref playerCards, newCard);
             }
             return playerCards;
         }
-       
+
     }
 }
 

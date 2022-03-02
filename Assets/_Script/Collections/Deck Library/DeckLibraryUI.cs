@@ -8,17 +8,21 @@ namespace PH
     {
         [Header("=== DERIVED CLASS Properties ===")]
 
-        [SerializeField] Button B_Setup;
+        [SerializeField] Button B_Editor;
         [SerializeField] GameObject deck;
-        [SerializeField] GameObject showChildCard;
+        [SerializeField] GameObject deckEditor;
         [SerializeField] DeckVisual pfDeckVisual;
         [SerializeField] Transform contentDeck;
+        [SerializeField] ChildCardUI childCard;
 
         private DeckLibraryLogic _logic;
+        private DeckManager _deckManager;
 
-        public void Constructor(DeckLibraryLogic logic)
+        public void Constructor(DeckLibraryLogic logic, DeckManager deckManager)
         {
             _logic = logic;
+            _deckManager = deckManager;
+            childCard.Constructor(deck, deckEditor, _get, allCards);
         }
 
         protected override void Start()
@@ -31,21 +35,30 @@ namespace PH
             foreach (var deck in decks)
             {
                 var deckVisual = Instantiate(pfDeckVisual, contentDeck);
-                deckVisual.Init(_get);
+                deckVisual.Init(_get, _deckManager);
                 deckVisual.SetDeck(deck);
             }
+
+            SelectFirstDeck();
+        }
+
+        private void SelectFirstDeck()
+        {
+            var firstDeck = contentDeck.GetChild(0);
+            var deckViz = firstDeck.GetComponent<DeckVisual>();
+            if (deckViz != null) deckViz.OnClick();
         }
 
         protected override void AddListener()
         {
             base.AddListener();
-            B_Setup.onClick.AddListener(SetUpDeckCallBack);
+            B_Editor.onClick.AddListener(CurrentDeckEditor);
         }
 
-        private void SetUpDeckCallBack()
+        private void CurrentDeckEditor()
         {
-            showChildCard.SetActive(true);
             deck.SetActive(false);
+            deckEditor.SetActive(true);
         }
 
         protected override void InstantiateCardUI(List<Card> sortedList)
@@ -65,7 +78,7 @@ namespace PH
         protected override void RemoveListener()
         {
             base.RemoveListener();
-            B_Setup.onClick.RemoveAllListeners();
+            B_Editor.onClick.RemoveAllListeners();
         }
     }
 

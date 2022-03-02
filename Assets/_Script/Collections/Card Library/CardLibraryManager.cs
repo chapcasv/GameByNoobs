@@ -47,7 +47,7 @@ namespace PH
 
         private void BuyCard()
         {
-            bool isSuccessful = buyCard.Buy(CardSelected, playerLocalSO, aLLCard);
+            bool isSuccessful = buyCard.Buy(CardSelected, playerLocalSO);
             OnBuy?.Invoke(isSuccessful);
         }
 

@@ -15,7 +15,7 @@ namespace PH
         {
             CheckUnlock(card);
 
-            if (EnoughCoin(card))
+            if (CollectionMethods.EnoughCoin(get.GetPrice(card)))
             {
                 return Execute(card, playerLocalSO, aLLCard);
             }
@@ -34,18 +34,12 @@ namespace PH
                 }
             }
         }
-
-        private bool EnoughCoin(Card card)
-        {
-            var coin = SaveSystem.LoadCoin();
-            var price = get.GetPrice(card);
-            return coin >= price;
-        }
+    
 
         private bool Execute(Card card, PlayerLocalSO playerLocalSO, ALLCard aLLCard)
         {
             var playerCards = SaveSystem.LoadCards();
-            PlayerCard newCard = ConvertCard.ToPlayerCard(card);
+            PlayerCard newCard = ConvertCard.CardToPlayerCard(card);
 
             if (Subtract(card, playerLocalSO))
             {

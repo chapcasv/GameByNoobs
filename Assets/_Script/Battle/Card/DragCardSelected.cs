@@ -12,7 +12,6 @@ namespace PH
 
         private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
-        private GetBaseProperties _getBaseProperties;
 
         private DropCardSelected _drop;
         private RectTransform _transform;
@@ -24,11 +23,10 @@ namespace PH
         public Card CurrentCard { set => currentCard = value; }
         public CardInstance CardInstanceCache { set => cache = value; }
 
-        public void Constructor(CoinSystem CS, DeckSystem DS, GetBaseProperties GBP)
+        public void Constructor(CoinSystem CS, DeckSystem DS)
         {
             _coinSystem = CS;
             _deckSystem = DS;
-            _getBaseProperties = GBP;
 
             _drop = GetComponent<DropCardSelected>();
             _transform = GetComponent<RectTransform>();
@@ -118,7 +116,7 @@ namespace PH
 
         private int GetCostCurrentCard()
         {
-            int cost = _getBaseProperties.GetCost(currentCard);
+            int cost = currentCard.Cost;
             return cost;
         }
     }

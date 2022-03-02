@@ -46,7 +46,7 @@ namespace PH.Save
         private static void InitDeck(List<Deck> decks)
         {
             PlayerData playerData = ReadJSon();
-            playerData.Decks = ConvertDeck.ToPlayerDecks(decks);
+            playerData.Decks = ConvertDeck.DecksToPlayerDecks(decks);
             WriteJSon(playerData);
         }
 

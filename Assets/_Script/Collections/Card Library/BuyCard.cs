@@ -13,35 +13,38 @@ namespace PH
 
         private PlayerCard currentPlayerCard;
 
-        public bool Buy(Card card, PlayerLocalSO playerLocalSO, ALLCard aLLCard)
+        public bool Buy(Card card, PlayerLocalSO playerSO)
         {
+            currentPlayerCard = null;
+
             CheckUnlocked(card);
 
-            if (EnoughCoin(card))
+            bool enoughCoin = CollectionMethods.EnoughCoin(get.GetPrice(card));
+
+            if (enoughCoin)
             {
-                if (IsHaveSlotFree())
+                if (HaveSlotFree())
                 {
-                    return Execute(card, playerLocalSO, aLLCard);
+                    return Execute(card, playerSO);
                 }
                 else return false;
             }
             else return false;
         }
 
-        private bool Execute(Card card, PlayerLocalSO playerLocalSO, ALLCard aLLCard)
+        private bool Execute(Card card, PlayerLocalSO playerSO)
         {
             var playerCards = SaveSystem.LoadCards();
 
-            if (Subtract(card, playerLocalSO))
+            if (Subtract(card, playerSO))
             {
-                var newCard = ConvertCard.ToPlayerCard(card);
-                bool canAdd = ConvertCard.AddPlayerCard(ref playerCards, newCard);
+                var newPlayerCard = ConvertCard.CardToPlayerCard(card);
+                bool canAdd = CollectionMethods.AddPlayerCard(ref playerCards, newPlayerCard);
 
                 if (canAdd)
                 {
                     SaveSystem.SaveCards(playerCards);
-                    playerLocalSO.Cards = ConvertCard.PlayerCardsToCards(playerCards, aLLCard);
-
+                    playerSO.Cards.Add(card);
                     return true;
                 }
                 return false;
@@ -49,16 +52,9 @@ namespace PH
             else return false;
         }
 
-        private bool EnoughCoin(Card card)
+        private bool HaveSlotFree()
         {
-            var coin = SaveSystem.LoadCoin();
-            var price = get.GetPrice(card);
-            return coin >= price;
-        }
-
-        private bool IsHaveSlotFree()
-        {
-            return currentPlayerCard.Amount < 3;
+            return currentPlayerCard.Amount < GameConst.MAX_AMOUNT_CARD_INSTANCE;
         }
 
         private bool Subtract(Card card, PlayerLocalSO playerLocalSO)

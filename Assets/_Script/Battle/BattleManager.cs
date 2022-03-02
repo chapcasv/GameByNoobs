@@ -69,7 +69,7 @@ namespace PH
             DictionaryTeamBattle.Init(factionContainer);
             CardDropHistory.Init();
             PlayerCacheUnitData.Init();
-            dragCardSelected.Constructor(CS, DS, GBP);
+            dragCardSelected.Constructor(CS, DS);
 
             SetterDragLogic();
         }
@@ -101,7 +101,8 @@ namespace PH
             DS.GetBaseProperties = GBP;
         }
 
-        private void SetSystemByCurrentPlayMode(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS)
+        private void SetSystemByCurrentPlayMode(LifeSystem LS, WaveSystem WS, CoinSystem CS, 
+            MemberSystem MS, ResultSystem RS)
         {
             LS.SetData(currentEnemy);
             WS.SetData(currentEnemy);

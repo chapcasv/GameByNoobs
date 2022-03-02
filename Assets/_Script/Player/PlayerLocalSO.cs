@@ -11,10 +11,11 @@ namespace PH
     {
         [SerializeField] string playerName;
         [SerializeField] int coin;
-        [SerializeField] Deck currentDeck;
-        List<Deck> decks;
         [SerializeField] List<Card> cards;
         [SerializeField] ALLCard allCard;
+
+        private Deck currentDeck;
+        private List<Deck> decks;
 
         private Rank rank;
 
@@ -43,10 +44,20 @@ namespace PH
             return result;
         }
 
-        public Deck CurrentDeck { get => currentDeck; set => currentDeck = value; }
         public List<Deck> Decks { get => decks; set => decks = value; }
         public List<Card> Cards { get => cards; set => cards = value; }
         public Rank Rank { get => rank; set => rank = value; }
+
+        public Deck GetCurrentDeck()
+        {
+            ReloadDecks();
+            //Need Fix
+            currentDeck = decks[0];
+            currentDeck.ReloadListCard();
+            return currentDeck;
+        }
+
+        public void SetCurrentDeck(Deck value) => currentDeck = value;
 
         public void ReloadDecks()
         {

@@ -12,9 +12,13 @@ namespace PH
         [SerializeField] Image avatar;
         [SerializeField] TextMeshProUGUI deckName;
 
+        private DeckManager _deckManager;
         private GetBaseProperties _get;
         private Deck _deck;
         private Button button;
+
+        public Sprite GetAvatar => avatar.sprite;
+        public string GetDeckName => deckName.text;
 
         private void Awake()
         {
@@ -22,9 +26,10 @@ namespace PH
             button.onClick.AddListener(() => OnClick());
         }
 
-        public void Init(GetBaseProperties get)
+        public void Init(GetBaseProperties get, DeckManager manager)
         {
             _get = get;
+            _deckManager = manager;
         }
 
         public void SetDeck(Deck deck)
@@ -36,22 +41,19 @@ namespace PH
         private void LoadDeck()
         {
             deckName.text = _deck.deckName;
-            SetAvatar(_deck.CardsInDeck);
+            SetAvatar(_deck.GetCardInDecks);
         }
-        private void SetAvatar(List<Card> cardsInDeck)
+        private void SetAvatar(List<CardInDeck> cardsInDeck)
         {
-            Card c = GetCardHightRank(cardsInDeck);
+            Card c = CollectionMethods.GetCardHightRank(cardsInDeck);
             avatar.sprite = _get.GetArt(c);
         }
 
-        private Card GetCardHightRank(List<Card> cardsInDeck)
-        {
-            var sortByRank = cardsInDeck.OrderBy(x => x.GetRank.RankTier).ToList().LastOrDefault();
-            return sortByRank;
-        }
 
-        private void OnClick()
+        public void OnClick()
         {
+            DeckLibraryManager.DeckSelected = _deck;
+            _deckManager.SetCurrentDeck(this);
             Debug.Log("Click " + _deck.deckName);
         }
 

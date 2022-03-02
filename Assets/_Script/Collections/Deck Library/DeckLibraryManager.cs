@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using PH.Save;
 
 namespace PH
 {
@@ -15,11 +13,14 @@ namespace PH
         [SerializeField] DeckLibraryLogic logic;
         [SerializeField] GetBaseProperties get;
         [SerializeField] PlayerLocalSO playerLocalSO;
+        [SerializeField] DeckManager deckManager;
+
+        public static Deck DeckSelected { get; set; }
 
         private void Awake()
         {
             deckLibraryUI.Init(allcard, get);
-            deckLibraryUI.Constructor(logic);
+            deckLibraryUI.Constructor(logic,deckManager);
         }
 
         private void Start()

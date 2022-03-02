@@ -47,7 +47,7 @@ namespace PH
 
             var allCard = allCards.allCard;
 
-            List<Card> sortedList = CollectionExtension.SortByCost(allCard);
+            List<Card> sortedList = CollectionMethods.SortByCost(allCard);
             InstantiateCardUI(sortedList);
             InitDictLocked(listCardUI);
         }
@@ -70,7 +70,7 @@ namespace PH
         protected virtual void DisplayCardLocked()
         {
             var listCardLocked = dictLocked[false];
-            CollectionExtension.DisplayCardLocked(listCardLocked);
+            CollectionMethods.DisplayCardLocked(listCardLocked);
         }
 
         protected void InitDictLocked(List<CardVizCollection> listCardUI)

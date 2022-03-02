@@ -23,16 +23,12 @@ namespace PH
 
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
 
-        private const int MAX_COST_IN_GAME = 9;
-        private const int MAX_CARD_IN_HAND = 9;
         private Card _lastCardDrop;
-
         private GetBaseProperties _getBaseProperties;
 
         public List<Card> CardsInHand { get; private set; }
         public GetBaseProperties GetBaseProperties { set => _getBaseProperties = value; }
         public Card GetLastCardDrop => _lastCardDrop;
-
         public Deck CurrentDeck => _currentDeck;
 
         public void DrawStartCard()
@@ -44,7 +40,7 @@ namespace PH
 
         public bool DrawCard()
         {
-            List<Card> listCard = _currentDeck.CardsInDeck;
+            List<Card> listCard = _currentDeck.GetListCard();
             bool resultDraw = DrawFormList(listCard);
             return resultDraw;
         }
@@ -84,7 +80,7 @@ namespace PH
 
         private void AddCardDraw(Card card)
         {   
-            if(CardsInHand.Count < MAX_CARD_IN_HAND)
+            if(CardsInHand.Count < GameConst.MAX_CARD_IN_HAND)
             {
                 CardsInHand.Add(card);
                 //Reload card hand UI
@@ -132,7 +128,7 @@ namespace PH
             }
             else if(costMode == CostMode.UPPER)
             {
-                for (int i = cost; i < MAX_COST_IN_GAME; i++)
+                for (int i = cost; i < GameConst.MAX_CARD_COST; i++)
                 {
                     var oldList = _dictionaryCardCost[cost];
                     Filter(newList, oldList);
@@ -159,7 +155,7 @@ namespace PH
 
         public void AddCardToHand(Card card)
         {
-            if (CardsInHand.Count < MAX_CARD_IN_HAND)
+            if (CardsInHand.Count < GameConst.MAX_CARD_IN_HAND)
             {
                 CardsInHand.Add(card);
                 //Reload card hand UI
@@ -198,7 +194,7 @@ namespace PH
             _dictionaryCardType = new Dictionary<TypeMode, List<Card>>();
             _dictionaryCardCost = new Dictionary<int, List<Card>>();
 
-            for (int i = 0; i < MAX_COST_IN_GAME; i++)
+            for (int i = 0; i < GameConst.MAX_CARD_COST; i++)
             {
                 _dictionaryCardCost[i] = new List<Card>();
             }
@@ -217,9 +213,9 @@ namespace PH
 
         private void CopyPlayerCurrentDeck()
         {
-            Deck deckDefault = data.CurrentDeck;
+            Deck deckDefault = data.GetCurrentDeck();
 
-            foreach (var card in deckDefault.CardsInDeck)
+            foreach (var card in deckDefault.GetListCard())
             {
                 deckBeforeShuffle.Add(card);
             }
@@ -227,7 +223,7 @@ namespace PH
 
         private void Shuffle()
         {
-            deckAfterShuffle.Clear();
+            deckAfterShuffle.ClearListCard();
             int deckCount = deckBeforeShuffle.AmountCard();
 
             for (int i = 0; i < deckCount; i++)
@@ -257,13 +253,8 @@ namespace PH
 
         private void AddDictionaryCost(Card card)
         {
-            int cost = _getBaseProperties.GetCost(card);
-
-            if (cost != int.MaxValue)
-            {
-                _dictionaryCardCost[cost].Add(card);
-            }
-            else throw new Exception("Cant find card cost");
+            int cost = card.Cost;
+            _dictionaryCardCost[cost].Add(card);
         }
 
         private void RemoveAfterDraw(Card card)

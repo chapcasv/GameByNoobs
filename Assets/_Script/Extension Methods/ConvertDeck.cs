@@ -5,47 +5,48 @@ namespace PH
 {
     public static class ConvertDeck 
     {
-        public static PlayerDeck ToPlayerDeck(Deck deck)
+        public static PlayerDeck DeckToPlayerDeck(Deck deck)
         {
-            var cards = deck.CardsInDeck;
+            var cardsInDeck = deck.GetCardInDecks;
+
             PlayerDeck playerDeck = new PlayerDeck()
             {
                 deckName = deck.deckName,
                 cardsInDeck = new List<PlayerCard>()
             };
 
-            foreach (var card in cards)
+            foreach (var card in cardsInDeck)
             {
-                var newCard = ConvertCard.ToPlayerCard(card);
-                ConvertCard.AddPlayerCardInDeck(ref playerDeck, newCard);
+                var newPlayerCard = ConvertCard.CardInDeckToPlayerCard(card);
+                playerDeck.cardsInDeck.Add(newPlayerCard);
             }
 
             return playerDeck;
         }
 
-        public static List<PlayerDeck> ToPlayerDecks(List<Deck> decks)
+        public static List<PlayerDeck> DecksToPlayerDecks(List<Deck> decks)
         {
             List<PlayerDeck> playerDecks = new List<PlayerDeck>();
 
             foreach (var deck in decks)
             {
-                var playerDeck = ToPlayerDeck(deck);
+                var playerDeck = DeckToPlayerDeck(deck);
                 playerDecks.Add(playerDeck);
             }
             return playerDecks;
         }
 
-        public static Deck FormPlayerDeck(PlayerDeck playerDeck,ALLCard allCard)
+        public static Deck PlayerDeckToDeck(PlayerDeck playerDeck,ALLCard allCard)
         {
-            var playerCards = playerDeck.cardsInDeck;
+            var pCards = playerDeck.cardsInDeck;
 
             Deck deck = ScriptableObject.CreateInstance<Deck>();
             deck.NewDeck(playerDeck.deckName);
 
-            foreach (var playerCard in playerCards)
+            foreach (var playerCard in pCards)
             {
-                Card card = ConvertCard.PlayerCardToCard(playerCard, allCard);
-                deck.Add(card);
+                CardInDeck c = ConvertCard.PlayerCardToCardInDeck(playerCard, allCard);
+                deck.GetCardInDecks.Add(c);
             }
             return deck;
         }
@@ -56,7 +57,7 @@ namespace PH
 
             foreach (var playerDeck in playerDecks)
             {
-                Deck newDeck = FormPlayerDeck(playerDeck, allCard);
+                Deck newDeck = PlayerDeckToDeck(playerDeck, allCard);
                 decks.Add(newDeck);
             }
             return decks;
