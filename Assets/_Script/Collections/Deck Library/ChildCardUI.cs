@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 namespace PH
 {
     public class ChildCardUI : MonoBehaviour
@@ -10,6 +12,8 @@ namespace PH
         [SerializeField] private Button B_done;
         [SerializeField] RectTransform contentChild;
         [SerializeField] CardChildViz pfCardChildViz;
+        [SerializeField] TMP_InputField inputDeckName;
+
 
         private GameObject _deckScreen;
         private GameObject _deckEditor;
@@ -29,6 +33,7 @@ namespace PH
 
         private void OnEnable()
         {
+            inputDeckName.text = DeckLibraryManager.DeckSelected.deckName;
             LoadCardChild();
         }
 

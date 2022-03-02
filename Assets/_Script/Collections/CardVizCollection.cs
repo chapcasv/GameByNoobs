@@ -9,7 +9,8 @@ namespace PH
 {
     public class CardVizCollection : CardVisual
     {
-        [SerializeField] Image[] iconAmount;
+        [SerializeField] Image[] iconBuyed;
+        [SerializeField] Image[] iconUsing;
  
         public Image lockImg;
 
@@ -85,20 +86,20 @@ namespace PH
 
             for (int i = 0; i < amount; i++)
             {
-                iconAmount[i].gameObject.SetActive(true);
+                iconBuyed[i].gameObject.SetActive(true);
             }
 
-            for (int i = amount; i < iconAmount.Length; i++)
+            for (int i = amount; i < iconBuyed.Length; i++)
             {
-                iconAmount[i].gameObject.SetActive(false);
+                iconBuyed[i].gameObject.SetActive(false);
             }
         }
 
         private void SetCardAmount()
         {
-            for (int i = 0; i < iconAmount.Length; i++)
+            for (int i = 0; i < iconBuyed.Length; i++)
             {
-                iconAmount[i].gameObject.SetActive(false);
+                iconBuyed[i].gameObject.SetActive(false);
             }
         }
 
