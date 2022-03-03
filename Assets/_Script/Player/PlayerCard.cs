@@ -7,7 +7,7 @@ namespace PH
     public class PlayerCard 
     {
         public int ID;
-        public int Amount;
+        public int Bought;
     }
 }
 

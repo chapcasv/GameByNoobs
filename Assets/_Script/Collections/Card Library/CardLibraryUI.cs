@@ -88,8 +88,8 @@ namespace PH
         {
             if (successful)
             {
-                dictLocked[false].Remove(cardUIselect);
-                dictLocked[true].Add(cardUIselect);
+                dictUnlocked[false].Remove(cardUIselect);
+                dictUnlocked[true].Add(cardUIselect);
 
                 //Reload visual after unlock
                 cardUIselect.SetCard(CardLibraryManager.CardSelected);

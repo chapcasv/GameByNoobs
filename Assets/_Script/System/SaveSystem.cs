@@ -149,6 +149,38 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        public static void SaveDecks(List<PlayerDeck> playerDecks)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                playerData.Decks = playerDecks;
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static PlayerDeck LoadCurrentDeck()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.CurrentDeck;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        public static void SaveCurrentDeck(PlayerDeck deck)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                playerData.CurrentDeck = deck;
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
         #endregion
 
         public static string LoadName()

@@ -8,7 +8,21 @@ using UnityEngine;
 namespace PH
 {
     public static class CollectionMethods 
-    {
+    {   
+        public static int GetBought(Card card)
+        {
+            var playerCard = SaveSystem.LoadCards();
+
+            foreach (var c in playerCard)
+            {
+                if(c.ID == card.CardID)
+                {
+                    return c.Bought;
+                }
+            }
+            return 0;
+        }
+
         public static List<Card> SortByCost(List<Card> allCard)
         {
             List<Card> clone = new List<Card>(allCard);
@@ -51,9 +65,9 @@ namespace PH
             {
                 if (playerCard.ID == newCard.ID)
                 {
-                    if (playerCard.Amount < GameConst.MAX_AMOUNT_CARD_INSTANCE)
+                    if (playerCard.Bought < GameConst.MAX_AMOUNT_CARD_INSTANCE)
                     {
-                        playerCard.Amount++;
+                        playerCard.Bought++;
                         return true;
                     }
                     else return false;

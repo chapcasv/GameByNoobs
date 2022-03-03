@@ -54,7 +54,7 @@ namespace PH
 
         private bool HaveSlotFree()
         {
-            return currentPlayerCard.Amount < GameConst.MAX_AMOUNT_CARD_INSTANCE;
+            return currentPlayerCard.Bought < GameConst.MAX_AMOUNT_CARD_INSTANCE;
         }
 
         private bool Subtract(Card card, PlayerLocalSO playerLocalSO)

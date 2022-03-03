@@ -13,14 +13,14 @@ namespace PH
         [SerializeField] RectTransform contentChild;
         [SerializeField] CardChildViz pfCardChildViz;
         [SerializeField] TMP_InputField inputDeckName;
-
+        [SerializeField] TextMeshProUGUI totalCardsInDeck;
 
         private GameObject _deckScreen;
         private GameObject _deckEditor;
         private List<CardChildViz> allCardChild;
         private GetBaseProperties _get;
         private ALLCard _allCard;
-
+        public List<CardChildViz> GetAllCardChild => allCardChild;
 
         public void Constructor(GameObject deckScreen, GameObject deckEditor, GetBaseProperties get, ALLCard all)
         {
@@ -33,10 +33,15 @@ namespace PH
 
         private void OnEnable()
         {
-            inputDeckName.text = DeckLibraryManager.DeckSelected.deckName;
+            inputDeckName.text = DeckLibraryManager.CurrentDeck.deckName;
+            DisplayTotalCard();
             LoadCardChild();
         }
 
+        public void DisplayTotalCard()
+        {
+            totalCardsInDeck.text = DeckLibraryManager.CurrentDeck.AmountCard().ToString();
+        }
 
         private void Start()
         {
@@ -52,21 +57,21 @@ namespace PH
             {
                 var cardChildViz = Instantiate(pfCardChildViz, contentChild);
                 cardChildViz.Setter(_get, _allCard);
+                cardChildViz.OnClickChild += DisplayTotalCard;
                 cardChildViz.gameObject.SetActive(false);
                 allCardChild.Add(cardChildViz);
             }
         }
 
-        private void LoadCardChild()
+        public void LoadCardChild()
         {
             List<CardInDeck> cardsInDeck = GetListCard();
-
             LoadByList(cardsInDeck);
         }
 
         private static List<CardInDeck> GetListCard()
         {
-            var currentDeck = DeckLibraryManager.DeckSelected;
+            var currentDeck = DeckLibraryManager.CurrentDeck;
 
             var sortedList = CollectionMethods.SortByCost(currentDeck.GetCardInDecks);
 
@@ -92,6 +97,7 @@ namespace PH
         {
             _deckScreen.SetActive(true);
             _deckEditor.SetActive(false);
+            DeckLibraryManager.SaveCurrentDeck();
         }
 
         private void OnDestroy()

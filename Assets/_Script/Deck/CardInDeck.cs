@@ -5,21 +5,21 @@ namespace PH
     [System.Serializable]
     public class CardInDeck 
     {
-        [SerializeField] string developmentDiscription;
+        [SerializeField] string devDiscription;
         public Card Card;
         [Range(1,3)]
-        public int Amount;
+        public int usingAmount = 1;
 
         public CardInDeck(Card c)
         {
             Card = c;
-            Amount = 1;
+            usingAmount = 1;
         }
 
         public CardInDeck(Card c, int amount)
         {
             Card = c;
-            Amount = amount;
+            usingAmount = amount;
         }
     }
 }

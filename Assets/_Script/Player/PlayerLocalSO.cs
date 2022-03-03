@@ -63,7 +63,7 @@ namespace PH
         {
             var playerDecks = SaveSystem.LoadDecks();
 
-            decks = ConvertDeck.FormPlayerDecks(playerDecks, allCard);
+            decks = ConvertDeck.PlayerDecksToDecks(playerDecks, allCard);
         }
     }
 }

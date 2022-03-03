@@ -9,21 +9,23 @@ namespace PH
 {
     public class CardVizCollection : CardVisual
     {
-        [SerializeField] Image[] iconBuyed;
+        [SerializeField] Image[] iconBought;
         [SerializeField] Image[] iconUsing;
  
         public Image lockImg;
 
         private Button main;
         private bool isUnlock;
-        private int cost;
         private int price;
+        private PlayerCard _playerCard;
         private GetBaseProperties _get;
         private CollectionLogic _logic;
+        private CardInDeck _cardInDeck;
 
+        public CardInDeck GetCardInDeck => _cardInDeck;
         public bool IsUnlocked { get => isUnlock; }
-        public int Cost { get => cost; }
         public int Price { get => price; }
+        public int Bought => _playerCard.Bought;
    
         public void Init(GetBaseProperties get, CollectionLogic logic)
         {
@@ -72,7 +74,6 @@ namespace PH
 
         private void SetProperties(Card c)
         {
-            cost = _get.GetCost(c);
             price = _get.GetPrice(c);
             _card = c;
 
@@ -82,24 +83,46 @@ namespace PH
 
         private void SetCardAmount(PlayerCard card)
         {
-            int amount = card.Amount;
+            _playerCard = card;
+            int bought = _playerCard.Bought;
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < bought; i++)
             {
-                iconBuyed[i].gameObject.SetActive(true);
+                iconBought[i].gameObject.SetActive(true);
             }
 
-            for (int i = amount; i < iconBuyed.Length; i++)
+            for (int i = bought; i < iconBought.Length; i++)
             {
-                iconBuyed[i].gameObject.SetActive(false);
+                iconBought[i].gameObject.SetActive(false);
             }
         }
 
         private void SetCardAmount()
         {
-            for (int i = 0; i < iconBuyed.Length; i++)
+            for (int i = 0; i < iconBought.Length; i++)
             {
-                iconBuyed[i].gameObject.SetActive(false);
+                iconBought[i].gameObject.SetActive(false);
+            }
+        }
+
+        public void SetCard(CardInDeck cardInDeck)
+        {
+            _cardInDeck = cardInDeck;
+            ReloadUsing();
+        }
+
+        private void ReloadUsing()
+        {
+            int amount = _cardInDeck.usingAmount;
+
+            for (int i = 0; i < amount; i++)
+            {
+                iconUsing[i].gameObject.SetActive(true);
+            }
+
+            for (int i = amount; i < iconUsing.Length; i++)
+            {
+                iconUsing[i].gameObject.SetActive(false);
             }
         }
 

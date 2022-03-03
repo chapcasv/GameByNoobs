@@ -11,18 +11,14 @@ namespace PH
 
         public static PlayerCard CardToPlayerCard(Card card)
         {
-            PlayerCard cardData = new PlayerCard
-            {
-                ID = card.CardID
-            };
-            return cardData;
+            return new PlayerCard { ID = card.CardID };
         }
 
-        public static Card PlayerCardToCard(PlayerCard cardData, ALLCard allCards)
+        public static Card ConvertByID(int ID, ALLCard allCards)
         {
             foreach (Card c in allCards.allCard)
             {
-                if (c.CardID == cardData.ID) return c;
+                if (c.CardID == ID) return c;
             }
             throw new Exception("Cant convert player card to Card !!!");
         }
@@ -33,9 +29,9 @@ namespace PH
 
             foreach (var card in playerCards)
             {
-                Card c = PlayerCardToCard(card, allCards);
+                Card c = ConvertByID(card.ID, allCards);
 
-                for (int i = 0; i < card.Amount; i++)
+                for (int i = 0; i < card.Bought; i++)
                 {
                     listCard.Add(c);
                 }
@@ -47,21 +43,20 @@ namespace PH
 
         #region CardInDeck
 
-        public static PlayerCard CardInDeckToPlayerCard(CardInDeck c)
+        public static PlayerCardInDeck CardInDeckToPlayerCardInDeck(CardInDeck c)
         {
-            PlayerCard playerCard = new PlayerCard()
+            PlayerCardInDeck playerCard = new PlayerCardInDeck()
             {
-                Amount = c.Amount,
+                usingAmount = c.usingAmount,
                 ID = c.Card.CardID
             };
             return playerCard;
         }
 
-
-        public static CardInDeck PlayerCardToCardInDeck(PlayerCard playerCard, ALLCard all)
+        public static CardInDeck PCardInDeckToCardInDeck(PlayerCardInDeck playerCard, ALLCard all)
         {
-            Card c = PlayerCardToCard(playerCard, all);
-            CardInDeck cardInDeck = new CardInDeck(c, playerCard.Amount);
+            Card c = ConvertByID(playerCard.ID, all);
+            CardInDeck cardInDeck = new CardInDeck(c, playerCard.usingAmount);
             return cardInDeck;
         }
 

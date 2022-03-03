@@ -5,10 +5,10 @@ using UnityEngine;
 namespace PH
 {   
     [System.Serializable]
-    public class PlayerDeck 
+    public class PlayerCardInDeck 
     {
-        public string deckName;
-        public List<PlayerCard> cardsInDeck;
+        public int ID;
+        public int usingAmount;
     }
-}
 
+}

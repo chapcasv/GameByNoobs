@@ -12,12 +12,12 @@ namespace PH
             PlayerDeck playerDeck = new PlayerDeck()
             {
                 deckName = deck.deckName,
-                cardsInDeck = new List<PlayerCard>()
+                cardsInDeck = new List<PlayerCardInDeck>()
             };
 
             foreach (var card in cardsInDeck)
             {
-                var newPlayerCard = ConvertCard.CardInDeckToPlayerCard(card);
+                var newPlayerCard = ConvertCard.CardInDeckToPlayerCardInDeck(card);
                 playerDeck.cardsInDeck.Add(newPlayerCard);
             }
 
@@ -45,13 +45,13 @@ namespace PH
 
             foreach (var playerCard in pCards)
             {
-                CardInDeck c = ConvertCard.PlayerCardToCardInDeck(playerCard, allCard);
+                CardInDeck c = ConvertCard.PCardInDeckToCardInDeck(playerCard, allCard);
                 deck.GetCardInDecks.Add(c);
             }
             return deck;
         }
 
-        public static List<Deck> FormPlayerDecks(List<PlayerDeck> playerDecks, ALLCard allCard)
+        public static List<Deck> PlayerDecksToDecks(List<PlayerDeck> playerDecks, ALLCard allCard)
         {
             List<Deck> decks = new List<Deck>();
 

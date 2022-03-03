@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PH.Save;
 
 namespace PH
 {
@@ -14,8 +15,9 @@ namespace PH
         public event Action OnAddCardHand;
 
         [SerializeField] PlayerLocalSO data;
-        [SerializeField] Deck deckBeforeShuffle;
+        private Deck deckBeforeShuffle;
         [SerializeField] Deck deckAfterShuffle;
+        [SerializeField] ALLCard allCard;
 
         [NonSerialized] Deck _currentDeck;
 
@@ -213,23 +215,22 @@ namespace PH
 
         private void CopyPlayerCurrentDeck()
         {
-            Deck deckDefault = data.GetCurrentDeck();
-
-            foreach (var card in deckDefault.GetListCard())
-            {
-                deckBeforeShuffle.Add(card);
-            }
+            var currentDeck = SaveSystem.LoadCurrentDeck();
+            Deck deckDefault = ConvertDeck.PlayerDeckToDeck(currentDeck, allCard);
+            deckDefault.ReloadListCard();
+            deckBeforeShuffle = deckDefault;
         }
 
         private void Shuffle()
         {
-            deckAfterShuffle.ClearListCard();
+            var deckName = deckBeforeShuffle.deckName;
+            deckAfterShuffle.NewDeck(deckName);
+
             int deckCount = deckBeforeShuffle.AmountCard();
 
             for (int i = 0; i < deckCount; i++)
             {
                 int randomIndexCard = UnityEngine.Random.Range(0, deckBeforeShuffle.AmountCard());
-
                 Card card = deckBeforeShuffle.GetCard(randomIndexCard);
 
                 deckAfterShuffle.Add(card);

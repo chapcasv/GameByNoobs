@@ -22,20 +22,20 @@ namespace PH
             if(listCard != null)
             {
                 listCard.Clear();
-                AddStructCardToListCard();
+                CardsInDeckToListCard();
             }
             else
             {
                 listCard = new List<Card>();
-                AddStructCardToListCard();
+                CardsInDeckToListCard();
             }
         }
 
-        private void AddStructCardToListCard()
+        private void CardsInDeckToListCard()
         {
             foreach (var card in cardsInDeck)
             {
-                for (int i = 0; i < card.Amount; i++)
+                for (int i = 0; i < card.usingAmount; i++)
                 {
                     listCard.Add(card.Card);
                 }
@@ -55,16 +55,8 @@ namespace PH
         public void NewDeck(string deckName)
         {
             cardsInDeck = new List<CardInDeck>();
+            listCard = new List<Card>();
             this.deckName = deckName;
-        }
-
-        public void ClearListCard()
-        {
-            if (listCard != null)
-            {
-                listCard.Clear();
-            }
-            else throw new Exception(ErrorMessage);
         }
 
         public int AmountCard()
@@ -73,37 +65,34 @@ namespace PH
             {
                 return listCard.Count;
             }
-            else
-            {
-                ReloadListCard();
-                return listCard.Count;
-            }
+            else throw new Exception(ErrorMessage);
         }
 
-        public void Add(Card card)
+        public bool Add(Card card)
         {
             foreach (var c in cardsInDeck)
             {
                 if(c.Card.CardID == card.CardID)
                 {
-                    if (c.Amount < GameConst.MAX_AMOUNT_CARD_INSTANCE)
+                    if (c.usingAmount < GameConst.MAX_USE_AMOUNT)
                     {
-                        c.Amount++;
+                        c.usingAmount++;
                         if (listCard != null)
                         {
                             listCard.Add(card);
                         }
-                        return;
+                        return true;
                     }
-                    else return;
+                    else return false; 
                 }
             }
 
             var newCard = new CardInDeck(card);
             cardsInDeck.Add(newCard);
             listCard.Add(card);
+            return true;
         }
-
+        
         public void Remove(Card card)
         {
             CardInDeck cardRemove = null;
@@ -112,15 +101,15 @@ namespace PH
             {
                 if(c.Card.CardID == card.CardID)
                 {
-                    if(c.Amount > 1)
+                    if(c.usingAmount > 1)
                     {
-                        c.Amount--;
+                        c.usingAmount--;
                         listCard.Remove(card);
                         break;
                     }
-                    else if(c.Amount == 1)
+                    else if(c.usingAmount == 1)
                     {
-                        c.Amount = 0;
+                        c.usingAmount = 0;
                         cardRemove = c;
                         listCard.Remove(card);
                         break;
@@ -131,7 +120,6 @@ namespace PH
             if(cardRemove != null)
             {
                 cardsInDeck.Remove(cardRemove);
-                Debug.Log("Remove");
             }
 
         }
@@ -144,14 +132,14 @@ namespace PH
             {
                 if (c.Card.CardID == card.CardID)
                 {
-                    if (c.Amount > 1)
+                    if (c.usingAmount > 1)
                     {
-                        c.Amount--;
+                        c.usingAmount--;
                         break;
                     }
-                    else if (c.Amount == 1)
+                    else if (c.usingAmount == 1)
                     {
-                        c.Amount = 0;
+                        c.usingAmount = 0;
                         cardRemove = c;
                         break;
                     }
@@ -182,6 +170,20 @@ namespace PH
                 return listCard[index];
             }
             else throw new Exception(ErrorMessage);
+        }
+
+        public CardInDeck GetCard(Card c)
+        {
+            CardInDeck result = null;
+
+            foreach (var cardInDeck in cardsInDeck)
+            {
+                if(cardInDeck.Card.CardID == c.CardID)
+                {
+                    return result = cardInDeck;
+                }
+            }
+            return result;
         }
 
         public Card FindCard(int id)

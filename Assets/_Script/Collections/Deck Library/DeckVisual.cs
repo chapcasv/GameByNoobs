@@ -15,6 +15,7 @@ namespace PH
         private DeckManager _deckManager;
         private GetBaseProperties _get;
         private Deck _deck;
+        private int _index;
         private Button button;
 
         public Sprite GetAvatar => avatar.sprite;
@@ -32,9 +33,10 @@ namespace PH
             _deckManager = manager;
         }
 
-        public void SetDeck(Deck deck)
+        public void SetDeck(Deck deck, int index)
         {
             _deck = deck;
+            _index = index;
             LoadDeck();
         }
 
@@ -52,9 +54,9 @@ namespace PH
 
         public void OnClick()
         {
-            DeckLibraryManager.DeckSelected = _deck;
+            DeckLibraryManager.CurrentDeck = _deck;
+            DeckLibraryManager.IndexCurrentDeck = _index;
             _deckManager.SetCurrentDeck(this);
-            Debug.Log("Click " + _deck.deckName);
         }
 
         private void OnDestroy()

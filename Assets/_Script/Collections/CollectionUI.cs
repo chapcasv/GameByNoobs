@@ -23,7 +23,7 @@ namespace PH
         [SerializeField] protected GameObject filterPopUp;
         [SerializeField] protected Button B_DisplayFilterPopUp;
 
-        protected Dictionary<bool, List<CardVizCollection>> dictLocked;
+        protected Dictionary<bool, List<CardVizCollection>> dictUnlocked;
         protected GetBaseProperties _get;
 
         protected ALLCard allCards;
@@ -69,13 +69,13 @@ namespace PH
 
         protected virtual void DisplayCardLocked()
         {
-            var listCardLocked = dictLocked[false];
+            var listCardLocked = dictUnlocked[false];
             CollectionMethods.DisplayCardLocked(listCardLocked);
         }
 
         protected void InitDictLocked(List<CardVizCollection> listCardUI)
         {
-            dictLocked = new Dictionary<bool, List<CardVizCollection>>
+            dictUnlocked = new Dictionary<bool, List<CardVizCollection>>
             {
                 [true] = new List<CardVizCollection>(),
                 [false] = new List<CardVizCollection>()
@@ -84,7 +84,7 @@ namespace PH
             foreach (var card in listCardUI)
             {
                 bool isUnlock = card.IsUnlocked;
-                dictLocked[isUnlock].Add(card);
+                dictUnlocked[isUnlock].Add(card);
             }
         }
 

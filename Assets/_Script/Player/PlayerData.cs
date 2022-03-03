@@ -10,6 +10,7 @@ namespace PH
         public int Coin;
         public PlayerRank Rank;
         public int Diamond;
+        public PlayerDeck CurrentDeck;
         public List<PlayerCard> Cards;
         public List<PlayerDeck> Decks;
     }

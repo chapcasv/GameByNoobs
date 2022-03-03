@@ -10,6 +10,7 @@ namespace PH
         public const int MAX_CARD_IN_HAND = 9;
         public const int REQUIRE_CARD_IN_DECK = 40;
         public const int MAX_CARD_COST = 9;
+        public const int MAX_USE_AMOUNT = 3;
     }
 }
 

@@ -13,16 +13,29 @@ namespace PH
         [SerializeField] GameObject deckEditor;
         [SerializeField] DeckVisual pfDeckVisual;
         [SerializeField] Transform contentDeck;
-        [SerializeField] ChildCardUI childCard;
 
+        private ChildCardUI _childCardUI;
         private DeckLibraryLogic _logic;
         private DeckManager _deckManager;
 
-        public void Constructor(DeckLibraryLogic logic, DeckManager deckManager)
+        public void Constructor(DeckLibraryLogic logic, DeckManager deckManager, ChildCardUI childCardUI)
         {
             _logic = logic;
+            _childCardUI = childCardUI;
+            _logic.OnClickLogic += _childCardUI.DisplayTotalCard;
             _deckManager = deckManager;
-            childCard.Constructor(deck, deckEditor, _get, allCards);
+            _childCardUI.Constructor(deck, deckEditor, _get, allCards);
+            AddListenerCardChild();
+        }
+
+        private void AddListenerCardChild()
+        {
+            var allChild = _childCardUI.GetAllCardChild;
+
+            foreach (var child in allChild)
+            {
+                child.OnClick += ReloadCardVizUsing;
+            }
         }
 
         protected override void Start()
@@ -32,13 +45,13 @@ namespace PH
 
         public void InitDeck(List<Deck> decks)
         {
-            foreach (var deck in decks)
+            for (int i = 0; i < decks.Count; i++)
             {
+                decks[i].ReloadListCard();
                 var deckVisual = Instantiate(pfDeckVisual, contentDeck);
                 deckVisual.Init(_get, _deckManager);
-                deckVisual.SetDeck(deck);
+                deckVisual.SetDeck(decks[i],i);
             }
-
             SelectFirstDeck();
         }
 
@@ -59,6 +72,64 @@ namespace PH
         {
             deck.SetActive(false);
             deckEditor.SetActive(true);
+            SetCardUsing();
+        }
+
+        private void SetCardUsing()
+        {
+            var cardsInDeck = DeckLibraryManager.CurrentDeck.GetCardInDecks;
+
+            //Only set using for card unlocked
+            var cardUnlock = dictUnlocked[true];
+
+            foreach (var cardUI in cardUnlock)
+            {
+                Card cardData = cardUI.GetCard;
+                CardInDeck cardInDeck = GetCardInDeck(cardData, cardsInDeck);
+
+                if(cardInDeck != null)
+                {   
+                    //This card data using in deck selected
+                    //Reload card UI by using amount
+                    cardUI.SetCard(cardInDeck);
+                }
+                else
+                {   
+                    //This card data not use in deck seleted
+                    //Reload card Ui with using amount zero
+                    CardInDeck newCard = new CardInDeck(cardData, 0);
+                    cardUI.SetCard(newCard);
+                }
+            }
+        }
+
+        private CardInDeck GetCardInDeck(Card c, List<CardInDeck> cardsInDeck)
+        {
+            CardInDeck newCard = null;
+
+            foreach (var card in cardsInDeck)
+            {
+                if (card.Card.CardID == c.CardID)
+                {
+                    return newCard = card;
+                }
+            }
+            return newCard;
+        }
+
+        public void ReloadCardVizUsing(CardInDeck cardInDeck)
+        {   
+            //Only reload card unlocked
+            var listCardUnlock = dictUnlocked[true];
+
+            foreach (var c in listCardUnlock)
+            {
+                if(c.GetCardInDeck.Card.CardID == cardInDeck.Card.CardID)
+                {
+                    c.SetCard(cardInDeck);
+                    break;
+                }
+            }
         }
 
         protected override void InstantiateCardUI(List<Card> sortedList)
@@ -79,6 +150,18 @@ namespace PH
         {
             base.RemoveListener();
             B_Editor.onClick.RemoveAllListeners();
+            _logic.OnClickLogic -= _childCardUI.DisplayTotalCard;
+            RemoveListenerCardChild();
+        }
+
+        private void RemoveListenerCardChild()
+        {
+            var allChild = _childCardUI.GetAllCardChild;
+
+            foreach (var child in allChild)
+            {
+                child.OnClick -= ReloadCardVizUsing;
+            }
         }
     }
 

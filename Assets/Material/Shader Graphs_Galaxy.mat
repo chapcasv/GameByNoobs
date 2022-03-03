@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_Galaxy
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 351369e9027c8424a8423c79374ff2bd, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -53,6 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_18699253288f4bd6a228ec6562505527: 31.4
     - _AlphaClip: 0
     - _Blend: 0
     - _Cull: 2
@@ -65,7 +65,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_9f68ba36e3b74858b15626eb0b66c30e: {r: 1, g: 0.945098, b: 0.7882353, a: 0}
+    - Color_b36bc32abf8841a0b35ece6abf41ab09: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     - Color_dd5f69d15c8749fba2465b3d144808a6: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0}
+    - Vector2_d9a9e5a3a34941fd8e95ec0dd10bef54: {r: 0, g: 0.05, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
