@@ -36,6 +36,10 @@ MonoBehaviour:
     intValue: 100
     sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+  - stringValue: "B\xE0i trang b\u1ECB "
+    intValue: 100
+    sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
+    element: {fileID: 11400000, guid: 99f10d23d3b0d1b4fbabc38928b22d2f, type: 2}
   cost: 1
   Faction:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
@@ -44,5 +48,5 @@ MonoBehaviour:
   - Ediscription: 
     input: {fileID: 11400000, guid: f6dc1c270c9d4bd4f9e0764b25dd0f87, type: 2}
     logic: {fileID: 11400000, guid: 739212b4570894c4abbdb38022238780, type: 2}
-  Unlocked: 0
+  Unlocked: 1
   isOnRound: 0

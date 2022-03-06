@@ -14,8 +14,7 @@ namespace PH
 
         [SerializeField] TextMeshProUGUI costValue;
         [SerializeField] TextMeshProUGUI amount;
-        [SerializeField] Image art;
-
+        [SerializeField] Image avt;
         private Button button;
         private GetBaseProperties _get;
         private CardInDeck _cardInDeck;
@@ -39,8 +38,7 @@ namespace PH
             var _card = _cardInDeck.Card;
 
             costValue.text = _card.Cost.ToString();
-            art.sprite = _get.GetArt(_card);
-
+            avt.sprite = _get.GetAvatar(_card);
             gameObject.SetActive(true);
         }
 

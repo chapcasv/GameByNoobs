@@ -39,6 +39,10 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
+  - stringValue: "B\xE0i trang b\u1ECB "
+    intValue: 0
+    sprite: {fileID: 21300000, guid: b6f349bc42c12484686c91be598c766c, type: 3}
+    element: {fileID: 11400000, guid: 99f10d23d3b0d1b4fbabc38928b22d2f, type: 2}
   cost: 3
   Faction:
   - {fileID: 11400000, guid: 51998d64b22674747a41673e3a293e2d, type: 2}
@@ -47,5 +51,5 @@ MonoBehaviour:
   - Ediscription: + deal more dmg by max Hp target
     input: {fileID: 11400000, guid: cc2b0c9e28c5c174e8dea88b1cb9d866, type: 2}
     logic: {fileID: 11400000, guid: 20f5173419ae4cd438d603f0f375eeda, type: 2}
-  Unlocked: 1
+  Unlocked: 0
   isOnRound: 1
