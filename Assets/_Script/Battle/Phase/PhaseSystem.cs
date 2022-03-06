@@ -17,8 +17,8 @@ namespace PH
         [SerializeField] StartCard startCardPhase;
         [SerializeField] List<Phase> phases;
         [SerializeField] TimeBar timeBar;
-        [SerializeField] DragCardSelected dragCardSelected;
 
+        private DragCardSelected _dragCardSelected;
         private int _phaseIndex;
         private ResultLastRound resultLastRound;
         private WaveSystem _waveSystem;
@@ -38,7 +38,7 @@ namespace PH
         public ResultLastRound ResultLastRound { get => resultLastRound; set => resultLastRound = value; }
 
         public void Constructor(BoardSystem BS, LifeSystem LS, WaveSystem WS, DeckSystem DS, 
-            CoinSystem CS, ResultSystem RS)
+            CoinSystem CS, ResultSystem RS, DragCardSelected dragCard)
         {
             _boardSystem = BS;
             _lifeSystem = LS;
@@ -46,7 +46,7 @@ namespace PH
             _deckSystem = DS;
             _coinSystem = CS;
             _resultSystem = RS;
-
+            _dragCardSelected = dragCard;
             CurrentPhase = null;
             UseTimeBar = true;
             BattleIsEnd = false;
@@ -108,7 +108,7 @@ namespace PH
         /// </summary>
         public void CompleteStartCard()
         {
-            dragCardSelected.CalculatorOffsetX();
+            _dragCardSelected.CalculatorOffsetX();
 
             //index 0 is start round
             _phaseIndex = 0;

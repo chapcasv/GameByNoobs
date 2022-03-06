@@ -62,7 +62,7 @@ namespace PH
             _boardSystem.Constructor(MS, SS, DS, cardInfoVisual, dataSO);
 
             _phaseSystem = GetComponent<PhaseSystem>();
-            _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS);
+            _phaseSystem.Constructor(_boardSystem, LS, WS, DS, CS, RS, dragCardSelected);
 
             SetExtensionMethods(DS);
 

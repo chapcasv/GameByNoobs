@@ -19,7 +19,6 @@ namespace PH
         [SerializeField] PlayerDefaultData defaultPlayer;
         [SerializeField] ALLCard allCards;
 
-
         public void StarGame()
         {
             if (SaveSystem.IsHavePlayerData())

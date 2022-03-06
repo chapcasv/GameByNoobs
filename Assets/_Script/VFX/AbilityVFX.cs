@@ -13,27 +13,18 @@ namespace PH
         {
             _holder = holder;
 
-            particles = new List<ParticleSystem>();
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                ParticleSystem particle = transform.GetChild(i).GetComponent<ParticleSystem>();
-                if (particle != null)
-                {
-                    particles.Add(particle);
-                }
-            }
+            particles = VfxExtention.GetParticlesChild(transform);
 
             gameObject.SetActive(false);
         }
 
         protected virtual void Update()
         {
-            bool isPlaying = IsPlaying();
+            bool isPlaying = VfxExtention.ParticleIsPlay(particles);
 
             if (!isPlaying)
             {
-                ReturnPool();
+                gameObject.SetActive(false);
             }
         }
 
@@ -41,28 +32,6 @@ namespace PH
         {
             gameObject.SetActive(true);
             Debug.Log("Play");
-        }
-
-        private bool IsPlaying()
-        {
-            bool isPlaying = true;
-
-            foreach (var particle in particles)
-            {
-                isPlaying = particle.isPlaying;
-
-                if (isPlaying)
-                {
-                    break;
-                }
-            }
-            return isPlaying;
-        }
-
-        protected void ReturnPool()
-        {
-            gameObject.SetActive(false);
-            _holder.AbilityVFXReturn(this);
         }
     }
 }

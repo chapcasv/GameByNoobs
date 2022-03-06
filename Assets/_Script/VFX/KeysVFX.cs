@@ -9,7 +9,8 @@ namespace PH
         Reuse,
         Recall,
         Hit,
-        Stun
+        Stun,
+        UndeadGreen
     }
 }
 

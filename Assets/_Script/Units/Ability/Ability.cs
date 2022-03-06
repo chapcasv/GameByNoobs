@@ -11,6 +11,7 @@ namespace PH
         [SerializeField] float deplay = 0.7f;
         [Range(1, 32)]
         [SerializeField] float range = 1;
+        [SerializeField] protected PluggableAbilityVFX vfx;
         public string GetAbilityName => abilityName;
 
         public virtual float GetGetDeplay(UnitAtkSystem caster)

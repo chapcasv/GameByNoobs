@@ -27,10 +27,10 @@ namespace PH
         private Animator anim;
         private GridLayoutGroup gridLayout;
 
-        private const int SPACING_X_DEFAULT = 100;
-        private const int SPACING_Y_DEFAULT = 0;
-        private const int SPACING_X_OFFSET = 30;
-        private const int NUMBER_CARD_HAND_DEFAULT = 5;
+        private float SPACING_X_DEFAULT = 30;
+        private const float SPACING_Y_DEFAULT = 0;
+        private const float SPACING_X_OFFSET = 10;
+        private const float NUMBER_CARD_HAND_DEFAULT = 5;
         private bool isShowHandZone = false;
 
         public void Setter(CardInfoVisual value, PlayerDragLogic playerDragLogic)
@@ -44,6 +44,7 @@ namespace PH
 
         private void Awake()
         {
+            SPACING_X_DEFAULT = GetComponent<GridLayoutGroup>().spacing.x;
             Init();
             AddListerner();
             anim = GetComponent<Animator>();
@@ -91,9 +92,9 @@ namespace PH
             //If player have 5+ card hand, sort logic will change
             if(cardHandCount > NUMBER_CARD_HAND_DEFAULT)
             {
-                int cardOut = cardHandCount - NUMBER_CARD_HAND_DEFAULT;
+                float cardOut = cardHandCount - NUMBER_CARD_HAND_DEFAULT;
 
-                int spacingX = SPACING_X_DEFAULT - (cardOut * SPACING_X_OFFSET);
+                float spacingX = SPACING_X_DEFAULT - (cardOut * SPACING_X_OFFSET);
 
                 if(spacingX < 0)
                 {

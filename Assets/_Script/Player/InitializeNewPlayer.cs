@@ -19,7 +19,11 @@ namespace PH {
                 Initialize(playerName, player, defaultPlayer, allCards);
                 return true;
             }
-            else return false;
+            else
+            {
+                Application.Quit();
+                return false;
+            }
         }
 
         private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
@@ -40,8 +44,7 @@ namespace PH {
             if (player_name != null)
             {   
                 if (player_name.Length <= 12 && player_name.Length >= 4
-                    && !HaveSpace(player_name)
-                    && !HaveSpecialCharacter(player_name))
+                   )
                 {
                     return true;
                 }
@@ -49,6 +52,9 @@ namespace PH {
             }
             else return false;
         }
+
+        // && !HaveSpace(player_name)
+        //            && !HaveSpecialCharacter(player_name)
 
         private static bool HaveSpecialCharacter(string player_name)
         {

@@ -109,8 +109,32 @@ namespace PH
 
         public override void CastAbility(BaseUnit currentTarget, BaseUnit caster)
         {
-            ability.CastSkill(currentTarget, caster);
-            TriggerAfterCastSkill(caster);
+            if (!canAttack || !currentTarget.IsLive)
+                return;
+
+            //Number atk in one second
+            waitBetweenAttack = 1 / baseAttackSpeed;
+
+            RotationFollowTarget(currentTarget);
+            StartCoroutine(WaitAbility());
+        }
+
+        protected virtual IEnumerator WaitAbility()
+        {
+            animator.SetBool(AnimEnum.IsMoving.ToString(), false);
+
+            if (!IsDisableAtk)
+            {
+                canAttack = false;
+                canCastAbility = false;
+
+                animator.SetTrigger(AnimEnum.IsCastAbility.ToString());
+                PlayAbilityVFX();
+
+                yield return new WaitForSeconds(ability.GetGetDeplay(this));
+                canAttack = true;
+                canCastAbility = true;
+            }
         }
 
 
@@ -127,7 +151,15 @@ namespace PH
             else return false;
         }
 
-        
+        //animation event
+        public void CastAbilityByAnim()
+        {
+            if (currentTarget == null) return;
+
+            ability.CastSkill(currentTarget, holder);
+            TriggerAfterCastSkill(holder);
+        }
+
     }
 }
 

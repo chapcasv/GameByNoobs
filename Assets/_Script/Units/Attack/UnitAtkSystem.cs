@@ -7,9 +7,9 @@ namespace PH
     public abstract class UnitAtkSystem : MonoBehaviour
     {
         #region Properties
-        [SerializeField] protected AbilityVFX pfAbilityVFX;
+        [SerializeField] protected AbilityVFX[] pfAbilityVFX;
+
         protected Ability ability;
-        protected Queue<AbilityVFX> abilityVFXes;
 
         protected BaseUnit currentTarget;
         protected BaseUnit holder;
@@ -135,28 +135,22 @@ namespace PH
 
         private void InitAbilityVFX()
         {
-            abilityVFXes = new Queue<AbilityVFX>();
-            var vfx = Instantiate(pfAbilityVFX, transform.position, Quaternion.identity, transform);
-            vfx.Constructor(this);
-            abilityVFXes.Enqueue(vfx);
+            if (pfAbilityVFX.Length == 0) return;
+
+            for (int i = 0; i < pfAbilityVFX.Length; i++)
+            {
+                pfAbilityVFX[i].Constructor(this);
+            }
         }
 
         protected void PlayAbilityVFX()
         {
-            if(abilityVFXes.Count > 0)
-            {
-                var vfx = abilityVFXes.Dequeue();
-                vfx.Play();
-            }
-            else
-            {
-                Debug.LogWarning(holder.gameObject.name + " Ability VFX pool is empty");
-            }
-        }
+            if (pfAbilityVFX.Length == 0) return;
 
-        public void AbilityVFXReturn(AbilityVFX abilityVFX)
-        {
-            abilityVFXes.Enqueue(abilityVFX);
+            for (int i = 0; i < pfAbilityVFX.Length; i++)
+            {
+                pfAbilityVFX[i].Play();
+            }
         }
 
         #region Reuse Methods - Use for PlayerCacheUnitData

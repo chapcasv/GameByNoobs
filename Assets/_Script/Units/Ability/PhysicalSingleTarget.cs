@@ -15,6 +15,11 @@ namespace PH
 
             int dmg = physicalDmg + caster.GetAtkSystem.ORPhysicalDamage;
             currentTarget.TakeDamage(caster, dmg, damageType);
+
+            if(vfx != null)
+            {
+                vfx.PlayVFX(currentTarget.transform.position);
+            }
         }
 
         public override string GetDiscription(CardUnit unit)

@@ -8,8 +8,10 @@ namespace PH
 {
     public class CardVisual : MonoBehaviour
     {
+        [SerializeField] protected Image rankLabel;
         [SerializeField] protected PropertiesUI[] basePropertiesViz;
         [SerializeField] protected Image factionIcon;
+        [SerializeField] protected Image costLabel;
 
         protected Card _card;
         public Card GetCard => _card;
@@ -47,6 +49,9 @@ namespace PH
                     bpUI.text.text = bp.stringValue;
                 }
             }
+
+            rankLabel.color = c.GetRank.BaseColor;
+            costLabel.color = c.GetRank.BaseColor;
         }
 
         public virtual void LoadFaction(Faction[] factions)

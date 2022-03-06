@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using PH.Save;
 
 namespace PH
 {
@@ -14,6 +15,7 @@ namespace PH
 
         [Header("UI")]
         [SerializeField] TextMeshProUGUI currentMode;
+        [SerializeField] TMP_Dropdown listDeck;
 
         [Header("Mode Sub")]
         [SerializeField] ModeSubAI modeSubAI;
@@ -31,9 +33,12 @@ namespace PH
         private void Awake()
         {
             Addlistener();
+#if UNITY_EDITOR
             CheckCurrentMode();
+#endif
             B_ModeSubAI.Select();
-            SetModeUpAI(); 
+            SetModeUpAI();
+            InitListDeck();
         }
 
         private void Addlistener()
@@ -49,10 +54,25 @@ namespace PH
         {
             if(PlayModeData.CurrentMode == null)
             {
-#if UNITY_EDITOR
                 PlayModeData.CurrentMode = defaultMode;
                 Debug.LogWarning("Current Mode is null !!!");
-#endif
+            }
+        }
+
+        private void InitListDeck()
+        {
+            var playerDecks = SaveSystem.LoadDecks();
+
+            listDeck.options = new List<TMP_Dropdown.OptionData>();
+
+            foreach (var deck in playerDecks)
+            {
+                TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData
+                {
+                    text = deck.deckName
+                };
+
+                listDeck.options.Add(optionData);
             }
         }
 
@@ -76,6 +96,9 @@ namespace PH
 
         private void FindMatch()
         {
+            int index = listDeck.value;
+            CollectionMethods.SetCurrentDeck(index);
+
             PlayModeData.CurrentMode.ModeSub.SetEnemy(defaultEnemy);
             GoToBattle();
         }

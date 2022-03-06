@@ -18,6 +18,7 @@ namespace PH
         [SerializeField] GameVFX pfRecall;
         [SerializeField] GameVFX pfHit;
         [SerializeField] StatusVFX pfStun;
+        [SerializeField] GameVFX pfUndeadGreen;
 
         private GameObject tileUnder;
         private Dictionary<string, Queue<GameVFX>> vfxPool;
@@ -31,6 +32,7 @@ namespace PH
         private Queue<GameVFX> vfxRecall;
         private Queue<GameVFX> vfxHit;
         private Queue<StatusVFX> vfxStun;
+        private Queue<GameVFX> vfxUndeadGreen;
 
         protected override void Awake()
         {
@@ -56,6 +58,16 @@ namespace PH
             InitReuse();
             InitRecall();
             InitHit();
+            InitUndeadGreen();
+        }
+
+        private void InitUndeadGreen()
+        {
+            vfxUndeadGreen = new Queue<GameVFX>();
+
+            string key = KeysVFX.UndeadGreen.ToString();
+            vfxPool.Add(key, vfxUndeadGreen);
+            AddToPool(2, pfUndeadGreen, key);
         }
 
         private void InitHit()
@@ -160,6 +172,10 @@ namespace PH
                 var gameVFX = vfxQueue.Dequeue();
                 gameVFX.transform.position = pos;
                 gameVFX.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log(" Need more " + key);
             }
         }
 

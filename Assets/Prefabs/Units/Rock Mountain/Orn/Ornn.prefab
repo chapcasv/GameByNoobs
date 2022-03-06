@@ -41,6 +41,7 @@ Transform:
   m_Children:
   - {fileID: 7891699889188911136}
   - {fileID: 6219115527987981646}
+  - {fileID: 2347930531548972776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56,7 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556186cc54dd0fb408104ef46f9dc60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfAbilityVFX: {fileID: 5683274194448265731, guid: 26dbd3313d348914694beecc9df5f173, type: 3}
+  pfAbilityVFX:
+  - {fileID: 3325950084127876844}
   pfProjectile: {fileID: 6635544579662996992, guid: 0e73c8f160827774e8955ddab5ffc266, type: 3}
   firePoint: {fileID: 7642127263973531854}
   normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
@@ -209,6 +211,79 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec590788b49363b4182dca2f54371eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &5777954638483617582
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7642127263305785732}
+    m_Modifications:
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.065
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123065743784260039, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+      propertyPath: m_Name
+      value: FireOrb Element
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+--- !u!4 &2347930531548972776 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8123065743784260038, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+  m_PrefabInstance: {fileID: 5777954638483617582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3325950084127876844 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9081313878842642882, guid: 90d3cd421547500429fe64f4d58dbb7d, type: 3}
+  m_PrefabInstance: {fileID: 5777954638483617582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fc139f9b2af0441b0c7e4242a4059f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5783950305040773607

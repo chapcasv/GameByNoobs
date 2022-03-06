@@ -81,6 +81,12 @@ namespace PH
             var coin = SaveSystem.LoadCoin();
             return coin >= price;
         }
+
+        public static void SetCurrentDeck(int index)
+        {
+            var playerDeck = SaveSystem.LoadDecks();
+            SaveSystem.SaveCurrentDeck(playerDeck[index]);
+        }
     }
 }
 

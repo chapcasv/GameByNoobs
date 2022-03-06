@@ -9,7 +9,7 @@ namespace PH.Save
     public static class SaveSystem
     {
         private const string MESS_ERROR = "Data Path dont Exists";
-        private readonly static string playerDataPath = Application.dataPath + "playerData.json";
+        private readonly static string playerDataPath = Application.persistentDataPath + "playerData.json";
 
         #region Init Player
         public static bool IsHavePlayerData()
