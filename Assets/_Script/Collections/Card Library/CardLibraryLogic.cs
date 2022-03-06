@@ -8,9 +8,9 @@ namespace PH
     public class CardLibraryLogic : CollectionLogic
     {
         protected CardLibraryUI _cardLibraryUI;
-        protected CardVizInfoCollection _cardInfoCollection;
+        protected CardInfoCollection _cardInfoCollection;
         
-        public void Constructor(CardLibraryUI cardLibraryUI, CardVizInfoCollection cardInfoCollection)
+        public void Constructor(CardLibraryUI cardLibraryUI, CardInfoCollection cardInfoCollection)
         {
             _cardLibraryUI = cardLibraryUI;
             _cardInfoCollection = cardInfoCollection;

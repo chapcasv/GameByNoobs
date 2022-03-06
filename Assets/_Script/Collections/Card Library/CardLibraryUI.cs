@@ -11,7 +11,7 @@ namespace PH
     public class CardLibraryUI : CollectionUI
     {
         [Header("=== DERIVED CLASS Properties ===")]
-        [SerializeField] CardVizInfoCollection cardInformation;
+        [SerializeField] CardInfoCollection cardInformation;
 
         [Header("Currency")]
         [SerializeField] TextMeshProUGUI coin;
@@ -28,6 +28,7 @@ namespace PH
         {
             _logic = logic;
             _logic.Constructor(this, cardInformation);
+            cardInformation.Initialized();
         }
 
         protected override void Start()
@@ -35,6 +36,7 @@ namespace PH
             base.Start();
             DisplayCurrency();
             LoadInfoFirstCardActive();
+            
         }
 
         private void DisplayCurrency()

@@ -7,10 +7,10 @@ namespace PH
     public class CardInstance : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IDragHandler, IEndDragHandler
     {
         private DragCardSelected _cardSeleted;
-        private CardInfoVisual _cardInfoViz;
+        private CardInfoBattle _cardInfoViz;
         public Card Card { get; set; }
         public DragCardSelected CardSeleted { get => _cardSeleted; set => _cardSeleted = value; }
-        public CardInfoVisual CardInfomation {set => _cardInfoViz = value; }
+        public CardInfoBattle CardInfomation {set => _cardInfoViz = value; }
 
         public void OnBeginDrag(PointerEventData eventData)
         {

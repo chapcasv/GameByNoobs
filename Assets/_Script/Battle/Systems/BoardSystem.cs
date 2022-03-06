@@ -24,7 +24,7 @@ namespace PH
         private DeckSystem _deckSystem;
 
         //Dont need parameter CIV
-        public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS, CardInfoVisual CIV, UnitsDatabaseSO data)
+        public void Constructor(MemberSystem MS, SpawnSystem SS, DeckSystem DS, CardInfoBattle CIV, UnitsDatabaseSO data)
         {  
             _spawnSystem = SS;
             //Set up trigger after spawn

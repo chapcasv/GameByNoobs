@@ -11,7 +11,7 @@ namespace PH
         [SerializeField] PlayerLocalSO player;
         [SerializeField] BattleUIManager battleUIManager;
         [SerializeField] DragCardSelected dragCardSelected;
-        [SerializeField] CardInfoVisual cardInfoVisual;
+        [SerializeField] CardInfoBattle cardInfoVisual;
 
         [Header("Play Mode Infomation")]
         [SerializeField] PlayModeRewards playModeRewards;
@@ -54,6 +54,7 @@ namespace PH
             SetSystemByCurrentPlayMode(LS, WS, CS, MS, RS);
 
             cardInfoVisual.Init(aLLCard);
+            cardInfoVisual.Initialized();
             battleUIManager.Constructor(LS, WS, CS, MS, RS, cardInfoVisual, playerDragLogic, player, currentEnemy);
 
             board.Constructor(currentEnemy);

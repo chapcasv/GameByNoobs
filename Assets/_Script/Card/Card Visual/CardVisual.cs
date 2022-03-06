@@ -8,11 +8,12 @@ namespace PH
 {
     public class CardVisual : MonoBehaviour
     {
+        [Header("BASE CLASS PROPERTIES")]
         [SerializeField] protected Image rankLabel;
         [SerializeField] protected PropertiesUI[] basePropertiesViz;
         [SerializeField] protected Image factionIcon;
         [SerializeField] protected Image costLabel;
-
+        
         protected Card _card;
         public Card GetCard => _card;
 
