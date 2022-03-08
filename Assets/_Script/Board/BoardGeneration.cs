@@ -12,7 +12,7 @@ namespace PH
 
         void Start()
         {
-            IniBoard();
+            //IniBoard();
         }
 
         private void IniBoard()

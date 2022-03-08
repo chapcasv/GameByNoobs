@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f7cd25998cbf61442b1af0de5dbcd5b9
+guid: 0a875a49bc888734ba81a3eb3e68f08f
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,18 +7,38 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Beach_Mats
-    second: {fileID: 2100000, guid: cf4d5640917e63b4bbbec393904efd14, type: 2}
+      name: Arena Base
+    second: {fileID: 2100000, guid: b9c79a344b80d13449784bab098bb481, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 1fd4846720a23c749b454fbf97dee541, type: 2}
+      name: Arena Plan
+    second: {fileID: 2100000, guid: c5c360871729ce54ab1b658d9942728f, type: 2}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Sand
-    second: {fileID: 2800000, guid: 15795d39a901bff45987636e5fbd3f16, type: 3}
+      name: Arena Plan.001
+    second: {fileID: 2100000, guid: 42f81b4a9020d694dbb85b3ff426464f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brick Arena
+    second: {fileID: 2100000, guid: ec89bd8776eed214ba039a248ea07a2f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 7266c7009e96f574ba130b050e6b2ef2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stylized_Stone_Bricks_Mat
+    second: {fileID: 2100000, guid: aa0ec141d8a5b4c4d8068e881348033a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stylized_Stone_Bricks_Mat.001
+    second: {fileID: 2100000, guid: aa0ec141d8a5b4c4d8068e881348033a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,7 +108,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []
