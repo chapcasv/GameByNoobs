@@ -10,7 +10,7 @@ namespace PH
         public event Action<SlotItem[]> OnDestroyItemOnRound; 
         [SerializeField] protected ElementImage cardItemArt;
 
-        protected SlotItem[] _slots;
+        public SlotItem[] _slots;
 
         public void RemoveOneRoundAddOn()
         {

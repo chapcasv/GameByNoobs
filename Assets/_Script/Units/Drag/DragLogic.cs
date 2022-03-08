@@ -10,12 +10,12 @@ namespace PH
 
         protected const float CLICK_TIME = 0.2f;
 
-        protected CardInfoVisual _cardInfoVisual;
+        protected CardInfoBattle _cardInfoVisual;
         protected Camera cam;
         protected float startTimeMouseDown;
         protected float startTimeMouseUp;
 
-        public CardInfoVisual CardInfoVisual { set => _cardInfoVisual = value; }
+        public CardInfoBattle CardInfoVisual { set => _cardInfoVisual = value; }
 
         public Camera SetCam { set => cam = value; }
 

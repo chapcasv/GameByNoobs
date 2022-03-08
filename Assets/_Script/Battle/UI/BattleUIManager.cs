@@ -33,7 +33,7 @@ namespace PH
         private MemberSystem _memberSystem;
         private ResultSystem _resultBattle;
         private GetBaseProperties _getBaseProperties;
-        private CardInfoVisual _cardInfoViz;
+        private CardInfoBattle _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
 
         private BattlePlayerInfomation infomation;
@@ -60,7 +60,7 @@ namespace PH
         }
 
         public void Constructor(LifeSystem LS, WaveSystem WS, CoinSystem CS, MemberSystem MS, ResultSystem RS,
-            CardInfoVisual CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PlayModeEnemy currentEnemy)
+            CardInfoBattle CIV, PlayerDragLogic playerDragLogic, PlayerLocalSO player, PlayModeEnemy currentEnemy)
         {
             _lifeSystem = LS;
             _wavesSystem = WS;

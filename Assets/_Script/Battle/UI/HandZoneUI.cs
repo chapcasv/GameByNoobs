@@ -22,7 +22,7 @@ namespace PH
 
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
-        private CardInfoVisual _cardInfoViz;
+        private CardInfoBattle _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
         private Animator anim;
         private GridLayoutGroup gridLayout;
@@ -33,7 +33,7 @@ namespace PH
         private const float NUMBER_CARD_HAND_DEFAULT = 5;
         private bool isShowHandZone = false;
 
-        public void Setter(CardInfoVisual value, PlayerDragLogic playerDragLogic)
+        public void Setter(CardInfoBattle value, PlayerDragLogic playerDragLogic)
         {
             _cardInfoViz = value;
             _playerDragLogic = playerDragLogic;

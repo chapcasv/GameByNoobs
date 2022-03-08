@@ -9,7 +9,7 @@ namespace PH
         [SerializeField] ElementImage art;
         [SerializeField] ElementInt price;
         [SerializeField] ElementText cardName;
-
+        [SerializeField] ElementImage avt;
         public int GetPrice(Card card)
         {
             var BaseProperties = card.baseProperties;
@@ -54,6 +54,18 @@ namespace PH
             for (int i = 0; i < BaseProperties.Length; i++)
             {
                 if (BaseProperties[i].element == art)
+                {
+                    return BaseProperties[i].sprite;
+                }
+            }
+            return null;
+        }
+        public Sprite GetAvatar(Card card)
+        {
+            var BaseProperties = card.baseProperties;
+            for (int i = 0; i < BaseProperties.Length; i++)
+            {
+                if (BaseProperties[i].element == avt)
                 {
                     return BaseProperties[i].sprite;
                 }

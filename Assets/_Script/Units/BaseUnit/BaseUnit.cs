@@ -49,7 +49,7 @@ namespace PH
         public BoxCollider Col { get; set; }
         public Faction[] GetFactions => factions;
         public int GetID => baseID;
-
+        public UnitEquipment UnitEquipment { get => Equipment; }
         #endregion
 
         protected virtual void Update()
