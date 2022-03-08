@@ -66,7 +66,7 @@ namespace PH
 
         private IEnumerator UpdateTimer()
         {
-            while(timeRemaining > 0)
+            while(timeRemaining >= 0)
             {
                 UpdateTimeUI(timeRemaining);
                 timeRemaining--;
