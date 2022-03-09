@@ -7,7 +7,6 @@ namespace PH
     public class MagicSingleTarget : Ability
     {
         [SerializeField] int magicDmg;
-        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {

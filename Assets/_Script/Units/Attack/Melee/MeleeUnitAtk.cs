@@ -7,8 +7,6 @@ namespace PH
 
     public class MeleeUnitAtk : UnitAtkSystem
     {
-        [SerializeField] protected DamageType normalAtkType;
-
         public override void BasicAtk()
         {
             if (!canAttack || !currentTarget.IsLive)

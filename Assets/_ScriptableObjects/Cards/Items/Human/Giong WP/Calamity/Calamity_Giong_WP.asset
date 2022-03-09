@@ -46,7 +46,8 @@ MonoBehaviour:
     element: {fileID: 11400000, guid: 997488c929eed6741bd5335f2aa47b4c, type: 2}
   reloadAfterDrop: 1
   cost: 3
-  Faction: []
+  Faction:
+  - {fileID: 11400000, guid: 0a690b37aa4974a419afe19607f88c39, type: 2}
   dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
   dropTrigger:
   - Ediscription: + crit dmg + crit rate

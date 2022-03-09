@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 
 namespace PH
 {
     public class ProjectileMove : MonoBehaviour
     {
-        private const float offsetVFX = 4f;
-        [SerializeField] GameObject pfImpact;
-        private DamageType _type;
-        private BaseUnit _currentTarget;
-        private RangerUnitAtk _sender;
-        private BaseUnit _holder;
-        private readonly float moveSpeed = 30f;
-        private int _rawDmg;
-        private bool isEnterTarget;
-        private GameObject impact;
-        private List<ParticleSystem> particlesImpact;
+        protected const float offsetVFX = 4f;
+        [SerializeField] protected GameObject pfImpact;
+        protected DamageType _type;
+        protected BaseUnit _currentTarget;
+        protected RangerUnitAtk _sender;
+        protected BaseUnit _holder;
+        protected float moveSpeed = 30f;
+        protected int _rawDmg;
+        protected bool isEnterTarget;
+        protected GameObject impact;
+        protected List<ParticleSystem> particlesImpact;
+        protected Vector3 moveDir;
+
+        public float SetMoveSpeed { set => moveSpeed = value; }
 
         public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
         {
@@ -28,12 +33,13 @@ namespace PH
             InitImpact();
         }
 
-        private void InitImpact()
+        protected void InitImpact()
         {
             impact = Instantiate(pfImpact, transform);
             particlesImpact = VfxExtention.GetParticlesChild(impact.transform);
             impact.SetActive(false);
         }
+
 
         public void SetUp(BaseUnit currentTarget, int rawDmg, Transform firePoint)
         {
@@ -41,11 +47,11 @@ namespace PH
             _rawDmg = rawDmg;
             isEnterTarget = false;
             transform.position = firePoint.position;
-
+            moveDir = GetMoveDir();
             gameObject.SetActive(true);
         }
 
-        private void LateUpdate()
+        protected virtual void LateUpdate()
         {
             if (isEnterTarget)
             {
@@ -63,7 +69,6 @@ namespace PH
                 }
                 else
                 {
-                    Vector3 moveDir = GetMoveDir();
                     transform.position += moveSpeed * Time.deltaTime * moveDir;
                     Quaternion rotation = Quaternion.LookRotation(moveDir);
                     transform.rotation = rotation;
@@ -71,18 +76,16 @@ namespace PH
             }
         }
 
-        private Vector3 GetMoveDir()
+        protected Vector3 GetMoveDir()
         {
-            Vector3 target = _currentTarget.transform.position;
-            float OffsetY = _currentTarget.Col.size.y / 2;
-
-            target = new Vector3(target.x, OffsetY, target.z);
+            Vector3 target = BattleMethods.GetPosMiddle(_currentTarget);
 
             Vector3 moveDir = (target - transform.position).normalized;
             return moveDir;
         }
 
-        private void OnTriggerEnter(Collider other)
+
+        protected virtual void OnTriggerEnter(Collider other)
         {
             var unit = other.gameObject.GetComponent<BaseUnit>();
 
@@ -96,11 +99,9 @@ namespace PH
             }
         }
 
-        private void ActiveImpact()
+        protected void ActiveImpact()
         {   
-            Vector3 target = _currentTarget.transform.position;
-            Vector3 pos = new Vector3(target.x, offsetVFX, target.z);
-
+            Vector3 pos = BattleMethods.GetPosMiddle(_currentTarget);
             impact.transform.position = pos;
             impact.SetActive(true);
         }

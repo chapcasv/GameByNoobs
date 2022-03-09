@@ -12,9 +12,7 @@ namespace PH
         [SerializeField] int pct;
         [SerializeField] int critDmgBonus;
         [SerializeField] StatusEffect effect;
-        [SerializeField] DamageType damageType;
         
-
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             var Atk = caster.GetAtkSystem;

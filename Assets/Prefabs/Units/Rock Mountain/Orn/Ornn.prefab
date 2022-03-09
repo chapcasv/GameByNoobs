@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4628605579063205018}
   - component: {fileID: 7775365662586818215}
   - component: {fileID: 8897151153060110835}
+  - component: {fileID: 7328287793751418838}
   m_Layer: 0
   m_Name: Ornn
   m_TagString: Untagged
@@ -59,9 +60,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfAbilityVFX:
   - {fileID: 3325950084127876844}
+  normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
   pfProjectile: {fileID: 6635544579662996992, guid: 0e73c8f160827774e8955ddab5ffc266, type: 3}
   firePoint: {fileID: 7642127263973531854}
-  normalAtkType: {fileID: 11400000, guid: e3756b884d272ed4e86e0579ad3e28ae, type: 2}
 --- !u!114 &7642127263305785852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +214,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec590788b49363b4182dca2f54371eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7328287793751418838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642127263305785735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38140a09a4e20ef42aa64efb7abf9d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pfProjectile: {fileID: 6193137058372475447, guid: f0fc04ac49d6f7e418cf0e818269e266, type: 3}
+  poolAmount: 5
+  moveSpeed: 0.5
+  delay: 0.15
 --- !u!1001 &5777954638483617582
 PrefabInstance:
   m_ObjectHideFlags: 0

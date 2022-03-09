@@ -7,7 +7,7 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/Player Local SO")]
     public class PlayerLocalSO : ScriptableObject
     {
-        [SerializeField] string playerName;
+        private string playerName;
         [SerializeField] int coin;
         [SerializeField] List<Card> cards;
         [SerializeField] ALLCard allCard;
@@ -21,15 +21,12 @@ namespace PH
         public Sprite GetAvatar => avatar;
 
         public string GetPlayerName()
-        {
+        {   
             if(playerName != null)
             {
                 return playerName;
             }
-            else
-            {
-                return SaveSystem.LoadName();
-            }
+            return SaveSystem.LoadName();
         }
 
         public void SetPlayerName(string value)

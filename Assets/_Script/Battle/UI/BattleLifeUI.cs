@@ -6,9 +6,10 @@ namespace PH
 {
     public class BattleLifeUI : MonoBehaviour
     {
-        [SerializeField] float during = 0.8f;
         [SerializeField] TextMeshProUGUI enemyLifeText;
         [SerializeField] TextMeshProUGUI playerLifeText;
+
+        [SerializeField] float during = 0.8f;
         [SerializeField] Vector2 scaleBig = new Vector2(1.5f, 1.5f);
         [SerializeField] float scaleSpeed = 0.4f;
         [SerializeField] Ease easeMode = Ease.InOutBack;
@@ -22,8 +23,11 @@ namespace PH
         {
             _lifeSystem = LS;
 
-            oldLifeEnemy = _lifeSystem.GetEnemyLife();
-            oldLifePlayer = _lifeSystem.GetPlayerLife();
+            //oldLifeEnemy = _lifeSystem.GetEnemyLife();
+            //oldLifePlayer = _lifeSystem.GetPlayerLife();
+
+            oldLifeEnemy = 0;
+            oldLifePlayer = 0;
 
             AddListerner();
             DisplayEnemyLife();

@@ -4,14 +4,35 @@ using UnityEngine;
 
 namespace PH
 {
+    [CreateAssetMenu(menuName = "ScriptableObject/Ability/Magic/MultiTarget/Fire")]
     public class MagicMultiTarget : Ability
     {
         [SerializeField] int dmgValue;
-        [SerializeField] DamageType damageType;
+
+        [SerializeField] int numberTarget;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
-            throw new System.NotImplementedException();
+            var allEnemy = DictionaryTeamBattle.GetUnitsAgainst(caster.GetTeam());
+
+            int dmg = GetDmg(caster.GetAtkSystem.ORMagicPower);
+
+            AbilityProjectile ap = caster.GetComponent<AbilityProjectile>();
+
+            if (ap == null) throw new System.Exception("Cant get abilityProjectile");
+
+
+            BaseUnit[] arrayTarget = new BaseUnit[numberTarget];
+            arrayTarget[0] = currentTarget;
+
+            for (int i = 1; i < numberTarget; i++)
+            {
+                var rand = Random.Range(0, allEnemy.Count);
+                var target = allEnemy[rand];
+                arrayTarget[i] = target;
+            }
+
+            ap.Atk(arrayTarget, dmg);
         }
 
         public override string GetDiscription(CardUnit unit)
@@ -29,7 +50,7 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             string color = damageType.HexColor();
-            string discription = "Gây" + "<color=" + color + "> " + value + "</color>" + " vào 5 mục tiêu ngẫu nhiên";
+            string discription = "Gây" + "<color=" + color + "> " + value + "</color>" + " vào " + numberTarget + " mục tiêu ngẫu nhiên";
 
             return discription;
         }

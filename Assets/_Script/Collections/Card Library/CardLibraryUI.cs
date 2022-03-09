@@ -41,8 +41,8 @@ namespace PH
 
         private void DisplayCurrency()
         {
-            int coin = SaveSystem.LoadCoin();
-            this.coin.text = coin.ToString();
+            coin.text = SaveSystem.LoadCoin().ToString();
+            diamond.text = SaveSystem.LoadDiamond().ToString();
         }
 
         protected override void InstantiateCardUI(List<Card> sortedList)

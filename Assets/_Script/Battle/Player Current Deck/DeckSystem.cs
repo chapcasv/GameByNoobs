@@ -6,7 +6,6 @@ using PH.Save;
 
 namespace PH
 {
-
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Deck System")]
     public class DeckSystem : ScriptableObject
     {
@@ -15,6 +14,8 @@ namespace PH
         public event Action OnDropCard;
         public event Action<Card> OnAddCardHand;
         public event Action<bool> ReloadAfterDrop;
+        public event Action<int> OnChangeAmountCardHand;
+
 
         [SerializeField] PlayerLocalSO data;
 
@@ -65,7 +66,6 @@ namespace PH
                 resultDraw = DrawFormList(filterList);
             }
             return resultDraw;
-
         }
 
         //Draw first card in list
@@ -89,6 +89,7 @@ namespace PH
 
                 //Reload card hand UI
                 OnDraw?.Invoke(card);
+                OnChangeAmountCardHand?.Invoke(CardsInHand.Count);
             }
         }
 
@@ -164,6 +165,7 @@ namespace PH
                 CardsInHand.Add(card);
                 //Reload card hand UI
                 OnAddCardHand?.Invoke(card);
+                OnChangeAmountCardHand?.Invoke(CardsInHand.Count);
             }
         }
 
@@ -176,6 +178,7 @@ namespace PH
             OnDropCard?.Invoke();
 
             ReloadAfterDrop?.Invoke(card.ReLoadAfterDrop);
+            OnChangeAmountCardHand?.Invoke(CardsInHand.Count);
         }
 
         public void ReplaceCardHand(int index)
