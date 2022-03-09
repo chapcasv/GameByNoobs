@@ -27,6 +27,7 @@ namespace PH
                 OnDestroyItemOnRound?.Invoke(_slots);
                 _slots[index].ClearItem();
             }
+
         }
 
         public bool Equip(CardItem cardItem)
