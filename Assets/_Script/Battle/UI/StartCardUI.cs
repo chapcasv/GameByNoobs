@@ -10,16 +10,55 @@ namespace PH
 
     public class StartCardUI : MonoBehaviour
     {
+        [System.Serializable]
+        public class RerollCardUI
+        {
+            public Transform slot;
+            public Button main;
+
+            private StartCard startCard;
+            private bool isReplaced;
+            private bool freeRoll;
+            
+            public Action<Transform> OnClick;
+
+            public void Init(StartCard _startCard,bool infinity)
+            {
+                freeRoll = infinity;
+                isReplaced = false;
+                startCard = _startCard;
+                OnClick += RePlace;
+                main.onClick.AddListener(() => OnClick?.Invoke(slot));
+            }
+            private void RePlace(Transform slot)
+            {
+                if (isReplaced) return;
+                startCard.Replace(slot);
+                isReplaced = !freeRoll;
+                main.interactable = !isReplaced;
+            }
+            
+        }
         [SerializeField] List<Transform> startCardSlot;
         [SerializeField] StartCard startCardPhase;
+        [SerializeField] RerollCardUI[] B_rerolls;
+        [SerializeField] private bool freeRoll;
 
         private void Awake()
         {
             startCardPhase.OnStartCard += LoadStartCard;
             startCardPhase.OnReplace += LoadStartCard;
             startCardPhase.OnComplete += Complete;
+            AddListen();
+           
         }
-
+        private void AddListen()
+        {
+            for (int i = 0; i < B_rerolls.Length; i++)
+            {
+                B_rerolls[i].Init(startCardPhase, freeRoll);
+            }
+        }
         public void Complete()
         {
             gameObject.SetActive(false);
