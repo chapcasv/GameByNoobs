@@ -52,7 +52,7 @@ namespace PH
             //Current phase is start card
             PhaseSystem.CurrentPhase.IsComplete();
         }
-
+        
         public TimeBar SetDuration(float _time)
         {
             timeRemaining = (int)_time;
