@@ -15,14 +15,12 @@ namespace PH
         protected BaseUnit _currentTarget;
         protected RangerUnitAtk _sender;
         protected BaseUnit _holder;
-        protected float moveSpeed = 30f;
+        protected readonly float moveSpeed = 30f;
         protected int _rawDmg;
         protected bool isEnterTarget;
         protected GameObject impact;
         protected List<ParticleSystem> particlesImpact;
         protected Vector3 moveDir;
-
-        public float SetMoveSpeed { set => moveSpeed = value; }
 
         public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
         {
