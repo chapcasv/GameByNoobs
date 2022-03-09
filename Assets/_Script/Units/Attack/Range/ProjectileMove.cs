@@ -9,6 +9,7 @@ namespace PH
 {
     public class ProjectileMove : MonoBehaviour
     {
+
         protected const float offsetVFX = 4f;
         [SerializeField] protected GameObject pfImpact;
         protected DamageType _type;
@@ -21,6 +22,7 @@ namespace PH
         protected GameObject impact;
         protected List<ParticleSystem> particlesImpact;
         protected Vector3 moveDir;
+
 
         public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
         {
