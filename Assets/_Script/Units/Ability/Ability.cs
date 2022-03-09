@@ -12,9 +12,6 @@ namespace PH
         [Range(1, 32)]
         [SerializeField] float range = 1;
         [SerializeField] protected PluggableAbilityVFX vfx;
-        [SerializeField] protected DamageType damageType;
-
-        public DamageType GetDamageType => damageType;
         public string GetAbilityName => abilityName;
 
         public virtual float GetGetDeplay(UnitAtkSystem caster)

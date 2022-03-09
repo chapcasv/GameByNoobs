@@ -22,8 +22,8 @@ namespace PH
         [SerializeField] CardTween cardDraw;
 
         private RectTransform[] cardHandRect;
-        private CardVisual[] cardVizs;
-        private CardInstance[] cardInstance;
+        private CardVisual[] _cardVizs;
+        private CardInstance[] _cardInstance;
         private CardInfoBattle _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
         private Animator anim;
@@ -68,17 +68,17 @@ namespace PH
 
         private void Init()
         {
-            cardVizs = new CardVisual[cardHand.Length];
-            cardInstance = new CardInstance[cardHand.Length];
+            _cardVizs = new CardVisual[cardHand.Length];
+            _cardInstance = new CardInstance[cardHand.Length];
             cardHandRect = new RectTransform[cardHand.Length];
 
-            for (int i = 0; i < cardVizs.Length; i++)
+            for (int i = 0; i < _cardVizs.Length; i++)
             {
-                cardVizs[i] = cardHand[i].GetComponent<CardVisual>();
-                cardInstance[i] = cardHand[i].GetComponent<CardInstance>();
+                _cardVizs[i] = cardHand[i].GetComponent<CardVisual>();
+                _cardInstance[i] = cardHand[i].GetComponent<CardInstance>();
                 cardHandRect[i] = cardHand[i].GetComponent<RectTransform>();
-                cardInstance[i].CardSeleted = dragCardSelected;
-                cardInstance[i].CardInfomation = _cardInfoViz;
+                _cardInstance[i].CardSeleted = dragCardSelected;
+                _cardInstance[i].CardInfomation = _cardInfoViz;
             }
         }
 
@@ -144,9 +144,9 @@ namespace PH
 
         private void SetActive()
         {
-            for (int i = 0; i < cardVizs.Length; i++)
+            for (int i = 0; i < _cardVizs.Length; i++)
             {
-                if (cardInstance[i].Card != null)
+                if (_cardInstance[i].Card != null)
                 {
                     cardHand[i].SetActive(true);
 
@@ -159,12 +159,12 @@ namespace PH
         {
             for (int i = 0; i < cardsInHand.Count; i++)
             {
-                cardInstance[i].Card = cardsInHand[i];
+                _cardInstance[i].Card = cardsInHand[i];
             }
 
             for (int i = cardsInHand.Count; i < cardHand.Length; i++)
             {
-                cardInstance[i].Card = null;
+                _cardInstance[i].Card = null;
             }
         }
 
@@ -194,7 +194,7 @@ namespace PH
         {
             for (int i = 0; i < cardsInHand.Count; i++)
             {
-                cardVizs[i].SetCard(cardsInHand[i]);
+                _cardVizs[i].SetCard(cardsInHand[i]);
             }
         }
 

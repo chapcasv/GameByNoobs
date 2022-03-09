@@ -137,20 +137,6 @@ namespace PH.Save
 
         #endregion
 
-        #region Diamond
-
-        public static int LoadDiamond()
-        {
-            if (File.Exists(playerDataPath))
-            {
-                PlayerData playerData = ReadJSon();
-                return playerData.Diamond;
-            }
-            else throw new Exception(MESS_ERROR);
-        }
-
-        #endregion
-
         #region Deck
 
         public static List<PlayerDeck> LoadDecks()

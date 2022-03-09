@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-
 
 
 namespace PH
 {
     public class ProjectileMove : MonoBehaviour
     {
-
         protected const float offsetVFX = 4f;
         [SerializeField] protected GameObject pfImpact;
         protected DamageType _type;
@@ -23,7 +20,6 @@ namespace PH
         protected List<ParticleSystem> particlesImpact;
         protected Vector3 moveDir;
 
-
         public void Constructor(RangerUnitAtk sender, BaseUnit holder, DamageType type)
         {
             _sender = sender;
@@ -33,13 +29,12 @@ namespace PH
             InitImpact();
         }
 
-        protected void InitImpact()
+        private void InitImpact()
         {
             impact = Instantiate(pfImpact, transform);
             particlesImpact = VfxExtention.GetParticlesChild(impact.transform);
             impact.SetActive(false);
         }
-
 
         public void SetUp(BaseUnit currentTarget, int rawDmg, Transform firePoint)
         {
@@ -47,11 +42,11 @@ namespace PH
             _rawDmg = rawDmg;
             isEnterTarget = false;
             transform.position = firePoint.position;
-            moveDir = GetMoveDir();
+
             gameObject.SetActive(true);
         }
 
-        protected virtual void LateUpdate()
+        private void LateUpdate()
         {
             if (isEnterTarget)
             {
@@ -69,6 +64,7 @@ namespace PH
                 }
                 else
                 {
+                    Vector3 moveDir = GetMoveDir();
                     transform.position += moveSpeed * Time.deltaTime * moveDir;
                     Quaternion rotation = Quaternion.LookRotation(moveDir);
                     transform.rotation = rotation;
@@ -76,16 +72,18 @@ namespace PH
             }
         }
 
-        protected Vector3 GetMoveDir()
+        private Vector3 GetMoveDir()
         {
-            Vector3 target = BattleMethods.GetPosMiddle(_currentTarget);
+            Vector3 target = _currentTarget.transform.position;
+            float OffsetY = _currentTarget.Col.size.y / 2;
+
+            target = new Vector3(target.x, OffsetY, target.z);
 
             Vector3 moveDir = (target - transform.position).normalized;
             return moveDir;
         }
 
-
-        protected virtual void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             var unit = other.gameObject.GetComponent<BaseUnit>();
 
@@ -99,9 +97,11 @@ namespace PH
             }
         }
 
-        protected void ActiveImpact()
+        private void ActiveImpact()
         {   
-            Vector3 pos = BattleMethods.GetPosMiddle(_currentTarget);
+            Vector3 target = _currentTarget.transform.position;
+            Vector3 pos = new Vector3(target.x, offsetVFX, target.z);
+
             impact.transform.position = pos;
             impact.SetActive(true);
         }

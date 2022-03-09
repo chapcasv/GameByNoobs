@@ -8,7 +8,6 @@ namespace PH
     {
         #region Properties
         [SerializeField] protected AbilityVFX[] pfAbilityVFX;
-        [SerializeField] protected DamageType normalAtkType;
 
         protected Ability ability;
 

@@ -13,8 +13,7 @@ namespace PH
             for (int i = 0; i < transform.childCount; i++)
             {
                 ParticleSystem particle = transform.GetChild(i).GetComponent<ParticleSystem>();
-
-                if (particle != null && !particle.main.loop)
+                if (particle != null)
                 {
                     particles.Add(particle);
                 }

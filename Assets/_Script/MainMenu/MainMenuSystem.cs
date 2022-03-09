@@ -19,9 +19,7 @@ namespace PH
         [SerializeField] Button B_Deck;
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
-        [SerializeField] TextMeshProUGUI diamond;
         [SerializeField] TextMeshProUGUI playerName;
-        [SerializeField] Image avatar;
         [SerializeField] GameObject selectPlayMode;
         [Header("Rank")]
         [SerializeField] Image rankIcon;
@@ -47,9 +45,8 @@ namespace PH
         private void LoadPlayer()
         {
             coin.text = SaveSystem.LoadCoin().ToString();
-            diamond.text = SaveSystem.LoadDiamond().ToString();
             playerName.text = SaveSystem.LoadName();
-            avatar.sprite = player.GetAvatar;
+
             LoadRank();
         }
 

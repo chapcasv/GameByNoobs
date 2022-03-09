@@ -9,6 +9,7 @@ namespace PH
     public class AggressionAbility : Ability
     {
         [SerializeField] int pctDmg;
+        [SerializeField] DamageType damageType;
         [SerializeField] int healPerTarget = 50;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)

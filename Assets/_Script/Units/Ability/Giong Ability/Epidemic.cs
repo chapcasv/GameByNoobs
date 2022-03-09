@@ -12,6 +12,7 @@ namespace PH
     {
         [SerializeField] int pctPhysicalDMG = 170;
         [SerializeField] int pctTrueDmgBonusByMaxHp = 12;
+        [SerializeField] DamageType damageType;
         [SerializeField] DamageType needTrueDmg;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)

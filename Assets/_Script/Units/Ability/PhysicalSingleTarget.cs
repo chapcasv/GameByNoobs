@@ -7,6 +7,7 @@ namespace PH
     public class PhysicalSingleTarget : Ability
     {
         [SerializeField] int physicalDmg;
+        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
