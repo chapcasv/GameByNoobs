@@ -8,11 +8,15 @@ namespace PH
         [SerializeField] Image[] slotUI;
 
         private UnitEquipment _unitEquipment;
-
+        private MoveCanvasHoder popUp;
+        private bool isFirstEquip;
+        private bool canMoveDown;
         private void Awake()
         {
             _unitEquipment = GetComponentInParent<UnitEquipment>();
-           
+            popUp = GetComponent<MoveCanvasHoder>();
+            isFirstEquip = true;
+            canMoveDown = true;
         }
 
         private void OnEnable()
@@ -37,6 +41,10 @@ namespace PH
                     slotUI[i].transform.parent.gameObject.SetActive(false);
                 }
             }
+            if (!isFirstEquip) return;
+            popUp.OnChangeCanvasHoder?.Invoke(true);
+            isFirstEquip = false;
+            canMoveDown = true;
         }
 
         private void OnReMoveSlotItem(SlotItem[] slots)
@@ -47,10 +55,29 @@ namespace PH
                 {
                     slotUI[i].transform.parent.gameObject.SetActive(false);
                 }
-                
             }
+            bool equiped = EquipedItem(slots);
+            if (equiped) return;
+            if (!canMoveDown) return;
+            popUp.OnChangeCanvasHoder?.Invoke(equiped);
+            isFirstEquip = true;
+            canMoveDown = false;
         }
-
+        private bool EquipedItem(SlotItem[] slots)
+        {
+            bool equiped = false;
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (!slots[i].EquipSlotOneRound && !slots[i].SlotFree)
+                {
+                    equiped = true;
+                    break;
+                }
+            }
+            return equiped;
+          
+        }
+        
         private void OnDisable()
         {
             _unitEquipment.OnSlotChange -= OnEquipItem;
