@@ -13,7 +13,7 @@ namespace PH
         private BaseUnit _currentTarget;
         private RangerUnitAtk _sender;
         private BaseUnit _holder;
-        private readonly float moveSpeed = 22f;
+        private readonly float moveSpeed = 30f;
         private int _rawDmg;
         private bool isEnterTarget;
         private GameObject impact;
