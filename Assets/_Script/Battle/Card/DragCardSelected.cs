@@ -23,7 +23,7 @@ namespace PH
         public Card CurrentCard { set => currentCard = value; }
         public CardInstance CardInstanceCache { set => cache = value; }
 
-        public void Constructor(CoinSystem CS, DeckSystem DS)
+        public void Constructor(CoinSystem CS, DeckSystem DS, BoardSystem BS)
         {
             _coinSystem = CS;
             _deckSystem = DS;
@@ -32,6 +32,7 @@ namespace PH
             _transform = GetComponent<RectTransform>();
             _cardViz = GetComponent<CardSelectedVisual>();
             _drop.CoinSystem = _coinSystem;
+            _drop.BoardSystem = BS;
 
             gameObject.SetActive(false);
         }

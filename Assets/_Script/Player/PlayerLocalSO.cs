@@ -1,8 +1,6 @@
-using System.Collections;
+using PH.Save;
 using System.Collections.Generic;
 using UnityEngine;
-using SO;
-using PH.Save;
 
 namespace PH
 {
@@ -13,11 +11,14 @@ namespace PH
         [SerializeField] int coin;
         [SerializeField] List<Card> cards;
         [SerializeField] ALLCard allCard;
+        [SerializeField] Sprite avatar;
 
         private Deck currentDeck;
         private List<Deck> decks;
 
         private Rank rank;
+
+        public Sprite GetAvatar => avatar;
 
         public string GetPlayerName()
         {

@@ -9,22 +9,23 @@ namespace PH
 
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Deck System")]
     public class DeckSystem : ScriptableObject
-    {   
-        public event Action OnDrawCard;
+    {
+        //need fix
+        public event Action<Card> OnDraw;
         public event Action OnDropCard;
-        public event Action OnAddCardHand;
+        public event Action<Card> OnAddCardHand;
+        public event Action<bool> ReloadAfterDrop;
 
         [SerializeField] PlayerLocalSO data;
-        private Deck deckBeforeShuffle;
+
         [SerializeField] Deck deckAfterShuffle;
         [SerializeField] ALLCard allCard;
 
         [NonSerialized] Deck _currentDeck;
-
         [NonSerialized] Dictionary<TypeMode, List<Card>> _dictionaryCardType;
-
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
 
+        private Deck deckBeforeShuffle;
         private Card _lastCardDrop;
         private GetBaseProperties _getBaseProperties;
 
@@ -80,13 +81,14 @@ namespace PH
             else return false;
         }
 
-        private void AddCardDraw(Card card)
+        public void AddCardDraw(Card card)
         {   
             if(CardsInHand.Count < GameConst.MAX_CARD_IN_HAND)
             {
                 CardsInHand.Add(card);
+
                 //Reload card hand UI
-                OnDrawCard?.Invoke();
+                OnDraw?.Invoke(card);
             }
         }
 
@@ -161,7 +163,7 @@ namespace PH
             {
                 CardsInHand.Add(card);
                 //Reload card hand UI
-                OnAddCardHand?.Invoke();
+                OnAddCardHand?.Invoke(card);
             }
         }
 
@@ -169,7 +171,11 @@ namespace PH
         {
             CardsInHand.Remove(card);
             _lastCardDrop = card;
+
+            //trigger on board
             OnDropCard?.Invoke();
+
+            ReloadAfterDrop?.Invoke(card.ReLoadAfterDrop);
         }
 
         public void ReplaceCardHand(int index)
@@ -193,6 +199,7 @@ namespace PH
 
         public void InitializePlayerDeck()
         {
+
             _dictionaryCardType = new Dictionary<TypeMode, List<Card>>();
             _dictionaryCardCost = new Dictionary<int, List<Card>>();
 

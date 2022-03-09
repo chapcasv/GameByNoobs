@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace PH
 {
@@ -19,7 +19,9 @@ namespace PH
 
         [SerializeField] GameObject[] cardHand;
         [SerializeField] DeckSystem deckSystem;
+        [SerializeField] CardTween cardDraw;
 
+        private RectTransform[] cardHandRect;
         private CardVisual[] _cardVizs;
         private CardInstance[] _cardInstance;
         private CardInfoBattle _cardInfoViz;
@@ -44,19 +46,20 @@ namespace PH
 
         private void Awake()
         {
-            SPACING_X_DEFAULT = GetComponent<GridLayoutGroup>().spacing.x;
+            gridLayout = GetComponent<GridLayoutGroup>();
+            SPACING_X_DEFAULT = gridLayout.spacing.x;
             Init();
             AddListerner();
             anim = GetComponent<Animator>();
-            gridLayout = GetComponent<GridLayoutGroup>();
         }
 
         private void AddListerner()
         {
+            deckSystem.OnDraw += AnimDraw;
+            cardDraw.OnEndDraw += LoadHandZone;
             startRound.OnEnterPhase += LoadHandZone;
-            deckSystem.OnDrawCard += LoadHandZone;
-            deckSystem.OnDropCard += LoadHandZone;
-            deckSystem.OnAddCardHand += LoadHandZone;
+            deckSystem.ReloadAfterDrop += ReloadOnDrop;
+            deckSystem.OnAddCardHand += AnimAdd;
             controlState.OnLeftClick += DisplayHandZone;
             teamFightState.OnLeftClick += DisplayHandZone;
             beforeTeamFight.OnEnterPhase += HidenHandZone;
@@ -67,36 +70,70 @@ namespace PH
         {
             _cardVizs = new CardVisual[cardHand.Length];
             _cardInstance = new CardInstance[cardHand.Length];
+            cardHandRect = new RectTransform[cardHand.Length];
 
             for (int i = 0; i < _cardVizs.Length; i++)
             {
                 _cardVizs[i] = cardHand[i].GetComponent<CardVisual>();
                 _cardInstance[i] = cardHand[i].GetComponent<CardInstance>();
+                cardHandRect[i] = cardHand[i].GetComponent<RectTransform>();
                 _cardInstance[i].CardSeleted = dragCardSelected;
                 _cardInstance[i].CardInfomation = _cardInfoViz;
             }
         }
 
         private void LoadHandZone()
-        {   
+        {
             SetViz(deckSystem.CardsInHand);
             SetCardsInstance(deckSystem.CardsInHand);
             SortUI(deckSystem.CardsInHand.Count);
             SetActive();
 
-            if (!isShowHandZone)  DisplayHandZone(); 
+            if (!isShowHandZone) DisplayHandZone();
+        }
+
+        private void AnimDraw(Card card)
+        {
+            Vector3 pos = GetPosCardLeft();
+            cardDraw.Move(card, pos);
+        }
+
+        private void AnimAdd(Card card)
+        {
+            Vector3 pos = GetPosCardLeft();
+            cardDraw.Move(card, pos, Vector3.zero);
+        }
+
+        private Vector3 GetPosCardLeft()
+        {
+            var cardLeft = cardHand.Where(c => c.activeInHierarchy).ToList().LastOrDefault();
+            int index = cardLeft.transform.GetSiblingIndex();
+            var pos = cardHandRect[index].localPosition;
+            return pos;
+        }
+
+        private void ReloadOnDrop(bool reload)
+        {
+            if (reload)
+            {
+                LoadHandZone();
+            }
+            else 
+            { 
+                if (!isShowHandZone) DisplayHandZone(); 
+            }
         }
 
         private void SortUI(int cardHandCount)
-        {   
+        {
             //If player have 5+ card hand, sort logic will change
-            if(cardHandCount > NUMBER_CARD_HAND_DEFAULT)
+            if (cardHandCount > NUMBER_CARD_HAND_DEFAULT)
             {
                 float cardOut = cardHandCount - NUMBER_CARD_HAND_DEFAULT;
 
                 float spacingX = SPACING_X_DEFAULT - (cardOut * SPACING_X_OFFSET);
 
-                if(spacingX < 0)
+                if (spacingX < 0)
                 {
                     spacingX = 0;
                 }
@@ -114,7 +151,7 @@ namespace PH
                     cardHand[i].SetActive(true);
 
                 }
-                else  cardHand[i].SetActive(false);
+                else cardHand[i].SetActive(false);
             }
         }
 
@@ -132,7 +169,7 @@ namespace PH
         }
 
         public void DisplayHandZone()
-        {   
+        {
             //Need fix this line
             if (PhaseSystem.CurrentPhase as BeforeTeamFight) return;
 
@@ -140,6 +177,7 @@ namespace PH
             anim.SetBool("IsShow", isShowHandZone);
         }
 
+        // 09/03/2022 0 references
         public void ShowHandZone()
         {
             isShowHandZone = true;
@@ -147,7 +185,7 @@ namespace PH
         }
 
         public void HidenHandZone()
-        {   
+        {
             isShowHandZone = false;
             anim.SetBool("IsShow", isShowHandZone);
         }
@@ -167,10 +205,11 @@ namespace PH
 
         private void RemoveListerner()
         {
+            cardDraw.OnEndDraw -= LoadHandZone;
+            deckSystem.OnDraw -= AnimDraw;
             startRound.OnEnterPhase -= LoadHandZone;
-            deckSystem.OnDrawCard -= LoadHandZone;
-            deckSystem.OnDropCard -= LoadHandZone;
-            deckSystem.OnAddCardHand -= LoadHandZone;
+            deckSystem.ReloadAfterDrop -= ReloadOnDrop;
+            deckSystem.OnAddCardHand -= AnimAdd;
             controlState.OnLeftClick -= DisplayHandZone;
             teamFightState.OnLeftClick -= DisplayHandZone;
             beforeTeamFight.OnEnterPhase -= HidenHandZone;

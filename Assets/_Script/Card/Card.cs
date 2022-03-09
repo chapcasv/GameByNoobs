@@ -13,6 +13,7 @@ namespace PH
         [SerializeField] string cardDiscription;
         [SerializeField] protected CardRank rank;
         public BaseProperties[] baseProperties;
+        [SerializeField] bool reloadAfterDrop = true; // need fix
         [SerializeField] int cost;
         [SerializeField] protected Faction[] Faction;
         [SerializeField] protected CardDropPlaceLogic dropPlace;
@@ -25,6 +26,8 @@ namespace PH
         public int Cost => cost;
         public CardRank GetRank => rank;
         public abstract TypeMode GetCardType();
+
+        public bool ReLoadAfterDrop => reloadAfterDrop;
 
         public virtual void OnSetFactionViz(CardVisual cardViz)
         {

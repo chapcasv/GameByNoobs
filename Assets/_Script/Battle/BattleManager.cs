@@ -12,6 +12,7 @@ namespace PH
         [SerializeField] BattleUIManager battleUIManager;
         [SerializeField] DragCardSelected dragCardSelected;
         [SerializeField] CardInfoBattle cardInfoVisual;
+        [SerializeField] NotifyResultPhase notifyResultPhase;
 
         [Header("Play Mode Infomation")]
         [SerializeField] PlayModeRewards playModeRewards;
@@ -70,7 +71,8 @@ namespace PH
             DictionaryTeamBattle.Init(factionContainer);
             CardDropHistory.Init();
             PlayerCacheUnitData.Init();
-            dragCardSelected.Constructor(CS, DS);
+
+            dragCardSelected.Constructor(CS, DS, _boardSystem);
 
             SetterDragLogic();
         }
@@ -105,7 +107,7 @@ namespace PH
         private void SetSystemByCurrentPlayMode(LifeSystem LS, WaveSystem WS, CoinSystem CS, 
             MemberSystem MS, ResultSystem RS)
         {
-            LS.SetData(currentEnemy);
+            LS.SetData(currentEnemy,notifyResultPhase);
             WS.SetData(currentEnemy);
             CS.SetData();
             MS.SetData();

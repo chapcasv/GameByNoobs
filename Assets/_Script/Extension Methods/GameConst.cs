@@ -16,6 +16,8 @@ namespace PH
         public const int CRIT_RATE_DEFAULT = 25;
         public const int CRIT_DMG_DEFAULT = 130;
         public const int LIFE_STEAL_DEFAULT = 0;
+
+        public const int MAX_MEMBER = 9;
     }
 }
 

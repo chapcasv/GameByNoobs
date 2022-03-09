@@ -32,15 +32,11 @@ namespace PH
         private CoinSystem _coinSystem;
         private MemberSystem _memberSystem;
         private ResultSystem _resultBattle;
-        private GetBaseProperties _getBaseProperties;
         private CardInfoBattle _cardInfoViz;
         private PlayerDragLogic _playerDragLogic;
 
         private BattlePlayerInfomation infomation;
         private BattleCoinUI battleCoinUI;
-
-        private const int MAX_MEMBER = 9;
-        //private int _maxWave;
 
         private void Awake()
         {
@@ -108,14 +104,14 @@ namespace PH
         private void DisplayMemberAmount()
         {
             int amount = _memberSystem.GetMemberAmount;
-            memberAmountText.text = amount + $"/{MAX_MEMBER}";
+            memberAmountText.text = amount + $"/{GameConst.MAX_MEMBER}";
         }
 
         /// <summary>
         /// When start new battle,
         /// reset current member amount to zero
         /// </summary>
-        private void ResetMemberAmount() => memberAmountText.text = 0 + $"/{MAX_MEMBER}";
+        private void ResetMemberAmount() => memberAmountText.text = 0 + $"/{GameConst.MAX_MEMBER}";
 
         private void ShowMemberOBJ() => memberObj.SetActive(true);
 

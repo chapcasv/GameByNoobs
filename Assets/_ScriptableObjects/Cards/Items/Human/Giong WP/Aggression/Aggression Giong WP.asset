@@ -18,7 +18,7 @@ MonoBehaviour:
   baseProperties:
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: 13d77e98c0bacbc418a9023c44d0a4b4, type: 3}
+    sprite: {fileID: 21300000, guid: a934f115c932f344c915b5c9d709e6eb, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
   - stringValue: 
     intValue: 3
@@ -44,6 +44,7 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 21300000, guid: 2b493089ee9bc354d955b4efaef04c69, type: 3}
     element: {fileID: 11400000, guid: 997488c929eed6741bd5335f2aa47b4c, type: 2}
+  reloadAfterDrop: 1
   cost: 3
   Faction: []
   dropPlace: {fileID: 11400000, guid: a1c8a4337ef0c684db53794a0ec434f3, type: 2}
@@ -51,5 +52,5 @@ MonoBehaviour:
   - Ediscription: + life steal
     input: {fileID: 11400000, guid: 4aea7ad1b821bf848bfdbfcf502e5c88, type: 2}
     logic: {fileID: 11400000, guid: 20f5173419ae4cd438d603f0f375eeda, type: 2}
-  Unlocked: 0
+  Unlocked: 1
   isOnRound: 1

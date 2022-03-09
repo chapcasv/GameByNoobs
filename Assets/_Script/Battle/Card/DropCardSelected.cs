@@ -10,8 +10,10 @@ namespace PH
         [SerializeField] GameObject pfTileUnder;
         private Camera _cam;
         private CoinSystem _coinSystem;
+        private BoardSystem _boardSystem;
 
         public CoinSystem CoinSystem { set => _coinSystem = value; }
+        public BoardSystem BoardSystem { set => _boardSystem = value; }
 
         private void Start()
         {
@@ -24,9 +26,8 @@ namespace PH
             Node node = GridBoard.GetNodeForTile(t);
 
             if (currentCard.CanDropBoard(node))
-            {
-                BoardSystem boardSystem = t.GetComponentInParent<BoardSystem>();
-                bool dropResult = currentCard.TryTriggerOnDrop(node, boardSystem);
+            {   
+                bool dropResult = currentCard.TryTriggerOnDrop(node, _boardSystem);
                 return dropResult;
             }
             else return false;
@@ -50,7 +51,6 @@ namespace PH
 
             if (coinAfterSub >= 0)
             {
-
                 return true;
             }
             else return false;
@@ -104,9 +104,8 @@ namespace PH
         public void MoveRadar()
         {
             Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, tile))
+            if (Physics.Raycast(ray, out RaycastHit hit, tile))
             {
                 radar.transform.position = hit.point;
             }

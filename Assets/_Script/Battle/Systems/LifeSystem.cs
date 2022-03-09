@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 namespace PH
 {
@@ -9,21 +10,26 @@ namespace PH
         public event Action OnEnemyLifeChange;
         public event Action OnPlayerLifeChange;
 
-        private int _enemyLife;
-        private int _playerLife;
+        private NotifyResultPhase _notify;
+        private int enemyLife;
+        private int playerLife;
         private const int PLAYER_LIFE = 20;
-        public int GetEnemyLife() => _enemyLife;
-        public int GetPlayerLife() => _playerLife;
+        public int GetEnemyLife() => enemyLife;
+        public int GetPlayerLife() => playerLife;
 
         public void AtkByResultLastRound(ResultLastRound result)
         {
+            int totalDmg;
+
             switch (result)
             {
                 case ResultLastRound.PlayerWin:
-                    AtkTo(UnitTeam.Enemy);
+                    totalDmg = AtkTo(UnitTeam.Enemy);
+                    _notify.SetWin(totalDmg);
                     break;
                 case ResultLastRound.PlayerLose:
-                    AtkTo(UnitTeam.Player);
+                    totalDmg = AtkTo(UnitTeam.Player);
+                    _notify.SetLose(totalDmg);
                     break;
                 case ResultLastRound.Draw:
                     AtkTo(UnitTeam.Enemy);
@@ -32,50 +38,65 @@ namespace PH
             }
         }
 
-        private void AtkTo(UnitTeam team)
+        private int AtkTo(UnitTeam team)
         {
             var allUnit = DictionaryTeamBattle.GetUnitsAgainst(team);
 
-            foreach (BaseUnit unit in allUnit)
+            if(team == UnitTeam.Player)
+            {
+                int totalDmg = GetTotalDmg(allUnit);
+                DecreasePlayerLife(totalDmg);
+                return totalDmg;
+            }
+            else
+            {
+                int totalDmg = GetTotalDmg(allUnit);
+                DecreaseEnemyLife(totalDmg);
+                return totalDmg;
+            }
+        }
+
+        private int GetTotalDmg(List<BaseUnit> unitAgain)
+        {
+            int totalDmg = 0;
+
+            foreach (var unit in unitAgain)
             {
                 int dmg = unit.GetDmgLife;
-
-                if(team == UnitTeam.Player)
-                {
-                    DecreasePlayerLife(dmg);
-                }
-                else DecreaseEnemyLife(dmg);
+                totalDmg += dmg;
             }
+            return totalDmg;
         }
 
         public bool PlayerLifeIsZero()
         {
-            if (_playerLife <= 0) return true;
+            if (playerLife <= 0) return true;
             else return false;
         }
 
         public bool EnemyLifeIsZero()
         {
-            if(_enemyLife <= 0) return true;
+            if(enemyLife <= 0) return true;
             else return false;
         }
 
         private void DecreaseEnemyLife(int value)
         {
-            _enemyLife -= value;
+            enemyLife -= value;
             OnEnemyLifeChange?.Invoke();
         }
 
         private void DecreasePlayerLife(int value)
         {
-            _playerLife -= value;
+            playerLife -= value;
             OnPlayerLifeChange?.Invoke();
         }
 
-        public void SetData(PlayModeEnemy enemy)
+        public void SetData(PlayModeEnemy enemy, NotifyResultPhase notify)
         {
-            _enemyLife = enemy.Life;
-            _playerLife = PLAYER_LIFE;
+            enemyLife = enemy.Life;
+            playerLife = PLAYER_LIFE;
+            _notify = notify;
         }
     }
 }

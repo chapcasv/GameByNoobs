@@ -10,7 +10,6 @@ namespace PH
     public class DrawCard : Phase
     {
         private DeckSystem _deckSystem;
-
         public override void Init(PhaseSystem phaseSystem)
         {
             base.Init(phaseSystem);
@@ -29,6 +28,7 @@ namespace PH
         
         public override void OnStartPhase()
         {   
+
             _deckSystem.DrawCard();
             PhaseSystem.RunTimeBar(maxTime); //Anim draw Card
         }

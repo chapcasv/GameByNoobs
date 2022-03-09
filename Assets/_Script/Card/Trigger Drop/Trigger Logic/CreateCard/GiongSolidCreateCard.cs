@@ -45,7 +45,7 @@ namespace PH
             if(giong != null)
             {
                 currentDeck.Remove(giong);
-                deckSystem.AddCardToHand(giong);
+                deckSystem.AddCardDraw(giong);
             }
 
         }
