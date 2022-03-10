@@ -19,6 +19,7 @@ namespace PH
         [SerializeField] Button B_Deck;
         [Header("UI")]
         [SerializeField] TextMeshProUGUI coin;
+        [SerializeField] TextMeshProUGUI diamond;
         [SerializeField] TextMeshProUGUI playerName;
         [SerializeField] GameObject selectPlayMode;
         [Header("Rank")]
@@ -46,6 +47,7 @@ namespace PH
         {
             coin.text = SaveSystem.LoadCoin().ToString();
             playerName.text = SaveSystem.LoadName();
+            diamond.text = SaveSystem.LoadDiamond().ToString();
 
             LoadRank();
         }

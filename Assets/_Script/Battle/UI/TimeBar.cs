@@ -26,7 +26,7 @@ namespace PH
            
             while (sliderTime.value > sliderTime.minValue && PhaseSystem.UseTimeBar && !PhaseSystem.BattleIsEnd)
             {
-                yield return new WaitForSeconds(smooth);
+                yield return new WaitForSecondsRealtime(smooth);
                 sliderTime.value -= smooth;
             }
 
@@ -47,7 +47,7 @@ namespace PH
             {
                 sliderTime.value -= smooth;
                 
-                yield return new WaitForSeconds(smooth);
+                yield return new WaitForSecondsRealtime(smooth);
             }
             //Current phase is start card
             PhaseSystem.CurrentPhase.IsComplete();
@@ -71,7 +71,7 @@ namespace PH
                 UpdateTimeUI(timeRemaining);
                 timeRemaining--;
                
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSecondsRealtime(1f);
             }
             
         }

@@ -33,6 +33,7 @@ namespace PH.Save
             {
                 PlayerName = playerSO.GetPlayerName(),
                 Coin = playerSO.Coin,
+                Diamond = playerSO.Diamond,
                 Cards = ConvertCard.DefaultCardToPlayerCards(playerSO.Cards),
                 Rank = ConvertRank.ToPlayerRank(playerSO.Rank)
             };
@@ -60,7 +61,7 @@ namespace PH.Save
             //playerData = ConvertPlayerSOToPlayerData(playerSO, playerData);
             WriteJSon(playerData);
         }
-     
+
 
         //ONLY call when you want to load ALL player data
         public static void LoadPlayer(PlayerLocalSO playerSO, ALLCard allCards)
@@ -77,7 +78,7 @@ namespace PH.Save
         {
             playerSO.SetPlayerName(playerData.PlayerName);
             playerSO.Coin = playerData.Coin;
-            playerSO.Cards = ConvertCard.PlayerCardsToCards(playerData.Cards, allCards); 
+            playerSO.Cards = ConvertCard.PlayerCardsToCards(playerData.Cards, allCards);
         }
 
         #region Card
@@ -135,6 +136,31 @@ namespace PH.Save
             else throw new Exception(MESS_ERROR);
         }
 
+        #endregion
+
+        #region Diamond
+        public static int LoadDiamond()
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+                return playerData.Diamond;
+            }
+            else throw new Exception(MESS_ERROR);
+        }
+
+        //10/03/2022
+        public static void SaveDiamond(int value)
+        {
+            if (File.Exists(playerDataPath))
+            {
+                PlayerData playerData = ReadJSon();
+
+                playerData.Diamond = value;
+                WriteJSon(playerData);
+            }
+            else throw new Exception(MESS_ERROR);
+        }
         #endregion
 
         #region Deck

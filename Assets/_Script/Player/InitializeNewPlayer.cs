@@ -12,24 +12,21 @@ namespace PH {
 
     public static class InitializeNewPlayer
     {
-        public static bool CanInitialize(string playerName, PlayerLocalSO player, PlayerDefaultData defaultPlayer, ALLCard allCards)
+        public static bool CanInitialize(string playerName, PlayerLocalSO player, PlayerDefaultData defaultPlayer)
         {
             if (CanUse(playerName))
             {
-                Initialize(playerName, player, defaultPlayer, allCards);
+                Initialize(playerName, player, defaultPlayer);
                 return true;
             }
-            else
-            {
-                Application.Quit();
-                return false;
-            }
+            return false;
         }
 
-        private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer, ALLCard allCards)
+        private static void Initialize(string playerName, PlayerLocalSO playerSO, PlayerDefaultData defaultPlayer)
         {
             playerSO.SetPlayerName(playerName);
 
+            playerSO.Diamond = defaultPlayer.Diamond;
             playerSO.Coin = defaultPlayer.Coin;
             playerSO.Cards = new List<Card>(defaultPlayer.Cards);
             playerSO.Decks = new List<Deck>(defaultPlayer.Decks);
