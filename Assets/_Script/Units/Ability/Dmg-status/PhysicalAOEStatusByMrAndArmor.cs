@@ -13,7 +13,6 @@ namespace PH
     public class PhysicalAOEStatusByMrAndArmor : Ability
     {
         [SerializeField] StatusEffect abilityStatusEffect;
-        [SerializeField] PhysicalDmg physicalDmg;
         [SerializeField] int pctDmg;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
@@ -26,7 +25,7 @@ namespace PH
 
             foreach (var target in targets)
             {
-                target.TakeDamage(caster, (int)preMitigationDmg, physicalDmg);
+                target.TakeDamage(caster, (int)preMitigationDmg, damageType);
                 target.GetUnitStatusEffect.ApplyStatusEffect(abilityStatusEffect);
                 VFX(target);
             }
@@ -34,8 +33,7 @@ namespace PH
 
         private void VFX(BaseUnit target)
         {
-            var box = target.Col;
-            Vector3 pos = new Vector3(target.transform.position.x, box.size.y, target.transform.position.z);
+            Vector3 pos = BattleMethods.GetTopPos(target);
             float durringEffect = abilityStatusEffect.LifeTime;
             VFXManager.Instance.PlayStatusVFX(pos, KeysVFX.Stun.ToString(), durringEffect);
         }
@@ -57,11 +55,11 @@ namespace PH
         protected override string GetDiscription(int value)
         {
             int dmg = value;
-            string physicalColor = HexColorString.PhysicalDmg;
+            string color = damageType.HexColor();
             string status = abilityStatusEffect.Discription;
             string lifeTime = abilityStatusEffect.LifeTime.ToString();
 
-            string discription = "Gây" + "<color=" + physicalColor + "> " + dmg + "</color>" + " sát thương lên các mục tiêu xung quanh." +
+            string discription = "Gây" + "<color=" + color + "> " + dmg + "</color>" + " sát thương lên các mục tiêu xung quanh." +
                " Đồng thời " + status + " mỗi mục tiêu trúng chiêu trong " + lifeTime + " giây";
 
             return discription;

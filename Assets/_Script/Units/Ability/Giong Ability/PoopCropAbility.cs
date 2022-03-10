@@ -9,9 +9,7 @@ namespace PH
     public class PoopCropAbility : Ability
     {
         [SerializeField] int dmg;
-
         [SerializeField] int manaDecrease;
-        [SerializeField] DamageType damageType;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {

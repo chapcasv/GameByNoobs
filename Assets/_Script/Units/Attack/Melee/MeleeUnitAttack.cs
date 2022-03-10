@@ -6,7 +6,6 @@ namespace PH
 {
     public class MeleeUnitAttack : UnitAtkSystem
     {
-        [SerializeField] protected DamageType normalAtkType;
 
         public override void BasicAtk()
         {
