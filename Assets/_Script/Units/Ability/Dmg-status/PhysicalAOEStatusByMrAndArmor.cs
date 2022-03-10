@@ -29,6 +29,8 @@ namespace PH
                 target.GetUnitStatusEffect.ApplyStatusEffect(abilityStatusEffect);
                 VFX(target);
             }
+
+            vfx.PlayVFX(caster.transform.position);
         }
 
         private void VFX(BaseUnit target)

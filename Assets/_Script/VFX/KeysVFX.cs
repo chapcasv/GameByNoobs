@@ -10,7 +10,8 @@ namespace PH
         Recall,
         Hit,
         Stun,
-        UndeadGreen
+        UndeadGreen,
+        TamaShockWave
     }
 }
 
