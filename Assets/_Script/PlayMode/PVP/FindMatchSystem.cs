@@ -1,10 +1,9 @@
-using System.Collections;
+using PH.Loader;
+using PH.Save;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using PH.Save;
 
 namespace PH
 {
@@ -103,15 +102,9 @@ namespace PH
             GoToBattle();
         }
 
-        private void Back()
-        {
-            SceneManager.LoadScene(SceneSelect.MainMenu.ToString());
-        }
+        private void Back() => LoadSystem.Load(SceneSelect.MainMenu);
 
-        private void GoToBattle()
-        {
-            SceneManager.LoadScene(SceneSelect.Battle.ToString());
-        }
+        private void GoToBattle() => LoadSystem.Load(SceneSelect.Battle);
 
         private void OnDisable()
         {
