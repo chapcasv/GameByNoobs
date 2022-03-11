@@ -7778,6 +7778,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultText: {fileID: 1032844029}
   btnExitBattle: {fileID: 357295509}
+  main: {fileID: 0}
+  result: {fileID: 0}
+  label: {fileID: 0}
+  during: 0
 --- !u!1001 &643313392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16543,6 +16547,7 @@ MonoBehaviour:
   pfHit: {fileID: 3740150502022500590, guid: 6fbf13509f228644cad10c48f42049f7, type: 3}
   pfStun: {fileID: -3374251250702216742, guid: dd1d5ae594a274c468081b4dd42a912e, type: 3}
   pfUndeadGreen: {fileID: 8460700923072196076, guid: bd29d37b91647324a88d52988e82c84e, type: 3}
+  pfTamaShockWave: {fileID: 8543381423582058290, guid: 6da10603d4006d34abaf488836402c0a, type: 3}
 --- !u!4 &1554171055
 Transform:
   m_ObjectHideFlags: 0

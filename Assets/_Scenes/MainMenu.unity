@@ -789,6 +789,7 @@ MonoBehaviour:
   B_Collection: {fileID: 1774335940}
   B_Deck: {fileID: 1707499553}
   coin: {fileID: 928628836}
+  diamond: {fileID: 5754794075096970240}
   playerName: {fileID: 404560903}
   selectPlayMode: {fileID: 902646053}
   rankIcon: {fileID: 1876937860}
@@ -1204,17 +1205,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736311941}
   m_CullTransparentMesh: 1
---- !u!114 &743567012 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7958385008303017637, guid: f8fe9582ecbd27147b8f7755c706b925, type: 3}
-  m_PrefabInstance: {fileID: 7958385007568084993}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &761985398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4251,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1783367058}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4676,6 +4666,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccd5043436325da42bb085390a94b464, type: 3}
+--- !u!114 &5754794075096970240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5754794075167051477, guid: ccd5043436325da42bb085390a94b464, type: 3}
+  m_PrefabInstance: {fileID: 5754794075096970239}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7958385007568084993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4698,7 +4699,7 @@ PrefabInstance:
     - target: {fileID: 7958385007195579794, guid: f8fe9582ecbd27147b8f7755c706b925, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 743567012}
+      objectReference: {fileID: 0}
     - target: {fileID: 7958385007195579795, guid: f8fe9582ecbd27147b8f7755c706b925, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
