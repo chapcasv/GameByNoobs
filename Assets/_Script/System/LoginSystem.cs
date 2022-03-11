@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System;
+﻿using PH.Save;
 using TMPro;
-using PH.Save;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PH
 {
@@ -43,7 +39,7 @@ namespace PH
         {
             string playerName = input_PlayerName.GetComponent<TextMeshProUGUI>().text; ;
 
-            if (InitializeNewPlayer.CanInitialize(playerName, playerSO, defaultPlayer,allCards))
+            if (InitializeNewPlayer.CanInitialize(playerName, playerSO, defaultPlayer))
             {
                 GoTo_mainMenu();
             }

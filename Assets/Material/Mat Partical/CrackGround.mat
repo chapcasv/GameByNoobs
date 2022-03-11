@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CrackGround
+  m_Shader: {fileID: -6465566751694194690, guid: 6736cacdf1cce454580f31adf5092802, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_b280481edc6a44afbcfb08187d7bae43:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_c148234cccea4c778187fa768e596e12:
+        m_Texture: {fileID: 2800000, guid: 83a35346cda5d154a9b240643e05697f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_3342def8c98f48b49ab43ebb7ab82e02: 50
+    - Vector1_36879da25cd14a0993f048ac81b10d45: 0.5
+    m_Colors:
+    - Color_434ca185cec34266b182fafb2668bcd1: {r: 16, g: 0, b: 5.0261765, a: 1}
+    - Vector2_21f46ed199404d9cb7bc5498346adfed: {r: 0.05, g: 0.05, b: 0, a: 0}
+  m_BuildTextureStacks: []

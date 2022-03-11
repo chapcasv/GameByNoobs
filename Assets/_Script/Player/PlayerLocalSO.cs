@@ -6,12 +6,14 @@ namespace PH
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Data/Player/Player Local SO")]
     public class PlayerLocalSO : ScriptableObject
-    {
+    {   
+        //Use for debug
         [SerializeField] string playerName;
         [SerializeField] int coin;
         [SerializeField] List<Card> cards;
         [SerializeField] ALLCard allCard;
         [SerializeField] Sprite avatar;
+        [SerializeField] int diamond;
 
         private Deck currentDeck;
         private List<Deck> decks;
@@ -48,6 +50,7 @@ namespace PH
         public List<Deck> Decks { get => decks; set => decks = value; }
         public List<Card> Cards { get => cards; set => cards = value; }
         public Rank Rank { get => rank; set => rank = value; }
+        public int Diamond { get => diamond; set => diamond = value; }
 
         public Deck GetCurrentDeck()
         {

@@ -4,14 +4,32 @@ using UnityEngine;
 
 namespace PH
 {
+    [CreateAssetMenu(menuName = "ScriptableObject/Ability/Magic/Multi Target")]
     public class MagicMultiTarget : Ability
     {
         [SerializeField] int dmgValue;
-        [SerializeField] DamageType damageType;
+        [SerializeField] int numberTarget;
 
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
-            throw new System.NotImplementedException();
+            AbilityProjectileHolder aph = caster.GetComponent<AbilityProjectileHolder>();
+
+            int rawDmg = GetDmg(caster.GetAtkSystem.ORMagicPower);
+
+            List<BaseUnit> allEnemy = DictionaryTeamBattle.GetUnitsAgainst(caster.GetTeam());
+            if (allEnemy.Count == 0) return;
+
+            BaseUnit[] targetArray = new BaseUnit[numberTarget];
+            targetArray[0] = currentTarget;
+
+            for (int i = 1; i < numberTarget; i++)
+            {
+                var index = Random.Range(0, allEnemy.Count);
+                var target = allEnemy[index];
+                targetArray[i] = target;
+            }
+
+            aph.Move(targetArray, rawDmg);
         }
 
         public override string GetDiscription(CardUnit unit)

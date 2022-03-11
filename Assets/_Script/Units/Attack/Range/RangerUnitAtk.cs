@@ -9,7 +9,9 @@ namespace PH
     {
         [SerializeField] protected ProjectileMove pfProjectile;
         [SerializeField] protected Transform firePoint;
-        [SerializeField] protected DamageType normalAtkType;
+
+
+        public Transform GetFirePoint => firePoint;
 
         protected Queue<ProjectileMove> projectiles;
 

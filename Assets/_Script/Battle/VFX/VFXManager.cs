@@ -19,6 +19,7 @@ namespace PH
         [SerializeField] GameVFX pfHit;
         [SerializeField] StatusVFX pfStun;
         [SerializeField] GameVFX pfUndeadGreen;
+        [SerializeField] GameVFX pfTamaShockWave;
 
         private GameObject tileUnder;
         private Dictionary<string, Queue<GameVFX>> vfxPool;
@@ -33,6 +34,7 @@ namespace PH
         private Queue<GameVFX> vfxHit;
         private Queue<StatusVFX> vfxStun;
         private Queue<GameVFX> vfxUndeadGreen;
+        private Queue<GameVFX> vfxTamaShockWave;
 
         protected override void Awake()
         {
@@ -59,6 +61,16 @@ namespace PH
             InitRecall();
             InitHit();
             InitUndeadGreen();
+            InitTamaShockWave();
+        }
+
+        private void InitTamaShockWave()
+        {
+            vfxTamaShockWave = new Queue<GameVFX>();
+
+            string key = KeysVFX.TamaShockWave.ToString();
+            vfxPool.Add(key, vfxTamaShockWave);
+            AddToPool(2, pfTamaShockWave, key);
         }
 
         private void InitUndeadGreen()

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using PH.GraphSystem;
+using DG.Tweening;
 
 namespace PH
 {
@@ -10,7 +11,12 @@ namespace PH
     {
         [SerializeField] TextMeshProUGUI resultText;
         [SerializeField] Button btnExitBattle;
+        [SerializeField] Canvas main;
+        [SerializeField] Canvas result;
+        [SerializeField] Image label;
+        [SerializeField] float during;
 
+        private Vector2 center = new Vector2(0, 153);
         private ResultSystem _resultSystem;
 
         public void Constructor(ResultSystem result)
@@ -36,14 +42,30 @@ namespace PH
 
         private void DisplayPlayerVictory()
         {
-            resultText.text = "Victory";
-            gameObject.SetActive(true);
+            main.gameObject.SetActive(false);
+            result.gameObject.SetActive(true);
+            MoveLabel();
+            SetText("Victory");
         }
 
         private void DisplayPlayerDefeated()
         {
-            resultText.text = "Defeated";
-            gameObject.SetActive(true);
+            MoveLabel();
+            SetText("Defeated");
+            main.gameObject.SetActive(false);
+            result.gameObject.SetActive(true);
+        }
+
+        private void SetText(string text)
+        {
+            resultText.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.OutBack);
+            resultText.text = text;
+        }
+
+        private void MoveLabel()
+        {
+            label.rectTransform.DOAnchorPos(center, during);
+            label.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.OutBack);
         }
     }
 }
