@@ -9,7 +9,7 @@ namespace PH
     {
         void Initialize();
 
-        void ShowPopUpWindow(PopupType type, string message = "", Action OnAction = null);
+        void ShowPopUpWindow(PopupType type, string message = "", string title = "", Action OnAction = null);
     }
     public enum PopupType
     {
@@ -19,7 +19,7 @@ namespace PH
     public interface IPopupWindow
     {
         PopupType Type { get; }
-        void Show(string message = "", Action OnAction = null);
+        void Show(string message = "", string title = "", Action OnAction = null);
         void Hide();
     }
         

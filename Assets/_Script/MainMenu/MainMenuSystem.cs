@@ -19,6 +19,7 @@ namespace PH
         [SerializeField] TextMeshProUGUI diamond;
         [SerializeField] TextMeshProUGUI playerName;
         [SerializeField] GameObject selectPlayMode;
+        [SerializeField] Image avatar;
         [Header("Rank")]
         [SerializeField] Image rankIcon;
         [SerializeField] TextMeshProUGUI rankTierLevel;
@@ -40,6 +41,7 @@ namespace PH
             coin.text = SaveSystem.LoadCoin().ToString();
             playerName.text = SaveSystem.LoadName();
             diamond.text = SaveSystem.LoadDiamond().ToString();
+            avatar.sprite = player.GetAvatar;
 
             LoadRank();
         }
@@ -59,7 +61,6 @@ namespace PH
 
         public void ShowPlayMode()
         {
-            Debug.Log("Show");
             selectPlayMode.SetActive(true);
         }
 

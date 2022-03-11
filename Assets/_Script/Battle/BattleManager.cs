@@ -16,7 +16,7 @@ namespace PH
 
         [Header("Play Mode Infomation")]
         [SerializeField] PlayModeRewards playModeRewards;
-        [SerializeField] PlayModeEnemy currentEnemy;
+
 
         [Header("Use for Test")]
         [SerializeField] PVPMode defaultMode;
@@ -33,6 +33,7 @@ namespace PH
         [SerializeField] PlayerDragLogic playerDragLogic;
         [SerializeField] EnemyDragLogic enemyDragLogic;
 
+        private PlayModeEnemy currentEnemy;
         private PhaseSystem _phaseSystem;
         private BoardSystem _boardSystem;
 

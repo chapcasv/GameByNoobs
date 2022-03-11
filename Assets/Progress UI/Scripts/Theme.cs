@@ -1,4 +1,3 @@
-
 using EasyUI.Progress;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace EasyUI.Helpers {
         public Color value;
     }
 
-    [CreateAssetMenu(fileName = "Theme", menuName = "Easy UI/Progress UI/Theme")]
+    [CreateAssetMenu(fileName = "Theme", menuName = "ScriptableObject/Easy UI/Progress UI/Theme")]
     public class Theme : ScriptableObject {
         [Header("Name (key) :")]
         public string Name;

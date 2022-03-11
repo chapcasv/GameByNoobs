@@ -1,4 +1,4 @@
-using PH.Save;
+﻿using PH.Save;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,9 @@ using UnityEngine;
 namespace PH
 {
     public static class CollectionMethods 
-    {   
+    {
+        private static string iconCoin = "<sprite=" + "\"CoinTextMesh\"" + " index=0>";
+
         public static int GetBought(Card card)
         {
             var playerCard = SaveSystem.LoadCards();
@@ -86,6 +88,17 @@ namespace PH
         {
             var playerDeck = SaveSystem.LoadDecks();
             SaveSystem.SaveCurrentDeck(playerDeck[index]);
+        }
+
+        public static string UnlockFormat(Card card, GetBaseProperties get)
+        {
+            var cardName = get.GetName(card);
+            var cardPrice = get.GetPrice(card);
+            var colorBase = card.GetRank.BaseColor;
+
+            var colorHex = "#" + ColorUtility.ToHtmlStringRGB(colorBase) ;
+
+            return "Mở khóa " + "<color="  + colorHex + ">" + cardName + "</color>"+ $" sẽ tiêu tốn {cardPrice} {iconCoin}";
         }
     }
 }

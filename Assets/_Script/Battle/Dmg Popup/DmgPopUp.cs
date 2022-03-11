@@ -17,9 +17,9 @@ namespace PH.PopUp
         private const float MOVE_VECTOR_Y = 1;
         private const float MOVE_DISTANCE = 8f;
         private const float MOVE_VECTOR_OFFSET = 20f;
-        private const int TEXT_SIZE_SMALL = 14;
-        private const int TEXT_SIZE_MEDIUM = 16;
-        private const int TEXT_SIZE_LARGE = 17;
+        private const int TEXT_SIZE_SMALL = 13;
+        private const int TEXT_SIZE_MEDIUM = 14;
+        private const int TEXT_SIZE_LARGE = 15;
         private const float SPAWN_OFSET_X = 6f;
         private const string format_CRIT = "<sprite=" + "\"crit\"" + " index=0 >";
 

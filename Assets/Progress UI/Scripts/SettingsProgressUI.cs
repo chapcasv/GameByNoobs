@@ -1,8 +1,8 @@
 using UnityEngine;
 using EasyUI.Helpers;
 
-[CreateAssetMenu(fileName = "Settings", menuName = "Easy UI/Progress UI/Settings")]
-public class Settings : ScriptableObject {
+[CreateAssetMenu(fileName = "Settings", menuName = "ScriptableObject/Easy UI/Progress UI/Settings")]
+public class SettingsProgressUI : ScriptableObject {
     public Theme theme;
 
     [Range(0f,.4f)]

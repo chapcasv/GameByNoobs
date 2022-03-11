@@ -16,7 +16,6 @@ namespace PH
         [SerializeField] Image label;
         [SerializeField] float during;
 
-        private Vector2 center = new Vector2(0, 153);
         private ResultSystem _resultSystem;
 
         public void Constructor(ResultSystem result)
@@ -64,9 +63,10 @@ namespace PH
 
         private void MoveLabel()
         {
-            label.rectTransform.DOAnchorPos(center, during);
             label.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.OutBack);
         }
+
+
     }
 }
 

@@ -22,6 +22,8 @@ namespace PH
         [SerializeField] Button B_Buy;
         private IPopUpManager popUpManager;
 
+        private const string sceneName = "Thư Viện Lá Bài";
+
         public event Action<bool> OnUnlock;
         public event Action<bool> OnBuy;
         public static Card CardSelected { get; set; }
@@ -44,12 +46,13 @@ namespace PH
 
         private void Unlock()
         {
-            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn chắc chắn muốn mua vật phẩm này ?", () =>
+            string mess = CollectionMethods.UnlockFormat(CardSelected,get);
+
+            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, mess, sceneName, () =>
             {
                 bool isSuccessful = unlockCard.Unlock(CardSelected, playerLocalSO, aLLCard);
                 OnUnlock?.Invoke(isSuccessful);
             });
-   
         }
 
         private void BuyCard()

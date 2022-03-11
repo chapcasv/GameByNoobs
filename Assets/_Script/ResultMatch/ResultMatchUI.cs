@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using PH.Loader;
+using PH.Save;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
-using PH.Save;
+using DG.Tweening;
 
 namespace PH
 {
     public class ResultMatchUI : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI coinRewardText;
+        [SerializeField] TextMeshProUGUI diamondRewardText;
         [SerializeField] TextMeshProUGUI rankReward;
         [SerializeField] Image rankIcon;
 
@@ -37,11 +37,19 @@ namespace PH
             coinRewardText.text = "Tiền Xu +"+ coinRewardValue;
         }
 
+        public void DisplayDiamonReward(int diamondRewardValue)
+        {
+            diamondRewardText.text = "" + diamondRewardValue;
+        }
+
         private void DisplayCurrentRankIcon()
         {
             Rank currentRank = ConvertRank.Form(SaveSystem.LoadRank());
             RankInstance instance = _rankSystem.GetRank(currentRank.GetRankTier);
             rankIcon.sprite = instance.Icon;
+
+            rankIcon.rectTransform.DOScale(Vector2.one, 0.5f)
+                .SetEase(Ease.OutBack);
         }
 
         public void DisplayRank(string tier, string level, string bonus)
@@ -52,8 +60,8 @@ namespace PH
 
         private void AddListerner()
         {
-            b_back.onClick.AddListener(() => SceneManager.LoadScene(SceneSelect.MainMenu.ToString()));
-            b_againt.onClick.AddListener(() => SceneManager.LoadScene(SceneSelect.FindMatch.ToString()));
+            b_back.onClick.AddListener(() => LoadSystem.Load(SceneSelect.MainMenu));
+            b_againt.onClick.AddListener(() => LoadSystem.Load(SceneSelect.FindMatch));
         }
 
         private void OnDisable()

@@ -137,7 +137,7 @@ namespace PH
 
         private void OnExitgameCallBack()
         {
-            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn muốn thoát trò chơi ?", () =>
+            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn muốn thoát trò chơi ?", "Thoát Trò Chơi", () =>
             {
                 Application.Quit();
             });

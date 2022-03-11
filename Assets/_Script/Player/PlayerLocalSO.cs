@@ -47,6 +47,7 @@ namespace PH
             return result;
         }
 
+
         public List<Deck> Decks { get => decks; set => decks = value; }
         public List<Card> Cards { get => cards; set => cards = value; }
         public Rank Rank { get => rank; set => rank = value; }
