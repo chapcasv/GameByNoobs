@@ -6,10 +6,33 @@ namespace PH
 
     public class CardInfoCollection : CardInfoVisual
     {
+        [System.Serializable]
+        public class InfoCollectionElement
+        {
+            public Button main;
+            public Image selected;
+            public System.Action OnSelected;
+            public void Init()
+            {
+                OnSelected += Selected;
+                main.onClick.AddListener(() => OnSelected?.Invoke());
+                
+            }
+            
+            private void Selected()
+            {
+                selected.gameObject.SetActive(true);
+            }
+            public void Deselect()
+            {
+                selected.gameObject.SetActive(false);
+            }
+            
+        }
         
         [Header("Stat Unit")]
-        [SerializeField] Button B_descriptionDetail;
-        [SerializeField] Button B_UnitDetail;
+        [SerializeField] InfoCollectionElement B_descriptionDetail;
+        [SerializeField] InfoCollectionElement B_UnitDetail;
         [SerializeField] private ALLCard _allCards;
    
         private void Start()
@@ -25,26 +48,32 @@ namespace PH
        
         private void AddListenerDetail()
         {
-            B_descriptionDetail.onClick.AddListener(() => OnDescriptionDetailCallBack());
-            B_UnitDetail.onClick.AddListener(() => OnUnitDetailCallBack());
+            B_descriptionDetail.Init();
+            B_UnitDetail.Init();
+
+            B_descriptionDetail.OnSelected += OnDescriptionCallBack;
+            B_UnitDetail.OnSelected += OnUnitStatCallBack;
         }
 
-        private void OnUnitDetailCallBack()
+        private void OnUnitStatCallBack()
         {
             unitStat.SetActive(true);
             cardDescription.SetActive(false);
+            B_descriptionDetail.Deselect();
         }
 
-        private void OnDescriptionDetailCallBack()
+        private void OnDescriptionCallBack()
         {
             unitStat.SetActive(false);
             cardDescription.SetActive(true);
+            B_UnitDetail.Deselect();
         }
 
         protected override void LoadInfo(Card card)
         {
             base.LoadInfo(card);
-            cardDescription.SetActive(true);
+            //cardDescription.SetActive(true);
+            B_descriptionDetail.OnSelected?.Invoke();
             DeInteractive(false);
         }
 
@@ -52,21 +81,20 @@ namespace PH
         {
             base.LoadCardInfoUnit(card);
             DeInteractive(true);
-            B_descriptionDetail.Select();
-            OnDescriptionDetailCallBack();
+            B_descriptionDetail.OnSelected?.Invoke();
+            OnDescriptionCallBack();
 
         }
         private void DeInteractive(bool active)
         {
-            B_descriptionDetail.interactable = active;
-            B_UnitDetail.interactable = active;
+            B_UnitDetail.main.gameObject.SetActive(active);
         }
 
        
         private void OnDestroy()
         {
-            B_descriptionDetail.onClick.RemoveAllListeners();
-            B_UnitDetail.onClick.RemoveAllListeners();
+            B_descriptionDetail.OnSelected -= OnDescriptionCallBack;
+            B_UnitDetail.OnSelected -= OnUnitStatCallBack;
         }
     }
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +20,7 @@ namespace PH
         [Header("Button")]
         [SerializeField] Button B_Unlock;
         [SerializeField] Button B_Buy;
+        private IPopUpManager popUpManager;
 
         public event Action<bool> OnUnlock;
         public event Action<bool> OnBuy;
@@ -31,23 +32,30 @@ namespace PH
             cardLibraryUI.Constructor(logic);
             OnUnlock += cardLibraryUI.Unlock;
             OnBuy += cardLibraryUI.Buy;
+           
         }
 
         private void Start()
         {
             B_Unlock.onClick.AddListener(Unlock);
             B_Buy.onClick.AddListener(BuyCard);
+            ThirdParties.Find<IPopUpManager>(out popUpManager);
         }
 
         private void Unlock()
         {
-            bool isSuccessful = unlockCard.Unlock(CardSelected, playerLocalSO, aLLCard);
-            OnUnlock?.Invoke(isSuccessful);
+            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn chắc chắn muốn mua vật phẩm này ?", () =>
+            {
+                bool isSuccessful = unlockCard.Unlock(CardSelected, playerLocalSO, aLLCard);
+                OnUnlock?.Invoke(isSuccessful);
+            });
+   
         }
 
         private void BuyCard()
         {
             bool isSuccessful = buyCard.Buy(CardSelected, playerLocalSO);
+            
             OnBuy?.Invoke(isSuccessful);
         }
 
