@@ -10,19 +10,24 @@ namespace PH.Loader
     public static class LoadSystem
     {
         private class LoadMono : MonoBehaviour { }
-
-        private static event Action OnLoaderCallback;
         private static AsyncOperation loadingAO;
 
         public static void Load(SceneSelect scene)
         {
-            Progress.Show("Loading...");
-            GameObject obj = new GameObject();
-            obj.AddComponent<LoadMono>().StartCoroutine(LoadSync(scene));
-
+            SceneManager.LoadScene(scene.ToString());
         }
 
-        private static IEnumerator LoadSync(SceneSelect scene)
+        /// <summary>
+        /// Use Progress UI on load
+        /// </summary>
+
+        public static void LoadAsync(SceneSelect scene)
+        {
+            GameObject obj = new GameObject();
+            obj.AddComponent<LoadMono>().StartCoroutine(StartLoadAsync(scene));
+        }
+
+        private static IEnumerator StartLoadAsync(SceneSelect scene)
         {
             loadingAO = SceneManager.LoadSceneAsync(scene.ToString());
 
@@ -32,28 +37,8 @@ namespace PH.Loader
             }
         }
 
-        public static float GetLoadingProgress()
-        {
-            if (loadingAO != null)
-            {
 
-                Debug.Log(loadingAO.progress * 100f);
-                return loadingAO.progress;
-            }
-            else
-            {
-                return 1f;
-            }
-        }
-
-        public static void LoaderCallback()
-        {
-            if (OnLoaderCallback != null)
-            {
-                OnLoaderCallback();
-                OnLoaderCallback = null;
-            }
-        }
+       
     }
 }
 

@@ -54,6 +54,7 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 21300000, guid: f962fba6e7fd1654db07de2a0435135d, type: 3}
     element: {fileID: 11400000, guid: 997488c929eed6741bd5335f2aa47b4c, type: 2}
+  reloadAfterDrop: 1
   cost: 4
   Faction:
   - {fileID: 11400000, guid: 0a690b37aa4974a419afe19607f88c39, type: 2}
@@ -79,6 +80,6 @@ MonoBehaviour:
   damage: 65
   range: 1
   atkSpeed: 0.4
-  moveSpeed: 4
+  moveSpeed: 6
   dmgLife: 1
   negativeBonusDamage: 0

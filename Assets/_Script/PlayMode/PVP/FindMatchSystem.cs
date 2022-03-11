@@ -1,9 +1,11 @@
-using PH.Loader;
+﻿using PH.Loader;
 using PH.Save;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using EasyUI.Progress;
+using System.Collections;
 
 namespace PH
 {
@@ -11,16 +13,18 @@ namespace PH
     {
         [SerializeField] PVPMode defaultMode;
         [SerializeField] PlayModeEnemy defaultEnemy;
+        [SerializeField] PlayerLocalSO player;
 
         [Header("UI")]
         [SerializeField] TextMeshProUGUI currentMode;
         [SerializeField] TMP_Dropdown listDeck;
+        [SerializeField] Image avatar;
 
         [Header("Mode Sub")]
         [SerializeField] ModeSubAI modeSubAI;
         [SerializeField] ModeSubNormal modeSubNormal;
         [SerializeField] ModeSubRank modeSubRank;
-        
+
         [Header("Button")]
         [SerializeField] Button B_Back;
         [SerializeField] Button B_FindMatch;
@@ -28,6 +32,9 @@ namespace PH
         [SerializeField] Button B_ModeSubAI;
         [SerializeField] Button B_ModeSubNormal;
         [SerializeField] Button B_ModeSubRank;
+
+        private const string title = "Đang tìm trận";
+        private const float delayFindMatch = 1.4f;
 
         private void Awake()
         {
@@ -38,6 +45,11 @@ namespace PH
             B_ModeSubAI.Select();
             SetModeUpAI();
             InitListDeck();
+        }
+
+        private void Start()
+        {
+            avatar.sprite = player.GetAvatar;
         }
 
         private void Addlistener()
@@ -51,7 +63,7 @@ namespace PH
 
         private void CheckCurrentMode()
         {
-            if(PlayModeData.CurrentMode == null)
+            if (PlayModeData.CurrentMode == null)
             {
                 PlayModeData.CurrentMode = defaultMode;
                 Debug.LogWarning("Current Mode is null !!!");
@@ -97,14 +109,21 @@ namespace PH
         {
             int index = listDeck.value;
             CollectionMethods.SetCurrentDeck(index);
-
             PlayModeData.CurrentMode.ModeSub.SetEnemy(defaultEnemy);
+
+            Progress.Show(title, ProgressColor.Magenta);
+            StartCoroutine(FindMatchCoroutine());
+        }
+
+        private IEnumerator FindMatchCoroutine()
+        {
+            yield return new WaitForSeconds(delayFindMatch);
             GoToBattle();
         }
 
         private void Back() => LoadSystem.Load(SceneSelect.MainMenu);
 
-        private void GoToBattle() => LoadSystem.Load(SceneSelect.Battle);
+        private void GoToBattle() => LoadSystem.LoadAsync(SceneSelect.Battle);
 
         private void OnDisable()
         {

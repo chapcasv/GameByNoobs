@@ -28,9 +28,10 @@ namespace PH
             }
         }
 
-        public void ShowPopUpWindow(PopupType type, string message = "", Action OnAction = null)
+        public void ShowPopUpWindow(PopupType type, string message = "", string title = "", Action OnAction = null)
         {
             IPopupWindow window = null;
+
             for (int i = 0; i < windows.Length; i++)
             {
                 if(windows[i].Type == type)
@@ -39,7 +40,7 @@ namespace PH
                 }
                 windows[i].Hide();
             }
-            window.Show(message, OnAction);
+            window.Show(message,title, OnAction);
         }
         
     }

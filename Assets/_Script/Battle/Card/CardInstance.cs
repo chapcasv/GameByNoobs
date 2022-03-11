@@ -31,6 +31,7 @@ namespace PH
         {   
             if(eventData.clickCount > 1)
             {
+                Debug.Log("Click");
                 _cardInfoViz.SetCard(Card);
             }
         }

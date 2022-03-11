@@ -9,6 +9,7 @@ namespace PH
         [SerializeField] private Button B_confirm;
         [SerializeField] private Button B_close;
         [SerializeField] private TextMeshProUGUI comfirmText;
+        [SerializeField] private TextMeshProUGUI titleText;
 
         [SerializeField] private PopupType type = PopupType.CONFIRMATION;
         public PopupType Type => type;
@@ -26,9 +27,10 @@ namespace PH
             this.gameObject.SetActive(false);
         }
 
-        public void Show(string message = "", Action OnAction = null)
+        public void Show(string message = "", string title = "", Action OnAction = null)
         {
             comfirmText.text = message;
+            titleText.text = title;
             this.gameObject.SetActive(true);
             this.OnAction = OnAction;
         }

@@ -9,10 +9,15 @@ namespace PH
     {
         [SerializeField] int coinLoseReward;
         [SerializeField] int coinWinReward;
+        [SerializeField] int diamondLoseReward;
+        [SerializeField] int diamondWinReward;
 
         public int GetCoinLoseReward => coinLoseReward;
+        public int GetDiamondLoseReward => diamondLoseReward;
         
         public int GetCoinWinReward => coinWinReward;
+
+        public int GetDiamondWinReward => diamondWinReward;
     }
 }
 

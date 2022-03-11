@@ -9,11 +9,10 @@ namespace PH
     public class MessagePopUp : MonoBehaviour, IPopupWindow
     {
         [SerializeField] private PopupType type = PopupType.MESSAGE;
-        public PopupType Type => type;
-
-
         [SerializeField] private TextMeshProUGUI MessageText;
         [SerializeField] private Button B_close;
+
+        public PopupType Type => type;
 
         private void Start()
         {
@@ -24,7 +23,7 @@ namespace PH
             this.gameObject.SetActive(false);
         }
 
-        public void Show(string message = "", Action OnAction = null)
+        public void Show(string message = "", string tile = "", Action OnAction = null)
         {
             this.gameObject.SetActive(true);
             this.MessageText.text = message;

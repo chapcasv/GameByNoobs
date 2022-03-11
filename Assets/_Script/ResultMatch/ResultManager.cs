@@ -19,6 +19,7 @@ namespace PH
         private void Start()
         {
             AddCoinReward();
+            AddDiamondReward();
             AddRankPoint();
         }
 
@@ -34,6 +35,17 @@ namespace PH
             {
                 UI.DisplayCoinReward(coinRewardValue);
             }
+        }
+
+        private void AddDiamondReward()
+        {
+            int diamondRewardValue = ResultMatch.Result.DiamondReward;
+
+            playerLocalSO.Diamond = SaveSystem.LoadDiamond();
+            playerLocalSO.Diamond += diamondRewardValue;
+            SaveSystem.SaveDiamond(playerLocalSO.Diamond);
+
+
         }
 
         private void AddRankPoint()

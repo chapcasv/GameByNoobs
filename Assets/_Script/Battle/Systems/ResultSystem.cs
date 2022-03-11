@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace PH
 {
@@ -11,9 +10,12 @@ namespace PH
         Draw
     }
 
+    /// <summary>
+    /// Need fix class
+    /// </summary>
     [CreateAssetMenu(menuName = "ScriptableObject/Battle System/Result System")]
     public class ResultSystem : ScriptableObject
-    {
+    {   
         public event Action OnPlayerVictory;
         public event Action OnPlayerDefeated;
 
@@ -27,6 +29,7 @@ namespace PH
         {
             ResultMatch.Result = resultWin;
             ResultMatch.Result.CoinReward = _playModeRewards.GetCoinWinReward;
+            ResultMatch.Result.DiamondReward = _playModeRewards.GetDiamondWinReward;
 
             OnPlayerVictory?.Invoke();
         }
@@ -35,6 +38,7 @@ namespace PH
         {
             ResultMatch.Result = resultWin;
             ResultMatch.Result.CoinReward = _playModeRewards.GetCoinLoseReward;
+            ResultMatch.Result.DiamondReward = _playModeRewards.GetDiamondLoseReward;
 
             OnPlayerDefeated?.Invoke();
         }
