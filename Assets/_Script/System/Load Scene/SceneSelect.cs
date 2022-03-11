@@ -8,7 +8,8 @@ namespace PH
         FindMatch,
         Battle,
         ResultMatch,
-        DeckLibrary
+        DeckLibrary,
+        Loading
     }
 }
 

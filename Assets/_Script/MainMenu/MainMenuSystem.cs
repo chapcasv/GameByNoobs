@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using PH.Save;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
-using PH.Save;
-using System;
+using PH.Loader;
 
 namespace PH
 {
@@ -29,13 +26,8 @@ namespace PH
         private void Awake()
         {
             B_Play.onClick.AddListener(() => ShowPlayMode());
-            B_Collection.onClick.AddListener(() => GoToCollection());
+            B_Collection.onClick.AddListener(() => GoToCardLibrary());
             B_Deck.onClick.AddListener(GoToDeck);
-        }
-
-        private void GoToDeck()
-        {
-            SceneManager.LoadScene(SceneSelect.DeckLibrary.ToString());
         }
 
         void Start()
@@ -67,12 +59,18 @@ namespace PH
 
         public void ShowPlayMode()
         {
+            Debug.Log("Show");
             selectPlayMode.SetActive(true);
         }
 
-        public void GoToCollection()
+        public void GoToCardLibrary()
         {
-            SceneManager.LoadScene(SceneSelect.CardLibrary.ToString());
+            LoadSystem.Load(SceneSelect.CardLibrary);
+        }
+
+        private void GoToDeck()
+        {
+            LoadSystem.Load(SceneSelect.DeckLibrary);
         }
 
         private void OnDisable()

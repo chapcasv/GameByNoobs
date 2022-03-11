@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using PH.Loader;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace PH
 {
@@ -35,10 +33,7 @@ namespace PH
             GoToFindMatch();
         }
 
-        private void GoToFindMatch()
-        {
-            SceneManager.LoadScene(SceneSelect.FindMatch.ToString());
-        }
+        private void GoToFindMatch() => LoadSystem.Load(SceneSelect.FindMatch);
 
         private void OnDestroy()
         {
