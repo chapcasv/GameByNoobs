@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,16 +44,21 @@ namespace PH
         [SerializeField] private TopButtonTap B_keybindingTab;
         [SerializeField] private TopButtonTap B_videoTab;
         [SerializeField] private TopButtonTap B_musicTab;
-       
-       
+
+        private IPopUpManager popUpManager;
         
         public override void Initialize()
         {
             base.Initialize();
+            ThirdParties.Find<IPopUpManager>(out popUpManager);
+            if(B_surderer != null)
+            {
+                B_surderer.onClick.AddListener(OnSurdererCallBack);
+            }
             B_accept.onClick.AddListener(OnCloseSettingCallBack);
             B_support.onClick.AddListener(OnSupportButtonCallBack);
             B_exit.onClick.AddListener(OnExitgameCallBack);
-            B_surderer.onClick.AddListener(OnSurdererCallBack);
+         
             B_close.onClick.AddListener(OnCloseSettingCallBack);
             B_keybindingTab.Initialize();
             B_generalTab.Initialize();
@@ -132,7 +137,11 @@ namespace PH
 
         private void OnExitgameCallBack()
         {
-            Application.Quit();
+            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn muốn thoát trò chơi ?", () =>
+            {
+                Application.Quit();
+            });
+
         }
     }
 }

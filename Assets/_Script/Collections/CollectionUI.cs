@@ -28,11 +28,11 @@ namespace PH
 
         protected ALLCard allCards;
 
-
         public void Init(ALLCard all, GetBaseProperties get)
         {
             allCards = all;
             _get = get;
+            
         }
 
         protected virtual void Start()
