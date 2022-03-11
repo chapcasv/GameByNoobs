@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using EasyUI.Progress;
 
 namespace PH.Loader
 {
-    public static class LoadSystem 
-    {   
+    public static class LoadSystem
+    {
         private class LoadMono : MonoBehaviour { }
 
         private static event Action OnLoaderCallback;
@@ -15,13 +16,10 @@ namespace PH.Loader
 
         public static void Load(SceneSelect scene)
         {
-            OnLoaderCallback = () =>
-            {
-                GameObject obj = new GameObject();
-                obj.AddComponent<LoadMono>().StartCoroutine(LoadSync(scene));
-            };
+            Progress.Show("Loading...");
+            GameObject obj = new GameObject();
+            obj.AddComponent<LoadMono>().StartCoroutine(LoadSync(scene));
 
-            SceneManager.LoadScene(SceneSelect.Loading.ToString());
         }
 
         private static IEnumerator LoadSync(SceneSelect scene)
@@ -36,7 +34,7 @@ namespace PH.Loader
 
         public static float GetLoadingProgress()
         {
-            if(loadingAO!= null)
+            if (loadingAO != null)
             {
 
                 Debug.Log(loadingAO.progress * 100f);
