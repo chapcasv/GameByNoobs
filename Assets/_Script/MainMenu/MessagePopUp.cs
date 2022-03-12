@@ -23,7 +23,7 @@ namespace PH
             this.gameObject.SetActive(false);
         }
 
-        public void Show(string message = "", string tile = "", Action OnAction = null)
+        public void Show(string message = "", string tile = "", Action OnConfirm = null)
         {
             this.gameObject.SetActive(true);
             this.MessageText.text = message;

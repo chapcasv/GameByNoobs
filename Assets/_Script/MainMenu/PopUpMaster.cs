@@ -7,7 +7,8 @@ namespace PH
 {
     public class PopUpMaster : MonoBehaviour, IPopUpManager
     {
-        [SerializeField]protected IPopupWindow[] windows;
+        protected IConfirmWindow confirm;
+        protected IPopupWindow[] windows;
         private void Awake()
         {
             ThirdParties.Register<IPopUpManager>(this);
@@ -21,14 +22,14 @@ namespace PH
         public void Initialize()
         {
             windows = GetComponentsInChildren<IPopupWindow>();
-
+            confirm = GetComponentInChildren<IConfirmWindow>();
             for (int i = 0; i < windows.Length; i++)
             {
                 windows[i].Hide();
             }
         }
 
-        public void ShowPopUpWindow(PopupType type, string message = "", string title = "", Action OnAction = null)
+        public void ShowPopUpWindow(PopupType type, string message = "", string title = "", Action OnClick = null)
         {
             IPopupWindow window = null;
 
@@ -40,9 +41,15 @@ namespace PH
                 }
                 windows[i].Hide();
             }
-            window.Show(message,title, OnAction);
+            window.Show(message,title, OnClick);
         }
-        
+
+        public void ShowPopUpConfirm(string message = "", string title = "", Action OnConfirm = null, Action OnCancel = null)
+        {
+            ShowPopUpWindow(PopupType.CONFIRMATION, message, title);
+            confirm.GetEvent(OnConfirm, OnCancel);
+
+        }
     }
 }
 

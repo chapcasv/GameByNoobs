@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-
+using PH.Save;
 namespace PH
 {
     public class CardLibraryManager : MonoBehaviour
@@ -16,7 +16,7 @@ namespace PH
         [SerializeField] UnlockCard unlockCard;
         [SerializeField] BuyCard buyCard;
         [SerializeField] CardLibraryLogic logic;
-
+        
         [Header("Button")]
         [SerializeField] Button B_Unlock;
         [SerializeField] Button B_Buy;
@@ -34,7 +34,7 @@ namespace PH
             cardLibraryUI.Constructor(logic);
             OnUnlock += cardLibraryUI.Unlock;
             OnBuy += cardLibraryUI.Buy;
-           
+            
         }
 
         private void Start()
@@ -47,8 +47,8 @@ namespace PH
         private void Unlock()
         {
             string mess = CollectionMethods.UnlockFormat(CardSelected,get);
-
-            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, mess, sceneName, () =>
+            
+            popUpManager.ShowPopUpConfirm(mess, sceneName, () =>
             {
                 bool isSuccessful = unlockCard.Unlock(CardSelected, playerLocalSO, aLLCard);
                 OnUnlock?.Invoke(isSuccessful);

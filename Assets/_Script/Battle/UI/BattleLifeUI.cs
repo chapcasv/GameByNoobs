@@ -1,7 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace PH
 {
     public class BattleLifeUI : MonoBehaviour
@@ -9,6 +9,8 @@ namespace PH
         [SerializeField] float during = 0.8f;
         [SerializeField] TextMeshProUGUI enemyLifeText;
         [SerializeField] TextMeshProUGUI playerLifeText;
+        [SerializeField] Image enemyHealthBar;
+        [SerializeField] Image playerHealthBar;
         [SerializeField] Vector2 scaleBig = new Vector2(1.5f, 1.5f);
         [SerializeField] float scaleSpeed = 0.4f;
         [SerializeField] Ease easeMode = Ease.InOutBack;
@@ -17,13 +19,15 @@ namespace PH
         private LifeSystem _lifeSystem;
         private int oldLifeEnemy;
         private int oldLifePlayer;
+        private int maxEnemyHelath;
+        private int maxPlayerHealth;
 
         public void Constructor(LifeSystem LS)
         {
             _lifeSystem = LS;
 
-            oldLifeEnemy = _lifeSystem.GetEnemyLife();
-            oldLifePlayer = _lifeSystem.GetPlayerLife();
+            oldLifeEnemy= maxEnemyHelath = _lifeSystem.GetEnemyLife();
+            oldLifePlayer= maxPlayerHealth = _lifeSystem.GetPlayerLife();
 
             AddListerner();
             DisplayEnemyLife();
@@ -36,6 +40,7 @@ namespace PH
             DOVirtual.Int(oldLifeEnemy, currentLife, during, (v) => enemyLifeText.text = v.ToString())
                 .SetDelay(delay);
             ScaleBig(enemyLifeText.transform);
+            SliderHealth(maxEnemyHelath, currentLife, enemyHealthBar, scaleSpeed);
             oldLifeEnemy = currentLife;
         }
 
@@ -43,10 +48,17 @@ namespace PH
         {
             int currentLife = _lifeSystem.GetPlayerLife();
             DOVirtual.Int(oldLifePlayer, currentLife, during, (v) => playerLifeText.text = v.ToString());
+          
             oldLifePlayer = currentLife;
             ScaleBig(playerLifeText.transform);
+            SliderHealth(maxPlayerHealth, currentLife, playerHealthBar, scaleSpeed);
         }
-
+        private void SliderHealth(int maxHealth, int curhealth, Image health, float delay)
+        {
+            float healthPercent = (float)curhealth / (float)maxHealth;
+            float percent = (float)Mathf.Round(healthPercent * 100f) / 100f;
+            health.DOFillAmount(percent, during).SetDelay(delay);
+        }
         private void ScaleBig(Transform transform)
         {
             transform.DOScale(scaleBig, scaleSpeed).SetEase(easeMode)
@@ -56,6 +68,7 @@ namespace PH
         private void ScaleSmall(Transform transform)
         {
             transform.DOScale(Vector2.one, scaleSpeed).SetEase(easeMode);
+            
         }
 
         private void AddListerner()

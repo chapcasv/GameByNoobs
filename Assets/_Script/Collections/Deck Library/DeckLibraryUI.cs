@@ -13,7 +13,7 @@ namespace PH
         [SerializeField] GameObject deckEditor;
         [SerializeField] DeckVisual pfDeckVisual;
         [SerializeField] Transform contentDeck;
-
+        private List<DeckVisual> allDecks;
         private ChildCardUI _childCardUI;
         private DeckLibraryLogic _logic;
         private DeckManager _deckManager;
@@ -41,20 +41,31 @@ namespace PH
         protected override void Start()
         {
             base.Start();
+            
         }
 
         public void InitDeck(List<Deck> decks)
         {
+            allDecks = new List<DeckVisual>();
             for (int i = 0; i < decks.Count; i++)
             {
                 decks[i].ReloadListCard();
                 var deckVisual = Instantiate(pfDeckVisual, contentDeck);
                 deckVisual.Init(_get, _deckManager);
                 deckVisual.SetDeck(decks[i],i);
+                allDecks.Add(deckVisual);
             }
             SelectFirstDeck();
         }
+        public void ReLoadAllDeck(List<Deck> decks)
+        {
+            for (int i = 0; i < decks.Count; i++)
+            {
+                allDecks[i].SetDeck(decks[i], i);
+            }
+            SelectFirstDeck();
 
+        }
         private void SelectFirstDeck()
         {
             var firstDeck = contentDeck.GetChild(0);

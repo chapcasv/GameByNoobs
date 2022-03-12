@@ -10,8 +10,16 @@ namespace PH
     public class DeckVisual : MonoBehaviour
     {
         [SerializeField] Image avatar;
-        [SerializeField] TextMeshProUGUI deckName;
+        [SerializeField] Image rankLabel;
+        [SerializeField] Image costLabel;
+        [SerializeField] Image faction;
+        [SerializeField] Image coin;
+        [SerializeField] TextMeshProUGUI cardName;
+        [SerializeField] TextMeshProUGUI cost;
+        [SerializeField] TextMeshProUGUI title;
 
+        [SerializeField] TextMeshProUGUI deckName;
+        
         private DeckManager _deckManager;
         private GetBaseProperties _get;
         private Deck _deck;
@@ -19,6 +27,11 @@ namespace PH
         private Button button;
 
         public Sprite GetAvatar => avatar.sprite;
+        public Sprite GetFaction => faction.sprite;
+        public Color GetColor => rankLabel.color;
+        public string GetName => cardName.text;
+        public string GetTitle => title.text;
+       
         public string GetDeckName => deckName.text;
 
         private void Awake()
@@ -49,9 +62,23 @@ namespace PH
         {
             Card c = CollectionMethods.GetCardHightRank(cardsInDeck);
             avatar.sprite = _get.GetArt(c);
+            cardName.text = _get.GetName(c);
+            cost.text = _get.GetCost(c).ToString();
+            title.text = _get.GetTitle(c);
+            GetCardFaction(c);
+            rankLabel.color = c.GetRank.BaseColor;
+            costLabel.color = c.GetRank.BaseColor;
         }
 
-
+        private void GetCardFaction(Card card)
+        {
+            var factions = card.GetFaction();
+            if (factions.Length == 0)
+            {
+                return;
+            }
+            else { faction.sprite = factions[0].Icon; }
+        }
         public void OnClick()
         {
             DeckLibraryManager.CurrentDeck = _deck;

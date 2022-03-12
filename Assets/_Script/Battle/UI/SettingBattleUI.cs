@@ -32,6 +32,9 @@ namespace PH
                 Screen.SetActive(false);
             }
         }
+
+        private const string Message = "Bạn muốn thoát trò chơi ?";
+        private const string Title = "Thoát Trò Chơi";
         [SerializeField] private GameObject main;
         [Header("Bot Button")]
         [SerializeField] private Button B_accept;
@@ -74,14 +77,16 @@ namespace PH
 
         private void OnSurdererCallBack()
         {
-            throw new NotImplementedException();
+            // do surderer;
+            return;
         }
 
        
 
         private void OnSupportButtonCallBack()
         {
-            throw new NotImplementedException();
+            // do suppport;
+            return;
         }
 
         private void OnGeneralSetting()
@@ -137,10 +142,8 @@ namespace PH
 
         private void OnExitgameCallBack()
         {
-            popUpManager.ShowPopUpWindow(PopupType.CONFIRMATION, "Bạn muốn thoát trò chơi ?", "Thoát Trò Chơi", () =>
-            {
-                Application.Quit();
-            });
+            popUpManager.ShowPopUpConfirm(Message, Title, () => Application.Quit(), null);
+            
 
         }
     }
