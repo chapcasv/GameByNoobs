@@ -11,6 +11,7 @@ namespace PH
         private const string reloadTitle = "Xóa Dữ Liệu";
         private const string exitMess = "Bạn muốn thoát trò chơi ?";
         private const string exitTitle = "Thoát Trò Chơi";
+        private const string reloadTextMess = "Xoá Dữ Liệu Thành Công";
         [SerializeField] GameObject newPlayer_popUp;
         [SerializeField] TextMeshProUGUI input_PlayerName;
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
@@ -21,6 +22,7 @@ namespace PH
         [SerializeField] private Button B_quit;
 
         private IPopUpManager popUpManager;
+        private UITextPopUp UITextPopUp;
         private void Awake()
         {
             Addlisten();
@@ -47,11 +49,17 @@ namespace PH
         }
         public void ResetPlayer()
         {
-            popUpManager.ShowPopUpConfirm(reloadMess, reloadTitle,() => SaveSystem.RemovePlayerData(), null);
+            popUpManager.ShowPopUpConfirm(reloadMess, reloadTitle, ReloadData, null);
             
-           
         }
+        private void ReloadData()
+        {
+            ThirdParties.Find<UITextPopUp>(out var UITextPopUp);
 
+            SaveSystem.RemovePlayerData();
+            UITextPopUp.Set(reloadTextMess);
+
+        }
         public void Create_newPlayer()
         {
             string playerName = input_PlayerName.GetComponent<TextMeshProUGUI>().text; ;

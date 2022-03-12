@@ -18,7 +18,9 @@ namespace PH
         public static string DontEnoughCoin => "Thiếu Khoáng Bạc";
 
         public static string BuySuccessful => "Mua thành công";
-
+        public static string SaveDeck => "Đã Lưu Thay Đổi";
+        public static string OutOfAmount => "Hết Số Lượng Bài";
+        public static string FullAmount => "Đủ Giới Hạn Bài Tối Đa ";
         public static int GetBought(Card card)
         {
             var playerCard = SaveSystem.LoadCards();

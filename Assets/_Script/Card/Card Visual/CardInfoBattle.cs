@@ -9,6 +9,8 @@ namespace PH
 
     public class CardInfoBattle : CardInfoVisual
     {
+        [SerializeField] private Button B_leftClose;
+        [SerializeField] private Button B_rightClose;
         [Header("Unit Item")]
         [SerializeField] GameObject unitItemPanel;
         [SerializeField] GameObject unitInfomation;
@@ -19,6 +21,8 @@ namespace PH
         {
             _allCard = aLLCard;
             gameObject.SetActive(false);
+            B_leftClose.onClick.AddListener(() => Close());
+            B_rightClose.onClick.AddListener(() => Close());
         }
 
         public void LoadUnit(BaseUnit unit)
@@ -86,7 +90,15 @@ namespace PH
             }
         }
 
-      
+        private void Close()
+        {
+            gameObject.SetActive(false);
+        }
+        private void OnDestroy()
+        {
+            B_leftClose.onClick.RemoveAllListeners();
+            B_rightClose.onClick.RemoveAllListeners();
+        }
         //public override void LoadFaction(Faction[] factions)
         //{
         //    if (factions.Length == 0) return;
