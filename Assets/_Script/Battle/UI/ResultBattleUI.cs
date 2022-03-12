@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using PH.Loader;
 using PH.GraphSystem;
 using DG.Tweening;
 
@@ -36,7 +36,7 @@ namespace PH
             DictionaryTeamBattle.Reset();
             CardDropHistory.Reset();
             PlayerCacheUnitData.Reset();
-            SceneManager.LoadScene(SceneSelect.ResultMatch.ToString());
+            LoadSystem.Load(SceneSelect.RewardMatch);
         }
 
         private void DisplayPlayerVictory()
@@ -44,13 +44,13 @@ namespace PH
             main.gameObject.SetActive(false);
             result.gameObject.SetActive(true);
             MoveLabel();
-            SetText("Victory");
+            SetText("Chiến Thắng");
         }
 
         private void DisplayPlayerDefeated()
         {
             MoveLabel();
-            SetText("Defeated");
+            SetText("Thất Bại");
             main.gameObject.SetActive(false);
             result.gameObject.SetActive(true);
         }
@@ -63,7 +63,7 @@ namespace PH
 
         private void MoveLabel()
         {
-            label.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.OutBack);
+            label.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.Linear);
         }
 
 

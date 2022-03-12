@@ -54,6 +54,8 @@ namespace PH
 
         private void UpTier()
         {
+            if (rankTier == GameConst.RankTierLimit) return;
+
             rankTier++;
             rankLevel = 0;
         }

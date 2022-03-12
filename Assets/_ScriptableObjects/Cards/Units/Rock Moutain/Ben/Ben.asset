@@ -10,68 +10,72 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e36fa11530527fd40adf4caff64c7b81, type: 3}
-  m_Name: BullMonster
+  m_Name: Ben
   m_EditorClassIdentifier: 
-  cardID: 4
-  cardDiscription: "Chi\u1EBFn binh d\u0169ng m\xE3nh \u0111\u01B0\u1EE3c t\xF4i
-    luy\u1EC7n trong su\u1ED1t cu\u1ED9c chi\u1EBFn tranh n\u01A1i bi\xEAn gi\u1EDBi."
-  rank: {fileID: 11400000, guid: 3a361435b1bac514f84ab3e507d90866, type: 2}
+  cardID: 2
+  cardDiscription: "Chi\u1EBFn binh sinh ra t\u1EEB \u0111\xE1, lang thang kh\u1EAFp
+    c\xE1c v\xF9ng \u0111\u1EA5t t\xECm ki\u1EBFm h\xF3a th\u1EA1ch."
+  rank: {fileID: 11400000, guid: e9c1bb80cd6799545919bdeec6d43ec2, type: 2}
   baseProperties:
   - stringValue: 
     intValue: 0
-    sprite: {fileID: 21300000, guid: 28ef47249e9366f478a8a39256b43db8, type: 3}
+    sprite: {fileID: 21300000, guid: e0cefa3894686524c9f36f3c5e949782, type: 3}
     element: {fileID: 11400000, guid: 26da30a0e4321a64f90a1cd91d1fe2e0, type: 2}
-  - stringValue: Bull
+  - stringValue: 
+    intValue: 2
+    sprite: {fileID: 0}
+    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
+  - stringValue: Ben
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
   - stringValue: 
-    intValue: 3
-    sprite: {fileID: 0}
-    element: {fileID: 11400000, guid: 2fb34cb26592f1849a531705e92d21e6, type: 2}
-  - stringValue: 
-    intValue: 10
+    intValue: 100
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: 476a52cc7fd667f48b3aa7ac832a4cb6, type: 2}
   - stringValue: 
-    intValue: 0
+    intValue: 100
     sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
     element: {fileID: 11400000, guid: 7a3019ff9e47c8047b2e43a3e2982553, type: 2}
-  - stringValue: "H\u1ED9 v\u1EC7 hung t\u1EE3n"
-    intValue: 0
-    sprite: {fileID: 0}
+  - stringValue: "Ng\u01B0\u1EDDi \u0111\xE1 lang thang"
+    intValue: 100
+    sprite: {fileID: 21300000, guid: 76329393bf52d634eb3a71b07395cbec, type: 3}
     element: {fileID: 11400000, guid: 99f10d23d3b0d1b4fbabc38928b22d2f, type: 2}
-  - stringValue: "H\u1ED9 v\u1EC7 hung t\u1EE3n"
-    intValue: 0
-    sprite: {fileID: 21300000, guid: 738765793bd97fb47b6232f0bbe3d54c, type: 3}
+  - stringValue: "Ng\u01B0\u1EDDi \u0111\xE1 lang thang"
+    intValue: 100
+    sprite: {fileID: 21300000, guid: a3320c938af445345b9eb9fc716f9add, type: 3}
     element: {fileID: 11400000, guid: 64e1015542b1f5949902b9d34b61d332, type: 2}
-  - stringValue: "Chi\u1EBFn binh d\u0169ng m\xE3nh \u0111\u01B0\u1EE3c t\xF4i luy\u1EC7n
-      trong su\u1ED1t "
-    intValue: 0
-    sprite: {fileID: 21300000, guid: 738765793bd97fb47b6232f0bbe3d54c, type: 3}
+  - stringValue: "Ng\u01B0\u1EDDi \u0111\xE1 lang thang"
+    intValue: 100
+    sprite: {fileID: 21300000, guid: a3320c938af445345b9eb9fc716f9add, type: 3}
+    element: {fileID: 11400000, guid: 64e1015542b1f5949902b9d34b61d332, type: 2}
+  - stringValue: "Chi\u1EBFn binh sinh ra t\u1EEB \u0111\xE1, lang thang kh\u1EAFp
+      c\xE1c v\xF9ng \u0111\u1EA5t t\xECm ki\u1EBFm h\xF3a th\u1EA1ch."
+    intValue: 100
+    sprite: {fileID: 21300000, guid: a3320c938af445345b9eb9fc716f9add, type: 3}
     element: {fileID: 11400000, guid: 997488c929eed6741bd5335f2aa47b4c, type: 2}
   reloadAfterDrop: 1
-  cost: 3
+  cost: 2
   Faction:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
   dropPlace: {fileID: 11400000, guid: 0f21b1eefc2ce75458a0f7d8cbf0a2c6, type: 2}
   dropTrigger:
-  - Ediscription: Spawn Bull
+  - Ediscription: Spawn Unit
     input: {fileID: 0}
     logic: {fileID: 11400000, guid: 090e89d3f7820ba4ebad1b683f05984c, type: 2}
   Unlocked: 1
-  unitID: {fileID: 11400000, guid: d6e0256be1d3ea6429056cdb48d211f3, type: 2}
-  abitity: {fileID: 11400000, guid: 8b96eb956cff652479b92c70da44c3b2, type: 2}
+  unitID: {fileID: 11400000, guid: 2a868487add8ee04fb421b80e994641b, type: 2}
+  abitity: {fileID: 11400000, guid: 283d6d1ac24d27f4f9cd66eeda7d3508, type: 2}
   dataTriggerOnBoards: []
-  hp: 900
+  hp: 1260
   magicResist: 40
   armor: 40
-  manaMax: 70
+  manaMax: 80
   manaStart: 40
   manaRegen: 5
-  damage: 70
+  damage: 126
   range: 1
-  atkSpeed: 0.7
-  moveSpeed: 6
+  atkSpeed: 0.55
+  moveSpeed: 5
   dmgLife: 1
   negativeBonusDamage: 0

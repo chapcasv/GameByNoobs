@@ -18,6 +18,8 @@ namespace PH
         public const int LIFE_STEAL_DEFAULT = 0;
 
         public const int MAX_MEMBER = 9;
+
+        public const int RankTierLimit = 4;
     }
 }
 
