@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +9,21 @@ namespace PH
 {
     public class ChildCardUI : MonoBehaviour
     {
+        private const string Message = "Bạn muốn lưu lại thay đổi ?";
+        private const string Title = "Lưu Thay Đổi";
         [SerializeField] private Button B_done;
         [SerializeField] RectTransform contentChild;
         [SerializeField] CardChildViz pfCardChildViz;
         [SerializeField] TMP_InputField inputDeckName;
         [SerializeField] TextMeshProUGUI totalCardsInDeck;
 
+        private bool changedCard;
         private GameObject _deckScreen;
         private GameObject _deckEditor;
         private List<CardChildViz> allCardChild;
         private GetBaseProperties _get;
         private ALLCard _allCard;
+        private IPopUpManager popUpManager;
         public List<CardChildViz> GetAllCardChild => allCardChild;
 
         public void Constructor(GameObject deckScreen, GameObject deckEditor, GetBaseProperties get, ALLCard all)
@@ -36,10 +40,13 @@ namespace PH
             inputDeckName.text = DeckLibraryManager.CurrentDeck.deckName;
             DisplayTotalCard();
             LoadCardChild();
+            ThirdParties.Find<IPopUpManager>(out popUpManager);
+            changedCard = false;
         }
 
         public void DisplayTotalCard()
         {
+            changedCard = true;
             totalCardsInDeck.text = DeckLibraryManager.CurrentDeck.AmountCard().ToString();
         }
 
@@ -95,11 +102,25 @@ namespace PH
 
         private void GoDeckCallBack()
         {
+            if (changedCard)
+            {
+                popUpManager.ShowPopUpConfirm(Message, Title, SaveChange, Hide);
+            }
+            else
+            {
+                Hide();
+            }
+        }
+        private void SaveChange()
+        {
+            DeckLibraryManager.SaveCurrentDeck();
+            Hide();
+        }
+        private void Hide()
+        {
             _deckScreen.SetActive(true);
             _deckEditor.SetActive(false);
-            DeckLibraryManager.SaveCurrentDeck();
         }
-
         private void OnDestroy()
         {
             B_done.onClick.RemoveAllListeners();

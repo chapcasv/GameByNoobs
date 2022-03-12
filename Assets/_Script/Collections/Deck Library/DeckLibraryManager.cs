@@ -16,6 +16,8 @@ namespace PH
         [SerializeField] PlayerLocalSO playerLocalSO;
         [SerializeField] DeckManager deckManager;
         [SerializeField] ChildCardUI childCardUI;
+        [SerializeField] DeckHolder deckHolder;
+
 
         public static Deck CurrentDeck { get; set; }
         public static int IndexCurrentDeck { get; set; }
@@ -25,11 +27,13 @@ namespace PH
             logic.SetChildCardUI(childCardUI);
             deckLibraryUI.Init(allcard, get);
             deckLibraryUI.Constructor(logic,deckManager,childCardUI);
+            
         }
 
         private void Start()
         {
             LoadPlayerDeck();
+            deckHolder.OnReloadAllDeck += ReloadAllDeck;
         }
 
         private void LoadPlayerDeck()
@@ -37,7 +41,12 @@ namespace PH
             playerLocalSO.ReloadDecks();
             deckLibraryUI.InitDeck(playerLocalSO.Decks);
         }
+        private void ReloadAllDeck()
+        {
+            playerLocalSO.ReloadDecks();
+            deckLibraryUI.ReLoadAllDeck(playerLocalSO.Decks);
 
+        }
         public static void SaveCurrentDeck()
         {   
             var playerDecks = SaveSystem.LoadDecks();
@@ -45,6 +54,10 @@ namespace PH
             SaveSystem.SaveDecks(playerDecks);
             //Test
             SaveSystem.SaveCurrentDeck(ConvertDeck.DeckToPlayerDeck(CurrentDeck));
+        }
+        private void OnDestroy()
+        {
+            deckHolder.OnReloadAllDeck -= ReloadAllDeck;
         }
 
     }

@@ -107,9 +107,18 @@ namespace PH
         private Vector3 GetPosCardLeft()
         {
             var cardLeft = cardHand.Where(c => c.activeInHierarchy).ToList().LastOrDefault();
-            int index = cardLeft.transform.GetSiblingIndex();
-            var pos = cardHandRect[index].localPosition;
-            return pos;
+            if(cardLeft == null)
+            {
+                //default
+                return Vector2.zero;
+            }
+            else
+            {
+                int index = cardLeft.transform.GetSiblingIndex();
+                var pos = cardHandRect[index].localPosition;
+                return pos;
+            }
+           
         }
 
         private void ReloadOnDrop(bool reload)

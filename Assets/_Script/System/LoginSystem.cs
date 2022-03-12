@@ -2,19 +2,30 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 namespace PH
 {
     public class LoginSystem : MonoBehaviour
     {
-
+        private const string reloadMess = "Bạn muốn xóa dữ liệu cá nhân ?";
+        private const string reloadTitle = "Xóa Dữ Liệu";
+        private const string exitMess = "Bạn muốn thoát trò chơi ?";
+        private const string exitTitle = "Thoát Trò Chơi";
         [SerializeField] GameObject newPlayer_popUp;
         [SerializeField] TextMeshProUGUI input_PlayerName;
         [SerializeField] TextMeshProUGUI ruler_PlayerName;
         [SerializeField] PlayerLocalSO playerSO;
         [SerializeField] PlayerDefaultData defaultPlayer;
         [SerializeField] ALLCard allCards;
+        [SerializeField] private Button B_reloadData;
+        [SerializeField] private Button B_quit;
 
+        private IPopUpManager popUpManager;
+        private void Awake()
+        {
+            Addlisten();
+            ThirdParties.Find<IPopUpManager>(out popUpManager);
+        }
         public void StarGame()
         {
             if (SaveSystem.IsHavePlayerData())
@@ -29,10 +40,16 @@ namespace PH
         {
             newPlayer_popUp.SetActive(true);
         }
-
+        private void Addlisten()
+        {
+            B_quit.onClick.AddListener(() => Quit_game());
+            B_reloadData.onClick.AddListener(() => ResetPlayer());
+        }
         public void ResetPlayer()
         {
-            SaveSystem.RemovePlayerData();
+            popUpManager.ShowPopUpConfirm(reloadMess, reloadTitle,() => SaveSystem.RemovePlayerData(), null);
+            
+           
         }
 
         public void Create_newPlayer()
@@ -64,9 +81,14 @@ namespace PH
 
         public void Quit_game()
         {
-            Application.Quit();
+            popUpManager.ShowPopUpConfirm(exitMess, exitTitle, () => Application.Quit(), null);
+            
         }
-
+        private void OnDestroy()
+        {
+            B_quit.onClick.RemoveListener(() => Quit_game());
+            B_reloadData.onClick.RemoveListener(() => ResetPlayer());
+        }
 
     }
 }

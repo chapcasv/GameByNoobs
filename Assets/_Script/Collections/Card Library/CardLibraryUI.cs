@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using PH.Save;
-
+using DG.Tweening;
 namespace PH
 {
     public class CardLibraryUI : CollectionUI
@@ -23,7 +23,8 @@ namespace PH
 
         private CardVizCollection cardUIselect;
         private CardLibraryLogic _logic;
-
+        private int oldCoin;
+        private float during = 1f;
         public void Constructor(CardLibraryLogic logic)
         {
             _logic = logic;
@@ -36,13 +37,17 @@ namespace PH
             base.Start();
             DisplayCurrency();
             LoadInfoFirstCardActive();
-            
+            oldCoin = SaveSystem.LoadCoin();
+
+
         }
 
         private void DisplayCurrency()
         {
-            coin.text = SaveSystem.LoadCoin().ToString();
+            int curCoin = SaveSystem.LoadCoin();
+            DOVirtual.Int(oldCoin, curCoin, during, (v) => coin.text = v.ToString());
             diamond.text = SaveSystem.LoadDiamond().ToString();
+            oldCoin = SaveSystem.LoadCoin();
         }
 
         protected override void InstantiateCardUI(List<Card> sortedList)
@@ -88,6 +93,7 @@ namespace PH
 
         public void Unlock(bool successful)
         {
+           
             if (successful)
             {
                 dictUnlocked[false].Remove(cardUIselect);
