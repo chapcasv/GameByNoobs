@@ -24,7 +24,7 @@ namespace PH
         [NonSerialized] Deck _currentDeck;
         [NonSerialized] Dictionary<TypeMode, List<Card>> _dictionaryCardType;
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
-
+        public event Action<int> OnChangeHandCardAmount;
         private Deck deckBeforeShuffle;
         private Card _lastCardDrop;
         private GetBaseProperties _getBaseProperties;

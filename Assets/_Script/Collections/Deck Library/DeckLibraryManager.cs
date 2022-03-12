@@ -18,7 +18,7 @@ namespace PH
         [SerializeField] ChildCardUI childCardUI;
         [SerializeField] DeckHolder deckHolder;
 
-
+        private UITextPopUp UITextPopUp;
         public static Deck CurrentDeck { get; set; }
         public static int IndexCurrentDeck { get; set; }
 
@@ -33,9 +33,15 @@ namespace PH
         private void Start()
         {
             LoadPlayerDeck();
+           
             deckHolder.OnReloadAllDeck += ReloadAllDeck;
+            SetTextPopUp();
         }
-
+        private void SetTextPopUp()
+        {
+            ThirdParties.Find<UITextPopUp>(out var UITextPopUp);
+            logic.SetTextPopUp = UITextPopUp;
+        }
         private void LoadPlayerDeck()
         {
             playerLocalSO.ReloadDecks();
@@ -48,8 +54,10 @@ namespace PH
 
         }
         public static void SaveCurrentDeck()
-        {   
+        {
+            ThirdParties.Find<UITextPopUp>(out var UITextPopUp);
             var playerDecks = SaveSystem.LoadDecks();
+            UITextPopUp.Set(CollectionMethods.SaveDeck);
             playerDecks[IndexCurrentDeck] = ConvertDeck.DeckToPlayerDeck(CurrentDeck);
             SaveSystem.SaveDecks(playerDecks);
             //Test

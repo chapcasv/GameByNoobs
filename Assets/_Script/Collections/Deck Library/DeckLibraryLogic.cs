@@ -9,14 +9,25 @@ namespace PH
         public event Action OnClickLogic;
         private ChildCardUI _childCardUI;
         public void SetChildCardUI(ChildCardUI value) => _childCardUI = value;
+        private UITextPopUp _uiTextPopUp;
 
+        public UITextPopUp SetTextPopUp { set => _uiTextPopUp = value; }
         public override void OnClick(Card card, CardVizCollection cardVizCollection)
         {
             CardInDeck cardInDeck = DeckLibraryManager.CurrentDeck.GetCard(card);
 
             if(cardInDeck != null)
             {
-                if (cardInDeck.usingAmount >= cardVizCollection.Bought) return;
+                if(cardInDeck.usingAmount == GameConst.MAX_USE_AMOUNT)
+                {
+                    _uiTextPopUp.Set(CollectionMethods.FullAmount);
+                    return;
+                }
+                else if (cardInDeck.usingAmount >= cardVizCollection.Bought) 
+                {
+                    _uiTextPopUp.Set(CollectionMethods.OutOfAmount);
+                    return;
+                } 
             }
             else
             {
