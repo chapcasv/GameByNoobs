@@ -8,8 +8,5 @@ namespace PH
     public class Wave : ScriptableObject
     {
         public EnemyProperties[] enemies;
-        [Range(0, 200)]
-        [Tooltip("Gold bonus after clear all enemy in wave")]
-        public int GoldBonus;
     }
 }

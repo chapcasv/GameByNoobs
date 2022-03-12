@@ -16,7 +16,7 @@ MonoBehaviour:
   cardDiscription: "T\u0103ng th\xEAm 1000 HP t\u1ED1i \u0111a"
   rank: {fileID: 11400000, guid: 3a361435b1bac514f84ab3e507d90866, type: 2}
   baseProperties:
-  - stringValue: Warmog
+  - stringValue: "Gi\xE1p Th\u1EA1ch Anh"
     intValue: 0
     sprite: {fileID: 0}
     element: {fileID: 11400000, guid: cbadb61dad724ae43b18c707bc8bc4f8, type: 2}
@@ -40,10 +40,14 @@ MonoBehaviour:
     intValue: 100
     sprite: {fileID: 21300000, guid: 2b493089ee9bc354d955b4efaef04c69, type: 3}
     element: {fileID: 11400000, guid: 99f10d23d3b0d1b4fbabc38928b22d2f, type: 2}
-  - stringValue: "T\u0103ng th\xEAm 1000 HP t\u1ED1i \u0111a"
+  - stringValue: "T\u0103ng th\xEAm 900 m\xE1u, 30 kh\xE1ng ph\xE9p"
     intValue: 100
     sprite: {fileID: 21300000, guid: 4f22cc69771c52d4b9d4ac97f1e606e9, type: 3}
     element: {fileID: 11400000, guid: 997488c929eed6741bd5335f2aa47b4c, type: 2}
+  - stringValue: "T\u0103ng th\xEAm 1000 HP t\u1ED1i \u0111a"
+    intValue: 100
+    sprite: {fileID: 21300000, guid: 4f22cc69771c52d4b9d4ac97f1e606e9, type: 3}
+    element: {fileID: 11400000, guid: 64e1015542b1f5949902b9d34b61d332, type: 2}
   reloadAfterDrop: 1
   cost: 3
   Faction:
