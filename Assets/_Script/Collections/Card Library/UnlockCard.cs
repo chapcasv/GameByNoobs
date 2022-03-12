@@ -9,7 +9,11 @@ namespace PH
     [CreateAssetMenu(menuName = "ScriptableObject/Collection/Unlock Card")]
     public class UnlockCard : ScriptableObject
     {
-        [SerializeField] GetBaseProperties get; 
+        [SerializeField] GetBaseProperties get;
+
+        private UITextPopUp _uiTextPopUp;
+
+        public UITextPopUp SetUITextPopUp { set => _uiTextPopUp = value; }
 
         public bool Unlock(Card card, PlayerLocalSO playerLocalSO, ALLCard aLLCard)
         {
@@ -19,7 +23,11 @@ namespace PH
             {
                 return Execute(card, playerLocalSO, aLLCard);
             }
-            else return false;
+            else
+            {
+                _uiTextPopUp.Set(CollectionMethods.DontEnoughCoin);
+                return false;
+            }
         }
 
         private void CheckUnlock(Card card)
@@ -50,9 +58,15 @@ namespace PH
                 playerLocalSO.Cards = ConvertCard.PlayerCardsToCards(playerCards, aLLCard);
 
                 card.Unlocked = true;
+
+                _uiTextPopUp.Set(CollectionMethods.UnlockSuccessful);
                 return true;
             }
-            else return false;
+            else
+            {
+                _uiTextPopUp.Set("Price error !!!");
+                return false;
+            }
             
         }
 

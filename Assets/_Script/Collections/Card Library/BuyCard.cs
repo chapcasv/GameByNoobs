@@ -1,7 +1,5 @@
 using PH.Save;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PH
@@ -12,6 +10,9 @@ namespace PH
         [SerializeField] GetBaseProperties get;
 
         private PlayerCard currentPlayerCard;
+        private UITextPopUp _uITextPopUp;
+
+        public UITextPopUp SetUITextPopUp { set => _uITextPopUp = value; }
 
         public bool Buy(Card card, PlayerLocalSO playerSO)
         {
@@ -27,9 +28,17 @@ namespace PH
                 {
                     return Execute(card, playerSO);
                 }
-                else return false;
+                else
+                {
+                    _uITextPopUp.Set(CollectionMethods.DontHaveSlot);
+                    return false;
+                }
             }
-            else return false;
+            else
+            {
+                _uITextPopUp.Set(CollectionMethods.DontEnoughCoin);
+                return false;
+            }
         }
 
         private bool Execute(Card card, PlayerLocalSO playerSO)
@@ -45,11 +54,20 @@ namespace PH
                 {
                     SaveSystem.SaveCards(playerCards);
                     playerSO.Cards.Add(card);
+                    _uITextPopUp.Set(CollectionMethods.BuySuccessful);
                     return true;
                 }
+                else
+                {
+                    _uITextPopUp.Set(CollectionMethods.DontHaveSlot);
+                    return false;
+                }
+            }
+            else
+            {
+                _uITextPopUp.Set(CollectionMethods.DontEnoughCoin);
                 return false;
             }
-            else return false;
         }
 
         private bool HaveSlotFree()

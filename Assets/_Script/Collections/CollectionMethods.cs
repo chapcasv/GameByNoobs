@@ -9,7 +9,15 @@ namespace PH
 {
     public static class CollectionMethods 
     {
-        private static string iconCoin = "<sprite=" + "\"CoinTextMesh\"" + " index=0>";
+        private static readonly string iconCoin = "<sprite=" + "\"CoinTextMesh\"" + " index=0>";
+
+        public static string DontHaveSlot => "Không thê mua thêm";
+
+        public static string UnlockSuccessful => "Mở khóa thành công";
+
+        public static string DontEnoughCoin => "Thiếu Khoáng Bạc";
+
+        public static string BuySuccessful => "Mua thành công";
 
         public static int GetBought(Card card)
         {
@@ -83,6 +91,7 @@ namespace PH
             var coin = SaveSystem.LoadCoin();
             return coin >= price;
         }
+
 
         public static void SetCurrentDeck(int index)
         {

@@ -20,6 +20,7 @@ namespace PH
         [Header("Button")]
         [SerializeField] Button B_Unlock;
         [SerializeField] Button B_Buy;
+
         private IPopUpManager popUpManager;
 
         private const string sceneName = "Thư Viện Lá Bài";
@@ -41,7 +42,17 @@ namespace PH
         {
             B_Unlock.onClick.AddListener(Unlock);
             B_Buy.onClick.AddListener(BuyCard);
+
             ThirdParties.Find<IPopUpManager>(out popUpManager);
+            SetTextPopUp();
+        }
+
+        private void SetTextPopUp()
+        {
+            ThirdParties.Find<UITextPopUp>(out UITextPopUp uiTextPopUp);
+
+            unlockCard.SetUITextPopUp = uiTextPopUp;
+            buyCard.SetUITextPopUp = uiTextPopUp;
         }
 
         private void Unlock()
