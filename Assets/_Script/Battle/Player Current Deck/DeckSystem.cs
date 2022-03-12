@@ -15,7 +15,7 @@ namespace PH
         public event Action OnDropCard;
         public event Action<Card> OnAddCardHand;
         public event Action<bool> ReloadAfterDrop;
-
+        public event Action<int> OnChangeHandCardAmount;
         [SerializeField] PlayerLocalSO data;
 
         [SerializeField] Deck deckAfterShuffle;
@@ -24,7 +24,7 @@ namespace PH
         [NonSerialized] Deck _currentDeck;
         [NonSerialized] Dictionary<TypeMode, List<Card>> _dictionaryCardType;
         [NonSerialized] Dictionary<int, List<Card>> _dictionaryCardCost;
-        public event Action<int> OnChangeHandCardAmount;
+       
         private Deck deckBeforeShuffle;
         private Card _lastCardDrop;
         private GetBaseProperties _getBaseProperties;
@@ -39,6 +39,7 @@ namespace PH
             Card card = _currentDeck.GetCard(0);
             _currentDeck.Remove(card);
             CardsInHand.Add(card);
+            OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
         }
 
         public bool DrawCard()
@@ -86,7 +87,7 @@ namespace PH
             if(CardsInHand.Count < GameConst.MAX_CARD_IN_HAND)
             {
                 CardsInHand.Add(card);
-
+                OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
                 //Reload card hand UI
                 OnDraw?.Invoke(card);
             }
@@ -162,6 +163,7 @@ namespace PH
             if (CardsInHand.Count < GameConst.MAX_CARD_IN_HAND)
             {
                 CardsInHand.Add(card);
+                OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
                 //Reload card hand UI
                 OnAddCardHand?.Invoke(card);
             }
@@ -171,7 +173,7 @@ namespace PH
         {
             CardsInHand.Remove(card);
             _lastCardDrop = card;
-
+            OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
             //trigger on board
             OnDropCard?.Invoke();
 
