@@ -48,11 +48,9 @@ namespace PH
 
         }
 
-        public void Constructor(RankSystem rs, PlayerLocalSO playerLocalSO, int coinCurrent, 
-            int diamondCurrent, string rankTier, string rankLevel,int rankPoint)
+        public void Constructor(RankSystem rs, int coinCurrent, int diamondCurrent, string rankTier, string rankLevel,int rankPoint)
         {
             _rankSystem = rs;
-            _playerLocalSO = playerLocalSO;
 
             oldRankPoint = rankPoint;
             rankCurrent.text = rankTier + " " + rankLevel;

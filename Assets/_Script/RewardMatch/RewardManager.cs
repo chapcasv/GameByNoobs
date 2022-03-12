@@ -24,9 +24,8 @@ namespace PH
             string level = currentRank.GetRankLevelString();
             int rankPoint = currentRank.CurrentPoint;
 
-            UI.Constructor(rankSystem, playerLocalSO, coinCurrent, diamondCurrent, rankName,level,rankPoint);
+            UI.Constructor(rankSystem, coinCurrent, diamondCurrent, rankName,level,rankPoint);
         }
-
 
         private void Update()
         {
@@ -40,7 +39,6 @@ namespace PH
                 }
             }
         }
-
 
         private void AddReward()
         {
@@ -84,7 +82,6 @@ namespace PH
 
             //Need Fix
             SaveSystem.SaveRank(playerLocalSO);
-
         }
     }
 }
