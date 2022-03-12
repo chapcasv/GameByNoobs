@@ -11,7 +11,7 @@ namespace PH
     {
         public event Action OnCoinValueChange;
         public event Action OnEnemyCoinChange;
-        private const int START_COIN = 20; //Only for test
+        private const int START_COIN = 3; //Only for test
 
         private int _playerCoin;
         private int _enemyCoin;

@@ -78,6 +78,12 @@ namespace PH
             SetterDragLogic();
         }
 
+        private void Start()
+        {
+            ThirdParties.Find<UITextPopUp>(out UITextPopUp uITextPopUp);
+            dragCardSelected.SetSetUITextPopUp(uITextPopUp);
+        }
+
         private void LoadEnemy()
         {
             if (PlayModeData.CurrentMode == null)

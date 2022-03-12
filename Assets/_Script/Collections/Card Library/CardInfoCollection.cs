@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace PH
 {
-
     public class CardInfoCollection : CardInfoVisual
     {
         [System.Serializable]
@@ -16,7 +15,6 @@ namespace PH
             {
                 OnSelected += Selected;
                 main.onClick.AddListener(() => OnSelected?.Invoke());
-                
             }
             
             private void Selected()
@@ -43,7 +41,6 @@ namespace PH
         public void LoadCardInformation(Card card, CardVizCollection cardUI)
         {
             LoadCard(card);
-         
         }
        
         private void AddListenerDetail()
@@ -83,13 +80,12 @@ namespace PH
             DeInteractive(true);
             B_descriptionDetail.OnSelected?.Invoke();
             OnDescriptionCallBack();
-
         }
+
         private void DeInteractive(bool active)
         {
             B_UnitDetail.main.gameObject.SetActive(active);
         }
-
        
         private void OnDestroy()
         {

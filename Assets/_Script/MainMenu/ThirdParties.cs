@@ -15,11 +15,8 @@ namespace PH
 
         public static void Register<T>(object o)
         {
-
             var type = typeof(T);
             elements[type] = o;
-            
-            //element[ipopupmanager] = popupmaster;
         }
 
         public static void Unregister<T>()
@@ -27,9 +24,6 @@ namespace PH
             elements.Remove(typeof(T));
         }
 
-
-        //timf giá trị mong muốn val, trả ra kết quả khi tìm giá trị đó, nếu giá trị trả ra đúng, return true
-        //nếu ko tìm được trả val về giá trị mặc định, return false.
         public static bool Find<T>(out T val)
         {
             if (elements.TryGetValue(typeof(T), out var o))

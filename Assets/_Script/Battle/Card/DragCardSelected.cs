@@ -13,6 +13,7 @@ namespace PH
         private CoinSystem _coinSystem;
         private DeckSystem _deckSystem;
 
+        private UITextPopUp _textPopUp;
         private DropCardSelected _drop;
         private RectTransform _transform;
         private CardSelectedVisual _cardViz;
@@ -22,6 +23,7 @@ namespace PH
 
         public Card CurrentCard { set => currentCard = value; }
         public CardInstance CardInstanceCache { set => cache = value; }
+
 
         public void Constructor(CoinSystem CS, DeckSystem DS, BoardSystem BS)
         {
@@ -119,6 +121,12 @@ namespace PH
         {
             int cost = currentCard.Cost;
             return cost;
+        }
+
+        public void SetSetUITextPopUp(UITextPopUp value)
+        {
+            _textPopUp = value;
+            _drop.SetPopUp = _textPopUp;
         }
     }
 }

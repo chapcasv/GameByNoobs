@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace PH
 {
-    public class CardInstance : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IDragHandler, IEndDragHandler
+    public class CardInstance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         private DragCardSelected _cardSeleted;
         private CardInfoBattle _cardInfoViz;
@@ -26,22 +26,18 @@ namespace PH
         }
 
         public void OnDrop(DeckSystem deckSystem) => deckSystem.DropCard(Card);   
-
-        public void OnPointerDown(PointerEventData eventData)
-        {   
-            if(eventData.clickCount > 1)
-            {
-                Debug.Log("Click");
-                _cardInfoViz.SetCard(Card);
-            }
-        }
-
         //Only use OnBeginDrag
         public void OnDrag(PointerEventData eventData) { }
 
         public void OnEndDrag(PointerEventData eventData) { }
 
-
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.clickCount > 1)
+            {
+                _cardInfoViz.SetCard(Card);
+            }
+        }
     }
 }
 

@@ -1,17 +1,23 @@
-using UnityEngine;
+﻿using UnityEngine;
 using PH.GraphSystem;
 
 namespace PH
 {
     public class DropCardSelected : MonoBehaviour
     {
+        private const string PLACE_ERROR = "Không thả được vị trí này";
+        private const string TILE_ERROR = "Cần thả bài xuống đúng ô";
+        private const string ENOUGH_COIN = "Không đu Xu đê ra bài";
+        private const string PHASE_ERROR = "Chỉ có thể ra bài trong lượt chiến thuật";
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask tile;
         [SerializeField] GameObject pfTileUnder;
         private Camera _cam;
         private CoinSystem _coinSystem;
         private BoardSystem _boardSystem;
+        private UITextPopUp _uiTextPopUp;
 
+        public UITextPopUp SetPopUp { set => _uiTextPopUp = value; }
         public CoinSystem CoinSystem { set => _coinSystem = value; }
         public BoardSystem BoardSystem { set => _boardSystem = value; }
 
@@ -26,11 +32,15 @@ namespace PH
             Node node = GridBoard.GetNodeForTile(t);
 
             if (currentCard.CanDropBoard(node))
-            {   
+            {
                 bool dropResult = currentCard.TryTriggerOnDrop(node, _boardSystem);
                 return dropResult;
             }
-            else return false;
+            else
+            {
+                _uiTextPopUp.Set(PLACE_ERROR);
+                return false;
+            }
 
         }
 
@@ -38,11 +48,25 @@ namespace PH
 
         public bool CanDrop(int cardCost)
         {
-            if (HaveTile() && EnoughCoin(cardCost) && PhaseSystem.CurrentPhase as PlayerControl)
+            if (!(PhaseSystem.CurrentPhase as PlayerControl))
+            {
+                _uiTextPopUp.Set(PHASE_ERROR);
+                return false;
+            }
+            else if (!HaveTile())
+            {
+                _uiTextPopUp.Set(TILE_ERROR);
+                return false;
+            }
+            else if (!EnoughCoin(cardCost))
+            {
+                _uiTextPopUp.Set(ENOUGH_COIN);
+                return false;
+            }
+            else
             {
                 return true;
             }
-            else return false;
         }
 
         private bool EnoughCoin(int cardCost)
@@ -63,12 +87,7 @@ namespace PH
             {
                 return true;
             }
-            else
-            {
-                Debug.Log("Dont have tile");
-                return false;
-            }
-
+            return false;
         }
 
         public Tile GetTileUnder()

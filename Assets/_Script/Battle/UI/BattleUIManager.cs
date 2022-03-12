@@ -42,6 +42,7 @@ namespace PH
         {
             infomation = GetComponent<BattlePlayerInfomation>();
             battleCoinUI = GetComponent<BattleCoinUI>();
+
         }
 
         void Start()
