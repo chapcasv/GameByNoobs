@@ -5,23 +5,50 @@ using UnityEngine;
 
 namespace PH
 {
-    public class ResultManager : MonoBehaviour
+    public class RewardManager : MonoBehaviour
     {
         [SerializeField] RankSystem rankSystem;
         [SerializeField] PlayerLocalSO playerLocalSO;
-        [SerializeField] ResultMatchUI UI;
+        [SerializeField] RewardMatchUI UI;
+
+        private Rank currentRank;
+        private float timeToDisplayReward = 1f;
+        private bool isDisplay = false;
 
         private void Awake()
         {
-            UI.Constructor(rankSystem, playerLocalSO);
+            currentRank = ConvertRank.Form(SaveSystem.LoadRank());
+            int coinCurrent = SaveSystem.LoadCoin();
+            int diamondCurrent = SaveSystem.LoadDiamond();
+            string rankName = rankSystem.GetRank(currentRank.GetRankTier).RankName;
+            string level = currentRank.GetRankLevelString();
+            int rankPoint = currentRank.CurrentPoint;
+
+            UI.Constructor(rankSystem, playerLocalSO, coinCurrent, diamondCurrent, rankName,level,rankPoint);
         }
 
-        private void Start()
+
+        private void Update()
+        {
+            if (!isDisplay)
+            {
+                timeToDisplayReward -= Time.deltaTime;
+                if (timeToDisplayReward < 0)
+                {
+                    isDisplay = true;
+                    AddReward();
+                }
+            }
+        }
+
+
+        private void AddReward()
         {
             AddCoinReward();
             AddDiamondReward();
             AddRankPoint();
         }
+
 
         private void AddCoinReward()
         {
@@ -45,22 +72,15 @@ namespace PH
             playerLocalSO.Diamond += diamondRewardValue;
             SaveSystem.SaveDiamond(playerLocalSO.Diamond);
 
-
+            UI.DisplayDiamonReward(diamondRewardValue);
         }
 
         private void AddRankPoint()
         {
-            Rank currentRank = ConvertRank.Form(SaveSystem.LoadRank());
-
-            int bonusPoint = 90;
-
+            int bonusPoint = ResultMatch.Result.RankPointReward;
             currentRank.AddRankPoint(bonusPoint);
-
             playerLocalSO.Rank = currentRank;
-
-            string rankName = rankSystem.GetRank(currentRank.GetRankTier).RankName;
-            string level = currentRank.GetRankLevelString();
-            UI.DisplayRank(rankName,level, bonusPoint.ToString());
+            UI.DisplayRank(bonusPoint);
 
             //Need Fix
             SaveSystem.SaveRank(playerLocalSO);

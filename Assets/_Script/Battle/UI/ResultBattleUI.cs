@@ -36,7 +36,7 @@ namespace PH
             DictionaryTeamBattle.Reset();
             CardDropHistory.Reset();
             PlayerCacheUnitData.Reset();
-            SceneManager.LoadScene(SceneSelect.ResultMatch.ToString());
+            SceneManager.LoadScene(SceneSelect.RewardMatch.ToString());
         }
 
         private void DisplayPlayerVictory()

@@ -7,7 +7,7 @@ namespace PH
         CardLibrary,
         FindMatch,
         Battle,
-        ResultMatch,
+        RewardMatch,
         DeckLibrary,
         Loading
     }
