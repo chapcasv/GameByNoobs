@@ -5,8 +5,11 @@ using UnityEngine;
 namespace PH
 {
     public class UnitStatusEffect : MonoBehaviour
-    {
+    {   
+        //Dont need serialize
         [SerializeField] private List<DataRealTimeStatusEffect> _dataRealTimeStatusEffects;
+
+        //Use for remove status effect out time
         private List<DataRealTimeStatusEffect> _outTime;
         private BaseUnit _unitHolder;
 
@@ -65,7 +68,11 @@ namespace PH
             _outTime.Clear();
         }
 
-       
+        public void RemoveAllStatusEffect()
+        {
+            _dataRealTimeStatusEffects.Clear();
+            _outTime.Clear();
+        }
     }
 }
 
