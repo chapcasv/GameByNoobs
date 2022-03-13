@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,12 +28,13 @@ namespace PH
         private Deck deckBeforeShuffle;
         private Card _lastCardDrop;
         private GetBaseProperties _getBaseProperties;
-
+        private UITextPopUp _uiTextPopUp;
         public List<Card> CardsInHand { get; private set; }
         public GetBaseProperties GetBaseProperties { set => _getBaseProperties = value; }
         public Card GetLastCardDrop => _lastCardDrop;
         public Deck CurrentDeck => _currentDeck;
-
+        public UITextPopUp SetTextPopUp { set => _uiTextPopUp = value; }
+        private const string OutOfAmount = "Giới Hạn Bài Tối Đa";
         public void DrawStartCard()
         {
             Card card = _currentDeck.GetCard(0);
@@ -90,6 +91,11 @@ namespace PH
                 OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
                 //Reload card hand UI
                 OnDraw?.Invoke(card);
+            }
+            else if (CardsInHand.Count == GameConst.MAX_CARD_IN_HAND)
+            {
+                _uiTextPopUp.Set(OutOfAmount);
+                return;
             }
         }
 
@@ -166,6 +172,11 @@ namespace PH
                 OnChangeHandCardAmount?.Invoke(CardsInHand.Count);
                 //Reload card hand UI
                 OnAddCardHand?.Invoke(card);
+            }
+            else if(CardsInHand.Count == GameConst.MAX_CARD_IN_HAND)
+            {
+                _uiTextPopUp.Set(OutOfAmount);
+                return;
             }
         }
 
