@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using DG.Tweening;
 
 namespace PH
 {
-
     public class CardInfoBattle : CardInfoVisual
     {
         [SerializeField] private Button B_leftClose;
@@ -15,12 +12,21 @@ namespace PH
         [SerializeField] GameObject unitItemPanel;
         [SerializeField] GameObject unitInfomation;
         [SerializeField] Image[] itemIcons;
+
+        private RectTransform rect;
         private ALLCard _allCard;
+        private Vector2 rightScene = new Vector2(780, 198);
+        private Vector2 original;
+        private const float speed = 0.3f;
 
         public void Init(ALLCard aLLCard)
         {
             _allCard = aLLCard;
+
+            rect = GetComponent<RectTransform>();
+            original = rect.anchoredPosition;
             gameObject.SetActive(false);
+
             B_leftClose.onClick.AddListener(() => Close());
             B_rightClose.onClick.AddListener(() => Close());
         }
@@ -33,14 +39,21 @@ namespace PH
             LoadCard(card);
 
             LoadInfoUnit(unit);
-            gameObject.SetActive(true);
+            ActiveGameObj();
         }
  
         protected override void LoadCard(Card c)
         {
             base.LoadCard(c);
-            gameObject.SetActive(true);
+            ActiveGameObj();
         }
+
+        private void ActiveGameObj()
+        {
+            gameObject.SetActive(true);
+            rect.DOAnchorPos(rightScene, speed);
+        }
+
         private void LoadInfoUnit(BaseUnit unit)
         {
             cardUnitStat.LoadInfoBar(unit);
@@ -92,7 +105,7 @@ namespace PH
 
         private void Close()
         {
-            gameObject.SetActive(false);
+            rect.DOAnchorPos(original, speed).OnComplete(() => gameObject.SetActive(false));
         }
         private void OnDestroy()
         {

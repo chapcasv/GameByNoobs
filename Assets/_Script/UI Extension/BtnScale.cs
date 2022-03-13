@@ -1,31 +1,31 @@
-using PH.State;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PH
 {
-    public class ButtonMainRight : MonoBehaviour
+    public class BtnScale : MonoBehaviour
     {
         private Button btn;
         private RectTransform rect;
-        
+
         void Start()
         {
             btn = GetComponent<Button>();
             rect = GetComponent<RectTransform>();
-            btn.onClick.AddListener(Click);
+            btn.onClick.AddListener(Scale);
         }
 
-        private void Click()
+        private void Scale()
         {
-            StateSystem.CurrentState.RightClick();
-            UIExtension.ScaleOnClick(rect,UIExtension.defaultScale);
+            UIExtension.ScaleOnClick(rect, UIExtension.defaultScale);
         }
 
         private void OnDestroy()
         {
-            btn.onClick.RemoveListener(Click);
+            btn.onClick.RemoveListener(Scale);
         }
+
+
     }
 }
 
