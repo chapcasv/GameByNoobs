@@ -50,7 +50,7 @@ MonoBehaviour:
     intValue: 200
     sprite: {fileID: 21300000, guid: 378b8241c25fb8b4fa8c0b6ab71239f9, type: 3}
     element: {fileID: 11400000, guid: 64e1015542b1f5949902b9d34b61d332, type: 2}
-  reloadAfterDrop: 1
+  reloadAfterDrop: 0
   cost: 5
   Faction:
   - {fileID: 11400000, guid: ef4883c44b0b20b41bcb35c0b2d90761, type: 2}
@@ -60,6 +60,6 @@ MonoBehaviour:
     input: {fileID: 11400000, guid: 1fe67d7b017fbc443841c328a22c2ba8, type: 2}
     logic: {fileID: 11400000, guid: c97f58adb7b98734f8fd95f8dea6850e, type: 2}
   - Ediscription: Draw 1 card
-    input: {fileID: 11400000, guid: adefdf81a25516446a0385f3ddbd33ac, type: 2}
+    input: {fileID: 11400000, guid: 5165388923d79b641b7caa5024729d6d, type: 2}
     logic: {fileID: 11400000, guid: d30dd86b3fe504642a737536a748575f, type: 2}
   Unlocked: 1
