@@ -22,10 +22,14 @@ namespace PH
         [SerializeField] private Button B_quit;
 
         private IPopUpManager popUpManager;
-        private UITextPopUp UITextPopUp;
+        
         private void Awake()
         {
             Addlisten();
+           
+        }
+        private void Start()
+        {
             ThirdParties.Find<IPopUpManager>(out popUpManager);
         }
         public void StarGame()
@@ -36,6 +40,7 @@ namespace PH
                 GoTo_mainMenu();
             }
             else Active_newPlayerPopUp();
+        
         }
 
         private void Active_newPlayerPopUp()
