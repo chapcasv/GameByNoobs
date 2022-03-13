@@ -20,6 +20,10 @@ namespace PH
             {
                 teamMate.GetUnitSurvivalStat.RegenHealWithEffect(healValue/2);
             }
+            else
+            {
+                teamMate.GetUnitSurvivalStat.RegenHealWithEffect(healValue);
+            }
             
             caster.GetUnitSurvivalStat.RegenHealWithEffect(healValue);
         }
