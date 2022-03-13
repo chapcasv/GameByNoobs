@@ -28,6 +28,10 @@ namespace PH
             }
             amountCard.text = amount.ToString();
         }
+        private void OnDestroy()
+        {
+            deckSystem.OnChangeHandCardAmount -= ShowAmountCardInHand;
+        }
     }
 
 }
