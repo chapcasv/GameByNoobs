@@ -73,7 +73,7 @@ namespace PH
             CardDropHistory.Init();
             PlayerCacheUnitData.Init();
 
-            dragCardSelected.Constructor(CS, DS, _boardSystem);
+            dragCardSelected.Constructor(CS, DS, _boardSystem, MS);
 
             SetterDragLogic();
         }

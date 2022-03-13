@@ -9,6 +9,8 @@ namespace PH
         private const string TILE_ERROR = "Cần thả bài xuống đúng ô";
         private const string ENOUGH_COIN = "Không đu Xu đê ra bài";
         private const string PHASE_ERROR = "Chỉ có thể ra bài trong lượt chiến thuật";
+        private const string FULL_MEMBER = "Giới hạn thành viên tối đa";
+
         [SerializeField] GameObject radar;
         [SerializeField] LayerMask tile;
         [SerializeField] GameObject pfTileUnder;
@@ -20,6 +22,8 @@ namespace PH
         public UITextPopUp SetPopUp { set => _uiTextPopUp = value; }
         public CoinSystem CoinSystem { set => _coinSystem = value; }
         public BoardSystem BoardSystem { set => _boardSystem = value; }
+
+        public MemberSystem Member { set; private get; }
 
         private void Start()
         {
@@ -46,8 +50,19 @@ namespace PH
 
         public void DecraseCoin(int cardCost) => _coinSystem.DecreasePlayer(cardCost);
 
-        public bool CanDrop(int cardCost)
-        {
+        public bool CanDrop(int cardCost, TypeMode type)
+        {   
+            if(type == TypeMode.UNIT)
+            {
+                var currentMember = Member.GetMemberAmount;
+
+                if(currentMember == GameConst.MAX_MEMBER)
+                {
+                    _uiTextPopUp.Set(FULL_MEMBER);
+                    return false;
+                }
+            }
+
             if (!(PhaseSystem.CurrentPhase as PlayerControl))
             {
                 _uiTextPopUp.Set(PHASE_ERROR);

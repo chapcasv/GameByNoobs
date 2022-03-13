@@ -25,7 +25,7 @@ namespace PH
         public CardInstance CardInstanceCache { set => cache = value; }
 
 
-        public void Constructor(CoinSystem CS, DeckSystem DS, BoardSystem BS)
+        public void Constructor(CoinSystem CS, DeckSystem DS, BoardSystem BS, MemberSystem MS)
         {
             _coinSystem = CS;
             _deckSystem = DS;
@@ -35,6 +35,7 @@ namespace PH
             _cardViz = GetComponent<CardSelectedVisual>();
             _drop.CoinSystem = _coinSystem;
             _drop.BoardSystem = BS;
+            _drop.Member = MS;
 
             gameObject.SetActive(false);
         }
@@ -86,10 +87,12 @@ namespace PH
             VFXManager.Instance.StopHighLightMap();
 
             int cost = GetCostCurrentCard();
+            var type = currentCard.GetCardType();
+
 
             if (cost == int.MaxValue) throw new Exception("Cant get card cost");
 
-            if (_drop.CanDrop(cost))
+            if (_drop.CanDrop(cost, type))
             {
                 if (_drop.TryDropCard(currentCard))
                 {
