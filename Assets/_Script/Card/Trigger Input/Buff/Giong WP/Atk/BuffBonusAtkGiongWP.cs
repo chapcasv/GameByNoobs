@@ -45,7 +45,7 @@ namespace PH
         [SerializeField] int abilityPower;
 
         //CardID
-        private int giongID = 8;
+        private readonly int giongID = 5;
 
         public override void Execute(BaseUnit unit)
         {

@@ -15,9 +15,10 @@ MonoBehaviour:
   abilityName: "Thi\xEAn Tai"
   icon: {fileID: 21300000, guid: f6c7e7ab65e3a1a489426f701e254a88, type: 3}
   deplay: 0.75
-  range: 1
-  dmgAbilityBonus: 100
-  pct: 120
+  range: 5
+  vfx: {fileID: 0}
+  damageType: {fileID: 11400000, guid: 35d1833845a060e4f8f05adeaf3bc1a7, type: 2}
+  dmgAbilityBonus: 400
+  pct: 100
   critDmgBonus: 30
   effect: {fileID: 11400000, guid: 73b9b7eed817ad94196f906bcd80f5e5, type: 2}
-  damageType: {fileID: 11400000, guid: 35d1833845a060e4f8f05adeaf3bc1a7, type: 2}

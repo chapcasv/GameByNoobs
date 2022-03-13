@@ -63,6 +63,10 @@ namespace PH
                     _sender.ReturnToPool(this);
                 }
             }
+            else if (!_holder.IsLive)
+            {
+                _sender.ReturnToPool(this);
+            }
             else
             {
                 if (_currentTarget == null || !_currentTarget.IsLive || _currentTarget.enabled == false)
