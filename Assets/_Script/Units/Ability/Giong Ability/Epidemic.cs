@@ -26,6 +26,8 @@ namespace PH
 
             currentTarget.TakeDamage(caster, (int)rawDmg, damageType);
             currentTarget.TakeDamage(caster, (int)trueDmgBonus, damageType);
+
+            vfx.PlayVFX(currentTarget.transform.position);
         }
 
         private float GetRawDmg(int ORPhysicalDmg)

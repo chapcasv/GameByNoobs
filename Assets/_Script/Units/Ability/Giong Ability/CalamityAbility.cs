@@ -24,7 +24,16 @@ namespace PH
             currentTarget.TakeDamage(caster, (int)dmg, damageType);
 
             currentTarget.GetUnitStatusEffect.ApplyStatusEffect(effect);
+            VFX(currentTarget);
         }
+
+        private void VFX(BaseUnit target)
+        {
+            Vector3 pos = BattleMethods.GetTopPos(target);
+            float durringEffect = effect.LifeTime;
+            VFXManager.Instance.PlayStatusVFX(pos, KeysVFX.Stun.ToString(), durringEffect);
+        }
+
 
         public override string GetDiscription(CardUnit unit)
         {

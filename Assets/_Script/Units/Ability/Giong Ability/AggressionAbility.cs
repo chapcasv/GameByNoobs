@@ -20,6 +20,7 @@ namespace PH
             foreach (var target in targets)
             {
                 target.TakeDamage(caster, (int) preMitigationDmg, damageType);
+                vfx.PlayVFX(target.transform.position);
             }
 
             int heal = healPerTarget * targets.Count;

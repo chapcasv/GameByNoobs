@@ -11,6 +11,7 @@ namespace PH
         public override void CastSkill(BaseUnit currentTarget, BaseUnit caster)
         {
             if (currentTarget == null) return; //Target dead
+            if (!caster.IsLive) return; //Caster dead
 
             int dmg = physicalDmg + caster.GetAtkSystem.ORPhysicalDamage;
             currentTarget.TakeDamage(caster, dmg, damageType);
