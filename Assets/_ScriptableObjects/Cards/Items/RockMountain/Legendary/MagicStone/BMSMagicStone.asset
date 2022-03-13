@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fe7ee5eae84ec84e9ee0b1dc0214092, type: 3}
-  m_Name: Mode Sub AI
+  m_Script: {fileID: 11500000, guid: 6753f74dc192b2c4d8b783f23af362ae, type: 3}
+  m_Name: BMSMagicStone
   m_EditorClassIdentifier: 
-  discription: "\u0110\u1EA5u V\u1EDBi M\xE1y"
-  allBots:
-  - {fileID: 11400000, guid: 288b643e72579ff458914cce5c67f3cf, type: 2}
-  time: 4
+  buffOneRound: 0
+  maxMana: 0
+  startManaBonus: 20
+  manaRegenOnHit: 0
+  manaRegenOnTakeDame: 0

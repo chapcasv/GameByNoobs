@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fe7ee5eae84ec84e9ee0b1dc0214092, type: 3}
-  m_Name: Mode Sub AI
+  m_Script: {fileID: 11500000, guid: 53397dcd6d3383b49b41c6ad3f573152, type: 3}
+  m_Name: Draw 2 Card
   m_EditorClassIdentifier: 
-  discription: "\u0110\u1EA5u V\u1EDBi M\xE1y"
-  allBots:
-  - {fileID: 11400000, guid: 288b643e72579ff458914cce5c67f3cf, type: 2}
-  time: 4
+  numberCardDraw: 2
+  useDrawByType: 0
+  typeWantDraw: 3
+  useDrawByCost: 0
+  cardCost: 4
+  costModeDraw: 2
+  useDrawByFaction: 0
+  factionModeDraw: 0
