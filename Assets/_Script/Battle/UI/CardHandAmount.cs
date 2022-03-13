@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
-using System;
 
 namespace PH
 {
@@ -10,7 +7,7 @@ namespace PH
     {
         [SerializeField] DeckSystem deckSystem;
         [SerializeField] TextMeshProUGUI amountCard;
-        private int maxCard = 9;
+
         private int warnAmount = 8;
         private UITextPopUp UITextPopUp;
         private const string warning = "Số lượng bài tối đa : 9";
@@ -29,9 +26,7 @@ namespace PH
                 UITextPopUp.Set(warning);
                
             }
-           
-            amountCard.text = amount.ToString() + " / " + maxCard;
-
+            amountCard.text = amount.ToString();
         }
     }
 

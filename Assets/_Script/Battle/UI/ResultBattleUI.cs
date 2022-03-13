@@ -56,8 +56,8 @@ namespace PH
         }
 
         private void SetText(string text)
-        {
-            resultText.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.OutBack);
+        {   
+            resultText.rectTransform.DOScale(Vector3.one, during).SetEase(Ease.Linear);
             resultText.text = text;
         }
 
