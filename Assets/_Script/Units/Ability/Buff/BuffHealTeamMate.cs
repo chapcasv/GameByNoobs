@@ -16,7 +16,11 @@ namespace PH
 
             int healValue = GetHealValue(caster.GetAtkSystem.ORMagicPower);
 
-            teamMate.GetUnitSurvivalStat.RegenHealWithEffect(healValue);
+            if(teamMate == caster)
+            {
+                teamMate.GetUnitSurvivalStat.RegenHealWithEffect(healValue/2);
+            }
+            
             caster.GetUnitSurvivalStat.RegenHealWithEffect(healValue);
         }
 

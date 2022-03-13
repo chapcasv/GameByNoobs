@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763520250faa088409f855bd11e9b40a, type: 3}
-  m_Name: BPA Magic Stone
+  m_Script: {fileID: 11500000, guid: 4692b9af83940f1489aa0312a09b944d, type: 3}
+  m_Name: V11_Wave1
   m_EditorClassIdentifier: 
-  buffOneRound: 0
-  damageBonus: 0
-  critRateBonus: 0
-  lifeStealBonus: 0
-  atkSpeedBonus: 0
-  range: 0
-  abilityPower: 40
+  enemies:
+  - enemy: {fileID: 11400000, guid: 3230844ab9815c5478484527ec1fa2eb, type: 2}
+    Pos: 36
