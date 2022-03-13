@@ -53,6 +53,7 @@ namespace PH
             foreach (var unit in allUnitPlayer)
             {
                 PlayerCacheUnitData.ReuseUnit(unit);
+                unit.GetUnitStatusEffect.RemoveAllStatusEffect();
             }
         }
     }

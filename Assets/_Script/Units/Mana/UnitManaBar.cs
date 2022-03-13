@@ -25,7 +25,7 @@ namespace PH
         {
             if (mana.ORMaxMana == 0) return;
 
-            float pct = mana.ORManaCurrent / mana.ORMaxMana;
+            float pct = (float)mana.ORManaCurrent / mana.ORMaxMana;
             manaBar.fillAmount = pct;
         }
 
