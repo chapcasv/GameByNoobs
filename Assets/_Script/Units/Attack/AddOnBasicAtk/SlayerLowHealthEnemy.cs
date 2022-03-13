@@ -8,14 +8,17 @@ namespace PH
         menuName = "ScriptableObject/Card/Unit/Add On Basic Atk/Slayer Low Health")]
     public class SlayerLowHealthEnemy : AddOnBasicAtk
     {
+        [Range(0,1)]
+        [SerializeField] private float percent = 0.15f;
+        [SerializeField] DamageType trueDmg;
         public override void Execute(BaseUnit currentTarget, UnitAtkSystem atkSystem)
         {
             var curHp = currentTarget.GetUnitSurvivalStat;
-            int lowHp = (int)(curHp.ORMaxHP / 10);
-
+            float lowHp = (curHp.ORMaxHP *  percent);
             if(curHp.ORCurrentHP <= lowHp)
             {
-                curHp.ORCurrentHP = 0;
+                currentTarget.GetUnitSurvivalStat.TakeDmg(999, trueDmg);
+
             }
         }
     }
