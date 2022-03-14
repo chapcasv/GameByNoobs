@@ -95,14 +95,14 @@ namespace PH
 
         private void SetModeSubNormal()
         {
-            PlayModeData.CurrentMode.ModeSub = modeSubNormal;
-            currentMode.text = PlayModeData.CurrentMode.ModeSub.Discription;
+            PlayModeData.CurrentMode.ModeSub = modeSubAI;
+            currentMode.text = modeSubNormal.Discription;
         }
 
         private void SetModeSubRank()
         {
-            PlayModeData.CurrentMode.ModeSub = modeSubRank;
-            currentMode.text = PlayModeData.CurrentMode.ModeSub.Discription;
+            PlayModeData.CurrentMode.ModeSub = modeSubAI;
+            currentMode.text = modeSubRank.Discription;
         }
 
         private void FindMatch()
