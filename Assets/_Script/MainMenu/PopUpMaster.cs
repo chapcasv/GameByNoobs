@@ -49,6 +49,10 @@ namespace PH
             ShowPopUpWindow(PopupType.CONFIRMATION, message, title);
             confirm.GetEvent(OnConfirm, OnCancel);
         }
+        private void OnDestroy()
+        {
+            ThirdParties.Unregister<IPopUpManager>();
+        }
     }
 }
 

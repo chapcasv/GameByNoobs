@@ -11,10 +11,11 @@ namespace PH
         [SerializeField] Image HpShrink;
         private const float SHRINK_SPEED = 0.5f;
         private UnitSurvivalStat health;
-
+        private HealthSegmentLayout healthSegment;
         private void Awake()
         {
             health = GetComponentInParent<UnitSurvivalStat>();
+            healthSegment = GetComponentInChildren<HealthSegmentLayout>();
         }
 
         private void OnEnable()
@@ -31,7 +32,11 @@ namespace PH
             StartCoroutine(ChangeToPct(pct));
         }
 
-        private void ChangeOnHealthUp(float pct) => HpBar.fillAmount = pct;
+        private void ChangeOnHealthUp(float pct) 
+        {
+            HpBar.fillAmount = pct;
+            healthSegment.UpdateSegment(health.ORMaxHP);
+        } 
 
         private IEnumerator ChangeToPct(float pct)
         {
@@ -52,7 +57,7 @@ namespace PH
         private void Reload()
         {
             if (health.ORMaxHP == 0) return;
-
+           
             float pct = health.ORCurrentHP / health.ORMaxHP;
             HpBar.fillAmount = pct;
         }
