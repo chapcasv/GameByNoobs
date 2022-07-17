@@ -1,53 +1,63 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace PH
 {
-    public class HealthSegmentLayout : HealthBase
+    public class HealthSegmentLayout : MonoBehaviour
     {
-        public Color Color
-        {
-            set
-            {
-                foreach (Border border in Borders)
-                {
-                    border.Color = value;
-                }
-            }
-        }
-        private Border[] Borders => _borders == null || _borders.Length == 0 ? GetComponentsInChildren<Border>(true) : _borders;
-        private Border[] _borders;
+        [SerializeField] bool isNotSegment;
+        /// <summary>
+        /// health amount one per segment
+        /// </summary>
+        [SerializeField] int segmentAmount;
+        [SerializeField] float segmentWidth;
+        [SerializeField] Color color;
+        private Image[] _borders;
+        private float startSegmentSize;
+        
         private void Awake()
         {
-            _borders = Borders;
+            _borders = GetComponentsInChildren<Image>(true);
+            startSegmentSize = _borders[0].rectTransform.rect.width + segmentWidth;
+            SetColor();
         }
-        public void UpdateSegment(int curMaxHP,int segmentAmount, bool isSegment, float borderWidth)
-        {
-            float effectiveWidth = Width + borderWidth;
 
-            for (int i = 0; i < Borders.Length; i++)
+        //rect
+        public void UpdateSegment(int curMaxHP)
+        {
+            if (isNotSegment) return;
+           
+            for (int i = 0; i < _borders.Length; i++)
             {
                 float currentAmount = (i + 1) * segmentAmount;
 
-                Borders[i].SizeDelta = new Vector2(borderWidth, 0);
+                _borders[i].rectTransform.sizeDelta = new Vector2(segmentWidth, 0);
 
-                if (currentAmount < curMaxHP && isSegment)
+                if (currentAmount < curMaxHP)
                 {
-                    float x = currentAmount / curMaxHP * effectiveWidth - effectiveWidth / 2f;
+                    float x = currentAmount / curMaxHP * startSegmentSize - startSegmentSize / 2f;
 
-                    Borders[i].LocalPos = new Vector3(x, 0, 0);
+                    _borders[i].rectTransform.localPosition = new Vector3(x, 0, 0);
 
-                    Borders[i].SizeDelta = new Vector2(borderWidth, 0);
+                    _borders[i].rectTransform.sizeDelta = new Vector2(segmentWidth, 0);
 
-                    Borders[i].IsActive = true;
+                    _borders[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    Borders[i].LocalPos = Vector3.zero;
+                    _borders[i].rectTransform.localPosition = Vector3.zero;
 
-                    Borders[i].IsActive = false;
+                    _borders[i].gameObject.SetActive(false);
                 }
+            }
+        }
+        private void SetColor()
+        {
+            //_borders.ForEach(border => border.color = color);
+            foreach (var border in _borders)
+            {
+                border.color = color;
             }
         }
     }
